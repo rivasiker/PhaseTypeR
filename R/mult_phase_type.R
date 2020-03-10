@@ -15,8 +15,7 @@
 #'
 #' @usage mult_phase_type(subint_mat = NULL, reward_mat = NULL, init_probs = NULL)
 #'
-#' @example
-#'
+#' @examples
 #' subint_mat = matrix(c(-3, 0, 0, 2, -2, 0, 0, 1, -1), nrow = 3, ncol = 3)
 #' reward_mat = matrix(sample(seq(0, 10), 6), nrow = 3, ncol = 2)
 #' mult_phase_type(subint_mat, reward_mat)
@@ -65,7 +64,18 @@ mult_phase_type <- function(subint_mat = NULL, reward_mat = NULL, init_probs = N
 }
 
 
+#' @export
 
+summary.mult_phase_type <- function(object, ...) {
+  cat('\nSubintensity matrix:\n')
+  print(object$subint_mat)
+  cat('\nReward matrix:\n')
+  print(object$reward_mat)
+  cat('\nInitial probabilities:\n')
+  print(object$init_probs)
+  cat('\nDefect:\n')
+  print(object$defect)
+}
 
 
 

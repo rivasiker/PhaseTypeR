@@ -24,3 +24,9 @@ matrix, an optional initial probability vector and a reward matrix. If the initi
 then they are automatically generated as the first state having a probability of 1 and the rest
 a probability of 0.
 }
+\examples{
+subint_mat = matrix(c(-3, 0, 0, 2, -2, 0, 0, 1, -1), nrow = 3, ncol = 3)
+reward_mat = matrix(sample(seq(0, 10), 6), nrow = 3, ncol = 2)
+mult_phase_type(subint_mat, reward_mat)
+
+}
