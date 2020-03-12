@@ -79,3 +79,112 @@ summary.mult_phase_type <- function(object, ...) {
 
 
 
+
+
+
+moment_individual <- function(element, obj){
+  solve(-obj$subint_mat)%*%diag(obj$reward_mat[,element])
+}
+
+moment_row <- function(row, obj) {
+  total <- diag(1, nrow(obj$subint_mat), ncol(obj$subint_mat))
+  for (individual in lapply(row, moment_individual, obj = obj)) {
+    total <- total%*%individual
+  }
+  sum(obj$init_probs%*%total)
+}
+
+perm <- function(v) {
+  n <- length(v)
+  if (n == 1) v
+  else {
+    X <- NULL
+    for (i in 1:n) X <- rbind(X, cbind(v[i], perm(v[-i])))
+    X
+  }
+}
+
+
+
+
+#' Moments of the multivariate phase-type distribution
+#'
+#' This function calculates the moments for the multivariate phase-type distributions.
+#'
+#' The variables for which the moments are calculated can be specified in the \code{v}
+#' vector as indices in the reward matrix of the \code{mult_phase_type} object.
+#'
+#' @param obj a mult_phase_type.
+#' @param v a vector.
+#'
+#' @usage moment_ph(obj, v)
+#'
+#' @export
+
+moment_mph <- function(obj, v) {
+  v = matrix(v)
+  X = perm(v)
+  sum(apply(X, 1, moment_row, obj = obj))
+}
+
+
+#' @export
+
+mean.mult_phase_type <- function(x, v = NULL, ...) {
+  if (!is.null(v)) {
+    if (length(v) == 1) {
+      return(moment_mph(x, v))
+    } else {
+      result <- matrix(NA, nrow = length(v))
+      for (i in 1:length(v)) {
+        result[i,] <- moment_mph(x, v[i])
+      }
+      return(result[,1])
+    }
+  } else {
+    result <- matrix(NA, nrow = ncol(x$reward_mat))
+    for (i in 1:nrow(result)) {
+      result[i,] <- moment_mph(x, i)
+    }
+    return(result[,1])
+  }
+}
+
+
+#' @export
+
+var.mult_phase_type <- function(obj, v = NULL, ...) {
+  if (is.null(v)) {
+    cov_mat = matrix(NA, ncol(obj$reward_mat), ncol(obj$reward_mat))
+    for (i in 1:ncol(cov_mat)) {
+      for (j in i:ncol(cov_mat)) {
+        cov_mat[i, j] <- var(obj, c(i, j))
+      }
+    }
+    cov_mat[lower.tri(cov_mat)] = t(cov_mat)[lower.tri(cov_mat)]
+    return(cov_mat)
+  } else if (length(v) == 1) {
+    v <- rep(v, 2)
+  } else if (!(length(v) == 2)) {
+    stop('Please provide the right indices')
+  }
+  moment_mph(obj, v) - moment_mph(obj, v[1])*moment_mph(obj, v[2])
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

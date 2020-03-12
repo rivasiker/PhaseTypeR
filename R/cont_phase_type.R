@@ -71,17 +71,34 @@ mean.cont_phase_type <- function(x, ...) {
   moment_ph(x, 1)
 }
 
-#' Variance of cont_phase_type distributions
+#' Variance of phase-type distributions
 #'
-#' Calculates the variance of continuous and discrete phase-type distributions,
-#' represented by the \code{cont_phase_type} and the \code{disc_phase_type} classes
-#' respectively
+#' Calculates the variance of continuous, discrete and multivariate phase-type distributions,
+#' represented by the \code{cont_phase_type}, \code{disc_phase_type} and \code{mult_phase_type} classes
+#' respectively.
 #'
-#' @param obj a cont_phase_type or disc_phase_type object.
+#' For  the univariate case (\code{cont_phase_type} and \code{disc_phase_type}), the variance of
+#' the distribution is returned. In the case of multivariate phase-type distributions three
+#' different usages can be distinguished:
+#' \itemize{
+#'  \item{If \code{v = NULL} (default), then a variance-covariance matrix of all the variables specified
+#'  in the reward matrix is returned, where variances are in the diagonal and covariances in the rest of
+#'  the matrix element.}
+#'  \item{If \code{v} is an integer, then the variance of the variable encoded by the \code{v} index in
+#'  the reward matrix is returned.}
+#'  \item{If \code{v} is a vector of length 2, then the covariance between the two variables encoded by
+#'  the \code{v} indices in the reward matrix is returned.}
+#' }
+#'
+#' @param obj a \code{cont_phase_type}, \code{disc_phase_type} or \code{mult_phase_type}
+#' @param v NULL, integer or vector of length 2.
+#'
+#' @usage var(obj, ...)
+#' @usage var(obj, v = NULL, ...)
 #'
 #' @export
 
-var <- function(obj) {
+var <- function(obj, ...) {
   UseMethod('var', obj)
 }
 
