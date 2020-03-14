@@ -15,12 +15,16 @@
 #' @usage cont_phase_type(subint_mat = NULL, init_probs = NULL)
 #'
 #' @examples
-#' subintensity_matrix = matrix(c(-1.5, 0, 0, 1.5, -1, 0, 0, 1, -0.5), ncol = 3)
+#' subintensity_matrix = matrix(c(-1.5, 0, 0,
+#'                                1.5, -1, 0,
+#'                                0, 1, -0.5), ncol = 3)
 #' cont_phase_type(subintensity_matrix)
 #'
 #' #---
 #'
-#' subintensity_matrix = matrix(c(-1.5, 0, 0, 1.5, -1, 0, 0, 1, -0.5), ncol = 3)
+#' subintensity_matrix = matrix(c(-1.5, 0, 0,
+#'                                1.5, -1, 0,
+#'                                0, 1, -0.5), ncol = 3)
 #' initial_probabilities = c(0.9, 0.1, 0)
 #' cont_phase_type(subintensity_matrix, initial_probabilities)
 #'
@@ -64,7 +68,8 @@ moment_ph <- function(obj, m) {
 }
 
 
-
+#' @describeIn cont_phase_type mean of the continuous phase-type distribution.
+#'
 #' @export
 
 mean.cont_phase_type <- function(x, ...) {
@@ -102,13 +107,16 @@ var <- function(obj, ...) {
   UseMethod('var', obj)
 }
 
+#' @describeIn cont_phase_type variance of the continuous phase-type distribution.
+#'
 #' @export
 
-var.cont_phase_type <- function(obj) {
+var.cont_phase_type <- function(obj, ...) {
   moment_ph(obj, 2)-moment_ph(obj, 1)**2
 }
 
-
+#' @describeIn cont_phase_type pretty summary of the continuous phase-type distribution.
+#'
 #' @export
 
 summary.cont_phase_type <- function(object, ...) {

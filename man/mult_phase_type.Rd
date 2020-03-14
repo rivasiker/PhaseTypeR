@@ -2,9 +2,18 @@
 % Please edit documentation in R/mult_phase_type.R
 \name{mult_phase_type}
 \alias{mult_phase_type}
+\alias{summary.mult_phase_type}
+\alias{mean.mult_phase_type}
+\alias{var.mult_phase_type}
 \title{\code{mult_phase_type} class}
 \usage{
 mult_phase_type(subint_mat = NULL, reward_mat = NULL, init_probs = NULL)
+
+\method{summary}{mult_phase_type}(object, ...)
+
+\method{mean}{mult_phase_type}(x, v = NULL, ...)
+
+\method{var}{mult_phase_type}(obj, v = NULL, ...)
 }
 \arguments{
 \item{subint_mat}{matrix}
@@ -24,8 +33,27 @@ matrix, an optional initial probability vector and a reward matrix. If the initi
 then they are automatically generated as the first state having a probability of 1 and the rest
 a probability of 0.
 }
+\section{Methods (by generic)}{
+\itemize{
+\item \code{summary}: pretty summary of the class.
+
+\item \code{mean}: if an integer is provided in \code{v}, then the mean of
+the variable with the specified index in the reward matrix is returned. If instead a
+vector is provided, then the means of the variables defined by those indices will be
+returned. In case of not specifying \code{v}, the means of all the variables defined by
+the sub-intensity matrix are returned (default).
+
+\item \code{var}: if an integer is provided in \code{v}, then the variance of
+the variable with the specified index in the reward matrix is returned. If instead a
+vector of length 2 is provided, then the covariance of the variables defined by those indices will be
+returned. In case of not specifying \code{v}, the variance-covariance matrix between all the variables defined by
+the sub-intensity matrix are returned (default).
+}}
+
 \examples{
-subint_mat = matrix(c(-3, 0, 0, 2, -2, 0, 0, 1, -1), nrow = 3, ncol = 3)
+subint_mat = matrix(c(-3, 0, 0,
+                      2, -2, 0,
+                      0, 1, -1), nrow = 3, ncol = 3)
 reward_mat = matrix(sample(seq(0, 10), 6), nrow = 3, ncol = 2)
 mult_phase_type(subint_mat, reward_mat)
 

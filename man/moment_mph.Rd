@@ -9,7 +9,7 @@ moment_ph(obj, v)
 \arguments{
 \item{obj}{a mult_phase_type.}
 
-\item{v}{a vector.}
+\item{v}{a vector or an integer.}
 }
 \description{
 This function calculates the moments for the multivariate phase-type distributions.

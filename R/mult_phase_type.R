@@ -16,7 +16,9 @@
 #' @usage mult_phase_type(subint_mat = NULL, reward_mat = NULL, init_probs = NULL)
 #'
 #' @examples
-#' subint_mat = matrix(c(-3, 0, 0, 2, -2, 0, 0, 1, -1), nrow = 3, ncol = 3)
+#' subint_mat = matrix(c(-3, 0, 0,
+#'                       2, -2, 0,
+#'                       0, 1, -1), nrow = 3, ncol = 3)
 #' reward_mat = matrix(sample(seq(0, 10), 6), nrow = 3, ncol = 2)
 #' mult_phase_type(subint_mat, reward_mat)
 #'
@@ -63,7 +65,8 @@ mult_phase_type <- function(subint_mat = NULL, reward_mat = NULL, init_probs = N
   value
 }
 
-
+#' @describeIn mult_phase_type pretty summary of the class.
+#'
 #' @export
 
 summary.mult_phase_type <- function(object, ...) {
@@ -115,7 +118,7 @@ perm <- function(v) {
 #' vector as indices in the reward matrix of the \code{mult_phase_type} object.
 #'
 #' @param obj a mult_phase_type.
-#' @param v a vector.
+#' @param v a vector or an integer.
 #'
 #' @usage moment_ph(obj, v)
 #'
@@ -128,6 +131,12 @@ moment_mph <- function(obj, v) {
 }
 
 
+#' @describeIn mult_phase_type if an integer is provided in \code{v}, then the mean of
+#' the variable with the specified index in the reward matrix is returned. If instead a
+#' vector is provided, then the means of the variables defined by those indices will be
+#' returned. In case of not specifying \code{v}, the means of all the variables defined by
+#' the sub-intensity matrix are returned (default).
+#'
 #' @export
 
 mean.mult_phase_type <- function(x, v = NULL, ...) {
@@ -150,7 +159,12 @@ mean.mult_phase_type <- function(x, v = NULL, ...) {
   }
 }
 
-
+#' @describeIn mult_phase_type if an integer is provided in \code{v}, then the variance of
+#' the variable with the specified index in the reward matrix is returned. If instead a
+#' vector of length 2 is provided, then the covariance of the variables defined by those indices will be
+#' returned. In case of not specifying \code{v}, the variance-covariance matrix between all the variables defined by
+#' the sub-intensity matrix are returned (default).
+#'
 #' @export
 
 var.mult_phase_type <- function(obj, v = NULL, ...) {

@@ -16,12 +16,16 @@
 #' @usage disc_phase_type(subint_mat = NULL, init_probs = NULL)
 #'
 #' @examples
-#' subintensity_matrix = matrix(c(0.4, 0, 0, 0.24, 0.4, 0, 0.12, 0.2, 0.5), ncol = 3)
+#' subintensity_matrix = matrix(c(0.4, 0, 0,
+#'                                0.24, 0.4, 0,
+#'                                0.12, 0.2, 0.5), ncol = 3)
 #' disc_phase_type(subintensity_matrix)
 #'
 #' #---
 #'
-#' subintensity_matrix = matrix(c(0.4, 0, 0, 0.24, 0.4, 0, 0.12, 0.2, 0.5), ncol = 3)
+#' subintensity_matrix = matrix(c(0.4, 0, 0,
+#'                                0.24, 0.4, 0,
+#'                                0.12, 0.2, 0.5), ncol = 3)
 #' initial_probabilities = c(0.9, 0.1, 0)
 #' disc_phase_type(subintensity_matrix, initial_probabilities)
 #'
@@ -66,6 +70,8 @@ disc_phase_type = function(subint_mat = NULL, init_probs = NULL){
 }
 
 
+#' @describeIn disc_phase_type mean of the discrete phase-type distribution.
+#'
 #' @export
 
 mean.disc_phase_type <- function(x, ...) {
@@ -73,7 +79,8 @@ mean.disc_phase_type <- function(x, ...) {
   as.numeric(mean+x$defect)
 }
 
-
+#' @describeIn disc_phase_type variance of the discrete phase-type distribution.
+#'
 #' @export
 
 var.disc_phase_type <- function(obj) {
@@ -83,7 +90,8 @@ var.disc_phase_type <- function(obj) {
   as.numeric(variance)
 }
 
-
+#' @describeIn disc_phase_type pretty summary of the discrete phase-type distribution.
+#'
 #' @export
 
 summary.disc_phase_type <- function(object, ...) {

@@ -2,9 +2,18 @@
 % Please edit documentation in R/cont_phase_type.R
 \name{cont_phase_type}
 \alias{cont_phase_type}
+\alias{mean.cont_phase_type}
+\alias{var.cont_phase_type}
+\alias{summary.cont_phase_type}
 \title{\code{cont_phase_type} class}
 \usage{
 cont_phase_type(subint_mat = NULL, init_probs = NULL)
+
+\method{mean}{cont_phase_type}(x, ...)
+
+\method{var}{cont_phase_type}(obj, ...)
+
+\method{summary}{cont_phase_type}(object, ...)
 }
 \arguments{
 \item{subint_mat}{matrix}
@@ -22,13 +31,26 @@ matrix and an optional initial probability vector. If the initial probabilities 
 then they are automatically generated as the first state having a probability of 1 and the rest
 a probability of 0.
 }
+\section{Methods (by generic)}{
+\itemize{
+\item \code{mean}: mean of the continuous phase-type distribution.
+
+\item \code{var}: variance of the continuous phase-type distribution.
+
+\item \code{summary}: pretty summary of the continuous phase-type distribution.
+}}
+
 \examples{
-subintensity_matrix = matrix(c(-1.5, 0, 0, 1.5, -1, 0, 0, 1, -0.5), ncol = 3)
+subintensity_matrix = matrix(c(-1.5, 0, 0,
+                               1.5, -1, 0,
+                               0, 1, -0.5), ncol = 3)
 cont_phase_type(subintensity_matrix)
 
 #---
 
-subintensity_matrix = matrix(c(-1.5, 0, 0, 1.5, -1, 0, 0, 1, -0.5), ncol = 3)
+subintensity_matrix = matrix(c(-1.5, 0, 0,
+                               1.5, -1, 0,
+                               0, 1, -0.5), ncol = 3)
 initial_probabilities = c(0.9, 0.1, 0)
 cont_phase_type(subintensity_matrix, initial_probabilities)
 

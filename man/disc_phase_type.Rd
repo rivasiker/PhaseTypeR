@@ -2,9 +2,18 @@
 % Please edit documentation in R/disc_phase_type.R
 \name{disc_phase_type}
 \alias{disc_phase_type}
+\alias{mean.disc_phase_type}
+\alias{var.disc_phase_type}
+\alias{summary.disc_phase_type}
 \title{\code{disc_phase_type} class}
 \usage{
 disc_phase_type(subint_mat = NULL, init_probs = NULL)
+
+\method{mean}{disc_phase_type}(x, ...)
+
+\method{var}{disc_phase_type}(obj)
+
+\method{summary}{disc_phase_type}(object, ...)
 }
 \arguments{
 \item{subint_mat}{matrix or \code{NULL} (default).}
@@ -22,13 +31,26 @@ matrix and an optional initial probability vector. If the initial probabilities 
 then a they are automatically generated as the first state having a probability of 1 and the rest
 a probability of 0.
 }
+\section{Methods (by generic)}{
+\itemize{
+\item \code{mean}: mean of the discrete phase-type distribution.
+
+\item \code{var}: variance of the discrete phase-type distribution.
+
+\item \code{summary}: pretty summary of the discrete phase-type distribution.
+}}
+
 \examples{
-subintensity_matrix = matrix(c(0.4, 0, 0, 0.24, 0.4, 0, 0.12, 0.2, 0.5), ncol = 3)
+subintensity_matrix = matrix(c(0.4, 0, 0,
+                               0.24, 0.4, 0,
+                               0.12, 0.2, 0.5), ncol = 3)
 disc_phase_type(subintensity_matrix)
 
 #---
 
-subintensity_matrix = matrix(c(0.4, 0, 0, 0.24, 0.4, 0, 0.12, 0.2, 0.5), ncol = 3)
+subintensity_matrix = matrix(c(0.4, 0, 0,
+                               0.24, 0.4, 0,
+                               0.12, 0.2, 0.5), ncol = 3)
 initial_probabilities = c(0.9, 0.1, 0)
 disc_phase_type(subintensity_matrix, initial_probabilities)
 
