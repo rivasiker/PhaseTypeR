@@ -10,7 +10,7 @@ Description: More about what it does (maybe more than one line)
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Depends: expm
 Collate: 
     'cont_phase_type.R'
@@ -18,4 +18,5 @@ Collate:
     'disc_phase_type.R'
     'mult_phase_type.R'
     'phtype_functions.R'
-    'reward_disc.R'
+    'disc_reward.R'
+    'cont_reward.R'

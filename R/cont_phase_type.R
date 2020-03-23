@@ -30,8 +30,6 @@
 #'
 #' @export
 
-
-
 cont_phase_type <- function(subint_mat = NULL, init_probs = NULL) {
   if (is.null(subint_mat)) {
     stop('Unable to construct the phase-type distribution. Please provide either the type or the subintensity matrix.')
