@@ -1,33 +1,50 @@
-#' \code{disc_phase_type} class
+#' \code{disc_reward}
 #'
-#' Description of the class \code{disc_phase_type}, which represents discrete
-#' phase-type distributions.
+#' Transform a variable following a discrete
+#' phase-type distribution according to a non-negative reward vector.
 #'
-#' \code{disc_reward} is the function to attribute a non-negative
-#' reward vector to a discrete phase-type distribution.
+#' @usage disc_reward(phase_type = NULL, init_probs = NULL,
+#' subint_mat = NULL, reward_vec)
 #'
-#' @param phase_type a disc_phase_type object or \code{NULL} (default).
-#' @param init_probs vector, a one-row matrix or \code{NULL} (default).
-#' @param subint_mat matrix or \code{NULL} (default).
-#' @param reward vector, a one-row matrix or \code{NULL} (default).
+#' @details
 #'
-#' @usage disc_reward(DPH = NULL, init_probs = NULL, subint_mat = NULL,
-#' reward = NULL)
+#' This function will perfom a reward transformation on a variable following
+#' a discrete phase-type distribution.
+#' The reward should be non-negative integers.
+#'
+#' Either \code{phase_type} or \code{init_probs}
+#' and \code{subint_mat} should be filled.
+#' if both are filled \code{phase_type} will be used.
+#' If there is no init_probs (and no phase_type) the first state will have an
+#' initial probability of 1.
+#'
+#' @return
+#' Transformed \code{disc_phase_type} class object.
+#'
+#' @references
+#'
+#'
+#' @seealso
+#' \code{\link{disc_phase_type}}
 #'
 #' @examples
 #'
-#' subint_mat = matrix(c(0.4, 0, 0, 0.24, 0.4, 0, 0.12, 0.2, 0.5), ncol = 3)
-#' init_probs = c(0.9, 0.1, 0)
-#' reward = c(1,0,4)
+#' ##========================================
+#' ##
+#' ##========================================
+#'
+#' subint_mat <- matrix(c(0.4, 0, 0,
+#'                       0.24, 0.4, 0,
+#'                       0.12, 0.2, 0.5), ncol = 3)
+#' init_probs <- c(0.9, 0.1, 0)
+#' reward <- c(1,0,4)
 #'
 #' disc_reward(init_probs = init_probs,
-#'                 subint_mat = subint_mat, reward = reward)
-#' ------------------------
-#'
+#'             subint_mat = subint_mat, reward = reward)
+#' #---
 #'
 #'
 #' @export
-
 
 disc_reward <- function(phase_type = NULL, init_probs = NULL,
                        subint_mat = NULL, reward = NULL){
