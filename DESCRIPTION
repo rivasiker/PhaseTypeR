@@ -20,3 +20,5 @@ Collate:
     'phtype_functions.R'
     'disc_reward.R'
     'cont_reward.R'
+Suggests: 
+    testthat
