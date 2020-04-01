@@ -31,7 +31,7 @@ What does it contains
 
 # The phase-type class object
 
-The package use several new classes for describing a phase-type distributed object, which are :"disc_phase_type", "cont_phase_type", "mult_disc_phase_type", "mult_cont_phase_type". Which can be obtain using the following functions respectively:
+The package use several new classes for describing a phase-type distributed object, which are: "disc_phase_type", "cont_phase_type", "mult_disc_phase_type", "mult_cont_phase_type". Which can be obtain using the following functions respectively:
 
 ```{r, eval = F}
 X1 <- disc_phase_type(subint_mat = NULL, init_probs = NULL)
@@ -46,7 +46,32 @@ Y2 <- mult_cont_phase_type(subint_mat = NULL, init_probs = NULL, reward_mat = NU
 Those classes will be necessary later on to recognise the type of object for function like mean or var.
 
 # The univariate distribution
+
 ## The continuous univariate phase-type
+### A few reminders
+Let's consider $\{ X_t \}_{t \ge 0}$ a Markov jump process with $p$ transient states and 1 absorbing state, we can write the state space of $\{ X_t \}_{t \ge 0}$ as $E = (1,\, 2,\, 3,\, ...,\, p,\, p+1)$.
+This means that $\{ X_t \}_{t \ge 0}$ will stay in the different transient states until it reachs the absorbing states from which it cannot go out.
+The rate of transition between each states can be represented using a intensity matrix:
+$$
+\boldsymbol{\Lambda} = 
+\left(\begin{array}{cc} 
+\boldsymbol{T} & \boldsymbol{t} \\
+\boldsymbol{0} & 0
+\end{array}\right)
+$$ 
+Where $\boldsymbol{T}$ is the subintensity matrix, i.e. the intensity matrix between the transient states only and $\boldsymbol{t}$ is the exit rate, i.e. the transition rate between the transient states and the abosrbing state.
+
+If we take a look at the subintensity matrix $\boldsymbol{T}$, we will have a negative diagonal corresponding to the rate at which $\{ X_t \}_{t \ge 0}$ will leave the state $i$. The other cell of the matrix should be non positive and will contain the transition rate from one transient state to another. Also the rowsum should be non-positive, and the vector of absolute value of the rowsum correspond to the exit rate vector. Because of that we can note:
+$$
+\boldsymbol{t} = -\boldsymbol{Te},
+$$ 
+
+Where $\boldsymbol{e}$ is a 1 vector of length $p$.
+
+looking at the phase-type distribution of $\{ X_t \}_{t \ge 0}$ corresponds to the probability that the time to reach the absorbing state is $t$.
+
+Given a variable $X$ following a continuous phase-type distribution, $X\sim PH(\boldsymbol{T}, \boldsymbol{\pi})$ where $\boldsymbol{T}$ is the subintensity matrix and $\boldsymbol{\pi}$ the initial probability vector.
+
 ## The discrete univariate phase-type
 
 # The multivariate distribution
