@@ -1,0 +1,59 @@
+---
+title: "Phasty v0.1"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Phasty}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, setup}
+library(phasty)
+```
+
+# Informations
+
+Please report any issue on the git page of the package ...
+
+# Introduction
+
+What is the topic
+why a package 
+based on what
+What does it contains
+
+# The phase-type class object
+
+The package use several new classes for describing a phase-type distributed object, which are :"disc_phase_type", "cont_phase_type", "mult_disc_phase_type", "mult_cont_phase_type". Which can be obtain using the following functions respectively:
+
+```{r, eval = F}
+X1 <- disc_phase_type(subint_mat = NULL, init_probs = NULL)
+
+X2 <- cont_phase_type(subint_mat = NULL, init_probs = NULL)
+
+Y1 <- mult_disc_phase_type(subint_mat = NULL, init_probs = NULL, reward_mat = NULL)
+
+Y2 <- mult_cont_phase_type(subint_mat = NULL, init_probs = NULL, reward_mat = NULL)
+```
+
+Those classes will be necessary later on to recognise the type of object for function like mean or var.
+
+# The univariate distribution
+## The continuous univariate phase-type
+## The discrete univariate phase-type
+
+# The multivariate distribution
+## The continuous multivariate
+## The discrete multivariate
+
+
+# The discrete phase-type distribution
+
+

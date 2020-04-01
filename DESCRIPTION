@@ -20,5 +20,9 @@ Collate:
     'phtype_functions.R'
     'disc_reward.R'
     'cont_reward.R'
+    'mult_disc_phase_type.R'
 Suggests: 
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

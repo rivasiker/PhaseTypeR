@@ -57,6 +57,14 @@
 #' ## Example
 #' ##===================================================
 #'
+#' subint_mat <- matrix(c(-3, 0, 1,
+#'                         2, -2, 1,
+#'                         0, 1, -2), nrow = 3)
+#' init_probs <- c(0.5, 0.25, 0.25)
+#' reward <- c(1, 0, 1)
+#'
+#' cont_reward(init_probs = init_probs,
+#'             subint_mat = subint_mat, reward = reward)
 #' @export
 
 cont_reward <- function(phase_type = NULL, init_probs = NULL,
@@ -69,6 +77,15 @@ cont_reward <- function(phase_type = NULL, init_probs = NULL,
 
     if (is.matrix(reward)){
         reward = as.vector(reward)
+    }
+
+    if (length(reward) != length(init_probs)){
+        stop('The reward vector has wrong dimensions (should be of the
+                   same size that the inital probabilities)')
+    }
+
+    if(sum(reward < 0) != 0){
+        stop('The reward vector should only contains non-negative values')
     }
 
     # Section to get the embended matrix of T (the subintensity matrix)
@@ -133,3 +150,11 @@ cont_reward <- function(phase_type = NULL, init_probs = NULL,
     obj <- cont_phase_type(mat_T, alpha)
     return(obj)
 }
+
+subint_mat <- matrix(c(-3, 1, 2,
+                     2, -3, 1,
+                     0, 1, -3), nrow = 3)
+init_probs <- c(0.5, 0.25, 0.25)
+reward <- c(1, 0, 2)
+cont_reward(init_probs = init_probs,
+             subint_mat = subint_mat, reward = reward)

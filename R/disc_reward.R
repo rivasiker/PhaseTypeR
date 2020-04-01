@@ -55,14 +55,25 @@ disc_reward <- function(phase_type = NULL, init_probs = NULL,
         subint_mat <- phase_type$subint_mat
 
     # Check that the user provide information of the right format
-
     } else if (is.vector(init_probs) && is.matrix(subint_mat)) {
         disc_phase_type(subint_mat, init_probs)
     }
 
     if (length(reward) != length(init_probs)){
-        stop('Wrong reward dimension')
+        stop('The reward vector has wrong dimensions (should be of the
+                   same size that the inital probabilities).')
     }
+
+    if (sum(reward < 0) != 0){
+        stop('The reward vector should only contains non-negative values.')
+    }
+
+    if (sum(reward) != sum(round(reward))){
+        stop('The reward vector should only contains integer.')
+    }
+
+
+
 
     # number of transient states
     nb_states <- length(init_probs)

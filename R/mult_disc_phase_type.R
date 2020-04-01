@@ -16,58 +16,45 @@
 #' @usage mult_phase_type(subint_mat = NULL, reward_mat = NULL, init_probs = NULL)
 #'
 #' @examples
-#' subint_mat = matrix(c(-3, 0, 0,
-#'                       2, -2, 0,
-#'                       0, 1, -1), nrow = 3, ncol = 3)
+#' subint_mat = matrix(c(0.4, 0, 0,
+#'                       0.24, 0.4, 0,
+#'                       0.12, 0.2, 0.5), ncol = 3)
 #' reward_mat = matrix(sample(seq(0, 10), 6), nrow = 3, ncol = 2)
-#' mult_phase_type(subint_mat, reward_mat)
+#' mult_disc_phase_type(subint_mat, reward_mat)
 #'
 #' @export
 
-mult_phase_type <- function(subint_mat = NULL, reward_mat = NULL, init_probs = NULL) {
-  if (is.null(subint_mat)) {
-    stop('Unable to construct the phase-type distribution. Please provide a valid subintensity matrix.')
-  } else if (is.matrix(subint_mat)) {
+mult_disc_phase_type <- function(subint_mat = NULL,
+                                 reward_mat = NULL, init_probs = NULL) {
 
-    if (is.null(init_probs)) {
+  disc_phase_type(subint_mat, init_probs)
 
-      init_probs <- matrix(c(1, rep(0, nrow(subint_mat) - 1)), 1, nrow(subint_mat))
-      warning('The initial probability vector is automatically generated.')
-
-    } else if ((sum(rowSums(subint_mat) < 0) | (sum(rowSums(subint_mat) > 0)))) {
-
-      stop('The rowsums in subintensity matrix have to be between zero and one')
-
-    } else if ((is.vector(init_probs) & is.atomic(init_probs)) | is.matrix(init_probs)) {
-      if (nrow(subint_mat) == length(init_probs)) {
-        init_probs <- matrix(init_probs, nrow = 1)
-      } else {
-        stop('The length of the initial probabilities does not match the size of the subintensity matrix.')
-      }
-    } else {
-      stop('The initial probabilities must be a a matrix with one row or a vector.')
-    }
-  } else {
-    stop('The subintensity matrix must be a matrix.')
+  if (is.null(init_probs)) {
+    init_probs <- matrix(c(1, rep(0, nrow(subint_mat) - 1)), 1, nrow(subint_mat))
   }
 
-  if (is.null(reward_mat)) {
-    stop('Unable to construct the phase-type distribution. Please provide a valid reward matrix.')
-  } else if (is.matrix(reward_mat)){
-    if (nrow(reward_mat) != nrow(subint_mat)) {
-      stop('The number of rows in the reward matrix does not match the number of rows in the subintensity matrix.')
-    }
-  } else {
-    stop('The reward matrix must be a matrix.')
-  }
+  for (col in 1:ncol(reward_mat)){
 
+    if (length(reward_mat[,col]) != length(init_probs)){
+      stop('The reward vector has wrong dimensions (should be of the
+                   same size that the inital probabilities).')
+    }
+
+    if (sum(reward_mat[,col] < 0) != 0){
+      stop('The reward vector should only contains non-negative values.')
+    }
+
+    if (sum(reward_mat[,col]) != sum(round(reward_mat[,col]))){
+      stop('The reward vector should only contains integer.')
+    }
+  }
 
   value <- list(subint_mat = subint_mat,
                 init_probs = init_probs,
                 defect = 1-sum(init_probs),
                 reward_mat = reward_mat)
-  attr(value, "class") <- "mult_phase_type"
-  value
+  attr(value, "class") <- "multi_dsc_phase_type"
+  return(value)
 }
 
 #' @describeIn mult_phase_type pretty summary of the class.
@@ -81,9 +68,12 @@ summary.mult_phase_type <- function(object, ...) {
   print(object$reward_mat)
   cat('\nInitial probabilities:\n')
   print(object$init_probs)
-  cat('\nDefect:\n')
+  cat('\nInitial Defect:\n') # Before the applications of any reward.
   print(object$defect)
 }
+
+
+
 
 
 
@@ -190,8 +180,24 @@ var.mult_phase_type <- function(obj, v = NULL, ...) {
   moment_mph(obj, v) - moment_mph(obj, v[1])*moment_mph(obj, v[2])
 }
 
+subint_mat = matrix(c(0.4, 0, 0,
+                      0.24, 0.4, 0,
+                      0.12, 0.2, 0.5), ncol = 3)
+reward_mat = matrix(sample(seq(0, 10), 6), nrow = 3, ncol = 2)
+mult_disc_phase_type(subint_mat, reward_mat)
 
+#######
 
+#joint prob distr
+
+joint_prob_MDPH = function(MDPH, theta){
+  R = MDPH$reward
+  theta_ri = vector()
+  for (i in 1:nrow(R)){
+    theta_ri[i] = prod(theta^(R[i,]))
+  }
+
+}
 
 
 

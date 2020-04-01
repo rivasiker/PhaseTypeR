@@ -32,17 +32,49 @@
 
 cont_phase_type <- function(subint_mat = NULL, init_probs = NULL) {
   if (is.null(subint_mat)) {
+
     stop('Unable to construct the phase-type distribution. Please provide either the type or the subintensity matrix.')
+
   } else if (is.matrix(subint_mat)) {
+
+
+    if (nrow(subint_mat) != ncol(subint_mat)){
+      stop('Subintensity matrix should be a square numerical matrix')
+    }
+
     if (is.null(init_probs)) {
+
       init_probs <- matrix(c(1, rep(0, nrow(subint_mat) - 1)), 1, nrow(subint_mat))
       warning('The initial probability vector is automatically generated.')
-    } else if (sum(rowSums(subint_mat) > 0) != 0) {
+
+    }
+
+    if (sum(rowSums(subint_mat) > 0) != 0) {
+
       stop('The rowsums in subintensity matrix have to be non-positive')
-    } else if ((is.vector(init_probs) & is.atomic(init_probs)) | is.matrix(init_probs)) {
+
+    }
+
+    if ((is.vector(init_probs) & is.atomic(init_probs)) | is.matrix(init_probs)) {
+
       if (nrow(subint_mat) == length(init_probs)) {
+
         init_probs <- matrix(init_probs, nrow = 1)
+
+        if (sum(init_probs) == 0){
+          warning('The sum of the inital probability is equal to 0
+                  with a defect of 1')
+        }
+        if (sum(init_probs) < 0 | sum(init_probs) > 1){
+          stop('The total initial probability should be between 0 and 1')
+        } else if (sum(init_probs < 0) != 0 || sum(init_probs > 1) != 0) {
+          stop('Each initial probability should be between 0 and 1')
+        } else if (is.element(0,diag(subint_mat))){
+          stop('The subintensity matrix should not contains 0 on its diagonal')
+        }
+
       } else {
+
         stop('The length of the initial probabilities does not match the size of the subintensity matrix.')
       }
     } else {
