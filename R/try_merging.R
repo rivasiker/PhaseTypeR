@@ -179,3 +179,38 @@ summary.cont_phase_type <- function(object, ...) {
   cat('\nMean: ', mean(object), '\n', sep = '')
   cat('\nVariance: ', var(object), '\n\n', sep = '')
 }
+
+#' @describeIn disc_phase_type mean of the discrete phase-type distribution.
+#'
+#' @export
+
+mean.disc_phase_type <- function(x, ...) {
+  mean <- sum(x$init_probs%*%solve(diag(nrow = nrow(x$subint_mat))-x$subint_mat))
+  as.numeric(mean+x$defect)
+}
+
+#' @describeIn disc_phase_type variance of the discrete phase-type distribution.
+#'
+#' @export
+
+var.disc_phase_type <- function(obj) {
+  variance <- sum(2*obj$init_probs%*%obj$subint_mat%*%solve((diag(nrow = nrow(obj$subint_mat))-obj$subint_mat)%^%2)) +
+    mean(obj) -
+    mean(obj)^2
+  as.numeric(variance)
+}
+
+#' @describeIn disc_phase_type pretty summary of the discrete phase-type distribution.
+#'
+#' @export
+
+summary.disc_phase_type <- function(object, ...) {
+  cat('\nSubintensity matrix:\n')
+  print(object$subint_mat)
+  cat('\nInitial probabilities:\n')
+  print(object$init_probs)
+  cat('\nDefect:\n')
+  print(object$defect)
+  cat('\nMean: ', mean(object), '\n', sep = '')
+  cat('\nVariance: ', var(object), '\n\n', sep = '')
+}
