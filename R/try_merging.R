@@ -30,7 +30,8 @@
 #'
 #' @export
 
-try_merging <- function(subint_mat = NULL, init_probs = NULL) {
+try_merging <- function(subint_mat = NULL,
+                        init_probs = NULL, reward_mat = NULL) {
   if (is.null(subint_mat)) {
 
     stop('Unable to construct the phase-type distribution.
@@ -80,20 +81,41 @@ try_merging <- function(subint_mat = NULL, init_probs = NULL) {
     }
 
     if (sum(rowSums(subint_mat) > 0) == 0) {
-      value <- list(subint_mat = subint_mat,
-                    init_probs = init_probs,
-                    defect = 1-sum(init_probs))
-      attr(value, "class") <- "cont_phase_type"
-      value
+      if (is.matrix(reward_mat)){
+        value <- list(subint_mat = subint_mat,
+                      init_probs = init_probs,
+                      reward_mat = reward_mat,
+                      defect = 1-sum(init_probs))
+        attr(value, "class") <- "mult_cont_phase_type"
+        return(value)
+      } else {
+        value <- list(subint_mat = subint_mat,
+                      init_probs = init_probs,
+                      defect = 1-sum(init_probs))
+        attr(value, "class") <- "cont_phase_type"
+        return(value)
+      }
+
 
 
     } else if (sum(subint_mat < 0) == 0){
       if (sum(rowSums(subint_mat > 1)) == 0){
-        value <- list(subint_mat = subint_mat,
-                      init_probs = init_probs,
-                      defect = 1-sum(init_probs))
-        attr(value, "class") <- "disc_phase_type"
-        value
+        if (is.matrix(reward_mat)){
+          value <- list(subint_mat = subint_mat,
+                        init_probs = init_probs,
+                        reward_mat = reward_mat,
+                        defect = 1-sum(init_probs))
+          attr(value, "class") <- "disc_phase_type"
+          return(value)
+
+        } else {
+          value <- list(subint_mat = subint_mat,
+                        init_probs = init_probs,
+                        defect = 1-sum(init_probs))
+          attr(value, "class") <- "disc_phase_type"
+          return(value)
+        }
+
       }else{
         stop('The rowsums should be between 0 and 1')
       }
