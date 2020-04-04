@@ -236,3 +236,123 @@ summary.disc_phase_type <- function(object, ...) {
   cat('\nMean: ', mean(object), '\n', sep = '')
   cat('\nVariance: ', var(object), '\n\n', sep = '')
 }
+
+#' @describeIn mult_phase_type pretty summary of the class.
+#'
+#' @export
+
+summary.mult_cont_phase_type <- function(object, ...) {
+  cat('\nSubintensity matrix:\n')
+  print(object$subint_mat)
+  cat('\nReward matrix:\n')
+  print(object$reward_mat)
+  cat('\nInitial probabilities:\n')
+  print(object$init_probs)
+  cat('\nDefect:\n')
+  print(object$defect)
+}
+
+
+
+
+
+
+moment_individual <- function(element, obj){
+  solve(-obj$subint_mat)%*%diag(obj$reward_mat[,element])
+}
+
+moment_row <- function(row, obj) {
+  total <- diag(1, nrow(obj$subint_mat), ncol(obj$subint_mat))
+  for (individual in lapply(row, moment_individual, obj = obj)) {
+    total <- total%*%individual
+  }
+  sum(obj$init_probs%*%total)
+}
+
+perm <- function(v) {
+  n <- length(v)
+  if (n == 1) v
+  else {
+    X <- NULL
+    for (i in 1:n) X <- rbind(X, cbind(v[i], perm(v[-i])))
+    X
+  }
+}
+
+
+
+
+#' Moments of the multivariate phase-type distribution
+#'
+#' This function calculates the moments for the multivariate phase-type distributions.
+#'
+#' The variables for which the moments are calculated can be specified in the \code{v}
+#' vector as indices in the reward matrix of the \code{mult_phase_type} object.
+#'
+#' @param obj a mult_phase_type.
+#' @param v a vector or an integer.
+#'
+#' @usage moment_ph(obj, v)
+#'
+#' @export
+
+moment_mph <- function(obj, v) {
+  v = matrix(v)
+  X = perm(v)
+  sum(apply(X, 1, moment_row, obj = obj))
+}
+
+
+#' @describeIn mult_phase_type if an integer is provided in \code{v}, then the mean of
+#' the variable with the specified index in the reward matrix is returned. If instead a
+#' vector is provided, then the means of the variables defined by those indices will be
+#' returned. In case of not specifying \code{v}, the means of all the variables defined by
+#' the sub-intensity matrix are returned (default).
+#'
+#' @export
+
+mean.mult_cont_phase_type <- function(x, v = NULL, ...) {
+  if (!is.null(v)) {
+    if (length(v) == 1) {
+      return(moment_mph(x, v))
+    } else {
+      result <- matrix(NA, nrow = length(v))
+      for (i in 1:length(v)) {
+        result[i,] <- moment_mph(x, v[i])
+      }
+      return(result[,1])
+    }
+  } else {
+    result <- matrix(NA, nrow = ncol(x$reward_mat))
+    for (i in 1:nrow(result)) {
+      result[i,] <- moment_mph(x, i)
+    }
+    return(result[,1])
+  }
+}
+
+#' @describeIn mult_phase_type if an integer is provided in \code{v}, then the variance of
+#' the variable with the specified index in the reward matrix is returned. If instead a
+#' vector of length 2 is provided, then the covariance of the variables defined by those indices will be
+#' returned. In case of not specifying \code{v}, the variance-covariance matrix between all the variables defined by
+#' the sub-intensity matrix are returned (default).
+#'
+#' @export
+
+var.mult_cont_phase_type <- function(obj, v = NULL, ...) {
+  if (is.null(v)) {
+    cov_mat = matrix(NA, ncol(obj$reward_mat), ncol(obj$reward_mat))
+    for (i in 1:ncol(cov_mat)) {
+      for (j in i:ncol(cov_mat)) {
+        cov_mat[i, j] <- var(obj, c(i, j))
+      }
+    }
+    cov_mat[lower.tri(cov_mat)] = t(cov_mat)[lower.tri(cov_mat)]
+    return(cov_mat)
+  } else if (length(v) == 1) {
+    v <- rep(v, 2)
+  } else if (!(length(v) == 2)) {
+    stop('Please provide the right indices')
+  }
+  moment_mph(obj, v) - moment_mph(obj, v[1])*moment_mph(obj, v[2])
+}
