@@ -53,7 +53,7 @@ mult_disc_phase_type <- function(subint_mat = NULL,
                 init_probs = init_probs,
                 defect = 1-sum(init_probs),
                 reward_mat = reward_mat)
-  attr(value, "class") <- "multi_dsc_phase_type"
+  attr(value, "class") <- "mult_disc_phase_type"
   return(value)
 }
 
@@ -190,19 +190,76 @@ mult_disc_phase_type(subint_mat, reward_mat)
 
 #joint prob distr
 
+subint_mat = matrix(c(0.4, 0, 0,
+                     0.24, 0.4, 0,
+                     0.12, 0.2, 0.5), ncol = 3)
+reward_mat = matrix(sample(seq(0, 10), 6), nrow = 3, ncol = 2)
+a = mult_disc_phase_type(subint_mat, reward_mat)
+
 joint_prob_MDPH = function(MDPH, theta){
   R = MDPH$reward
-  theta_ri = vector()
+  theta_r = vector()
   for (i in 1:nrow(R)){
-    theta_ri[i] = prod(theta^(R[i,]))
+    theta_r[i] = prod(theta^(R[i,]))
   }
-
+  p = length(MDPH$init_probs)
+  theta_r = diag(theta_r)
+  e = rep(1, p)
+  I = diag(e)
+  T_mat = MDPH$subint_mat
+  pi_absorbing = MDPH$defect
+  jPGF = pi_absorbing + MDPH$init_probs %*% theta_r %*%
+    solve(I - T_mat %*% theta_r) %*% (e - T_mat %*% e)
+  return(jPGF)
 }
 
+joint_moment_MDPH = function(MDPH, u){
+  R = MDPH$reward
+  eur = vector()
+  for (i in 1:nrow(R)){
+    eur[i] = exp(sum(u*(R[i,])))
+  }
+  p = length(MDPH$init_probs)
+  diag_eur = diag(eur)
+  e = rep(1, p)
+  I = diag(e)
+  T_mat = MDPH$subint_mat
 
+  jMGF = MDPH$init_probs %*% diag_eur %*%
+    solve(I - T_mat %*% diag_eur) %*% (e - T_mat %*% e)
+  return(jMGF)
+}
 
+library(rgl)
+x = matrix(0,nrow = 100, ncol = 100)
 
+counti = 1
+countj = 1
+for (i in seq(-1,1,length.out = 100)){
+  for (j in seq(-1,1,length.out = 100)){
+    x[counti,countj] = joint_moment_MDPH(a, c(i,j))
+    countj = countj+1
+  }
+  counti = counti+1
+  countj = 1
+}
 
+rgl.open()
+
+plot3D::hist3D(z=x)
+
+plot(x[70,])
+rgl.points(x=seq(0,100,length.out = nrow(x)),
+          y=seq(0,100,length.out = nrow(x)),
+          z=x,
+          theta = 240)
+
+moment_m = function(MDPH, m){
+  U = solve(I - MDPH$subint_mat)
+  drjsigma = diag(rj^sigmals/factorial(sigmals))
+  udrjsigma = -U %*% drjsigma
+  (-1)^m * factorial(m) * MDPH$init_distr * sum(prod())
+}
 
 
 

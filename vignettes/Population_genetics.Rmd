@@ -17,3 +17,14 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(phasty)
 ```
+
+# Introduction
+
+# The TMRCAs
+```{r}
+TMRCA_mat <- function(n){
+  TMRCA_mat = 
+}
+
+
+```
