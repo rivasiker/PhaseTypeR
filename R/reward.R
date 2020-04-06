@@ -49,10 +49,14 @@
 reward_phase_type <- function(phase_type = NULL, init_probs = NULL,
                        subint_mat = NULL, reward = NULL){
 
+    # If init_probs and subint_mat are provided, will
+    # determine if continuous or discrete
     if (is.vector(init_probs) && is.matrix(subint_mat)) {
         try(phase_type <- try_merging(subint_mat, init_probs))
-
     }
+
+    # If discrete will apply the reward transformation
+    # found in the PhD of Navarro (2019)
     if (class(phase_type) == 'disc_phase_type'){
         init_probs <- phase_type$init_probs
         subint_mat <- phase_type$subint_mat
@@ -171,7 +175,8 @@ reward_phase_type <- function(phase_type = NULL, init_probs = NULL,
 
         obj <- disc_phase_type(mat_T, alpha)
         return(obj)
-
+    # If continuous, will apply the transformation of
+    # Bladt and Nielsen 2017.
     } else if (class(phase_type) == 'cont_phase_type'){
         init_probs <- phase_type$init_probs
         subint_mat <- phase_type$subint_mat
@@ -251,6 +256,7 @@ reward_phase_type <- function(phase_type = NULL, init_probs = NULL,
         obj <- cont_phase_type(mat_T, alpha)
         return(obj)
     } else {
-        stop('Not the good format')
+        stop('The object(s) provided describe neither
+              a continuous neither a discrete phase-type distribution.')
     }
 }
