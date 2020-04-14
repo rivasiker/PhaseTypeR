@@ -34,13 +34,8 @@ What does it contains
 The package use several new classes for describing a phase-type distributed object, which are: "disc_phase_type", "cont_phase_type", "mult_disc_phase_type", "mult_cont_phase_type". Which can be obtain using the following functions respectively:
 
 ```{r, eval = F}
-X1 <- disc_phase_type(subint_mat = NULL, init_probs = NULL)
+X1 <- phase_type(subint_mat = NULL, init_probs = NULL)
 
-X2 <- cont_phase_type(subint_mat = NULL, init_probs = NULL)
-
-Y1 <- mult_disc_phase_type(subint_mat = NULL, init_probs = NULL, reward_mat = NULL)
-
-Y2 <- mult_cont_phase_type(subint_mat = NULL, init_probs = NULL, reward_mat = NULL)
 ```
 
 Those classes will be necessary later on to recognise the type of object for function like mean or var.
@@ -86,7 +81,7 @@ subintensity_matrix = matrix(c(-1.5, 0, 0,
                               0, 1, -0.5), ncol = 3)
 initial_probabilities = c(0.9, 0.1, 0)
 
-X = cont_phase_type(subintensity_matrix, initial_probabilities)
+X = phase_type(subintensity_matrix, initial_probabilities)
 print(X)
 ```
 
@@ -109,7 +104,7 @@ transformation, to do so we will use a reward vector of size $p$
 ```{r}
 r = c(1,0,4)
 
-Y = cont_reward(phase_type = X, reward = r)
+Y = reward_phase_type(phase_type = X, reward = r)
 print(Y)
 ```
 ## The discrete univariate phase-type

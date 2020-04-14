@@ -20,8 +20,8 @@ distributions.
 building a new phase_type object.
 }
 \examples{
-ph1 = cont_phase_type(matrix(c(-3, 0, 0, 1, -2, 0, 0, 1, -1), ncol=3), c(0.25,0.25,0.5))
-ph2 = cont_phase_type(matrix(c(-1.5, 0, 0, 1.5, -1, 0, 0, 1, -0.5), ncol = 3), c(0.25,0.25,0.5))
+ph1 = phase_type(matrix(c(-3, 0, 0, 1, -2, 0, 0, 1, -1), ncol = 3), c(0.25,0.25,0.5))
+ph2 = phase_type(matrix(c(-1.5, 0, 0, 1.5, -1, 0, 0, 1, -0.5), ncol = 3), c(0.25,0.25,0.5))
 
 convph(ph1,ph2)
 #---

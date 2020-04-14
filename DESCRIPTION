@@ -13,14 +13,10 @@ LazyData: true
 RoxygenNote: 7.1.0
 Depends: expm
 Collate: 
-    'cont_phase_type.R'
+    'phase_type.R'
+    'reward_phase_type.R'
     'convph.R'
-    'disc_phase_type.R'
-    'mult_phase_type.R'
     'phtype_functions.R'
-    'disc_reward.R'
-    'cont_reward.R'
-    'mult_disc_phase_type.R'
 Suggests: 
     testthat,
     knitr,

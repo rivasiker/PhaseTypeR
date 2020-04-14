@@ -6,9 +6,15 @@
 \alias{pphtype}
 \alias{rphtype}
 \title{Density, distribution function, quantile function and random generation for
-phase-type distributions}
+phase-type distributions.}
 \usage{
 dphtype(x, obj)
+
+pphtype(q, obj)
+
+qphtype(p, obj)
+
+rphtype(n, obj)
 
 qphtype(p, obj)
 
@@ -19,15 +25,29 @@ rphtype(n, obj)
 \arguments{
 \item{x, q}{vector of quantiles.}
 
-\item{obj}{an object of class \code{cont_phase_type} or \code{disc_phase_type}.}
+\item{obj}{an object of class \code{cont_phase_type} or
+\code{disc_phase_type}.}
 
 \item{p}{vector of probabilities.}
 
-\item{n}{number of samples to draw.}
+\item{n}{number of observations. If length(n) > 1, the length is taken to be
+the number required.}
+}
+\value{
+\code{dphtype} gives the density, \code{pphtype} gives the
+distribution function, \code{qphtype} gives the quantile function,
+and \code{rphtype} generates random deviates.
+
+The length of the result is determined by \code{n} for \code{rphtype},
+and is the maximum of the lengths of the numerical arguments for the other
+functions.
+
+The numerical arguments other than \code{n} are recycled to the length of the
+result. Only the first elements of the logical arguments are used.
 }
 \description{
 Density, distribution function, quantile function and random generation for
-phase-type distributions
+phase-type distributions.
 }
 \section{Functions}{
 \itemize{
@@ -40,3 +60,6 @@ phase-type distributions
 \item \code{rphtype}: Random number generator
 }}
 
+\seealso{
+\link[stats]{Distributions}
+}
