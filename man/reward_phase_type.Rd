@@ -32,14 +32,14 @@ non-negative reward vector.
 ## For continuous phase-type ##
 ##===========================##
 
-subint_mat <- matrix(c(0.4, 0, 0,
-                      0.24, 0.4, 0,
-                      0.12, 0.2, 0.5), ncol = 3)
+subint_mat <- matrix(c(-3, 1, 1,
+                      2, -3, 0,
+                      1, 1, -3), ncol = 3)
 init_probs <- c(0.9, 0.1, 0)
+ph <- phase_type(subint_mat, init_probs)
 reward <- c(1,0,4)
 
-reward_phase_type(init_probs = init_probs,
-                  subint_mat = subint_mat, reward = reward)
+reward_phase_type(ph, reward)
 
 ##=========================##
 ## For discrete phase-type ##

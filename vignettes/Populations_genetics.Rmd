@@ -1,0 +1,189 @@
+---
+title: "Phase-type application to coalescent theory"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Phasty}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, setup}
+library(phasty)
+```
+
+# Informations
+
+Please report any issue on the git page of the package ...
+
+# Introduction
+
+What is the topic
+why a package 
+based on what
+What does it contains
+
+# The time to most recent common ancestor (TMRCA)
+
+
+```{r, eval = F}
+
+n <- 11
+
+mat <- diag(-choose(n:2, 2)) + rbind(cbind(0, diag(choose(n:3, 2))), 0)
+TMRCA <- phase_type(mat)
+summary(TMRCA)
+
+x <- seq(0, 3, length.out = 100)
+plot(x, dphtype(x, TMRCA), type = 'l', xlab = 'TMRCA',
+     ylab = 'probability density')
+```
+# The total branch length
+
+```{r, eval = F}
+
+Ttotal <- reward_phase_type(TMRCA, n:2)
+
+x <- seq(0, 10, length.out = 100)
+plot(x, dphtype(x, Ttotal), type = 'l', xlab = 'Ttotal',
+     ylab = 'probability density')
+```
+
+# The site frequency spectrum
+
+## The set of states of the n-coalescent model
+
+```{r, eval = F}
+block_count_process <- function(n){
+
+  if(n < 1) stop("Invalid sample size! n must be greater than 0.")
+  if(n != floor(n)) warning(paste("The proviede sample size n is not a natural number.\n
+                   The function will use n= ", floor(n), " instead."))
+  n = floor(n)
+
+  if(n==1) return(list(Rate_Mat = matrix(0), StateSpace_Mat = matrix(0)))
+  if(n==2) return(list(Rate_Mat = matrix(1), StateSpace_Mat = matrix(2)))
+
+  ##----------------------------------------------------
+  ## Possible states
+  ##----------------------------------------------------
+  ## Size of the state space (number of states)
+  d <- partitions::P(n)
+  ## Set of partitions of [n]
+  Partition.mat <- partitions::parts(n)
+  ## Rewriting the partitions as (a1,...,an)/
+  ## Definition of the state space matrix
+  StateSpace_Mat <- t(apply(Partition.mat, 2,tabulate, nbins = n))
+
+  ## Reordering
+  StateSpace_Mat <- StateSpace_Mat[order(rowSums(StateSpace_Mat),decreasing=TRUE),]
+  ## Because of this ordering we can't 'go back', i.e.
+  ## below the diagonal the entries are always zero
+
+  ##----------------------------------------------------
+  ## Intensity matrix
+  ##----------------------------------------------------
+  RateM <- matrix(0, ncol=d, nrow=d)
+  ## Algorithm for finding rates between states
+  for (i in 1:(d-1)){
+    for (j in (i+1):d){
+      # cat(i," state i",StSpM[i,])
+      # cat(" ",j," state j",StSpM[j,])
+      cvec <- StateSpace_Mat[i,]-StateSpace_Mat[j,]
+      # cat(" cvec",cvec)
+      ## Two branches are merged, i.e. removed from state i
+      check1 <- sum(cvec[cvec>0])==2
+      # cat(" check1",check1)
+      ## One new branch is created, i.e. added in state from j
+      check2 <- sum(cvec[cvec<0])==-1
+      # cat(" check2",check2)
+      if (check1 & check2){
+        ## Size(s) of the block(s) and the corresponding rates
+        tmp <- StateSpace_Mat[i,which(cvec>0)]
+        RateM[i,j] <- ifelse(length(tmp)==1,tmp*(tmp-1)/2,prod(tmp))
+      }
+
+    }
+  }
+  ## Diagonal part of the rate matrix
+  for (i in 1:d){
+    RateM[i,i] <- -sum(RateM[i,])
+  }
+  return(list(Rate_Mat = RateM[-nrow(RateM), -ncol(RateM)],
+              StateSpace_Mat = StateSpace_Mat[-nrow(StateSpace_Mat),
+                                              -ncol(StateSpace_Mat)]))
+}
+
+discretization <- function(object, a=NULL, lambda=NULL, round_zero = NULL){
+
+  if(class(object) != "cont_phase_type" && class(object) != "mult_cont_phase_type"){
+    stop("Invalid object! The object has to be of class 'cont_phase_type'.")
+  } 
+
+  if(is.null(lambda)){
+
+    if(is.null(a) | a < max(diag(object$subint_mat)) ){stop("Not a valid constant a! a has to be bigger than the maximum of all diagonal entries of the subintensity rate matrix.")}
+
+    subint_mat <- diag(nrow = nrow(object$subint_mat)) + 1 / a * object$subint_mat
+
+  }else if(is.null(a)){
+
+    if(is.null(lambda) | lambda <= 0){stop("Not a valid mutation rate. lambda has to be positive.")}
+
+    subint_mat <- solve(diag(nrow = nrow(object$subint_mat)) - lambda^(-1) * object$subint_mat)
+
+
+  }else{
+
+    if(lambda <= 0){stop("Not a valid mutation rate. lambda has to be positive.")}
+    if(a < max(diag(object$subint_mat)) )stop("Not a valid constant a! a has to be bigger than the maximum of all diagonal entries of the subintensity rate matrix.")
+
+    subint_mat <- diag(nrow = nrow(object$subint_mat)) + 1 / a * object$subint_mat
+    subint_mat <- solve(diag(nrow =nrow(object$subint_mat)) - lambda^(-1) * object$subint_mat)
+  }
+  if (class(object) == 'cont_phase_type'){
+    res <- phase_type(subint_mat, object$init_probs, round_zero = round_zero)
+  } else {
+    res <- phase_type(subint_mat, object$init_probs, reward_mat = object$reward_mat, round_zero = round_zero)
+  }
+
+  return(res)
+}
+
+```
+
+```{r, eval = F}
+n <- 11
+T_states <- block_count_process(n)
+rate <- phase_type(T_states$Rate_Mat, reward_mat = T_states$StateSpace_Mat)
+SFS <- list()
+for (i in 1:(n-1)){
+  SFS[[i]] <- reward_phase_type(rate, rate$reward_mat[,i], round_zero = 10)     
+  SFS[[i]] <- discretization(SFS[[i]], lambda = 5)
+}
+print(SFS[[4]])
+SFS_mean <- NULL
+x <- seq(0, 20, length.out = 21)
+for (i in 1:(n-1)){
+  SFS_mean <- c(SFS_mean, mean(SFS[[i]]))
+  pmf <- dphtype(x, SFS[[i]])[2:max(x)]
+  pmf[1] <- pmf[1] + dphtype(x, SFS[[i]])[1]
+  barplot(pmf, xlab = paste('number of ',i, '_ton'), ylab = 'probability mass function')
+}
+barplot(SFS_mean - 1, xlab = ('i_ton'))
+
+```
+
+
+
+
+
+
+
+

@@ -25,8 +25,8 @@ rphtype(n, obj)
 \arguments{
 \item{x, q}{vector of quantiles.}
 
-\item{obj}{an object of class \code{cont_phase_type} or
-\code{disc_phase_type}.}
+\item{obj}{an object of class \code{cont_phase_type}, \code{disc_phase_type}
+, \code{mult_cont_phase_type} or \code{mult_disc_phase_type}.}
 
 \item{p}{vector of probabilities.}
 
@@ -49,6 +49,14 @@ result. Only the first elements of the logical arguments are used.
 Density, distribution function, quantile function and random generation for
 phase-type distributions.
 }
+\details{
+If the object provided is multivariate, each row of the result will
+corresponds to each univariate reward transformation.
+For \code{dphtype}, \code{qphtype} and \code{pphtype}, the inputs \code{x},
+\code{p} and \code{q} can be matrices where in row i the i_th reward
+transformation and in col j the j_th value of \code{x}, \code{p} or \code{q}
+tested.
+}
 \section{Functions}{
 \itemize{
 \item \code{dphtype}: Density function.
@@ -60,6 +68,27 @@ phase-type distributions.
 \item \code{rphtype}: Random number generator
 }}
 
+\examples{
+
+cont_phase_type <- matrix(c(-3, 0, 1,
+                            2, -3, 1,
+                            1, 1, -2), ncol = 3)
+Y <- phase_type(cont_phase_type)
+x <- seq(0, 2, length.out = 20)
+plot(x, dphtype(x, Y), ylab = 'pdf')
+
+# and for the discrete phase-type distribution
+
+disc_phase_type <- matrix(c(0.4, 0, 0.2,
+                            0.5, 0.3, 0.2,
+                            0, 0.7, 0.2), ncol = 3)
+Y <- phase_type(disc_phase_type)
+x <- seq(0, 20, 1) # Only integer for the x values.
+plot(x, dphtype(x, Y), ylab = 'pmf')
+
+rphtype(20, Y)
+
+}
 \seealso{
-\link[stats]{Distributions}
+\link[stats]{Distributions} for other standard distributions.
 }

@@ -3,11 +3,18 @@
 #'
 #' @param x,q vector of quantiles.
 #' @param p vector of probabilities.
-#' @param obj an object of class \code{cont_phase_type} or
-#' \code{disc_phase_type}.
+#' @param obj an object of class \code{cont_phase_type}, \code{disc_phase_type}
+#' , \code{mult_cont_phase_type} or \code{mult_disc_phase_type}.
 #' @param n number of observations. If length(n) > 1, the length is taken to be
 #'  the number required.
 #'
+#' @details
+#' If the object provided is multivariate, each row of the result will
+#' corresponds to each univariate reward transformation.
+#' For \code{dphtype}, \code{qphtype} and \code{pphtype}, the inputs \code{x},
+#' \code{p} and \code{q} can be matrices where in row i the i_th reward
+#' transformation and in col j the j_th value of \code{x}, \code{p} or \code{q}
+#' tested.
 #'
 #' @import expm
 #'
@@ -41,13 +48,33 @@
 #'                             1, 1, -2), ncol = 3)
 #' Y <- phase_type(cont_phase_type)
 #' x <- seq(0, 2, length.out = 20)
-#' plot(x, dphtype(x, Y))
+#' plot(x, dphtype(x, Y), ylab = 'pdf')
 #'
-#' ph = rphtype(20, cont_phase_type)
+#' # and for the discrete phase-type distribution
+#'
+#' disc_phase_type <- matrix(c(0.4, 0, 0.2,
+#'                             0.5, 0.3, 0.2,
+#'                             0, 0.7, 0.2), ncol = 3)
+#' Y <- phase_type(disc_phase_type)
+#' x <- seq(0, 20, 1) # Only integer for the x values.
+#' plot(x, dphtype(x, Y), ylab = 'pmf')
+#'
+#' rphtype(20, Y)
 #'
 #' @export,
 
 dphtype <- function(x, obj){
+
+  if (class(obj) == 'mult_cont_phase_type' ||
+      class(obj) == 'mult_disc_phase_type') {
+    reward <- obj$reward
+    n_mat <- matrix(0, nrow = ncol(reward), ncol = length(x))
+    for (i in 1:ncol(reward)){
+      n_mat[i,] <- dphtype(x,reward_phase_type(obj, reward[,i]))
+    }
+    return(n_mat)
+  }
+
   if (class(obj) == 'cont_phase_type') {
     vec <- c()
     e <- matrix(rep(1,nrow(obj$subint_mat)), nrow(obj$subint_mat), 1)
@@ -60,11 +87,11 @@ dphtype <- function(x, obj){
     if (sum(x %% 1 > 0) > 0){
       stop('x should only contains integer')
     }
-    e = matrix(1, nrow = nrow(obj$subint_mat))
-    t = e - obj$subint_mat %*% e
-    dens_vec = c()
+    e <- matrix(1, nrow = nrow(obj$subint_mat))
+    t <- e - obj$subint_mat %*% e
+    dens_vec <- c()
     for(i in x){
-      if (i==0) {
+      if (i == 0) {
         dens_vec <- c(dens_vec, obj$defect)
       } else {
         dens_vec <- c(dens_vec, obj$init_probs %*% (obj$subint_mat %^% (i-1))
@@ -88,6 +115,17 @@ dphtype <- function(x, obj){
 #' @export
 
 qphtype <- function(p, obj){
+
+  if (class(obj) == 'mult_cont_phase_type' ||
+      class(obj) == 'mult_disc_phase_type') {
+    reward <- obj$reward
+    n_mat <- matrix(0, nrow = ncol(reward), ncol = length(p))
+    for (i in 1:ncol(reward)){
+      n_mat[i,] <- qphtype(p,reward_phase_type(obj, reward[,i]))
+    }
+    return(n_mat)
+  }
+
   vec <- c()
   inv <- function(y) uniroot(function(q) pphtype(q, obj)-y, c(0,400))$root[1]
   if (class(obj) == 'cont_phase_type') {
@@ -116,6 +154,17 @@ qphtype <- function(p, obj){
 
 
 pphtype <- function(q, obj){
+
+  if (class(obj) == 'mult_cont_phase_type' ||
+      class(obj) == 'mult_disc_phase_type') {
+    reward <- obj$reward
+    n_mat <- matrix(0, nrow = ncol(reward), ncol = length(q))
+    for (i in 1:ncol(reward)){
+      n_mat[i,] <- pphtype(q,reward_phase_type(obj, reward[,i]))
+    }
+    return(n_mat)
+  }
+
   if (class(obj) == 'cont_phase_type') {
     vec <- c()
     e <- matrix(rep(1,nrow(obj$subint_mat)), nrow(obj$subint_mat), 1)
@@ -124,8 +173,8 @@ pphtype <- function(q, obj){
     }
     return(vec)
   } else if (class(obj) == 'disc_phase_type') {
-    e = matrix(1, nrow = nrow(obj$subint_mat))
-    prob_vec = c()
+    e <- matrix(1, nrow = nrow(obj$subint_mat))
+    prob_vec <- c()
     for(i in q){
       prob_vec <- c(prob_vec, 1 - obj$init_probs %*% (obj$subint_mat %^% i)
                     %*% e)
@@ -147,22 +196,35 @@ pphtype <- function(q, obj){
 
 
 rphtype <- function(n, obj){
+
   if (length(n) > 1){
     n <- length(n)
   }
 
+  # get the sub-intensity matrix
+  subint_mat <- obj$subint_mat
+  # get initial probabilities for p+1 states
+  init_probs <- c(obj$init_probs, obj$defect)
+  # number of states
+  p <- nrow(subint_mat)
+  # create vector of zeroes
+  n_vec <- numeric(n)
+
+  if (class(obj) == 'mult_cont_phase_type' ||
+      class(obj) == 'mult_disc_phase_type') {
+    reward <- obj$reward
+    n_mat <- matrix(0, nrow = ncol(reward), ncol = n)
+    for (i in 1:ncol(reward)){
+      n_mat[i,] <- rphtype(n,reward_phase_type(obj, reward[,i]))
+    }
+    return(n_mat)
+  }
+
+
   if (class(obj) == 'cont_phase_type') {
 
-    # get the sub-intensity matrix
-    subint_mat = obj$subint_mat
     # define the intensity matrix by adding the p+1 state column
     int_mat <- cbind(subint_mat, -rowSums(subint_mat))
-    # get initial probabilities for p+1 states
-    init_probs = c(obj$init_probs, obj$defect)
-    # number of states
-    p <- nrow(subint_mat)
-    # create vector of zeroes
-    n_vec <- numeric(n)
 
     # for each n
     for (i in 1:n) {
@@ -180,16 +242,8 @@ rphtype <- function(n, obj){
 
   } else if (class(obj) == 'disc_phase_type') {
 
-    # get the sub-intensity matrix
-    subint_mat = obj$subint_mat
     # define the intensity matrix by adding the p+1 state column
     int_mat <- cbind(subint_mat, 1 - rowSums(subint_mat))
-    # get initial probabilities for p+1 states
-    init_probs = c(obj$init_probs, obj$defect)
-    # number of states
-    p <- nrow(subint_mat)
-    # create vector of zeroes
-    n_vec <- numeric(n)
 
     # for each n
     for (i in 1:n) {
@@ -203,6 +257,7 @@ rphtype <- function(n, obj){
         j <- sample(p + 1, 1, prob = int_mat[j,])
       }
     }
+
     return(n_vec)
 
   } else {

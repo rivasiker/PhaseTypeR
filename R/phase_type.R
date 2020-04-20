@@ -27,11 +27,19 @@
 #'   probabilities to start in each state. If init_probs is \code{NULL},
 #'   the probability to start on the first state will be 1 and to start on any
 #'   other state 0.
-#' @param reward_mat is a matrix where each row is a reward vector, and each
-#'   column corresponds to a state. It should have the same number of columns
-#'   as the length of the initial probabilities.
+#' @param reward_mat is a matrix  \code{NULL} (default) where each row is a
+#'   reward vector, and each column corresponds to a state. It should have the
+#'   same number of columns as the length of the initial probabilities.
+#' @param round_zero is an integer or \code{NULL} (default), which gives the
+#'   decimal from which we should truncate the positive values of the
+#'   subintensity matrix.
+#'   It could be useful in the scenarios where there is a reward transformation
+#'   leading to values with many decimals and potentially computational
+#'   approximation and potentially to positive row sums in continuous phase-type
+#'   .
 #'
-#' @usage phase_type(subint_mat = NULL, init_probs = NULL, reward_mat = NULL)
+#' @usage phase_type(subint_mat, init_probs = NULL, reward_mat = NULL,
+#'                   round_zero = NULL)
 #'
 #' @examples
 #'
@@ -91,16 +99,15 @@
 #'
 #' @export
 
-phase_type <- function(subint_mat = NULL, init_probs = NULL,
-                       reward_mat = NULL) {
-
+phase_type <- function(subint_mat , init_probs = NULL, reward_mat = NULL,
+                       round_zero = NULL) {
   #############
   # Check the conditions necessary for every phase-type distribution
   #############
 
   if (is.null(subint_mat)) {
-    stop('Unable to construct the phase-type distribution.
-         Please provide either the type or the subintensity matrix.')
+    stop('Unable to construct the phase-type distribution.',
+         'Please provide either the type or the subintensity matrix.')
   }
 
   if (!is.matrix(subint_mat)) {
@@ -118,16 +125,26 @@ phase_type <- function(subint_mat = NULL, init_probs = NULL,
   }
 
   if ((is.vector(init_probs) & is.atomic(init_probs)) | is.matrix(init_probs)) {
-
     init_probs <- matrix(init_probs, nrow = 1)
+    if (!is.null(round_zero)){
+      if (round(round_zero) == round_zero) { # avoid positive values due to
+                                             # approximation
+        init_probs[init_probs > 0] <- trunc(init_probs[init_probs > 0] *
+                                              10^round_zero) / 10^round_zero
+        subint_mat[subint_mat > 0] <- trunc(subint_mat[subint_mat > 0] *
+                                              10^round_zero) / 10^round_zero
+      }
+    }
+
+
     if (nrow(subint_mat) != length(init_probs)) {
-      stop('The length of the initial probabilities does not match the size of
-           the subintensity matrix.')
+      stop('The length of the initial probabilities does not match the size of',
+           'the subintensity matrix.')
     }
 
     if (sum(init_probs) == 0){
-      warning('The sum of the inital probability is equal to 0 with a defect
-              of 1.')
+      warning('The sum of the inital probability is equal to 0 with a defect',
+              'of 1.')
     }
 
     if (sum(init_probs) < 0 || sum(init_probs) > 1){
@@ -147,8 +164,8 @@ phase_type <- function(subint_mat = NULL, init_probs = NULL,
     }
 
     if (nrow(reward_mat) != length(init_probs)){
-      stop('The reward matrix does not have the same number of columns as the
-           number of states.')
+      stop('The reward matrix does not have the same number of columns as the',
+           'number of states.')
     }
   }
 
@@ -157,7 +174,8 @@ phase_type <- function(subint_mat = NULL, init_probs = NULL,
   #############
 
   if (length(which(diag(subint_mat) < 0)) == length(init_probs)) {
-    if (sum(rowSums(subint_mat) > 0) > 0){
+
+    if (sum(apply(subint_mat, 1, sum) > 0) > 0){
       stop('The row sums of the subintensity matrix should be non-positive.')
     }
     if (is.matrix(reward_mat)){
@@ -185,8 +203,8 @@ phase_type <- function(subint_mat = NULL, init_probs = NULL,
     }
 
     if (sum(subint_mat > 1) > 0){
-      stop('The subintensity matrix should only contains values between
-           0 and 1.')
+      stop('The subintensity matrix should only contains values between',
+           '0 and 1.')
     }
 
     if (is.matrix(reward_mat)){
@@ -208,8 +226,8 @@ phase_type <- function(subint_mat = NULL, init_probs = NULL,
     }
 
   } else {
-    stop('This matrix is not valid for either discrete or continuous
-         phase-type.')
+    stop('This matrix is not valid for either discrete or continuous',
+         'phase-type.')
   }
 
 }
@@ -269,6 +287,13 @@ mean.mult_cont_phase_type <- function(x, v = NULL, ...) {
   }
 }
 
+mean.mult_disc_phase_type <- function(x, v = NULL, ...){
+  result <- rep(0, ncol(x$reward_mat))
+  for (i in 1:ncol(x$reward_mat)){
+    result[i] <- mean(reward_phase_type(x, x$reward_mat[,i]))
+  }
+  return(result)
+}
 
 #' Variance of phase-type distributions
 #'
@@ -485,6 +510,7 @@ moment_mdph <- function(obj, v){
   for (s in 1:v){
   }
 }
+
 
 
 

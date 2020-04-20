@@ -25,14 +25,14 @@
 #' ## For continuous phase-type ##
 #' ##===========================##
 #'
-#' subint_mat <- matrix(c(0.4, 0, 0,
-#'                       0.24, 0.4, 0,
-#'                       0.12, 0.2, 0.5), ncol = 3)
+#' subint_mat <- matrix(c(-3, 1, 1,
+#'                       2, -3, 0,
+#'                       1, 1, -3), ncol = 3)
 #' init_probs <- c(0.9, 0.1, 0)
+#' ph <- phase_type(subint_mat, init_probs)
 #' reward <- c(1,0,4)
 #'
-#' reward_phase_type(init_probs = init_probs,
-#'                   subint_mat = subint_mat, reward = reward)
+#' reward_phase_type(ph, reward)
 #'
 #' ##=========================##
 #' ## For discrete phase-type ##
@@ -51,8 +51,9 @@
 #'
 #' @export
 
-reward_phase_type <- function(phase_type = NULL, reward = NULL, init_probs = NULL,
-                       subint_mat = NULL){
+reward_phase_type <- function(phase_type = NULL, reward = NULL,
+                              init_probs = NULL, subint_mat = NULL,
+                              round_zero = NULL){
 
     # If init_probs and subint_mat are provided, will
     # determine if continuous or discrete
@@ -73,8 +74,8 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL, init_probs = NUL
         subint_mat <- phase_type$subint_mat
 
         if (length(reward) != length(init_probs)){
-            stop('The reward vector has wrong dimensions (should be of the
-                   same size that the inital probabilities).')
+            stop('The reward vector has wrong dimensions (should be of the',
+            'same size that the inital probabilities).')
         }
 
         if (sum(reward < 0) != 0){
@@ -153,14 +154,14 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL, init_probs = NUL
                                        nrow = sum(size[i[[2]]]))
 
             # Get the position of each elements
-            ifelse(i[[1]] == p, pos_row <- abs_pos_p, pos_row <- abs_pos_z)
-            ifelse(i[[2]] == p, pos_col <- abs_pos_p, pos_col <- abs_pos_z)
+            suppressWarnings(ifelse(all(i[[1]] == p),
+                                    pos_row <- abs_pos_p, pos_row <- abs_pos_z))
+            suppressWarnings(ifelse(all(i[[2]] == p),
+                                    pos_col <- abs_pos_p, pos_col <- abs_pos_z))
 
             # for each combinations, add the corresponding matrix given by
             # T_tilde_ij
-            print(combn)
             for (j in 1:nrow(combn)){
-                print(j)
                 selec_combn <- as.vector(combn[j,])
 
                 numcol <- (pos_row[selec_combn[1]]):
@@ -168,7 +169,8 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL, init_probs = NUL
                 numrow <- (pos_col[selec_combn[2]]):
                     (pos_col[selec_combn[2] + 1] - 1)
 
-                T_tilde[[count]][numrow, numcol] <- T_tilde_ij[[selec_combn[2]]][[selec_combn[1]]]
+                T_tilde[[count]][numrow, numcol] <-
+                    T_tilde_ij[[selec_combn[2]]][[selec_combn[1]]]
             }
             count <- count + 1
         }
@@ -196,7 +198,7 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL, init_probs = NUL
             mat_T <- T_tilde$pp
             alpha <- init_probs_p
         }
-        obj <- phase_type(mat_T, alpha)
+        obj <- phase_type(mat_T, alpha, round_zero = round_zero)
         return(obj)
 
     ##=======================##
@@ -211,8 +213,8 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL, init_probs = NUL
         subint_mat <- phase_type$subint_mat
 
         if (length(reward) != length(init_probs)){
-            stop('The reward vector has wrong dimensions (should be of the
-                   same size that the inital probabilities).')
+            stop('The reward vector has wrong dimensions (should be of the',
+            'same size that the inital probabilities).')
         }
 
         if (sum(reward < 0) != 0){
@@ -241,8 +243,8 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL, init_probs = NUL
         if ((length(z) > 0) && (length(p) > 0)){
 
             # Block partionning of Q, with the submatrix Qpz corresponds to the
-            # matrix with the transition from the states with positive rewards to
-            # the states with zero reward (p = positive and z = zero)
+            # matrix with the transition from the states with positive rewards
+            # to the states with zero reward (p = positive and z = zero)
             Qpp <- matrix(Q[p,p], nrow = length(p))
             Qpz <- matrix(Q[p,z], nrow = length(p))
             Qzp <- matrix(Q[z,p], nrow = length(z))
@@ -266,7 +268,7 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL, init_probs = NUL
         # small_p is the exit rate of P
         small_p <- as.vector(vec_e - P %*% vec_e)
         # ti is the exit rate of the new subintensity matrix (rewarded)
-        ti <- -(small_p * reward[p] * diag(subint_mat)[p])
+        ti <- -(small_p * diag(subint_mat)[p] / reward[p])
 
         # Initialisation of the new subintensity matrix (rewarded)
         mat_T <- P * 0
@@ -277,15 +279,14 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL, init_probs = NUL
                 }
             }
         }
-
         # Calculate the rate of leaving each state
         mat_T <- mat_T - diag((apply(mat_T, 1, sum) + ti))
-
         # Get a cont_phase_type object
-        obj <- phase_type(mat_T, alpha)
+
+        obj <- phase_type(mat_T, alpha, round_zero = round_zero)
         return(obj)
     } else {
-        stop('The object(s) provided describe neither
-              a continuous neither a discrete phase-type distribution.')
+        stop('The object(s) provided describe neither a continuous neither a',
+        'discrete phase-type distribution.')
     }
 }
