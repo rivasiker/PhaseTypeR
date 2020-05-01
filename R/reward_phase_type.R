@@ -13,12 +13,32 @@
 #' The vector should contains non negative values and only integer for discrete
 #' phase-type class.
 #'
+#' @return
+#' This function will return a object of class disc_phase_type or
+#' cont_phase_type. Be aware that if the input is a multivariate phase_type
+#' the output will be univariate.
 #'
-#' Either \code{phase_type} or \code{init_probs} and \code{subint_mat} should be
-#' filled.
-#' if both are filled \code{phase_type} will be used.
-#' If there is no init_probs (and no phase_type) the first state will have an
-#' initial probability of 1.
+#' @details
+#' For the reward transformation for continuous phase-type distribution, the
+#' transformation will be performed as presented in the book of Bladt and
+#' Nielsen (2017).
+#'
+#' For the discrete phase_type distribution is based on the PhD of Navarro and
+#' the article of Hobolth and
+#'
+#' Every state of the subintensity matrix should have a reward, in the case of
+#' continuous phase-type, this reward should be a vector with non negative
+#' values of a size equal to the number of states.
+#'
+#' For the discrete phase-type, the reward could be also a vector but containing
+#' only non-negatives integer.
+#' Also it can be me a matrix, in that case the matrix should have as many rows
+#' as the number of states, and the column 1 to j+1 corresponds to reward of
+#' 0 to j. Each cell corresponding that entering in the state i, the probability
+#' that we attribute to this state a reward j corresponds to the value of the
+#' matrix in row i and column j+1.
+#'
+#'
 #'
 #' @examples
 #' ##===========================##
@@ -30,7 +50,7 @@
 #'                       1, 1, -3), ncol = 3)
 #' init_probs <- c(0.9, 0.1, 0)
 #' ph <- phase_type(subint_mat, init_probs)
-#' reward <- c(1,0,4)
+#' reward <- c(1, 0, 4)
 #'
 #' reward_phase_type(ph, reward)
 #'
@@ -42,164 +62,207 @@
 #'                       0.24, 0.4, 0,
 #'                       0.12, 0.2, 0.5), ncol = 3)
 #' init_probs <- c(0.9, 0.1, 0)
-#' reward <- c(1,0,4)
+#' ph <- phase_type(subint_mat, init_probs)
 #'
-#' reward_phase_type(init_probs = init_probs,
-#'                   subint_mat = subint_mat, reward = reward)
+#' reward <- c(1, 0, 4)
+#'
+#' reward_phase_type(ph,  reward)
+#'
 #' #---
+#'
+#' subint_mat <- matrix(c(0.4, 0, 0.5,
+#'                       0.2, 0.24, 0,
+#'                       0.4, 0.6, 0.2), ncol = 3)
+#' init_probs <- c(0.9, 0.1, 0)
+#'
+#' ph <- phase_type(subint_mat, init_probs)
+#'
+#' reward <- matrix(c(0, 0.2, 1,
+#'                    0.5, 0, 0,
+#'                    0.5, 0.6, 0,
+#'                    0, 0, 0,
+#'                    0, 0.2, 0), ncol = 5)
+#'
+#' reward_phase_type(ph, reward)
 #'
 #'
 #' @export
 
 reward_phase_type <- function(phase_type = NULL, reward = NULL,
-                              init_probs = NULL, subint_mat = NULL,
                               round_zero = NULL){
 
-    # If init_probs and subint_mat are provided, will
-    # determine if continuous or discrete
-    if (is.vector(init_probs) && is.matrix(subint_mat)) {
-        try(phase_type <- try_merging(subint_mat, init_probs))
+  init_probs <- phase_type$init_probs
+  subint_mat <- phase_type$subint_mat
+
+  n <- length(init_probs)
+
+  ##=====================##
+  ## Discrete phase-type ##
+  ##=====================##
+
+  # If discrete will apply the reward transformation
+  # found in the PhD of Navarro (2019)
+
+  if (class(phase_type) == 'disc_phase_type' ||
+      class(phase_type) == 'mult_disc_phase_type'){
+
+    if(is.matrix(reward)){
+      if (nrow(reward) != n){
+        stop('')
+      }
+
+      if (! all(rowSums(reward) == 1)){
+        stop('The ')
+      }
+
+      if (! all(reward >= 0) || ! all(reward <= 1)){
+        stop('The ')
+      }
+
+      for (i in which(reward[, 1] > 0 & reward[, 1] < 1)){
+
+        new_subint_mat <- subint_mat
+        new_subint_mat[, i] <- new_subint_mat[, i] * sum(reward[i, -1])
+        new_subint_mat <- cbind(new_subint_mat, subint_mat[,i] * reward[i, 1])
+        subint_mat <- rbind(new_subint_mat, new_subint_mat[i,])
+
+        reward <- rbind(reward, c(reward[i, 1], rep(0, ncol(reward) - 1)))
+        reward[i, 1] <- 0
+
+        init_probs <- c(init_probs, init_probs[i] * reward[nrow(reward), 1])
+        init_probs[i] <- init_probs[i] * (1 - reward[nrow(reward), 1])
+      }
+
+      reward <- reward / rowSums(reward)
+      n <- length(init_probs)
+      reward_mat <- col(reward) - 1
+      reward_max <- apply(reward_mat * as.numeric(reward > 0), 1, max)
+
+    } else if (is.vector(reward)) {
+      if (length(reward) != n){
+        stop('The reward vector has wrong dimensions (should be of the',
+             'same size that the inital probabilities).')
+      }
+
+      if (sum(reward < 0) != 0){
+        stop('The reward vector should only contains non-negative',
+             'values.')
+      }
+
+      if (sum(reward) != sum(round(reward))){
+        stop('The reward vector should only contains integer.')
+      }
+
+      reward_max <- reward
+      reward <- matrix(0, ncol = max(reward) + as.numeric(0 %in% reward_max),
+                       nrow = n)
+      for (i in 1:n){
+        reward[i, reward_max[i] + as.numeric(0 %in% reward_max)] <-  1
+      }
+
+    } else {
+      stop('The rewards should be in a vector or a matrix.')
     }
 
-    ##=====================##
-    ## Discrete phase-type ##
-    ##=====================##
-
-    # If discrete will apply the reward transformation
-    # found in the PhD of Navarro (2019)
-
-    if (class(phase_type) == 'disc_phase_type' ||
-        class(phase_type) == 'mult_disc_phase_type'){
-        init_probs <- phase_type$init_probs
-        subint_mat <- phase_type$subint_mat
-
-        if (length(reward) != length(init_probs)){
-            stop('The reward vector has wrong dimensions (should be of the',
-            'same size that the inital probabilities).')
+    # Initialisation of the set of all T_tilde matrices
+    # i.e. all the rewarded submatrices to go from i to j
+    T_tilde_ij <- rep(list(as.list(1:n)), n)
+    size <- reward_max + as.numeric(reward_max == 0)
+    # Building of each T_tilde_ij matrix
+    for (i in 1:n) {
+      for (j in 1:n) {
+        matij <- matrix(0, nrow = size[i], ncol = size[j])
+        if (i == j) {
+          matij[-size[i], -1] <- diag(1, size[i] - 1)
         }
-
-        if (sum(reward < 0) != 0){
-            stop('The reward vector should only contains non-negative values.')
-        }
-
-        if (sum(reward) != sum(round(reward))){
-            stop('The reward vector should only contains integer.')
-        }
-
-        #########################
-        # number of transient states
-        nb_states <- length(init_probs)
-
-        # Initialisation of the set of all T_tilde matrices
-        # i.e. all the rewarded submatrices to go from i to j
-        T_tilde_ij <- rep(list(as.list(1:nb_states)), nb_states)
-
-        # vector containing the size modified by the rewards,
-        # (i.e. reward = 0, size = 1 ; reward = i > 0, size = reward)
-        size <- reward + as.numeric(reward == 0)
-
-        # Building of each T_tilde_ij matrix
-        for (i in 1:nb_states) {
-            for (j in 1:nb_states) {
-                matij <- matrix(0, nrow = size[i], ncol = size[j])
-                matij[size[i], 1] <- subint_mat[i, j]
-
-                if(i == j) {
-                    matij[-size[i], -1] <- diag(1, size[i] - 1)
-                }
-
-                T_tilde_ij[[i]][[j]] <- matij
-            }
-        }
-
-        # function necessary to have the right position in the order T_tilde
-        # will creates a vector which sum the previous elmts of the vector
-        # (e.g. 1 3 0 4 will be 1 4 4 8)
-        sumvec <- function(vec) {
-            for (i in 2:length(vec)){
-                vec[i] <- vec[i - 1] + vec[i]
-            }
-            return(vec)
-        }
-
-        abs_pos_p <- c(0, sumvec(size * (as.numeric(reward > 0)))) + 1
-        abs_pos_z <- c(0, sumvec(size * (as.numeric(reward == 0)))) + 1
-
-        # vector of state w/ positive-zero reward
-        p <- which(reward > 0)
-        z <- which(reward == 0)
-
-        if (length(z) > 0){
-            T_tilde_states <- list(list(p, p), list(p, z),
-                                   list(z, p), list(z, z))
-
-            # list containing T++, T+0, T0+ and T00
-            T_tilde <- list('pp' = 0, 'zp' = 0,
-                            'pz' = 0, 'zz' = 0)
+        if (sum(reward[j, 2:n]) > 0){
+          matij[size[i], 1:size[j]] <- subint_mat[i, j] *
+            reward[j, (size[j]+1):2]
         } else {
-            T_tilde_states <- list(list(p, p))
-            T_tilde <- list('pp' = 0)
+          matij[size[i], 1] <- subint_mat[i, j]
         }
 
+        T_tilde_ij[[i]][[j]] <- matij
+      }
+    }
 
-        count <- 1 # To count the number of pass in the loop
-        for (i in T_tilde_states){
+    abs_pos_p <- c(0, cumsum(size * (as.numeric(reward_max > 0)))) + 1
+    abs_pos_z <- c(0, cumsum(size * (as.numeric(reward_max == 0)))) + 1
 
-            # Will give all the combinations of elements from
-            # T++, T+0, T0+ and T00 (respectively each loop iteration)
-            combn <- as.matrix(expand.grid(i[[1]],i[[2]]))
+    # vector of state w/ positive-zero reward
+    p <- which(reward_max > 0)
+    z <- which(reward_max == 0)
 
-            # initialisation of the submatrix
-            T_tilde[[count]] <- matrix(0, ncol = sum(size[i[[1]]]),
-                                       nrow = sum(size[i[[2]]]))
+    if (length(z) > 0){
+      T_tilde_states <- list(list(p, p), list(p, z),
+                             list(z, p), list(z, z))
 
-            # Get the position of each elements
-            suppressWarnings(ifelse(all(i[[1]] == p),
-                                    pos_row <- abs_pos_p, pos_row <- abs_pos_z))
-            suppressWarnings(ifelse(all(i[[2]] == p),
-                                    pos_col <- abs_pos_p, pos_col <- abs_pos_z))
+      # list containing T++, T+0, T0+ and T00
+      T_tilde <- list('pp' = 0, 'zp' = 0,
+                      'pz' = 0, 'zz' = 0)
+    } else {
+      T_tilde_states <- list(list(p, p))
+      T_tilde <- list('pp' = 0)
+    }
 
-            # for each combinations, add the corresponding matrix given by
-            # T_tilde_ij
-            for (j in 1:nrow(combn)){
-                selec_combn <- as.vector(combn[j,])
+    count <- 1 # To count the number of pass in the loop
+    for (i in T_tilde_states){
 
-                numcol <- (pos_row[selec_combn[1]]):
-                    (pos_row[selec_combn[1] + 1] - 1)
-                numrow <- (pos_col[selec_combn[2]]):
-                    (pos_col[selec_combn[2] + 1] - 1)
+      # Will give all the combinations of elements from
+      # T++, T+0, T0+ and T00 (respectively each loop iteration)
+      combn <- as.matrix(expand.grid(i[[1]],i[[2]]))
 
-                T_tilde[[count]][numrow, numcol] <-
-                    T_tilde_ij[[selec_combn[2]]][[selec_combn[1]]]
-            }
-            count <- count + 1
-        }
+      # initialisation of the submatrix
+      T_tilde[[count]] <- matrix(0, ncol = sum(size[i[[1]]]),
+                                 nrow = sum(size[i[[2]]]))
 
-        # Calculation of the new transformed matrix
-        # according to ... eqn ...
-        init_probs_p <- NULL
-        for (i in 1:length(p)){
-            init_probs_p <- c(init_probs_p, init_probs[p[i]],
-                              rep(0, reward[p[i]] - 1))
-        }
+      # Get the position of each elements
+      suppressWarnings(ifelse(all(i[[1]] == p),
+                              pos_row <- abs_pos_p, pos_row <- abs_pos_z))
+      suppressWarnings(ifelse(all(i[[2]] == p),
+                              pos_col <- abs_pos_p, pos_col <- abs_pos_z))
 
-        if(length(z) > 0){
-            mat_T <- T_tilde$pp +
-                (T_tilde$pz
-                 %*% solve(diag(1, ncol(T_tilde$zz)) - T_tilde$zz)
-                 %*% T_tilde$zp)
-            init_probs_z <- init_probs[z]
+      # for each combinations, add the corresponding matrix given by
+      # T_tilde_ij
+      for (j in 1:nrow(combn)){
+        selec_combn <- as.vector(combn[j,])
 
-            alpha <- init_probs_p +
-                (init_probs_z
-                 %*% solve(diag(1,ncol(T_tilde$zz)) - T_tilde$zz)
-                 %*% T_tilde$zp)
-        } else {
-            mat_T <- T_tilde$pp
-            alpha <- init_probs_p
-        }
-        obj <- phase_type(mat_T, alpha, round_zero = round_zero)
-        return(obj)
+        numcol <- (pos_row[selec_combn[1]]):
+          (pos_row[selec_combn[1] + 1] - 1)
+        numrow <- (pos_col[selec_combn[2]]):
+          (pos_col[selec_combn[2] + 1] - 1)
+
+        T_tilde[[count]][numrow, numcol] <-
+          T_tilde_ij[[selec_combn[2]]][[selec_combn[1]]]
+      }
+      count <- count + 1
+    }
+
+    # Calculation of the new transformed matrix
+    # according to ... eqn ...
+    init_probs_p <- NULL
+    for (i in 1:length(p)) {
+      init_probs_p <- c(init_probs_p, init_probs[p[i]],
+                        rep(0, size[p[i]] - 1))
+    }
+
+    if (length(z) > 0) {
+      mat_T <- T_tilde$pp +
+        (T_tilde$pz
+         %*% solve(diag(1, ncol(T_tilde$zz)) - T_tilde$zz)
+         %*% T_tilde$zp)
+      init_probs_z <- init_probs[z]
+
+      alpha <- init_probs_p +
+        (init_probs_z
+         %*% solve(diag(1,ncol(T_tilde$zz)) - T_tilde$zz)
+         %*% T_tilde$zp)
+    } else {
+      mat_T <- T_tilde$pp
+      alpha <- init_probs_p
+    }
+    obj <- phase_type(mat_T, alpha, round_zero = round_zero)
+    return(obj)
 
     ##=======================##
     ## Continuous phase-type ##
@@ -207,86 +270,86 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL,
 
     # If continuous, will apply the transformation of
     # Bladt and Nielsen 2017.
-    } else if (class(phase_type) == 'cont_phase_type' ||
-               class(phase_type) == 'mult_cont_phase_type'){
-        init_probs <- phase_type$init_probs
-        subint_mat <- phase_type$subint_mat
+  } else if (class(phase_type) == 'cont_phase_type' ||
+             class(phase_type) == 'mult_cont_phase_type') {
+    init_probs <- phase_type$init_probs
+    subint_mat <- phase_type$subint_mat
 
-        if (length(reward) != length(init_probs)){
-            stop('The reward vector has wrong dimensions (should be of the',
-            'same size that the inital probabilities).')
-        }
-
-        if (sum(reward < 0) != 0){
-            stop('The reward vector should only contains non-negative values.')
-        }
-
-        if (sum(reward) != sum(round(reward))){
-            stop('The reward vector should only contains integer.')
-        }
-
-        # Section to get the embended matrix of T (the subintensity matrix)
-        Q <- subint_mat * 0
-        for (i in 1:nrow(subint_mat)){
-            for (j in 1:ncol(subint_mat)){
-                if (i == j) {
-                    Q[i, i] <- 0
-                } else {
-                    Q[i,j] <- -(subint_mat[i,j] / subint_mat[i,i])
-                }
-            }
-        }
-
-        p <- which(reward > 0)
-        z <- which(reward == 0)
-
-        if ((length(z) > 0) && (length(p) > 0)){
-
-            # Block partionning of Q, with the submatrix Qpz corresponds to the
-            # matrix with the transition from the states with positive rewards
-            # to the states with zero reward (p = positive and z = zero)
-            Qpp <- matrix(Q[p,p], nrow = length(p))
-            Qpz <- matrix(Q[p,z], nrow = length(p))
-            Qzp <- matrix(Q[z,p], nrow = length(z))
-            Qzz <- matrix(Q[z,z], nrow = length(z))
-
-            P <- Qpp + (Qpz %*% solve(diag(1, ncol(Qzz)) - Qzz) %*% Qzp)
-
-            alpha <-  init_probs[p] +
-                init_probs[z] %*% (solve(diag(1, ncol(Qzz)) - Qzz) %*% Qzp)
-
-        } else if ((length(z) == 0) && (length(p) > 0)) {
-            # if there is no zero reward, no need to remove them
-            P <- Q
-            alpha <- init_probs
-        } else {
-            print('no reward is positive')
-        }
-
-        # vec_e is a vector of 1 of the same size that P
-        vec_e <- rep(1,nrow(P))
-        # small_p is the exit rate of P
-        small_p <- as.vector(vec_e - P %*% vec_e)
-        # ti is the exit rate of the new subintensity matrix (rewarded)
-        ti <- -(small_p * diag(subint_mat)[p] / reward[p])
-
-        # Initialisation of the new subintensity matrix (rewarded)
-        mat_T <- P * 0
-        for (i in 1:nrow(P)){
-            for (j in 1:ncol(P)){
-                if (i != j){
-                    mat_T[i,j] <- -(subint_mat[p[i],p[i]]/reward[p[i]])*P[i,j]
-                }
-            }
-        }
-        # Calculate the rate of leaving each state
-        mat_T <- mat_T - diag((apply(mat_T, 1, sum) + ti))
-        # Get a cont_phase_type object
-
-        obj <- phase_type(mat_T, alpha, round_zero = round_zero)
-        return(obj)
-    } else {
-        stop('The object(s) provided describe neither a continuous neither a',
-        'discrete phase-type distribution.')
+    if (length(reward) != n) {
+      stop('The reward vector has wrong dimensions (should be of the',
+           'same size that the inital probabilities).')
     }
+
+    if (sum(reward < 0) != 0) {
+      stop('The reward vector should only contains non-negative values.')
+    }
+
+    if (sum(reward) != sum(round(reward))) {
+      stop('The reward vector should only contains integer.')
+    }
+
+    # Section to get the embended matrix of T (the subintensity matrix)
+    Q <- subint_mat * 0
+    for (i in 1:n) {
+      for (j in 1:n) {
+        if (i == j) {
+          Q[i, i] <- 0
+        } else {
+          Q[i,j] <- -(subint_mat[i,j] / subint_mat[i,i])
+        }
+      }
+    }
+
+    p <- which(reward > 0)
+    z <- which(reward == 0)
+
+    if ((length(z) > 0) && (length(p) > 0)){
+
+      # Block partionning of Q, with the submatrix Qpz corresponds to the
+      # matrix with the transition from the states with positive rewards
+      # to the states with zero reward (p = positive and z = zero)
+      Qpp <- matrix(Q[p,p], nrow = length(p))
+      Qpz <- matrix(Q[p,z], nrow = length(p))
+      Qzp <- matrix(Q[z,p], nrow = length(z))
+      Qzz <- matrix(Q[z,z], nrow = length(z))
+
+      P <- Qpp + (Qpz %*% solve(diag(1, ncol(Qzz)) - Qzz) %*% Qzp)
+
+      alpha <-  init_probs[p] +
+        init_probs[z] %*% (solve(diag(1, ncol(Qzz)) - Qzz) %*% Qzp)
+
+    } else if ((length(z) == 0) && (length(p) > 0)) {
+      # if there is no zero reward, no need to remove them
+      P <- Q
+      alpha <- init_probs
+    } else {
+      print('no reward is positive')
+    }
+
+    # vec_e is a vector of 1 of the same size that P
+    vec_e <- rep(1,nrow(P))
+    # small_p is the exit rate of P
+    small_p <- as.vector(vec_e - P %*% vec_e)
+    # ti is the exit rate of the new subintensity matrix (rewarded)
+    ti <- -(small_p * diag(subint_mat)[p] / reward[p])
+
+    # Initialisation of the new subintensity matrix (rewarded)
+    mat_T <- P * 0
+    for (i in 1:nrow(P)){
+      for (j in 1:ncol(P)){
+        if (i != j){
+          mat_T[i,j] <- -(subint_mat[p[i],p[i]]/reward[p[i]])*P[i,j]
+        }
+      }
+    }
+    # Calculate the rate of leaving each state
+    mat_T <- mat_T - diag((apply(mat_T, 1, sum) + ti))
+    # Get a cont_phase_type object
+
+    obj <- phase_type(mat_T, alpha, round_zero = round_zero)
+    return(obj)
+  } else {
+    stop('The object(s) provided describe neither a continuous neither a',
+         'discrete phase-type distribution.')
+  }
 }
