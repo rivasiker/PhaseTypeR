@@ -1,6 +1,6 @@
 #' Phase_type
 #'
-#' Description of the classes \code{cont_phase_type}, \code{disc_phase_type},
+#' Description of the S3 classes \code{cont_phase_type}, \code{disc_phase_type},
 #' \code{mult_cont_phase_type}, \code{mult_disc_phase_type} which represents the
 #' different phase-type distributions.
 #'
@@ -84,7 +84,7 @@
 #' subintensity_matrix <- matrix(c(-3, 0, 0,
 #'                                2, -2, 0,
 #'                                0, 1, -1), nrow = 3, ncol = 3)
-#' reward_matrix = matrix(sample(seq(0, 10), 6), nrow = 3, ncol = 2)
+#' reward_matrix = matrix(sample(seq(0, 10, 0.1), 6), nrow = 3, ncol = 2)
 #' phase_type(subintensity_matrix, reward_mat = reward_matrix)
 #'
 #' ##===========================##
@@ -112,6 +112,8 @@ phase_type <- function(subint_mat = NULL, init_probs = NULL,
 
   if (!is.matrix(subint_mat)) {
     stop('The subintensity matrix should be a matrix.')
+  } else {
+    subint_mat <- matrix(as.numeric(subint_mat), ncol = ncol(subint_mat))
   }
 
   if (nrow(subint_mat) != ncol(subint_mat)){
@@ -125,6 +127,7 @@ phase_type <- function(subint_mat = NULL, init_probs = NULL,
   }
 
   if ((is.vector(init_probs) & is.atomic(init_probs)) | is.matrix(init_probs)) {
+    init_probs <- as.numeric(init_probs)
     init_probs <- matrix(init_probs, nrow = 1)
     if (!is.null(round_zero)){
       if (round(round_zero) == round_zero) { # avoid positive value due to approximation

@@ -3,20 +3,30 @@
 #' Transform a variable following a phase-type distribution according to a
 #' non-negative reward vector.
 #'
-#' @usage reward_phase_type(phase_type = NULL, init_probs = NULL,
-#' subint_mat = NULL, reward_vec)
+#' @usage reward_phase_type(phase_type, reward_vec, round_zero = NULL)
 #'
 #' @param phase_type an object of class \code{cont_phase_type} or
 #'  \code{disc_phase_type}.
-#' @param reward a vector or one row matrix of the same length as the number of
-#' states.
-#' The vector should contains non negative values and only integer for discrete
-#' phase-type class.
+#'
+#' @param reward a vector of the same length as the number of
+#' states. The vector should contains non negative values and only integer for
+#' discrete phase-type class.
+#' For \code{disc_phase_type} object, a matrix with as many rows as states,
+#' and as many columns as the maximum values of reward plus one. Also in this
+#' case, each cell of the matrix should be probabilities and the sum of the
+#' rows should sum up to one.
+#'
+#' @param round_zero  is a positive integer or \code{NULL}, if it is a positive
+#' integer, all the values in the subintensity matrix and initial probabilities
+#' will be truncate at the corresponding decimal. It can be useful if
+#' the computational approximation of some values leads the row
+#' sums of the subintensity  matrix to be higher than 1 or smaller than 0 for
+#' discrete cases, or higher than 0 for continuous cases.
 #'
 #' @return
-#' This function will return a object of class disc_phase_type or
-#' cont_phase_type. Be aware that if the input is a multivariate phase_type
-#' the output will be univariate.
+#' An object of \code{class disc_phase_type} or \code{cont_phase_type}.
+#' Be aware that if the input is a multivariate phase_type the output will be
+#' univariate.
 #'
 #' @details
 #' For the reward transformation for continuous phase-type distribution, the
@@ -38,7 +48,11 @@
 #' that we attribute to this state a reward j corresponds to the value of the
 #' matrix in row i and column j+1.
 #'
+#' @author C. Guetemme, A. Hobolth
 #'
+#' @references Bladt, Nielsen, blablabla
+#'
+#' @seealso \code{\link{phase_type}}
 #'
 #' @examples
 #' ##===========================##
@@ -50,7 +64,7 @@
 #'                       1, 1, -3), ncol = 3)
 #' init_probs <- c(0.9, 0.1, 0)
 #' ph <- phase_type(subint_mat, init_probs)
-#' reward <- c(1, 0, 4)
+#' reward <- c(0.5, 0, 4)
 #'
 #' reward_phase_type(ph, reward)
 #'
@@ -88,13 +102,7 @@
 #'
 #' @export
 
-reward_phase_type <- function(phase_type = NULL, reward = NULL,
-                              round_zero = NULL){
-
-  init_probs <- phase_type$init_probs
-  subint_mat <- phase_type$subint_mat
-
-  n <- length(init_probs)
+reward_phase_type <- function(phase_type, reward , round_zero = NULL){
 
   ##=====================##
   ## Discrete phase-type ##
@@ -105,6 +113,11 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL,
 
   if (class(phase_type) == 'disc_phase_type' ||
       class(phase_type) == 'mult_disc_phase_type'){
+
+    init_probs <- phase_type$init_probs
+    subint_mat <- phase_type$subint_mat
+
+    n <- length(init_probs)
 
     if(is.matrix(reward)){
       if (nrow(reward) != n){
@@ -194,12 +207,10 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL,
     z <- which(reward_max == 0)
 
     if (length(z) > 0){
-      T_tilde_states <- list(list(p, p), list(p, z),
-                             list(z, p), list(z, z))
+      T_tilde_states <- list(list(p, p), list(p, z), list(z, p), list(z, z))
 
       # list containing T++, T+0, T0+ and T00
-      T_tilde <- list('pp' = 0, 'zp' = 0,
-                      'pz' = 0, 'zz' = 0)
+      T_tilde <- list('pp' = 0, 'zp' = 0, 'pz' = 0, 'zz' = 0)
     } else {
       T_tilde_states <- list(list(p, p))
       T_tilde <- list('pp' = 0)
@@ -227,10 +238,8 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL,
       for (j in 1:nrow(combn)){
         selec_combn <- as.vector(combn[j,])
 
-        numcol <- (pos_row[selec_combn[1]]):
-          (pos_row[selec_combn[1] + 1] - 1)
-        numrow <- (pos_col[selec_combn[2]]):
-          (pos_col[selec_combn[2] + 1] - 1)
+        numcol <- (pos_row[selec_combn[1]]):(pos_row[selec_combn[1] + 1] - 1)
+        numrow <- (pos_col[selec_combn[2]]):(pos_col[selec_combn[2] + 1] - 1)
 
         T_tilde[[count]][numrow, numcol] <-
           T_tilde_ij[[selec_combn[2]]][[selec_combn[1]]]
@@ -242,27 +251,24 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL,
     # according to ... eqn ...
     init_probs_p <- NULL
     for (i in 1:length(p)) {
-      init_probs_p <- c(init_probs_p, init_probs[p[i]],
-                        rep(0, size[p[i]] - 1))
+      init_probs_p <- c(init_probs_p, init_probs[p[i]], rep(0, size[p[i]] - 1))
     }
 
     if (length(z) > 0) {
-      mat_T <- T_tilde$pp +
-        (T_tilde$pz
-         %*% solve(diag(1, ncol(T_tilde$zz)) - T_tilde$zz)
-         %*% T_tilde$zp)
-      init_probs_z <- init_probs[z]
+      subint_mat <- T_tilde$pp + (T_tilde$pz %*% solve(diag(1, ncol(T_tilde$zz))
+                                                  - T_tilde$zz) %*% T_tilde$zp)
 
-      alpha <- init_probs_p +
-        (init_probs_z
-         %*% solve(diag(1,ncol(T_tilde$zz)) - T_tilde$zz)
-         %*% T_tilde$zp)
+      init_probs_z <- init_probs[z]
+      init_probs <- init_probs_p +
+        (init_probs_z %*% solve(diag(1,ncol(T_tilde$zz)) - T_tilde$zz)  %*%
+           T_tilde$zp)
+
     } else {
-      mat_T <- T_tilde$pp
-      alpha <- init_probs_p
+      subint_mat <- T_tilde$pp
+      init_probs <- init_probs_p
     }
-    obj <- phase_type(mat_T, alpha, round_zero = round_zero)
-    return(obj)
+    ph <- phase_type(subint_mat, init_probs, round_zero = round_zero)
+    return(ph)
 
     ##=======================##
     ## Continuous phase-type ##
@@ -272,8 +278,11 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL,
     # Bladt and Nielsen 2017.
   } else if (class(phase_type) == 'cont_phase_type' ||
              class(phase_type) == 'mult_cont_phase_type') {
+
     init_probs <- phase_type$init_probs
     subint_mat <- phase_type$subint_mat
+
+    n <- length(init_probs)
 
     if (length(reward) != n) {
       stop('The reward vector has wrong dimensions (should be of the',
@@ -282,10 +291,6 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL,
 
     if (sum(reward < 0) != 0) {
       stop('The reward vector should only contains non-negative values.')
-    }
-
-    if (sum(reward) != sum(round(reward))) {
-      stop('The reward vector should only contains integer.')
     }
 
     # Section to get the embended matrix of T (the subintensity matrix)
@@ -315,15 +320,15 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL,
 
       P <- Qpp + (Qpz %*% solve(diag(1, ncol(Qzz)) - Qzz) %*% Qzp)
 
-      alpha <-  init_probs[p] +
+      init_probs <-  init_probs[p] +
         init_probs[z] %*% (solve(diag(1, ncol(Qzz)) - Qzz) %*% Qzp)
 
     } else if ((length(z) == 0) && (length(p) > 0)) {
       # if there is no zero reward, no need to remove them
-      P <- Q
-      alpha <- init_probs
+      subint_mat <- Q
+
     } else {
-      print('no reward is positive')
+      stop('None of the reward are positive.')
     }
 
     # vec_e is a vector of 1 of the same size that P
@@ -338,18 +343,18 @@ reward_phase_type <- function(phase_type = NULL, reward = NULL,
     for (i in 1:nrow(P)){
       for (j in 1:ncol(P)){
         if (i != j){
-          mat_T[i,j] <- -(subint_mat[p[i],p[i]]/reward[p[i]])*P[i,j]
+          mat_T[i, j] <- -(subint_mat[p[i],p[i]]/reward[p[i]])*P[i,j]
         }
       }
     }
     # Calculate the rate of leaving each state
-    mat_T <- mat_T - diag((apply(mat_T, 1, sum) + ti))
+    subint_mat <- mat_T - diag((apply(mat_T, 1, sum) + ti))
     # Get a cont_phase_type object
 
-    obj <- phase_type(mat_T, alpha, round_zero = round_zero)
-    return(obj)
+    ph <- phase_type(subint_mat, init_probs, round_zero = round_zero)
+    return(ph)
   } else {
-    stop('The object(s) provided describe neither a continuous neither a',
-         'discrete phase-type distribution.')
+    stop('The object provided should be of class disc_phase_type or ',
+         'cont_phase_type.')
   }
 }

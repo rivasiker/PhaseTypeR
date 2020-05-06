@@ -20,23 +20,41 @@ library(phasty)
 
 # Informations
 
-Please report any issue on the git page of the package ...
+Please report any issues on the git page of the package ...
 
 # Introduction
 
-What is the topic
-why a package 
-based on what
-What does it contains
+Phase-type distributions is an important mathematical tool especially in fields like insurance or population genetics.
 
-# The phase-type class object
+The basic idea is considering a markov jump process (or a Markov chain for discrete cases) with $n$ transient states and 1 absorbing state (i.e. once in the absorbing state, it cannot go out), you can have the time before reaching that absorbing state using with the intensity matrix and the initial probabilities to start in each state. The matrix form of pahse-type distribution allow great simplification in some calculus, in particular to find the moments of the time before reaching the absorbing state.
 
-The package use several new classes for describing a phase-type distributed object, which are: "disc_phase_type", "cont_phase_type", "mult_disc_phase_type", "mult_cont_phase_type". Which can be obtain using the following functions respectively:
+The package \code{phasty} handle this phase-type distribution and the calculation behind it.
 
-```{r, eval = F}
-X1 <- phase_type(subint_mat = NULL, init_probs = NULL)
+This package is a complete as possible, nevertheless, it stays a package which bring mathematical tools and its not oriented for a specific application. 
 
+The main references that have been used for this package are:
+
+# The phase-type S3 class object
+
+The package use several new classes for describing a phase-type distributed object, which are: "disc_phase_type", "cont_phase
+_type", "mult_disc_phase_type", "mult_cont_phase_type". Which can be obtain
+using \code{phase_type}, here is an example considering a univariate continuous phase_type distribution:
+
+```{r}
+subintensity_matrix <- matrix(c(-1.5, 0, 0,
+                              1.5, -1, 0,
+                              0, 1, -0.5), ncol = 3)
+initial_probabilities <- c(0.9, 0.1, 0)
+ph <- phase_type(subintensity_matrix, initial_probabilities)
+
+print(ph)
 ```
+
+With \code{subint_mat} the subintensity matrix and \code{init_probs} the vector of initials probabilities. 
+An object of one of the phase_type class should have a subintensity matrix, a initial probability vector, a defect being the probability to start directly in 
+the absorbing state, which can happens when using reward transformation (see section \)) and the type of class.
+
+The init_probs are optional in the inputs, in that case the probability to start in the first state will be 1.
 
 Those classes will be necessary later on to recognise the type of object for function like mean or var.
 
@@ -73,16 +91,16 @@ Given a variable $X$ following a continuous phase-type distribution, $X\sim PH(\
 
 ### The functions
 
-Let's take a little example to explain how to use the different functions
+Let's take the same example as before to explain how to use the different functions:
 
 ```{r}
 subintensity_matrix = matrix(c(-1.5, 0, 0,
                               1.5, -1, 0,
                               0, 1, -0.5), ncol = 3)
 initial_probabilities = c(0.9, 0.1, 0)
+ph = phase_type(subintensity_matrix, initial_probabilities)
 
-X = phase_type(subintensity_matrix, initial_probabilities)
-print(X)
+print(ph)
 ```
 
 The initial probability are optional, if they are not provided, the initial probability vector will be $\pi = (1,\, 0,\, 0,\, ...)$.
@@ -90,13 +108,30 @@ The initial probability are optional, if they are not provided, the initial prob
 Now that we have a phase-type distributed variable we can apply some basic function as follow 
 
 ```{r}
-cat('Mean: ',mean(X),'\n')
-cat('Variance: ',var(X),'\n \n')
+cat('Mean: ',mean(ph),'\n')
+cat('Variance: ',var(ph),'\n \n')
 
 cat('Summary: \n-------------')
-summary(X)
+summary(ph)
 cat('-------------')
 ```
+
+
+```{r}
+x <- seq(0, 10, 0.1)
+y <- dphtype(x, ph)
+plot(x, y, xlab = 'time before absorbing state', ylab = 'density probability')
+
+y <- pphtype(x, ph)
+plot(x, y, xlab = 'time before absorbing state', ylab = 'cumulated density probability')
+
+y <- seq(0, 0.99, 0.01)
+x <- qphtype(y, ph)
+plot(x, y, xlab = 'time before absorbing state', ylab = 'quantile')
+
+cat('10 random samples: \n \n', rphtype(5, ph), '\n', rphtype(5, ph))
+```
+
 
 It is possible to give to each transient state a weight by a reward 
 transformation, to do so we will use a reward vector of size $p$
@@ -108,6 +143,33 @@ Y = reward_phase_type(phase_type = X, reward = r)
 print(Y)
 ```
 ## The discrete univariate phase-type
+
+```{r}
+subintensity_matrix <- matrix(c(0.4, 0, 0,
+                              0.24, 0.4, 0,
+                              0.12, 0.2, 0.5), ncol = 3)
+initial_probabilities <- c(0.9, 0.1, 0)
+dph <- phase_type(subintensity_matrix, initial_probabilities)
+print(dph)
+
+```
+
+```{r}
+x <- seq(0, 10, 1)
+y <- dphtype(x, dph)
+barplot(y, xlab = 'time before absorbing state', ylab = 'density probability', 
+        ylim = c(0, 1))
+
+y <- pphtype(x, dph)
+barplot(y, xlab = 'time before absorbing state', ylab = 'cumulated density probability', ylim = c(0, 1))
+
+y <- seq(0, 0.99, 0.01)
+x <- qphtype(y, dph)
+plot(x, y, xlab = 'time before absorbing state', ylab = 'quantile')
+
+cat('10 random samples: \n \n', rphtype(5, dph), '\n', rphtype(5, dph))
+```
+
 
 # The multivariate distribution
 ## The continuous multivariate
