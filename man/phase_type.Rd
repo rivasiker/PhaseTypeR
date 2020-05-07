@@ -43,7 +43,7 @@ approximation and potentially to positive row sums in continuous phase-type
 .}
 }
 \description{
-Description of the classes \code{cont_phase_type}, \code{disc_phase_type},
+Description of the S3 classes \code{cont_phase_type}, \code{disc_phase_type},
 \code{mult_cont_phase_type}, \code{mult_disc_phase_type} which represents the
 different phase-type distributions.
 }
@@ -118,7 +118,7 @@ phase_type(subintensity_matrix, initial_probabilities)
 subintensity_matrix <- matrix(c(-3, 0, 0,
                                2, -2, 0,
                                0, 1, -1), nrow = 3, ncol = 3)
-reward_matrix = matrix(sample(seq(0, 10), 6), nrow = 3, ncol = 2)
+reward_matrix = matrix(sample(seq(0, 10, 0.1), 6), nrow = 3, ncol = 2)
 phase_type(subintensity_matrix, reward_mat = reward_matrix)
 
 ##===========================##
