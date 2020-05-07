@@ -1,8 +1,6 @@
 ---
 title: "pop_gen_iker"
-output: 
-  pdf_document:
-    toc: true
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{phasty}
   %\VignetteEngine{knitr::rmarkdown}
@@ -82,11 +80,11 @@ init_probs <- matrix(c(1, rep(0,n-2)), 1, n-1)
 
 ```
 
-Now we can use a `cont_phase_type` class of the `phasty` package to generate a phase-type representation of $T_{MRCA}$ by using `cont_phase_type()`:
+Now we can use a `cont_phase_type` class of the `phasty` package to generate a phase-type representation of $T_{MRCA}$ by using `phase_type()`:
 
 ```{r}
 
-t_mrca_4 <- cont_phase_type(subint_mat, init_probs)
+t_mrca_4 <- phase_type(subint_mat, init_probs)
 
 t_mrca_4
 
@@ -109,7 +107,7 @@ var(t_mrca_4)
 ```
 
 
-## 2.3. Total tree lenght ($T_{Total}$)
+## 2.3. Total tree lenght ($T_{Total}$) and the reward-transformation
 
 In a similar way to $T_{MRCA}$, the total tree length or $T_{Total}$ can also be represented using phase-type theory (Hobolth et al. 2018).
 
@@ -145,7 +143,7 @@ $T_{Total}$ can also be represented using the `cont_phase_type` class:
 
 ```{r}
 
-t_total_4 <- cont_phase_type(subint_mat, init_probs)
+t_total_4 <- phase_type(subint_mat, init_probs)
 
 t_total_4
 
@@ -159,6 +157,23 @@ mean(t_total_4)
 var(t_total_4)
 
 ```
+
+
+$T_{MRCA}$ and $T_{total}$ are tightly interconnected. In fact,
+
+$$
+T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
+$$
+
+
+Therefore, $T_{total}$ can be represented as a reward-transformed $T_{MRCA}$, where the reward vector is $[n, n-1, ..., 2]$:
+
+```{r}
+t_total_4_bis <- reward_phase_type(t_mrca_4, c(4, 3, 2))
+t_total_4_bis
+```
+
+Which is exactly the same as our previous definition.
 
 
 ## 2.4. Density, distribution and quantile functions 
@@ -228,7 +243,7 @@ lines(x, y)
 title('Probability function of T_total')
 ```
 
-
+And the random drawer:
 
 ```{r}
 rphtype(3, t_mrca_4)
@@ -236,11 +251,11 @@ rphtype(10, t_total_4)
 ```
 
 ```{r}
-par(mfrow = c(2, 1))
+par(mfrow = c(1, 2))
 x <- rphtype(10000, t_mrca_4)
-hist(x, main = '10,000 random draws of T_MRCA', breaks=20)
+hist(x, main = '10,000 random draws of T_MRCA', breaks=50)
 x <- rphtype(10000, t_total_4)
-hist(x, main = '10,000 random draws of T_total', breaks=20)
+hist(x, main = '10,000 random draws of T_total', breaks=50)
 ```
 
 # 3. Discrete Phase-Type Distributions: $S_{total}$, $\xi_i$ and $\xi_{k+}$
@@ -249,7 +264,7 @@ hist(x, main = '10,000 random draws of T_total', breaks=20)
 
 Some quantities in population genomics are discrete, such as the total number of segregating sites $S_{total}$ or other statistics related to the site-frequency spectrum (singletons, doubletons, tail statistic, etc.). Representing the site-frequency spectrum, or SFS, can be challenging if the sample size is large, if the data does not follow Kingman's coalescence or if we are trying to estimate the mutation parameter $\theta$ using non-standard estimators. 
 
-Luckily, all these quantities can be represented using discrete phase-type theory. Similar to the continuous phase-type distribution being a generalization of exponentially distributed variables, the discrete phase-type distribution can be seen as a generalization of various geometric distributions. Each state in the continuous phase-type distribution will represent a stochastic process, such that the time until absorption of a random variable ($\tau$) follows an absorbing Markov chain. In this case we say that $\tau+1\sim DPH(\pi, T)$, where $T$ is the sub-intensity matrix that gathers the transition rates and $\pi$ is the vector of initial probabilities.
+Luckily, all these quantities can be represented using discrete phase-type theory. Similar to the continuous phase-type distribution being a generalization of exponentially distributed variables, the discrete phase-type distribution can be seen as a generalization of various geometric distributions. Each state in the discrete phase-type distribution will represent a stochastic process, such that the time until absorption of a random variable ($\tau$) follows an absorbing Markov chain. In this case we say that $\tau+1\sim DPH(\pi, T)$, where $T$ is the sub-intensity matrix that gathers the transition rates and $\pi$ is the vector of initial probabilities.
 
 The discrete phase-type representation of $S_{total}$ can be built from the continuous phase-type representation of the total branch length. Folllowing theorem 3.5 in Hobolth et. al (2019), the total branch length can be discretized if the mutation parameter $\theta$ is supplied. 
 
@@ -257,114 +272,239 @@ On the other hand, singletons, doubletons and related variables (referred to as 
 
 Bear in mind that it is possible for some i-tons to never be observed. This means that the initial probability vector might not sum up to 1, because the variable might directly jump to the absorbing state. The probability that this happens is the so-called defect.
 
-Because we have calculated the rewards for each of the i-tons, we can easily compute the reward for the sum of various i-tons. As an example, we can calculate a phase-type representation of the tail statistic, which is defined as $S_{k+} = \sum_{i = k}^{n-1} \xi_i$, by reward-transforming the phase-type representation of the coalescent by the sum of the rewards of individual i-tons. This tail statistic, together with  normalized singletons, is useful to distinguish between the traditional Kingsman coalescent and a multiple merger coalescent (Koskela (2018)).
 
-Note that $S_{total}$ can also be represented by reward-transforming the coalescent process with the sum of the rewards for all the i-tons. However, this representation of $S_{total}$ is more inefficient, so the one explained above is used in the package. 
-
-Because phase-type theory has well-defined functions for discrete phase-type distributions, the expectation, the variance, the survival function, the distribution function and the density function of all the variables defined above can be computed efficiently. `phasty` contains an efficient implementation of continuous phase-type distribution, together with wrapper functions for representing i-tons, tail statistics and the number of segregating sites. 
+Because phase-type theory has well-defined functions for discrete phase-type distributions, the expectation, the variance, the survival function, the distribution function and the density function of all the variables defined above can be computed efficiently. `phasty` contains an efficient implementation of discrete phase-type distributions and all these functions associated to them. 
 
 ## 3.2. Total number of segregating sites ($S_{total}$)
 
-The total number of segregating sites can be represented using a `disc_phase_type` class, this is, by means of a discrete phase-type distribution. For example, when `n`=4:
+As explained above, we can use our previous definition of $T_{total}$ and use theorem 3.5 in Hobolth et. al (2018) for a given theta to discretize the phase-type distribution into the sub-intensity matrix for $S_{total}$:
 
 ```{r}
-stotal_ph = segsites(4, theta = 2)
-summary(stotal_ph)
+theta <- 3
+
+subint_mat <- t_total_4$subint_mat
+init_probs <- t_total_4$init_probs
+
+disc_subint_mat <- solve(diag(nrow(subint_mat)) - 2/theta * subint_mat)
 ```
 
-The class `disc_phase_type` is a list containing:
+And we can now use the `phase_type()` function of `phasty` to build a discrete phase-type class `disc_phase_type` for $S_{total}$:
 
-* reward-transformed matrix (denoted as `P` in Hobolth (2019)).
-* vector of initial probabilities ($\pi$).
-* defect (probability of not entering any transient state prior to absorption).
+```{r}
+
+s_tot_4_3 <- phase_type(disc_subint_mat, init_probs)
+s_tot_4_3
+
+```
 
 The variance and the expectation of any discrete phase-type distribution can be computed with `var()` and `mean()` respectively:
 
 ```{r}
-mean(stotal_ph)
-var(stotal_ph)
+mean(s_tot_4_3)
+var(s_tot_4_3)
 ```
 
+$S_{total}$ can also be defined in a different way. As suggested by Hobolth et al. 2018, we can get a matrix that summarizes all the possible states, each state being a specific combination of i-ton branches.
+
+As a mock example, we will be using a sample size of $n=4$, although the matrix corresponding to an arbitrary sample size can be obtained using the so-called block-counting process (Hobolth et al. 2018). Using the standard coalescent model, we can define this matrix as:
+
+```{r}
+subint_itons_4 <- matrix(c(-6, 6, 0, 0,
+                           0, -3, 2, 1,
+                           0, 0, -1, 0,
+                           0, 0, 0, -1), nrow = 4, byrow = T)
+```
+
+And we can also define a continuous phase-type representation of this process:
+
+
+```{r}
+kingman_4 <- phase_type(subint_itons_4)
+kingman_4
+```
+
+And then we must define a reward vector corresponding to each of the i-tons for each of the states to get a phase-type. In this case:
+
+```{r}
+reward <- c(4, 3, 2, 2)
+seg_sites_cont_4 <- reward_phase_type(kingman_4, reward)
+seg_sites_cont_4
+```
+
+Now we need to discretize this continuous phase-type distribution for getting the discrete phase-type representation of $S_{total}$. Using 3.5 in Hobolth et. al (2018):
+
+```{r}
+theta <- 3
+
+subint_mat <- seg_sites_cont_4$subint_mat
+init_probs <- seg_sites_cont_4$init_probs
+
+disc_subint_mat <- solve(diag(nrow(subint_mat)) - 2/theta * subint_mat)
+
+s_tot_4_3_bis <- phase_type(disc_subint_mat, init_probs)
+s_tot_4_3_bis
+```
+
+This representation seems to differ from the one defined on top, but they are equivalent in nature. For example, if we look at the mean and the variance of this new definition:
+
+```{r}
+mean(s_tot_4_3_bis)
+var(s_tot_4_3_bis)
+```
+
+Because we do not care about the nature of each of the mutations (this is, we do not care whether segregating sites are singletons, doubletons or etc.), this way of defining $S_{total}$ is more inefficient than the one on top. However, this second definition will be helpful for getting phase-type representations of i-tons ($\xi_i$).
 
 ## 3.3. i-tons ($\xi_i$)
 
-The i-tons $\xi_i$ can also be represented using a discrete phase-type distribution. First, we will define the coalescent process as a continuous phase-type distribution:
+The i-tons $\xi_i$ can also be represented using a discrete phase-type distribution. We will use the same definition of Kingman's coalescent process, but this time we need to the reward-transform the continuous phase-type distribution with a vector corresponding only to the branches that give rise to a certain $\xi_i$.
+
+For example, the reward matrix for singletons and the subsequent continuous phase-type representation of the branches that give rise to singletons when $n=4$ (see Hobolth et al. 2018 for further details):
 
 ```{r}
-coalescent <- kingsman(6)
+reward <- c(4, 2, 1, 0)
+xi1_cont_4 <- reward_phase_type(kingman_4, reward)
+xi1_cont_4
 ```
 
-The `kingsman()` function returns a `mult_phase_type` object which is a continuous phase-type distribution with a reward matrix `RewardM`, for later reward-transformation and discretization. 
-
-If we want to obtain a representation of the tripletons $\xi_3$ when `n`=6, we can use the coalescent in the `itons()` function:
+Again, we need to discretize this continuous phase-type distribution for getting the discrete phase-type representation of $\xi_1$. Using 3.5 in Hobolth et. al (2018):
 
 ```{r}
-itons_ph = itons(coalescent, i = 3, theta = 2)
-summary(itons_ph)
+theta <- 3
+
+subint_mat <- xi1_cont_4$subint_mat
+init_probs <- xi1_cont_4$init_probs
+
+disc_subint_mat <- solve(diag(nrow(subint_mat)) - 2/theta * subint_mat)
+
+xi1_4_3 <- phase_type(disc_subint_mat, init_probs)
+xi1_4_3
 ```
 
-## 3.4. Tail-statistic ($\xi_{k+}$)
-
-In `phasty` the tail statistic is implemented using the coalescent and the `tailstat()` function. For example, $\xi_{3+}$ when `n`=5:
+And we can do the same for doubletons and tripletons:
 
 ```{r}
-coalescent <- kingsman(5)
-summary(tailstat(coalescent, k = 3, theta = 2))
-```
+reward <- c(0, 1, 0, 2)
+xi2_cont_4 <- reward_phase_type(kingman_4, reward)
 
-## 3.5. User-defined sub-intensity matrix
+theta <- 3
+subint_mat <- xi2_cont_4$subint_mat
+init_probs <- xi2_cont_4$init_probs
 
-As with the class `cont_phase_type`, using the `disc_phase_type()` generator the user can specify the sub-intensity matrix, with optional initial probabilities (see `?disc_phase_type` for further information).
-
-## 3.6. Density, distribution and quantile functions
-
-`phasty` also contains the density function (`dphtype()`), quantile function (`qphtype()`), distribution function (`pphtype()`) and random draw generator (`rphtype()`) for the discrete phase-type distribution. For example, for $S_{total}$ when $\theta=3$:
-
-```{r}
-S_tot_ph <- segsites(10, theta = 3)
-summary(S_tot_ph)
-```
-
-```{r}
-dphtype(3, S_tot_ph)
-```
-
-```{r}
-x <- 1:30
-y <- dphtype(x, S_tot_ph)
-plot(x, y)
-title('Density function of S_total with theta=3 and n=10')
-```
-
-
-```{r}
-pphtype(15, S_tot_ph)
+disc_subint_mat <- solve(diag(nrow(subint_mat)) - 2/theta * subint_mat)
+xi2_4_3 <- phase_type(disc_subint_mat, init_probs)
+xi2_4_3
 ```
 
 ```{r}
-x <- 1:30
-y <- pphtype(x, S_tot_ph)
-plot(x, y)
-title('Distribution function of S_total with theta=3 and n=10')
+reward <- c(0, 0, 1, 0)
+xi3_cont_4 <- reward_phase_type(kingman_4, reward)
+
+theta <- 3
+subint_mat <- xi3_cont_4$subint_mat
+init_probs <- xi3_cont_4$init_probs
+
+disc_subint_mat <- solve(diag(nrow(subint_mat)) - 2/theta * subint_mat)
+xi3_4_3 <- phase_type(disc_subint_mat, init_probs)
+xi3_4_3
+```
+
+And, of course, we can compute the mean and variance for all these quantities:
+
+```{r}
+
+mean(xi1_4_3)-1; mean(xi2_4_3)-1; mean(xi3_4_3)-1
+var(xi1_4_3);  var(xi2_4_3);  var(xi3_4_3)
+
+```
+
+Note that we need to substract 1 from the mean to retrieve the true value. This is because of the way discrete phase-type distributions are defined (see Bladt/Nielsen and Hobolth 2018 for details).
+
+## 3.4. Density, distribution and quantile functions
+
+`phasty` also contains the density function (`dphtype()`), quantile function (`qphtype()`), distribution function (`pphtype()`) and random draw generator (`rphtype()`) for the discrete phase-type distribution. For example, for $S_{total}$ and singletons when $n=4$ and $\theta=3$.
+
+
+For example, the density function:
+
+
+```{r}
+dphtype(4, s_tot_4_3)
+dphtype(1:3, xi1_4_3)
 ```
 
 ```{r}
-qphtype(0.5, S_tot_ph)
+par(mfrow = c(1, 2))
+x <- 1:20
+y <- dphtype(x, s_tot_4_3)
+plot(x-1, y, type = 'l')
+lines(x-1, y)
+title('Density function of S_total')
+x <- 1:20
+y <- dphtype(x, xi1_4_3)
+plot(x-1, y, type = 'l')
+lines(x-1, y)
+title('Density function of xi_1')
+```
+
+The quantile function:
+
+```{r}
+qphtype(0.5, s_tot_4_3)
+qphtype(c(0.25, 0.75), xi1_4_3)
 ```
 
 ```{r}
+par(mfrow = c(1, 2))
 x <- seq(0,0.99,0.01)
-y <- qphtype(x, S_tot_ph)
+y <- qphtype(x, s_tot_4_3)
 plot(x, y, type = 'l')
 lines(x, y)
-title('Quantile function of S_total with theta=3 and n=10')
+title('Quantile function of S_total')
+x <- seq(0,0.99,0.01)
+y <- qphtype(x, xi1_4_3)
+plot(x, y, type = 'l')
+lines(x, y)
+title('Quantile function of xi_1')
+```
+
+The probability function:
+
+```{r}
+pphtype(0.5, s_tot_4_3)
+pphtype(c(0.25, 0.75), xi1_4_3)
 ```
 
 ```{r}
-rphtype(3, S_tot_ph)
+par(mfrow = c(1, 2))
+x <- 0:20
+y <- pphtype(x, s_tot_4_3)
+plot(x, y, type = 'l')
+lines(x, y)
+title('Probability function of S_total')
+x <- 0:12
+y <- pphtype(x, xi1_4_3)
+plot(x, y, type = 'l')
+lines(x, y)
+title('Probability function of xi_1')
+```
+
+And the random drawer:
+
+```{r}
+rphtype(3, s_tot_4_3)
+rphtype(10, xi1_4_3)
 ```
 
 ```{r}
-x <- rphtype(10000, S_tot_ph)
-hist(x, main = 'Random draws of S_total with theta=3 and n=10', breaks=20)
+par(mfrow = c(1, 2))
+x <- rphtype(10000, s_tot_4_3)-1
+hist(x, main = '10,000 random draws of S_total', breaks=40)
+x <- rphtype(10000, xi1_4_3)-1
+hist(x, main = '10,000 random draws of xi_1', breaks=20)
 ```
+
+
+
+
+
+

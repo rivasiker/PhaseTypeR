@@ -23,7 +23,7 @@ library(phasty)
 # The TMRCAs
 ```{r}
 TMRCA_mat <- function(n){
-  TMRCA_mat = 
+  
 }
 
 
