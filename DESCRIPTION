@@ -12,11 +12,6 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
 Depends: expm
-Collate: 
-    'phase_type.R'
-    'reward_phase_type.R'
-    'convph.R'
-    'phtype_functions.R'
 Suggests: 
     testthat,
     knitr,

@@ -61,7 +61,7 @@
 #'
 #' rphtype(20, Y)
 #'
-#' @export,
+#' @export
 
 dphtype <- function(x, obj){
 
