@@ -325,7 +325,7 @@ reward_phase_type <- function(phase_type, reward , round_zero = NULL){
 
     } else if ((length(z) == 0) && (length(p) > 0)) {
       # if there is no zero reward, no need to remove them
-      subint_mat <- Q
+      P <- Q
 
     } else {
       stop('None of the reward are positive.')
