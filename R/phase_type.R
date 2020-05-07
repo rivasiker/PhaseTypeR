@@ -130,7 +130,8 @@ phase_type <- function(subint_mat = NULL, init_probs = NULL,
     init_probs <- as.numeric(init_probs)
     init_probs <- matrix(init_probs, nrow = 1)
     if (!is.null(round_zero)){
-      if (round(round_zero) == round_zero) { # avoid positive value due to approximation
+      if (round(round_zero) == round_zero) { # avoid positive value due to
+        #approximation
         init_probs[init_probs > 0] <- trunc(init_probs[init_probs > 0] *
                                               10^round_zero) / 10^round_zero
         subint_mat[subint_mat > 0] <- trunc(subint_mat[subint_mat > 0] *

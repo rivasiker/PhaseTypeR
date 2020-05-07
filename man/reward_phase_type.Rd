@@ -64,7 +64,7 @@ subint_mat <- matrix(c(-3, 1, 1,
                       1, 1, -3), ncol = 3)
 init_probs <- c(0.9, 0.1, 0)
 ph <- phase_type(subint_mat, init_probs)
-reward <- c(1, 0, 4)
+reward <- c(0.5, 0, 4)
 
 reward_phase_type(ph, reward)
 
