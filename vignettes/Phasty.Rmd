@@ -139,7 +139,7 @@ transformation, to do so we will use a reward vector of size $p$
 ```{r}
 r = c(1,0,4)
 
-Y = reward_phase_type(phase_type = X, reward = r)
+Y = reward_phase_type(phase_type = ph, reward = r)
 print(Y)
 ```
 ## The discrete univariate phase-type
