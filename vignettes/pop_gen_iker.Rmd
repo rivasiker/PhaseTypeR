@@ -1,8 +1,8 @@
 ---
-title: "pop_gen_iker"
+title: "Using phasty for population genetics"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{phasty}
+  %\VignetteIndexEntry{Using phasty for population genetics}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -2,7 +2,7 @@
 title: "Phase-type application to coalescent theory"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Phasty}
+  %\VignetteIndexEntry{population_genetics}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
