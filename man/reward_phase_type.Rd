@@ -4,7 +4,7 @@
 \alias{reward_phase_type}
 \title{Reward transformation}
 \usage{
-reward_phase_type(phase_type, reward_vec, round_zero = NULL)
+reward_phase_type(phase_type, reward, round_zero = NULL)
 }
 \arguments{
 \item{phase_type}{an object of class \code{cont_phase_type} or

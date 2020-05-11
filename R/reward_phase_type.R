@@ -3,7 +3,7 @@
 #' Transform a variable following a phase-type distribution according to a
 #' non-negative reward vector.
 #'
-#' @usage reward_phase_type(phase_type, reward_vec, round_zero = NULL)
+#' @usage reward_phase_type(phase_type, reward, round_zero = NULL)
 #'
 #' @param phase_type an object of class \code{cont_phase_type} or
 #'  \code{disc_phase_type}.

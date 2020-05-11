@@ -17,3 +17,11 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Collate: 
+    'BlockCountingProcess.R'
+    'convph.R'
+    'phase_type.R'
+    'mean.R'
+    'phtype_functions.R'
+    'reward_phase_type.R'
+    'var.R'
