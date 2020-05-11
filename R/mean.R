@@ -26,7 +26,7 @@ NULL
 #'  \code{mult_cont_phase_type} or \code{mult_disc_phase_type} object
 #' @param ... other arguments passed to methods
 #'
-#' @usage mean(x, ...)
+#' @rdname mean
 #'
 #' @export
 
@@ -58,7 +58,6 @@ mean.disc_phase_type <- function(x, ...) {
 
 #' mean method for \code{mult_cont_phase_type}
 #'
-#' @usage mean(x, v = NULL, ...)
 #' @param v NULL, integer or vector.
 #'
 #' @rdname mean

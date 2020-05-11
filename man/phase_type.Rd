@@ -35,6 +35,10 @@ It could be useful in the scenarios where there is a reward transformation
 leading to values with many decimals and potentially computational
 approximation and potentially to positive row sums in continuous phase-type
 .}
+
+\item{object}{a phase-type object}
+
+\item{...}{other arguments passed to methods}
 }
 \description{
 Description of the S3 classes \code{cont_phase_type}, \code{disc_phase_type},

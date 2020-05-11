@@ -14,9 +14,9 @@ var(obj, ...)
 
 \method{var}{disc_phase_type}(obj, ...)
 
-var(obj, v = NULL, ...)
+\method{var}{mult_cont_phase_type}(obj, v = NULL, ...)
 
-var(obj, v = NULL, ...)
+\method{var}{mult_disc_phase_type}(obj, v = NULL, ...)
 }
 \arguments{
 \item{obj}{a \code{cont_phase_type}, \code{disc_phase_type},

@@ -245,6 +245,9 @@ moment_ph <- function(obj, m) {
 
 #' @describeIn phase_type pretty summary of the class.
 #'
+#' @param object a phase-type object
+#' @param ... other arguments passed to methods
+#'
 #' @export
 
 summary.cont_phase_type <- function(object, ...) {

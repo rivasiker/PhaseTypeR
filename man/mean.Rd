@@ -13,7 +13,7 @@ mean(x, ...)
 
 \method{mean}{disc_phase_type}(x, ...)
 
-mean(x, v = NULL, ...)
+\method{mean}{mult_cont_phase_type}(x, v = NULL, ...)
 }
 \arguments{
 \item{x}{a \code{cont_phase_type}, \code{disc_phase_type},

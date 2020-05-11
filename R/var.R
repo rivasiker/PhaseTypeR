@@ -27,7 +27,7 @@ NULL
 #'  \code{mult_cont_phase_type} or \code{mult_disc_phase_type} object
 #' @param ... other arguments passed to methods
 #'
-#' @usage var(obj, ...)
+#' @rdname var
 #'
 #' @export
 
@@ -59,7 +59,6 @@ var.disc_phase_type <- function(obj, ...) {
 
 #' var method for \code{mult_cont_phase_type}
 #'
-#' @usage var(obj, v = NULL, ...)
 #' @param v NULL, integer or vector of length 2.
 #'
 #' @rdname var
@@ -86,9 +85,7 @@ var.mult_cont_phase_type <- function(obj, v = NULL, ...) {
 
 #' var method for \code{mult_disc_phase_type}
 #'
-#' @usage var(obj, v = NULL, ...)
 #' @param v NULL, integer or vector of length 2.
-#'
 #' @rdname var
 #' @export
 
