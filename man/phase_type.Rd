@@ -2,17 +2,11 @@
 % Please edit documentation in R/phase_type.R
 \name{phase_type}
 \alias{phase_type}
-\alias{mean.cont_phase_type}
-\alias{var.cont_phase_type}
 \alias{summary.cont_phase_type}
 \title{Phase_type}
 \usage{
 phase_type(subint_mat = NULL, init_probs = NULL, reward_mat = NULL,
                   round_zero = NULL)
-
-\method{mean}{cont_phase_type}(x, ...)
-
-\method{var}{cont_phase_type}(obj, ...)
 
 \method{summary}{cont_phase_type}(object, ...)
 }
@@ -60,18 +54,6 @@ number of transient states.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{mean}: mean of a phase-type distribution.
-For the multivariate continuous distribution if an integer is provided in
-\code{v},then the mean of the variable with the specified index in the
-reward matrix is returned.
-If instead a vector is provided, then the means of the variables defined
-by those indices will be returned.
-In case of not specifying \code{v}, the means of all the variables defined by
-the sub-intensity matrix are returned (default).
-
-\item \code{var}: Gives the variance of a phase-type object,
-see the specific documentation for further informations.
-
 \item \code{summary}: pretty summary of the class.
 }}
 

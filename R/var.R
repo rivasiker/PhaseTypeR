@@ -1,0 +1,127 @@
+#' @include phase_type.R
+NULL
+
+#' Variance of phase-type distributions
+#'
+#' Calculates the variance of continuous, discrete and multivariate phase-type
+#' distributions, represented by the \code{cont_phase_type},
+#' \code{disc_phase_type} and \code{mult_cont_phase_type} classes respectively.
+#'
+#' For  the univariate case (\code{cont_phase_type} and \code{disc_phase_type}),
+#' the variance of the distribution is returned.
+#'
+#' In the case of multivariate phase-type distributions three
+#' different usages can be distinguished:
+#' \itemize{
+#'  \item{If \code{v = NULL} (default), then a variance-covariance matrix of all
+#'  the variables specified in the reward matrix are returned, where variances
+#'  are in the diagonal and covariances in the rest of the matrix element.}
+#'  \item{If \code{v} is an integer, then the variance of the variable encoded
+#'  by the \code{v} index in the reward matrix is returned.}
+#'  \item{If \code{v} is a vector of length 2, then the covariance between the
+#'  two variables encoded by the \code{v} indices in the reward matrix is
+#'  returned.}
+#' }
+#'
+#' @param obj a \code{cont_phase_type}, \code{disc_phase_type},
+#'  \code{mult_cont_phase_type} or \code{mult_disc_phase_type} object
+#' @param ... other arguments passed to methods
+#'
+#' @usage var(obj, ...)
+#'
+#' @export
+
+var <- function(obj, ...) {
+  UseMethod('var', obj)
+}
+
+#' var method for \code{cont_phase_type}
+#'
+#' @rdname var
+#' @export
+
+var.cont_phase_type <- function(obj, ...) {
+  moment_ph(obj, 2) - moment_ph(obj, 1) ** 2
+}
+
+#' var method for \code{disc_phase_type}
+#'
+#' @rdname var
+#' @export
+
+var.disc_phase_type <- function(obj, ...) {
+  variance <- sum(2 * obj$init_probs %*% obj$subint_mat %*%
+                    solve((diag(nrow = nrow(obj$subint_mat))
+                           -obj$subint_mat) %^% 2)) + mean(obj) - mean(obj)^2
+  variance <- as.numeric(variance)
+  return(variance)
+}
+
+#' var method for \code{mult_cont_phase_type}
+#'
+#' @usage var(obj, v = NULL, ...)
+#' @param v NULL, integer or vector of length 2.
+#'
+#' @rdname var
+#' @export
+
+var.mult_cont_phase_type <- function(obj, v = NULL, ...) {
+  if (is.null(v)) {
+    cov_mat <- matrix(NA, ncol(obj$reward_mat), ncol(obj$reward_mat))
+    for (i in 1:ncol(cov_mat)) {
+      for (j in i:ncol(cov_mat)) {
+        cov_mat[i, j] <- var(obj, c(i, j))
+      }
+    }
+    cov_mat[lower.tri(cov_mat)] = t(cov_mat)[lower.tri(cov_mat)]
+    return(cov_mat)
+  } else if (length(v) == 1) {
+    v <- rep(v, 2)
+  } else if (length(v) != 2) {
+    stop('Please provide the right indices')
+  }
+  var <- moment_mph(obj, v) - moment_mph(obj, v[1]) * moment_mph(obj, v[2])
+  return(var)
+}
+
+#' var method for \code{mult_disc_phase_type}
+#'
+#' @usage var(obj, v = NULL, ...)
+#' @param v NULL, integer or vector of length 2.
+#'
+#' @rdname var
+#' @export
+
+var.mult_disc_phase_type <- function(obj, v = NULL, ...){
+  r <- obj$reward_mat
+  n <- ncol(r)
+  init <- obj$init_probs
+  e <- matrix(1, nrow = length(init))
+  I <- diag(1, length(init))
+  U <- solve(I - obj$subint_mat)
+  if (is.null(v)) {
+    cov_mat <-  matrix(NA, ncol(obj$reward_mat), ncol(obj$reward_mat))
+    for (i in 1:ncol(cov_mat)) {
+      for (j in i:ncol(cov_mat)) {
+        cov_mat[i, j] <- init %*% (U %*% diag(r[,i]) %*% U %*% diag(r[,j]) +
+                                     U %*% diag(r[,j]) %*% U %*% diag(r[,i]) -
+                                     U %*% diag(r[,i]) %*% diag(r[,j]) +
+                                     U %*% diag(r[,i]) %*% e %*% init %*% U %*%
+                                     diag(r[,j])) %*% e
+      }
+    }
+    #cov_mat[lower.tri(cov_mat)] = t(cov_mat)[lower.tri(cov_mat)]
+    return(cov_mat)
+  } else if (length(v) == 1) {
+    v = rep(v, 2)
+  } else if (length(v) != 2) {
+    stop('Please provide the right indices')
+  }
+  var <- init %*% (U %*% diag(r[,v[1]]) %*% U %*% diag(r[,v[2]]) +
+                     U %*% diag(r[,v[2]]) %*% U %*% diag(r[,v[1]]) -
+                     U %*% diag(r[,v[1]]) %*% diag(r[,v[2]]) +
+                     U %*% diag(r[,v[1]]) %*% e %*% init %*% U %*%
+                     diag(r[,v[2]])) %*% e
+  var = as.numeric(var)
+  return(var)
+}
