@@ -243,24 +243,24 @@
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">'-------------'</span>)
 <span class="co">#&gt; -------------</span></pre></body></html></div>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">0.1</span>)
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">dphtype</a></span>(<span class="no">x</span>, <span class="no">ph</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">dphtype</a></span>(<span class="no">x</span>, <span class="no">ph</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">'time before absorbing state'</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">'density probability'</span>)</pre></body></html></div>
 <p><img src="Phasty_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r">
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">pphtype</a></span>(<span class="no">x</span>, <span class="no">ph</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">pphtype</a></span>(<span class="no">x</span>, <span class="no">ph</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">'time before absorbing state'</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">'cumulated density probability'</span>)</pre></body></html></div>
 <p><img src="Phasty_files/figure-html/unnamed-chunk-5-2.png" width="700"></p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r">
 <span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">0.99</span>, <span class="fl">0.01</span>)
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">qphtype</a></span>(<span class="no">y</span>, <span class="no">ph</span>)
+<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span>(<span class="no">y</span>, <span class="no">ph</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">'time before absorbing state'</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">'quantile'</span>)</pre></body></html></div>
 <p><img src="Phasty_files/figure-html/unnamed-chunk-5-3.png" width="700"></p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r">
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">'10 random samples: \n \n'</span>, <span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">5</span>, <span class="no">ph</span>), <span class="st">'\n'</span>, <span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">5</span>, <span class="no">ph</span>))
+<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">'10 random samples: \n \n'</span>, <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">5</span>, <span class="no">ph</span>), <span class="st">'\n'</span>, <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">5</span>, <span class="no">ph</span>))
 <span class="co">#&gt; 10 random samples: </span>
 <span class="co">#&gt;  </span>
-<span class="co">#&gt;  5.078757 1.485009 2.449289 3.652611 2.334932 </span>
-<span class="co">#&gt;  3.574192 2.127139 5.504208 0.3806223 5.073861</span></pre></body></html></div>
+<span class="co">#&gt;  5.540152 7.194906 2.023361 1.731264 1.481014 </span>
+<span class="co">#&gt;  4.159877 2.703206 1.038984 2.773716 8.295425</span></pre></body></html></div>
 <p>It is possible to give to each transient state a weight by a reward transformation, to do so we will use a reward vector of size <span class="math inline">\(p\)</span></p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">r</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">4</span>)
 
@@ -307,25 +307,25 @@
 <span class="co">#&gt; attr(,"class")</span>
 <span class="co">#&gt; [1] "disc_phase_type"</span></pre></body></html></div>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">1</span>)
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">dphtype</a></span>(<span class="no">x</span>, <span class="no">dph</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">dphtype</a></span>(<span class="no">x</span>, <span class="no">dph</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span>(<span class="no">y</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">'time before absorbing state'</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">'density probability'</span>,
         <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">1</span>))</pre></body></html></div>
 <p><img src="Phasty_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r">
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">pphtype</a></span>(<span class="no">x</span>, <span class="no">dph</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">pphtype</a></span>(<span class="no">x</span>, <span class="no">dph</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span>(<span class="no">y</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">'time before absorbing state'</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">'cumulated density probability'</span>, <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">1</span>))</pre></body></html></div>
 <p><img src="Phasty_files/figure-html/unnamed-chunk-8-2.png" width="700"></p>
 <div class="sourceCode" id="cb13"><html><body><pre class="r">
 <span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">0.99</span>, <span class="fl">0.01</span>)
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">qphtype</a></span>(<span class="no">y</span>, <span class="no">dph</span>)
+<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span>(<span class="no">y</span>, <span class="no">dph</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">'time before absorbing state'</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">'quantile'</span>)</pre></body></html></div>
 <p><img src="Phasty_files/figure-html/unnamed-chunk-8-3.png" width="700"></p>
 <div class="sourceCode" id="cb14"><html><body><pre class="r">
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">'10 random samples: \n \n'</span>, <span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">5</span>, <span class="no">dph</span>), <span class="st">'\n'</span>, <span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">5</span>, <span class="no">dph</span>))
+<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">'10 random samples: \n \n'</span>, <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">5</span>, <span class="no">dph</span>), <span class="st">'\n'</span>, <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">5</span>, <span class="no">dph</span>))
 <span class="co">#&gt; 10 random samples: </span>
 <span class="co">#&gt;  </span>
-<span class="co">#&gt;  1 1 2 4 2 </span>
-<span class="co">#&gt;  1 5 2 1 5</span></pre></body></html></div>
+<span class="co">#&gt;  2 3 3 8 4 </span>
+<span class="co">#&gt;  3 3 1 3 6</span></pre></body></html></div>
 </div>
 </div>
 <div id="the-multivariate-distribution" class="section level1">

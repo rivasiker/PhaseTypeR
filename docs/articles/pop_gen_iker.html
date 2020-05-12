@@ -246,68 +246,68 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <div id="density-distribution-and-quantile-functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#density-distribution-and-quantile-functions" class="anchor"></a>2.4. Density, distribution and quantile functions</h2>
-<p><code>phasty</code> also includes the density function (<code><a href="../reference/dphtype.html">dphtype()</a></code>), quantile function (<code><a href="../reference/dphtype.html">qphtype()</a></code>), distribution function (<code><a href="../reference/dphtype.html">pphtype()</a></code>) and random draw generator (<code><a href="../reference/dphtype.html">rphtype()</a></code>) for continuous phase-type distributions. We can therefore apply these functions for our phase-type representation of <span class="math inline">\(T_{MRCA}\)</span> and <span class="math inline">\(T_{Total}\)</span>.</p>
+<p><code>phasty</code> also includes the density function (<code><a href="../reference/Phase-type.html">dphtype()</a></code>), quantile function (<code><a href="../reference/Phase-type.html">qphtype()</a></code>), distribution function (<code><a href="../reference/Phase-type.html">pphtype()</a></code>) and random draw generator (<code><a href="../reference/Phase-type.html">rphtype()</a></code>) for continuous phase-type distributions. We can therefore apply these functions for our phase-type representation of <span class="math inline">\(T_{MRCA}\)</span> and <span class="math inline">\(T_{Total}\)</span>.</p>
 <p>For example, the density function:</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/dphtype.html">dphtype</a></span>(<span class="fl">0.5</span>, <span class="no">t_mrca_4</span>)
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/Phase-type.html">dphtype</a></span>(<span class="fl">0.5</span>, <span class="no">t_mrca_4</span>)
 <span class="co">#&gt; [1] 0.4821092</span>
-<span class="fu"><a href="../reference/dphtype.html">dphtype</a></span>(<span class="fl">1</span>:<span class="fl">3</span>, <span class="no">t_total_4</span>)
+<span class="fu"><a href="../reference/Phase-type.html">dphtype</a></span>(<span class="fl">1</span>:<span class="fl">3</span>, <span class="no">t_total_4</span>)
 <span class="co">#&gt; [1] 0.1408529 0.2204939 0.2019975</span></pre></body></html></div>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">10</span>,<span class="fl">0.1</span>)
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">dphtype</a></span>(<span class="no">x</span>, <span class="no">t_mrca_4</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">dphtype</a></span>(<span class="no">x</span>, <span class="no">t_mrca_4</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'l'</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">x</span>, <span class="no">y</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(<span class="st">'Density function of T_MRCA'</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">20</span>,<span class="fl">0.1</span>)
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">dphtype</a></span>(<span class="no">x</span>, <span class="no">t_total_4</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">dphtype</a></span>(<span class="no">x</span>, <span class="no">t_total_4</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'l'</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">x</span>, <span class="no">y</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(<span class="st">'Density function of T_total'</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>The quantile function:</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="../reference/dphtype.html">qphtype</a></span>(<span class="fl">0.5</span>, <span class="no">t_mrca_4</span>)
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span>(<span class="fl">0.5</span>, <span class="no">t_mrca_4</span>)
 <span class="co">#&gt; [1] 1.232831</span>
-<span class="fu"><a href="../reference/dphtype.html">qphtype</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>), <span class="no">t_total_4</span>)
+<span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>), <span class="no">t_total_4</span>)
 <span class="co">#&gt; [1] 1.988284 4.784137</span></pre></body></html></div>
 <div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">0.99</span>,<span class="fl">0.01</span>)
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">qphtype</a></span>(<span class="no">x</span>, <span class="no">t_mrca_4</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span>(<span class="no">x</span>, <span class="no">t_mrca_4</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'l'</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">x</span>, <span class="no">y</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(<span class="st">'Quantile function of T_MRCA'</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">0.99</span>,<span class="fl">0.01</span>)
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">qphtype</a></span>(<span class="no">x</span>, <span class="no">t_total_4</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span>(<span class="no">x</span>, <span class="no">t_total_4</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'l'</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">x</span>, <span class="no">y</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(<span class="st">'Quantile function of T_total'</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>The probability function:</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="../reference/dphtype.html">pphtype</a></span>(<span class="fl">0.5</span>, <span class="no">t_mrca_4</span>)
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="../reference/Phase-type.html">pphtype</a></span>(<span class="fl">0.5</span>, <span class="no">t_mrca_4</span>)
 <span class="co">#&gt; [1] 0.1214176</span>
-<span class="fu"><a href="../reference/dphtype.html">pphtype</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>), <span class="no">t_total_4</span>)
+<span class="fu"><a href="../reference/Phase-type.html">pphtype</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>), <span class="no">t_total_4</span>)
 <span class="co">#&gt; [1] 0.001622363 0.030579354</span></pre></body></html></div>
 <div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">6</span>,<span class="fl">0.1</span>)
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">pphtype</a></span>(<span class="no">x</span>, <span class="no">t_mrca_4</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">pphtype</a></span>(<span class="no">x</span>, <span class="no">t_mrca_4</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'l'</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">x</span>, <span class="no">y</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(<span class="st">'Probability function of T_MRCA'</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-19-1.png" width="576" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">12</span>,<span class="fl">0.1</span>)
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">pphtype</a></span>(<span class="no">x</span>, <span class="no">t_total_4</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">pphtype</a></span>(<span class="no">x</span>, <span class="no">t_total_4</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'l'</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">x</span>, <span class="no">y</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(<span class="st">'Probability function of T_total'</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-20-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>And the random drawer:</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">3</span>, <span class="no">t_mrca_4</span>)
-<span class="co">#&gt; [1] 3.2900983 0.7662133 1.4777739</span>
-<span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">10</span>, <span class="no">t_total_4</span>)
-<span class="co">#&gt;  [1] 4.617676 5.728200 2.031024 3.348304 6.496894 2.313284 5.846459 6.879552</span>
-<span class="co">#&gt;  [9] 6.680346 7.310034</span></pre></body></html></div>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">t_mrca_4</span>)
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">3</span>, <span class="no">t_mrca_4</span>)
+<span class="co">#&gt; [1] 0.4039713 1.4059158 2.4932896</span>
+<span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10</span>, <span class="no">t_total_4</span>)
+<span class="co">#&gt;  [1] 1.8142287 5.5512866 4.2246677 1.0323718 1.5946073 1.2558528 3.5453119</span>
+<span class="co">#&gt;  [8] 0.7015036 1.7879868 6.6414400</span></pre></body></html></div>
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">t_mrca_4</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(<span class="no">x</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">'10,000 random draws of T_MRCA'</span>, <span class="kw">breaks</span><span class="kw">=</span><span class="fl">50</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">t_total_4</span>)
+<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">t_total_4</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(<span class="no">x</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">'10,000 random draws of T_total'</span>, <span class="kw">breaks</span><span class="kw">=</span><span class="fl">50</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
@@ -551,67 +551,67 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <div id="density-distribution-and-quantile-functions-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#density-distribution-and-quantile-functions-1" class="anchor"></a>3.4. Density, distribution and quantile functions</h2>
-<p><code>phasty</code> also contains the density function (<code><a href="../reference/dphtype.html">dphtype()</a></code>), quantile function (<code><a href="../reference/dphtype.html">qphtype()</a></code>), distribution function (<code><a href="../reference/dphtype.html">pphtype()</a></code>) and random draw generator (<code><a href="../reference/dphtype.html">rphtype()</a></code>) for the discrete phase-type distribution. For example, for <span class="math inline">\(S_{total}\)</span> and singletons when <span class="math inline">\(n=4\)</span> and <span class="math inline">\(\theta=3\)</span>.</p>
+<p><code>phasty</code> also contains the density function (<code><a href="../reference/Phase-type.html">dphtype()</a></code>), quantile function (<code><a href="../reference/Phase-type.html">qphtype()</a></code>), distribution function (<code><a href="../reference/Phase-type.html">pphtype()</a></code>) and random draw generator (<code><a href="../reference/Phase-type.html">rphtype()</a></code>) for the discrete phase-type distribution. For example, for <span class="math inline">\(S_{total}\)</span> and singletons when <span class="math inline">\(n=4\)</span> and <span class="math inline">\(\theta=3\)</span>.</p>
 <p>For example, the density function:</p>
-<div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="fu"><a href="../reference/dphtype.html">dphtype</a></span>(<span class="fl">4</span>, <span class="no">s_tot_4_3</span>)
+<div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="fu"><a href="../reference/Phase-type.html">dphtype</a></span>(<span class="fl">4</span>, <span class="no">s_tot_4_3</span>)
 <span class="co">#&gt; [1] 0.1197062</span>
-<span class="fu"><a href="../reference/dphtype.html">dphtype</a></span>(<span class="fl">1</span>:<span class="fl">3</span>, <span class="no">xi1_4_3</span>)
+<span class="fu"><a href="../reference/Phase-type.html">dphtype</a></span>(<span class="fl">1</span>:<span class="fl">3</span>, <span class="no">xi1_4_3</span>)
 <span class="co">#&gt; [1] 0.1500 0.1900 0.1765</span></pre></body></html></div>
 <div class="sourceCode" id="cb38"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fl">1</span>:<span class="fl">20</span>
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">dphtype</a></span>(<span class="no">x</span>, <span class="no">s_tot_4_3</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">dphtype</a></span>(<span class="no">x</span>, <span class="no">s_tot_4_3</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>-<span class="fl">1</span>, <span class="no">y</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'l'</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">x</span>-<span class="fl">1</span>, <span class="no">y</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(<span class="st">'Density function of S_total'</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-38-1.png" width="576" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb39"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fl">1</span>:<span class="fl">20</span>
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">dphtype</a></span>(<span class="no">x</span>, <span class="no">xi1_4_3</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">dphtype</a></span>(<span class="no">x</span>, <span class="no">xi1_4_3</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>-<span class="fl">1</span>, <span class="no">y</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'l'</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">x</span>-<span class="fl">1</span>, <span class="no">y</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(<span class="st">'Density function of xi_1'</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-39-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>The quantile function:</p>
-<div class="sourceCode" id="cb40"><html><body><pre class="r"><span class="fu"><a href="../reference/dphtype.html">qphtype</a></span>(<span class="fl">0.5</span>, <span class="no">s_tot_4_3</span>)
+<div class="sourceCode" id="cb40"><html><body><pre class="r"><span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span>(<span class="fl">0.5</span>, <span class="no">s_tot_4_3</span>)
 <span class="co">#&gt; [1] 6</span>
-<span class="fu"><a href="../reference/dphtype.html">qphtype</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>), <span class="no">xi1_4_3</span>)
+<span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>), <span class="no">xi1_4_3</span>)
 <span class="co">#&gt; [1] 2 5</span></pre></body></html></div>
 <div class="sourceCode" id="cb41"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">0.99</span>,<span class="fl">0.01</span>)
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">qphtype</a></span>(<span class="no">x</span>, <span class="no">s_tot_4_3</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span>(<span class="no">x</span>, <span class="no">s_tot_4_3</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'l'</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">x</span>, <span class="no">y</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(<span class="st">'Quantile function of S_total'</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-41-1.png" width="576" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb42"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">0.99</span>,<span class="fl">0.01</span>)
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">qphtype</a></span>(<span class="no">x</span>, <span class="no">xi1_4_3</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span>(<span class="no">x</span>, <span class="no">xi1_4_3</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'l'</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">x</span>, <span class="no">y</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(<span class="st">'Quantile function of xi_1'</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-42-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>The probability function:</p>
-<div class="sourceCode" id="cb43"><html><body><pre class="r"><span class="fu"><a href="../reference/dphtype.html">pphtype</a></span>(<span class="fl">0.5</span>, <span class="no">s_tot_4_3</span>)
+<div class="sourceCode" id="cb43"><html><body><pre class="r"><span class="fu"><a href="../reference/Phase-type.html">pphtype</a></span>(<span class="fl">0.5</span>, <span class="no">s_tot_4_3</span>)
 <span class="co">#&gt; [1] 0</span>
-<span class="fu"><a href="../reference/dphtype.html">pphtype</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>), <span class="no">xi1_4_3</span>)
+<span class="fu"><a href="../reference/Phase-type.html">pphtype</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>), <span class="no">xi1_4_3</span>)
 <span class="co">#&gt; [1] 0 0</span></pre></body></html></div>
 <div class="sourceCode" id="cb44"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fl">0</span>:<span class="fl">20</span>
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">pphtype</a></span>(<span class="no">x</span>, <span class="no">s_tot_4_3</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">pphtype</a></span>(<span class="no">x</span>, <span class="no">s_tot_4_3</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'l'</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">x</span>, <span class="no">y</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(<span class="st">'Probability function of S_total'</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-44-1.png" width="576" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb45"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fl">0</span>:<span class="fl">12</span>
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">pphtype</a></span>(<span class="no">x</span>, <span class="no">xi1_4_3</span>)
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">pphtype</a></span>(<span class="no">x</span>, <span class="no">xi1_4_3</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'l'</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">x</span>, <span class="no">y</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(<span class="st">'Probability function of xi_1'</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-45-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>And the random drawer:</p>
-<div class="sourceCode" id="cb46"><html><body><pre class="r"><span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">3</span>, <span class="no">s_tot_4_3</span>)
-<span class="co">#&gt; [1] 4 4 2</span>
-<span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">10</span>, <span class="no">xi1_4_3</span>)
-<span class="co">#&gt;  [1]  5  3  3 12  2  3  4 10  6  4</span></pre></body></html></div>
-<div class="sourceCode" id="cb47"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">s_tot_4_3</span>)-<span class="fl">1</span>
+<div class="sourceCode" id="cb46"><html><body><pre class="r"><span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">3</span>, <span class="no">s_tot_4_3</span>)
+<span class="co">#&gt; [1] 2 8 2</span>
+<span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10</span>, <span class="no">xi1_4_3</span>)
+<span class="co">#&gt;  [1] 9 5 2 4 3 3 4 3 1 4</span></pre></body></html></div>
+<div class="sourceCode" id="cb47"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">s_tot_4_3</span>)-<span class="fl">1</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(<span class="no">x</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">'10,000 random draws of S_total'</span>, <span class="kw">breaks</span><span class="kw">=</span><span class="fl">40</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-47-1.png" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb48"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">xi1_4_3</span>)-<span class="fl">1</span>
+<div class="sourceCode" id="cb48"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">xi1_4_3</span>)-<span class="fl">1</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(<span class="no">x</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">'10,000 random draws of xi_1'</span>, <span class="kw">breaks</span><span class="kw">=</span><span class="fl">20</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-48-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
