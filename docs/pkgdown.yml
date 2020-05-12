@@ -3,8 +3,6 @@ pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   Phasty: Phasty.html
-  Population_genetics: Population_genetics.html
-  Populations_genetics: Populations_genetics.html
   pop_gen_iker: pop_gen_iker.html
-last_built: 2020-05-12T09:30Z
+last_built: 2020-05-12T11:25Z
 
