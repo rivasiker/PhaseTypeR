@@ -2,7 +2,7 @@
 % Please edit documentation in R/reward_phase_type.R
 \name{reward_phase_type}
 \alias{reward_phase_type}
-\title{Reward transformation}
+\title{Transformation of Phase-Type Distributions via Rewards}
 \usage{
 reward_phase_type(phase_type, reward, round_zero = NULL)
 }

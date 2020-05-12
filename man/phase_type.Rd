@@ -3,7 +3,7 @@
 \name{phase_type}
 \alias{phase_type}
 \alias{summary.cont_phase_type}
-\title{Phase_type}
+\title{Generator Function for Phase-Type Distributions}
 \usage{
 phase_type(subint_mat = NULL, init_probs = NULL, reward_mat = NULL,
                   round_zero = NULL)

@@ -6,8 +6,7 @@
 \alias{qphtype}
 \alias{pphtype}
 \alias{rphtype}
-\title{Density, distribution function, quantile function and random generation for
-phase-type distributions.}
+\title{The Phase-Type Distribution}
 \usage{
 dphtype(x, obj)
 
@@ -41,8 +40,7 @@ The numerical arguments other than \code{n} are recycled to the length of the
 result. Only the first elements of the logical arguments are used.
 }
 \description{
-Density, distribution function, quantile function and random generation for
-phase-type distributions.
+The Phase-Type Distribution
 }
 \details{
 If the object provided is multivariate, each row of the result will

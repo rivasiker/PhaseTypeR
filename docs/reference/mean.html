@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mean of phase-type distributions — mean • phasty</title>
+<title>Mean of Phase-Type Distributions — mean • phasty</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Mean of phase-type distributions — mean" />
+<meta property="og:title" content="Mean of Phase-Type Distributions — mean" />
 <meta property="og:description" content="Calculates the mean of continuous, discrete and multivariate phase-type
 distributions, represented by the cont_phase_type,
 disc_phase_type and mult_cont_phase_type classes." />
@@ -131,7 +131,7 @@ disc_phase_type and mult_cont_phase_type classes." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Mean of phase-type distributions</h1>
+    <h1>Mean of Phase-Type Distributions</h1>
     <small class="dont-index">Source: <a href='https://github.com/rivasiker/phasty/blob/master/R/mean.R'><code>R/mean.R</code></a></small>
     <div class="hidden name"><code>mean.Rd</code></div>
     </div>
@@ -186,6 +186,21 @@ by those indices will be returned.</p></li>
 </ul>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># For univariate continuous phase-type distributions</span>
+<span class='no'>ph1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phase_type.html'>phase_type</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, -<span class='fl'>2</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, -<span class='fl'>1</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>,<span class='fl'>0.25</span>,<span class='fl'>0.5</span>))
+<span class='fu'>mean</span>(<span class='no'>ph1</span>)</div><div class='output co'>#&gt; [1] 0.9166667</div><div class='input'>
+<span class='co'># For multivariate continuous phase-type distributions</span>
+<span class='no'>subintensity_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
+                               <span class='fl'>2</span>, -<span class='fl'>2</span>, <span class='fl'>0</span>,
+                               <span class='fl'>0</span>, <span class='fl'>1</span>, -<span class='fl'>1</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='no'>reward_matrix</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>), <span class='fl'>6</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='no'>ph2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phase_type.html'>phase_type</a></span>(<span class='no'>subintensity_matrix</span>, <span class='kw'>reward_mat</span> <span class='kw'>=</span> <span class='no'>reward_matrix</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='input'><span class='co'>## Mean for both states in the reward matrix</span>
+<span class='fu'>mean</span>(<span class='no'>ph2</span>)</div><div class='output co'>#&gt; [1] 5.000000 5.666667</div><div class='input'><span class='co'>## Mean for the first state in the reward matrix</span>
+<span class='fu'>mean</span>(<span class='no'>ph2</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='co'>## Mean for the second state in the reward matrix</span>
+<span class='fu'>mean</span>(<span class='no'>ph2</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] 5.666667</div><div class='input'>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

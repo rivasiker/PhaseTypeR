@@ -105,9 +105,9 @@
 <p>Do not hesitate to run <code>?phasty</code> for a quick summary of the available general-purpose functions, or to open the help files for the individual functions.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">phasty</span>)</pre></body></html></div>
 </div>
-<div id="continuous-phase-type-distributions-t_mrca-and-t_total" class="section level1">
+<div id="the-univariate-continuous-phase-type-distribution-t_mrca-and-t_total" class="section level1">
 <h1 class="hasAnchor">
-<a href="#continuous-phase-type-distributions-t_mrca-and-t_total" class="anchor"></a>2. Continuous phase-type distributions: <span class="math inline">\(T_{MRCA}\)</span> and <span class="math inline">\(T_{Total}\)</span>
+<a href="#the-univariate-continuous-phase-type-distribution-t_mrca-and-t_total" class="anchor"></a>2. The Univariate Continuous Phase-Type Distribution: <span class="math inline">\(T_{MRCA}\)</span> and <span class="math inline">\(T_{Total}\)</span>
 </h1>
 <div id="theoretical-background" class="section level2">
 <h2 class="hasAnchor">
@@ -299,22 +299,25 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(<span class="st">'Probability function of T_total'</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-20-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>And the random drawer:</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">3</span>, <span class="no">t_mrca_4</span>)
-<span class="co">#&gt; [1] 0.4039713 1.4059158 2.4932896</span>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">0</span>)
+<span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">3</span>, <span class="no">t_mrca_4</span>)
+<span class="co">#&gt; [1] 2.1741824 1.5582716 0.9070491</span>
 <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10</span>, <span class="no">t_total_4</span>)
-<span class="co">#&gt;  [1] 1.8142287 5.5512866 4.2246677 1.0323718 1.5946073 1.2558528 3.5453119</span>
-<span class="co">#&gt;  [8] 0.7015036 1.7879868 6.6414400</span></pre></body></html></div>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">t_mrca_4</span>)
+<span class="co">#&gt;  [1] 2.267939 1.919821 1.459578 5.727177 3.080435 3.051581 1.558384 3.619314</span>
+<span class="co">#&gt;  [9] 1.968178 2.714922</span></pre></body></html></div>
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">0</span>)
+<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">t_mrca_4</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(<span class="no">x</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">'10,000 random draws of T_MRCA'</span>, <span class="kw">breaks</span><span class="kw">=</span><span class="fl">50</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">t_total_4</span>)
+<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">0</span>)
+<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">t_total_4</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(<span class="no">x</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">'10,000 random draws of T_total'</span>, <span class="kw">breaks</span><span class="kw">=</span><span class="fl">50</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 </div>
-<div id="discrete-phase-type-distributions-s_total-xi_i-and-xi_k" class="section level1">
+<div id="the-univariate-discrete-phase-type-distribution-s_total-xi_i-and-xi_k" class="section level1">
 <h1 class="hasAnchor">
-<a href="#discrete-phase-type-distributions-s_total-xi_i-and-xi_k" class="anchor"></a>3. Discrete Phase-Type Distributions: <span class="math inline">\(S_{total}\)</span>, <span class="math inline">\(\xi_i\)</span> and <span class="math inline">\(\xi_{k+}\)</span>
+<a href="#the-univariate-discrete-phase-type-distribution-s_total-xi_i-and-xi_k" class="anchor"></a>3. The Univariate Discrete Phase-Type Distribution: <span class="math inline">\(S_{total}\)</span>, <span class="math inline">\(\xi_i\)</span> and <span class="math inline">\(\xi_{k+}\)</span>
 </h1>
 <div id="theoretical-background-1" class="section level2">
 <h2 class="hasAnchor">
@@ -604,16 +607,33 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(<span class="st">'Probability function of xi_1'</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-45-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>And the random drawer:</p>
-<div class="sourceCode" id="cb46"><html><body><pre class="r"><span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">3</span>, <span class="no">s_tot_4_3</span>)
-<span class="co">#&gt; [1] 2 8 2</span>
+<div class="sourceCode" id="cb46"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">0</span>)
+<span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">3</span>, <span class="no">s_tot_4_3</span>)
+<span class="co">#&gt; [1] 4 2 7</span>
 <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10</span>, <span class="no">xi1_4_3</span>)
-<span class="co">#&gt;  [1] 9 5 2 4 3 3 4 3 1 4</span></pre></body></html></div>
-<div class="sourceCode" id="cb47"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">s_tot_4_3</span>)-<span class="fl">1</span>
+<span class="co">#&gt;  [1]  4 14  1  4  2  4  1  6  5  2</span></pre></body></html></div>
+<div class="sourceCode" id="cb47"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">0</span>)
+<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">s_tot_4_3</span>)-<span class="fl">1</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(<span class="no">x</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">'10,000 random draws of S_total'</span>, <span class="kw">breaks</span><span class="kw">=</span><span class="fl">40</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-47-1.png" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb48"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">xi1_4_3</span>)-<span class="fl">1</span>
+<div class="sourceCode" id="cb48"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">0</span>)
+<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span>(<span class="fl">10000</span>, <span class="no">xi1_4_3</span>)-<span class="fl">1</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(<span class="no">x</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">'10,000 random draws of xi_1'</span>, <span class="kw">breaks</span><span class="kw">=</span><span class="fl">20</span>)</pre></body></html></div>
 <p><img src="pop_gen_iker_files/figure-html/unnamed-chunk-48-1.png" width="576" style="display: block; margin: auto;"></p>
+</div>
+</div>
+<div id="the-multivariate-discrete-phase-type-distribution-y_i" class="section level1">
+<h1 class="hasAnchor">
+<a href="#the-multivariate-discrete-phase-type-distribution-y_i" class="anchor"></a>4. The Multivariate Discrete Phase-Type Distribution: <span class="math inline">\(Y_i\)</span>
+</h1>
+<div id="theoretical-background-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#theoretical-background-2" class="anchor"></a>4.1. Theoretical background</h2>
+</div>
+<div id="variance-covariance-matrix-for-y_i" class="section level2">
+<h2 class="hasAnchor">
+<a href="#variance-covariance-matrix-for-y_i" class="anchor"></a>4.2. Variance-covariance matrix for <span class="math inline">\(Y_i\)</span>
+</h2>
 </div>
 </div>
   </div>
