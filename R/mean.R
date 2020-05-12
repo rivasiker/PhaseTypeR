@@ -26,6 +26,25 @@ NULL
 #'  \code{mult_cont_phase_type} or \code{mult_disc_phase_type} object
 #' @param ... other arguments passed to methods
 #'
+#' @examples
+#' # For univariate continuous phase-type distributions
+#' ph1 <- phase_type(matrix(c(-3, 0, 0, 1, -2, 0, 0, 1, -1), ncol = 3), c(0.25,0.25,0.5))
+#' mean(ph1)
+#'
+#' # For multivariate continuous phase-type distributions
+#' subintensity_matrix <- matrix(c(-3, 0, 0,
+#'                                2, -2, 0,
+#'                                0, 1, -1), nrow = 3, ncol = 3)
+#' reward_matrix = matrix(sample(seq(0, 10), 6), nrow = 3, ncol = 2)
+#' ph2 <- phase_type(subintensity_matrix, reward_mat = reward_matrix)
+#' ## Mean for both states in the reward matrix
+#' mean(ph2)
+#' ## Mean for the first state in the reward matrix
+#' mean(ph2, 1)
+#' ## Mean for the second state in the reward matrix
+#' mean(ph2, 2)
+#'
+#'
 #' @rdname mean
 #'
 #' @export
