@@ -1,4 +1,4 @@
-#' Phase_type
+#' Generator Function for Phase-Type Distributions
 #'
 #' Description of the S3 classes \code{cont_phase_type}, \code{disc_phase_type},
 #' \code{mult_cont_phase_type}, \code{mult_disc_phase_type} which represents the

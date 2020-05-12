@@ -2,7 +2,7 @@
 #' @include phase_type.R
 NULL
 
-#' Mean of phase-type distributions
+#' Mean of Phase-Type Distributions
 #'
 #' Calculates the mean of continuous, discrete and multivariate phase-type
 #' distributions, represented by the \code{cont_phase_type},

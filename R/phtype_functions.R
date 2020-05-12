@@ -1,5 +1,4 @@
-#' Density, distribution function, quantile function and random generation for
-#' phase-type distributions.
+#' The Phase-Type Distribution
 #'
 #' @param x,q vector of quantiles.
 #' @param p vector of probabilities.

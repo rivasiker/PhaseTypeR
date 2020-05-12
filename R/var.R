@@ -1,7 +1,7 @@
 #' @include phase_type.R
 NULL
 
-#' Variance of phase-type distributions
+#' Variance of Phase-Type Distributions
 #'
 #' Calculates the variance of continuous, discrete and multivariate phase-type
 #' distributions, represented by the \code{cont_phase_type},

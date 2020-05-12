@@ -1,4 +1,4 @@
-#' Reward transformation
+#' Transformation of Phase-Type Distributions via Rewards
 #'
 #' Transform a variable following a phase-type distribution according to a
 #' non-negative reward vector.
