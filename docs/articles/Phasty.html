@@ -68,7 +68,14 @@
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/rivasiker/phasty/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -84,7 +91,7 @@
       <h1 data-toc-skip>Phasty v0.1</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/rivasiker/phasty/blob/master/vignettes/Phasty.Rmd"><code>vignettes/Phasty.Rmd</code></a></small>
       <div class="hidden name"><code>Phasty.Rmd</code></div>
 
     </div>
@@ -252,8 +259,8 @@
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">'10 random samples: \n \n'</span>, <span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">5</span>, <span class="no">ph</span>), <span class="st">'\n'</span>, <span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">5</span>, <span class="no">ph</span>))
 <span class="co">#&gt; 10 random samples: </span>
 <span class="co">#&gt;  </span>
-<span class="co">#&gt;  8.980479 6.03256 1.207956 3.609036 7.694883 </span>
-<span class="co">#&gt;  2.035407 3.409828 2.130876 1.980484 6.364143</span></pre></body></html></div>
+<span class="co">#&gt;  5.078757 1.485009 2.449289 3.652611 2.334932 </span>
+<span class="co">#&gt;  3.574192 2.127139 5.504208 0.3806223 5.073861</span></pre></body></html></div>
 <p>It is possible to give to each transient state a weight by a reward transformation, to do so we will use a reward vector of size <span class="math inline">\(p\)</span></p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">r</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">4</span>)
 
@@ -317,8 +324,8 @@
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">'10 random samples: \n \n'</span>, <span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">5</span>, <span class="no">dph</span>), <span class="st">'\n'</span>, <span class="fu"><a href="../reference/dphtype.html">rphtype</a></span>(<span class="fl">5</span>, <span class="no">dph</span>))
 <span class="co">#&gt; 10 random samples: </span>
 <span class="co">#&gt;  </span>
-<span class="co">#&gt;  2 1 5 9 2 </span>
-<span class="co">#&gt;  1 4 1 4 4</span></pre></body></html></div>
+<span class="co">#&gt;  1 1 2 4 2 </span>
+<span class="co">#&gt;  1 5 2 1 5</span></pre></body></html></div>
 </div>
 </div>
 <div id="the-multivariate-distribution" class="section level1">
