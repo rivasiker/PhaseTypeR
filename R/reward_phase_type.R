@@ -80,7 +80,7 @@
 #'
 #' reward <- c(1, 0, 4)
 #'
-#' reward_phase_type(ph,  reward)
+#' reward_phase_type(ph, reward)
 #'
 #' #---
 #'
@@ -102,7 +102,7 @@
 #'
 #' @export
 
-reward_phase_type <- function(phase_type, reward , round_zero = NULL){
+reward_phase_type <- function(phase_type, reward, round_zero = NULL){
 
   ##=====================##
   ## Discrete phase-type ##
@@ -119,7 +119,7 @@ reward_phase_type <- function(phase_type, reward , round_zero = NULL){
 
     n <- length(init_probs)
 
-    if(is.matrix(reward)){
+    if (is.matrix(reward)) {
       if (nrow(reward) != n){
         stop('')
       }
@@ -153,17 +153,16 @@ reward_phase_type <- function(phase_type, reward , round_zero = NULL){
 
     } else if (is.vector(reward)) {
       if (length(reward) != n){
-        stop('The reward vector has wrong dimensions (should be of the',
+        stop('The reward vector has wrong dimensions (should be of the ',
              'same size that the inital probabilities).')
       }
 
       if (sum(reward < 0) != 0){
-        stop('The reward vector should only contains non-negative',
-             'values.')
+        stop('The reward vector should only contain non-negative values.')
       }
 
       if (sum(reward) != sum(round(reward))){
-        stop('The reward vector should only contains integer.')
+        stop('The reward vector should only contain integers.')
       }
 
       reward_max <- reward
@@ -284,13 +283,17 @@ reward_phase_type <- function(phase_type, reward , round_zero = NULL){
 
     n <- length(init_probs)
 
+    if (!is.vector(reward)) {
+      stop('The rewards should be in a vector.')
+    }
+
     if (length(reward) != n) {
-      stop('The reward vector has wrong dimensions (should be of the',
+      stop('The reward vector has wrong dimensions (should be of the ',
            'same size that the inital probabilities).')
     }
 
     if (sum(reward < 0) != 0) {
-      stop('The reward vector should only contains non-negative values.')
+      stop('The reward vector should only contain non-negative values.')
     }
 
     # Section to get the embended matrix of T (the subintensity matrix)

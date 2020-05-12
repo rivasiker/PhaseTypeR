@@ -230,8 +230,7 @@ phase_type <- function(subint_mat = NULL, init_probs = NULL,
     }
 
   } else {
-    stop('This matrix is not valid for either discrete or continuous',
-         'phase-type.')
+    stop('This matrix is not valid for either discrete or continuous phase-type distribution.')
   }
 }
 

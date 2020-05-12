@@ -80,7 +80,7 @@ ph <- phase_type(subint_mat, init_probs)
 
 reward <- c(1, 0, 4)
 
-reward_phase_type(ph,  reward)
+reward_phase_type(ph, reward)
 
 #---
 
