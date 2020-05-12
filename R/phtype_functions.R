@@ -29,15 +29,6 @@
 #' The numerical arguments other than \code{n} are recycled to the length of the
 #' result. Only the first elements of the logical arguments are used.
 #'
-#' @describeIn dphtype
-#'
-#' Density function.
-#'
-#' @usage dphtype(x, obj)
-#' @usage pphtype(q, obj)
-#' @usage qphtype(p, obj)
-#' @usage rphtype(n, obj)
-#'
 #' @seealso
 #' \link[stats]{Distributions} for other standard distributions.
 #'
@@ -61,7 +52,17 @@
 #'
 #' rphtype(20, Y)
 #'
+#' @name Phase-type
+NULL
+#> NULL
+
+
+#' @describeIn Phase-type
+#'
+#' Density function.
+#'
 #' @export
+
 
 dphtype <- function(x, obj){
 
@@ -105,7 +106,7 @@ dphtype <- function(x, obj){
 }
 
 
-#' @describeIn dphtype
+#' @describeIn Phase-type
 #'
 #' Quantile Function
 #'
@@ -144,11 +145,10 @@ qphtype <- function(p, obj){
 
 
 
-#' @describeIn dphtype
+#' @describeIn Phase-type
 #'
 #' Distribution function.
 #'
-#' @usage pphtype(q, obj)
 #'
 #' @export
 
@@ -186,11 +186,9 @@ pphtype <- function(q, obj){
 }
 
 
-#' @describeIn dphtype
+#' @describeIn Phase-type
 #'
 #' Random number generator
-#'
-#' @usage rphtype(n, obj)
 #'
 #' @export
 
