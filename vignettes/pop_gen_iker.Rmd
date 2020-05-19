@@ -1,8 +1,10 @@
 ---
-title: "pop_gen_iker"
-output: rmarkdown::html_vignette
+title: "Using phasty for population genetics"
+output: 
+  html_document:
+    toc: true
 vignette: >
-  %\VignetteIndexEntry{phasty}
+  %\VignetteIndexEntry{Using phasty for population genetics}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -27,7 +29,7 @@ library(phasty)
 ```
 
 
-# 2. Continuous phase-type distributions: $T_{MRCA}$ and $T_{Total}$
+# 2. The Univariate Continuous Phase-Type Distribution: $T_{MRCA}$ and $T_{Total}$
 
 ## 2.1. Theoretical background
 
@@ -255,22 +257,25 @@ title('Probability function of T_total')
 And the random drawer:
 
 ```{r}
+set.seed(0)
 rphtype(3, t_mrca_4)
 rphtype(10, t_total_4)
 ```
 
 ```{r fig.width=6, fig.align='center'}
+set.seed(0)
 x <- rphtype(10000, t_mrca_4)
 hist(x, main = '10,000 random draws of T_MRCA', breaks=50)
 ```
 
 ```{r fig.width=6, fig.align='center'}
+set.seed(0)
 x <- rphtype(10000, t_total_4)
 hist(x, main = '10,000 random draws of T_total', breaks=50)
 ```
 
 
-# 3. Discrete Phase-Type Distributions: $S_{total}$, $\xi_i$ and $\xi_{k+}$
+# 3. The Univariate Discrete Phase-Type Distribution: $S_{total}$, $\xi_i$ and $\xi_{k+}$
 
 ## 3.1. Theoretical background
 
@@ -512,19 +517,47 @@ title('Probability function of xi_1')
 And the random drawer:
 
 ```{r}
+set.seed(0)
 rphtype(3, s_tot_4_3)
 rphtype(10, xi1_4_3)
 ```
 
 ```{r fig.width=6, fig.align='center'}
+set.seed(0)
 x <- rphtype(10000, s_tot_4_3)-1
 hist(x, main = '10,000 random draws of S_total', breaks=40)
 ```
 
 ```{r fig.width=6, fig.align='center'}
+set.seed(0)
 x <- rphtype(10000, xi1_4_3)-1
 hist(x, main = '10,000 random draws of xi_1', breaks=20)
 ```
+
+# 4. The Multivariate Discrete Phase-Type Distribution: $Y_i$
+
+## 4.1. Theoretical background
+
+## 4.2. Variance-covariance matrix for $Y_i$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,7 +1,5 @@
-#' \code{convph} function
+#' Convolution of Continuous Phase-Type Distributions
 #'
-#' Description of the class \code{cont_phase_type}, which represents continuous phase-type
-#' distributions.
 #'
 #' \code{convph} is the function allowing convolution between two phase_type object
 #' building a new phase_type object.
@@ -17,6 +15,9 @@
 #'
 #' convph(ph1,ph2)
 #' #---
+#'
+#' @importFrom methods is
+#'
 #' @export
 
 
@@ -37,7 +38,7 @@ convph <- function(ph1 = NULL, ph2 = NULL) {
                              ph2$subint_mat))
 
     # Return a new object of type cont_phase_type
-    obj = cont_phase_type(subint_mat, init_probs)
+    obj = phase_type(subint_mat, init_probs)
     return(obj)
 
   }else{

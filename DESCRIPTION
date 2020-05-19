@@ -1,19 +1,30 @@
 Package: phasty
 Type: Package
 Title: General-purpose phase-type functions
-Version: 0.1.0
+Version: 0.0.0.9000
 Authors@R: c(
-    person("Iker", "Rivas-González", email = "ikerrivas96@gmail.com", role = c("aut", "cre")))
-Maintainer: The package maintainer <yourself@somewhere.net>
+    person("Iker", "Rivas-González", email = "ikerrivas96@gmail.com", role = c("aut", "cre")),
+    person("Colin", "Guetemme", email = "colin.guetemme@live.fr", role = c("aut")),
+    person("Asger", "Hobolth", email = "asger@math.au.dk", role = c("aut")),
+    person("Lars Nørvang", "Andersen", email = "larsa@math.au.dk", role = c("aut")))
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+URL: https://rivasiker.github.io/phasty/, https://github.com/rivasiker/phasty
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
-Depends: expm
+Depends: expm, methods
 Suggests: 
     testthat,
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Collate: 
+    'BlockCountingProcess.R'
+    'convph.R'
+    'phase_type.R'
+    'mean.R'
+    'phtype_functions.R'
+    'reward_phase_type.R'
+    'var.R'

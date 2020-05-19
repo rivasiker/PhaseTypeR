@@ -2,7 +2,7 @@
 % Please edit documentation in R/convph.R
 \name{convph}
 \alias{convph}
-\title{\code{convph} function}
+\title{Convolution of Continuous Phase-Type Distributions}
 \usage{
 convph(ph1 = NULL, ph2 = NULL)
 }
@@ -12,10 +12,6 @@ convph(ph1 = NULL, ph2 = NULL)
 \item{ph2}{cont_phase_type class.}
 }
 \description{
-Description of the class \code{cont_phase_type}, which represents continuous phase-type
-distributions.
-}
-\details{
 \code{convph} is the function allowing convolution between two phase_type object
 building a new phase_type object.
 }
@@ -25,4 +21,5 @@ ph2 = phase_type(matrix(c(-1.5, 0, 0, 1.5, -1, 0, 0, 1, -0.5), ncol = 3), c(0.25
 
 convph(ph1,ph2)
 #---
+
 }

@@ -4,7 +4,7 @@
 \alias{moment_mph}
 \title{Moments of the multivariate phase-type distribution}
 \usage{
-moment_ph(obj, v)
+moment_mph(obj, v)
 }
 \arguments{
 \item{obj}{a mult_cont_phase_type.}

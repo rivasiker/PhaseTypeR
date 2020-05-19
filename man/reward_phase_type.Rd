@@ -2,9 +2,9 @@
 % Please edit documentation in R/reward_phase_type.R
 \name{reward_phase_type}
 \alias{reward_phase_type}
-\title{Reward transformation}
+\title{Transformation of Phase-Type Distributions via Rewards}
 \usage{
-reward_phase_type(phase_type, reward_vec, round_zero = NULL)
+reward_phase_type(phase_type, reward, round_zero = NULL)
 }
 \arguments{
 \item{phase_type}{an object of class \code{cont_phase_type} or
@@ -80,7 +80,7 @@ ph <- phase_type(subint_mat, init_probs)
 
 reward <- c(1, 0, 4)
 
-reward_phase_type(ph,  reward)
+reward_phase_type(ph, reward)
 
 #---
 
