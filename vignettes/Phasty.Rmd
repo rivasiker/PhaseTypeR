@@ -98,6 +98,11 @@ subintensity_matrix = matrix(c(-1.5, 0, 0,
                               1.5, -1, 0,
                               0, 1, -0.5), ncol = 3)
 initial_probabilities = c(0.9, 0.1, 0)
+subintensity_matrix = matrix(c(-6, 0, 0, 0,
+                              6, -3, 0, 0,
+                              0, 3, -2, 0, 
+                              0, 0, 2, -1), ncol = 4)
+initial_probabilities = c(1, 0, 0, 0)
 ph = phase_type(subintensity_matrix, initial_probabilities)
 
 print(ph)

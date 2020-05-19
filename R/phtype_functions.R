@@ -169,7 +169,7 @@ pphtype <- function(q, obj){
     vec <- c()
     e <- matrix(rep(1,nrow(obj$subint_mat)), nrow(obj$subint_mat), 1)
     for (i in q) {
-      vec <- c(vec, 1 - obj$init_probs %*% expm(i * obj$subint_mat) %*% e)
+      vec <- c(vec, 1 - obj$init_probs %*% expm(obj$subint_mat * i) %*% e)
     }
     return(vec)
   } else if (class(obj) == 'disc_phase_type') {
