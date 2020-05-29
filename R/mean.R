@@ -1,6 +1,5 @@
 
 #' @include phase_type.R
-NULL
 
 #' Mean of Phase-Type Distributions
 #'
@@ -101,6 +100,13 @@ mean.mult_cont_phase_type <- function(x, v = NULL, ...) {
     return(result[,1])
   }
 }
+
+#' mean method for \code{mult_disc_phase_type}
+#'
+#' @param v NULL, integer or vector.
+#'
+#' @rdname mean
+#' @export
 
 mean.mult_disc_phase_type <- function(x, v = NULL, ...){
   result <- rep(0, ncol(x$reward_mat))

@@ -1,5 +1,5 @@
 ---
-title: "Phasty v0.1"
+title: "Phasty v0.9"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Phasty}
@@ -14,31 +14,35 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r, setup}
+```{r, setup, include = FALSE}
 library(phasty)
+library(ggplot2)
+library(gridExtra)
 ```
 
 # Informations
 
-Please report any issues on the git page of the package ...
+Please report any issues on [the git page of the package](https://github.com/rivasiker/phasty)
+Most informations and details can be find in the book of [Bladt and Nieslen (2017)](#BN): Matrix-Exponential Distributions in Applied Probability
+and the PhD of Campillo Navarro 
+
 
 # Introduction
 
-Phase-type distributions is an important mathematical tool especially in fields like insurance or population genetics.
+Phase-type distributions are great mathematical tool especially in fields like insurance or population genetics.
 
-The basic idea is considering a markov jump process (or a Markov chain for discrete cases) with $n$ transient states and 1 absorbing state (i.e. once in the absorbing state, it cannot go out), you can have the time before reaching that absorbing state using with the intensity matrix and the initial probabilities to start in each state. The matrix form of pahse-type distribution allow great simplification in some calculus, in particular to find the moments of the time before reaching the absorbing state.
+The basic idea is considering a markov jump process (or a Markov chain for discrete cases) with $n$ transient states and 1 absorbing state (i.e. once in the absorbing state, it cannot go out), you can have the time before reaching that absorbing state using the intensity matrix and the initial probabilities to start in each state. The matrix form of phase-type distribution allow great simplification, in particular to find the moments of the time before reaching 
+the absorbing state.
 
-The package \code{phasty} handle this phase-type distribution and the calculation behind it.
+The package ```phasty``` handle this phase-type distribution and the calculation behind it.
 
 This package is a complete as possible, nevertheless, it stays a package which bring mathematical tools and its not oriented for a specific application. 
 
 The main references that have been used for this package are:
 
-# The phase-type S3 class object
+# The phase-type S3 class objects
 
-The package use several new classes for describing a phase-type distributed object, which are: "disc_phase_type", "cont_phase
-_type", "mult_disc_phase_type", "mult_cont_phase_type". Which can be obtain
-using \code{phase_type}, here is an example considering a univariate continuous phase_type distribution:
+The functions provided by ```phasty``` requires object of class: ```disc_phase_type```, ```cont_phase_type```, ```mult_disc_phase_type``` or ```mult_cont_phase_type```. Which can be obtain using ```phase_type()```. here is an example considering a univariate continuous phase-type distribution:
 
 ```{r}
 subintensity_matrix <- matrix(c(-1.5, 0, 0,
@@ -50,89 +54,109 @@ ph <- phase_type(subintensity_matrix, initial_probabilities)
 print(ph)
 ```
 
-With \code{subint_mat} the subintensity matrix and \code{init_probs} the vector of initials probabilities. 
+With ```subint_mat``` the subintensity matrix and ```init_probs``` the vector of initials probabilities. 
 An object of one of the phase_type class should have a subintensity matrix, a initial probability vector, a defect being the probability to start directly in 
 the absorbing state, which can happens when using reward transformation (see section \)) and the type of class.
 
 The init_probs are optional in the inputs, in that case the probability to start in the first state will be 1.
 
-Those classes will be necessary later on to recognise the type of object for function like mean or var.
-
 # The univariate distribution
 
 ## The continuous univariate phase-type
-### A few reminders
 
-For a deep understanding of the continuous phase-type distribution, we deeply advise the reader to take a look at the book of Bladt and Nielsen 2007 [PUT THE REF]
+Let's consider a  <span style="color:orange"> **Markov jump process (MJP)** </span>  with $n$ transient states and 1 absorbing states and define $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\boldsymbol{T}$ is the subintensity matrix of the corresponding MJP and $\boldsymbol{\pi}$ is the vector of probabilities to start in state $i$.
 
-Let's consider $\{ X_t \}_{t \ge 0}$ a Markov jump process with $p$ transient states and 1 absorbing state, we can write the state space of $\{ X_t \}_{t \ge 0}$ as $E = (1,\, 2,\, 3,\, ...,\, p,\, p+1)$.
-This means that $\{ X_t \}_{t \ge 0}$ will stay in the different transient states until it reachs the absorbing states from which it cannot go out.
-For a Markov jump process the time of transition bewteen each state follow a exponential distribution with a rate $\lambda$. The intensity matrix summarize the transition rate with the rate $\lambda_{i,j}$ in row $i$ and column $j$ corresponds to the transition rate from state $i$ to state $j$.
-In the case where there are $p$ transient state and 1 absorbing state, the intensity matrix can be written:
-$$
-\boldsymbol{\Lambda} = 
-\left(\begin{array}{cc} 
-\boldsymbol{T} & \boldsymbol{t} \\
-\boldsymbol{0} & 0
-\end{array}\right)
-$$ 
-Where $\boldsymbol{T}$ is the subintensity matrix, i.e. the intensity matrix between the transient states only and $\boldsymbol{t}$ is the exit rate, i.e. the transition rate between the transient states and the abosrbing state.
+$\tau$ will follow a continuous phase-type distribution which corresponds to the time before reaching the absorbing state.
 
-If we take a look at the subintensity matrix $\boldsymbol{T}$, we will have a negative diagonal corresponding to the rate at which $\{ X_t \}_{t \ge 0}$ will leave the state $i$. The other cell of the matrix should be non positive and will contain the transition rate from one transient state to another. Also the rowsum should be non-positive, and the vector of absolute value of the rowsum correspond to the exit rate vector. Because of that we can note:
-$$
-\boldsymbol{t} = -\boldsymbol{Te},
-$$ 
-
-Where $\boldsymbol{e}$ is vector of 1 of length $p$.
-
-looking at the phase-type distribution of $\{ X_t \}_{t \ge 0}$ corresponds to the probability that the time to reach the absorbing state is $t$.
-
-Given a variable $X$ following a continuous phase-type distribution, $X\sim PH(\boldsymbol{T}, \boldsymbol{\pi})$ where $\boldsymbol{T}$ is the subintensity matrix and $\boldsymbol{\pi}$ the initial probability vector.
-
-### The functions
-
-Let's take the same example as before to explain how to use the different functions:
+In ```phasty```, to define an object which follows a phase-type distribution, it requires to use the function ```phase_type()```. This function will creates a S3 'cont_phase_type' object and requires the subintensity matrix and a vector of initial probabilities.
+Note that ```NULL``` is a valid argument for the initial probabilities, in that case the inital probabilities will be $\boldsymbol{\pi} = (1,\, 0,\, 0,\, ...)$.
 
 ```{r}
-subintensity_matrix = matrix(c(-1.5, 0, 0,
+subintensity_matrix <- matrix(c(-1.5, 0, 0,
                               1.5, -1, 0,
                               0, 1, -0.5), ncol = 3)
-initial_probabilities = c(0.9, 0.1, 0)
-subintensity_matrix = matrix(c(-6, 0, 0, 0,
-                              6, -3, 0, 0,
-                              0, 3, -2, 0, 
-                              0, 0, 2, -1), ncol = 4)
-initial_probabilities = c(1, 0, 0, 0)
-ph = phase_type(subintensity_matrix, initial_probabilities)
+initial_probabilities <- c(0.9, 0.1, 0)
 
-print(ph)
+ph <- phase_type(subintensity_matrix, initial_probabilities)
+
+print(class(ph)) # Check that phase_type() recognise the cont_phase_type
 ```
 
-The initial probability are optional, if they are not provided, the initial probability vector will be $\pi = (1,\, 0,\, 0,\, ...)$.
+With this object we can now calculate the mean and
+The mean from **theorem 3.1.16** of [Bladt and Nieslen (2017)](#BN) (page 135), the mean of a variable following a continuous phase type is define by:
 
-Now that we have a phase-type distributed variable we can apply some basic function as follow 
+$$
+\mathbb{E} (\tau) = \boldsymbol{\pi U e} = \boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e}
+$$
+ and from **corollary 3.1.18** of [Bladt and Nieslen (2017)](#BN), the $n^{th}$ moment of $\tau\sim PH(\boldsymbol{T}, \boldsymbol{\pi}) is defined by  
 
-```{r}
-cat('Mean: ',mean(ph),'\n')
-cat('Variance: ',var(ph),'\n \n')
+$$
+\mathbb{E} (\tau^n) = n!\boldsymbol{\pi} (-\boldsymbol{T})^{-n} \boldsymbol{e}
+$$
+from this we can write the variance of $\tau$ as:
 
-cat('Summary: \n-------------')
-summary(ph)
-cat('-------------')
+$$
+\mathbb{V} (\tau) = (2\boldsymbol{\pi} (-\boldsymbol{T})^{-2} \boldsymbol{e})
+-(\boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e})^2
+$$
+
+This formula can be reach in ```phasty``` using the generic functions  ```mean()``` and ```var()``` with a ```cont_phase_type``` object.
+
+Let's take the same example as before to see how to use the different functions:
+
+```{r, collapse = TRUE}
+cat('\n', 'Mean: ',mean(ph),'\n')
+cat(' Variance: ',var(ph),'\n \n')
+```
+
+**The probability density function** (pdf) of a continuous phase-type distribution is defined by **equation 3.1.7** of [Bladt and Nieslen (2017)](#BN) (page 131):
+
+$$
+f(u) = \boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{t}
+$$
+where $\boldsymbol{t} = -\boldsymbol{T}\boldsymbol{e}$ is the exit rate of the subintensity matrix (the vector of transition from state $i$ to the absorbing state). from there we can get the cdf 
+
+$$ 
+F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}
+$$
+
+```{r, fig.show = 'hide', results = FALSE}
+x <- seq(0, qphtype(0.95, ph), length.out = 100)
+pdf <- dphtype(x, ph)
+cdf <- pphtype(x, ph)
+
+
+plot(x, cdf, xlab = "Time to absorbing state", ylab = "", col = "orange", type = 'l')
+lines(x, pdf, col = "blue")
+
+x <- seq(0.05, 0.95, 0.01)
+plot(x, qphtype(x, ph), col = "orange", ylab = "Time to absorbing state", xlab = "Quantile")
+
+cat('10 random samples: \n \n', rphtype(5, ph), '\n', rphtype(5, ph))
 ```
 
 
-```{r}
-x <- seq(0, 10, 0.1)
-y <- dphtype(x, ph)
-plot(x, y, xlab = 'time before absorbing state', ylab = 'density probability')
+```{r, fig.width = 7, fig.height = 3, echo = FALSE}
 
-y <- pphtype(x, ph)
-plot(x, y, xlab = 'time before absorbing state', ylab = 'cumulated density probability')
 
-y <- seq(0, 0.99, 0.01)
-x <- qphtype(y, ph)
-plot(x, y, xlab = 'time before absorbing state', ylab = 'quantile')
+xmax <- qphtype(0.95, ph)
+x <- matrix(seq(0, xmax, length.out = 100))
+pdf <- data.frame(cbind(x, dphtype(x, ph)))
+cdf <- data.frame(cbind(x, pphtype(x, ph)))
+pdf['curve'] = 'PDF'
+cdf['curve'] = 'CDF'
+pcdf <- rbind(pdf, cdf)
+
+x <- matrix(seq(0.05, 0.95, 0.01))
+quantile <- data.frame(cbind(x, qphtype(x, ph)))
+
+
+p1 <- ggplot(pcdf, aes(x = X1, y = X2, fill = curve)) + geom_area(alpha = 0.5, position = "identity") +  geom_point(size = 0.6) + theme_bw() + labs(x = "time to absorbing state", y = "") + scale_fill_manual(values=c("#ff9900", "#408cce")) + theme(legend.title=element_blank(), text = element_text(size = 12))
+
+p2 <- ggplot(quantile, aes(x = X1, y = X2)) + geom_point(color = "#ff9900") + theme_bw() + labs(y = "Time to absorbing state", x = "Quantiles") + theme(text = element_text(size = 12))
+
+print(p1)
+print(p2)
 
 cat('10 random samples: \n \n', rphtype(5, ph), '\n', rphtype(5, ph))
 ```
@@ -141,48 +165,291 @@ cat('10 random samples: \n \n', rphtype(5, ph), '\n', rphtype(5, ph))
 It is possible to give to each transient state a weight by a reward 
 transformation, to do so we will use a reward vector of size $p$
 
-```{r}
+```{r, eval = F}
 r = c(1,0,4)
 
-Y = reward_phase_type(phase_type = ph, reward = r)
+Y = reward_phase_type(phase_type = X, reward = r)
 print(Y)
 ```
+
 ## The discrete univariate phase-type
 
+As it is possible to consider a Markov jump process (also called continuous Markov chain), it is also possible to consider Markov chain. Let's consider $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\tau \in \mathbb{N}$ and will count the number of states it will visit before ending in the absorbing state. For that reason, the subintensity matrix $\boldsymbol{T}$ will not contains rates but probabilities, describing the probability to go from one state to another. 
+
 ```{r}
-subintensity_matrix <- matrix(c(0.4, 0, 0,
-                              0.24, 0.4, 0,
-                              0.12, 0.2, 0.5), ncol = 3)
-initial_probabilities <- c(0.9, 0.1, 0)
+subintensity_matrix <- matrix(c(0, 0.2, 0.8,
+                              0.5, 0.5, 0,
+                              0, 0, 0.4), ncol = 3, byrow = T)
+initial_probabilities <- c(0.7, 0.3, 0)
 dph <- phase_type(subintensity_matrix, initial_probabilities)
-print(dph)
+
+print(class(dph))
+```
+As for the continuous phase-type, it is possible to describe any moment.
+ 
+```{r}
+cat('\n', 'Mean: ',mean(dph),'\n')
+cat(' Variance: ',var(dph),'\n \n')
+```
+**theorem 1.2.58 and 1.2.59** of [Bladt and Nieslen (2017)](#BN) (page 30) shows respectively that the density of a discrete phase-type distributed variable is
+
+$$
+f_\tau(n) = \boldsymbol{\pi T}^{n-1}\boldsymbol{t}
+$$
+and its distribution function is
+
+$$
+F_\tau(n) = 1-\boldsymbol{\pi T}^{n}\boldsymbol{e}
+$$
+
+As for the continuous univariate phase-type, it is possible to reach this distribution by using the generic functions.
+
+```{r, fig.show='hide'}
+x <- seq(0, qphtype(0.95, dph), 1)
+pmf <- dphtype(x, dph)
+cdf <- pphtype(x, dph)
+
+data <- cbind(cdf, pmf)
+barplot(t(data), xlab = "Time to absorbing state", col = c("orange","blue"), beside = T)
+
+x <- seq(0.05, 0.95, 0.01)
+plot(x, qphtype(x, dph), col = "orange", ylab = "Time to absorbing state", xlab = "Quantile")
+
+# The following plots have been designed using ggplot2
+```
+
+```{r, fig.width = 7, fig.height = 3, echo = FALSE}
+
+x <- matrix(seq(0, qphtype(0.95, dph), 1))
+pdf <- data.frame(cbind(x, dphtype(x, dph)))
+pdf$X3 <- 'PMF'
+
+cdf <- data.frame(cbind(x, pphtype(x, dph)))
+cdf$X3 <- 'CDF'
+
+data <- data.frame(rbind(cdf, pdf))
+data$X1 <- as.numeric(data$X1)
+data$X2 <- as.numeric(data$X2)
+x <- matrix(seq(0.05, 0.95, 0.01))
+quantile <- data.frame(cbind(x, qphtype(x, dph)))
+
+
+
+p1 <- ggplot(data, aes(x = X1, y = X2, fill = X3)) + geom_bar(alpha = 0.85, stat = "identity", position = position_dodge()) + theme_bw() + labs(x = "Time to absorbing state", y = "") + scale_fill_manual(values=c("#ff9900", "#408cce")) + theme(legend.title=element_blank(), text = element_text(size = 12)) +  scale_x_continuous(breaks = seq(0, qphtype(0.95, dph), 1))
+
+p2 <- ggplot(quantile, aes(x = X1, y = X2)) + geom_point(color = "#ff9900") + theme_bw() + labs(y = "Time to absorbing state", x = "Quantiles") + theme(text = element_text(size = 12))
+
+print(p1)
+print(p2)
 
 ```
 
+
+
+## The reward transformation
+
+A reward transformation allow to give a weights to each state. Those wheights should be nonnegative (possibly zero). 
+
+### Positive rewards for continuous phase-type distribution
+
+Considering $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$ with $\{X_t\}_{t \ge 0}$ the underlying Markov jump process, and the reward vector $\boldsymbol{r} = (r_1,\ r_2,\ ...\,,\ r_n) \in \mathbb{R}^p_+$.
+
+We can then set the new variable:
+$$
+ Y = \int^\tau_0 r(X_t)dt
+$$
+which corresponds to the wheighted time before absorption (or the reward earned until absorption). Given theorem 3.1.33 in Bladt and Nielsen, this new variable follow also a mixture of atom at zero of size $\pi_{d+1}$, i.e. if there is at least one state $i$, $r(i) = 0$ and $\pi_i > 0$, then there is a probability that the weighted time before absorption is $Y = 0$ and a probability that ic can be continuous phase-type distributed that can be describe as:
+$$
+Y \sim PH(\boldsymbol{T}^\star, \boldsymbol{\pi}^\star)
+$$
+
+Getting $\boldsymbol{T}^\star$ and $\boldsymbol{\pi}^\star$ is rather simple if the given rewards only contains positive values, in that case, the rate will be divided by the corresponding rewards ($\boldsymbol{T}^\star$ = $\boldsymbol{Tr}$) and the initial probabilities will not be modifiy ($\boldsymbol{\pi}^\star$ = $\boldsymbol{\pi}$).
+
+Taking the previous example and applying a reward vector \boldsymbol{r} = (1,\ 2,\ 3).
+
 ```{r}
-x <- seq(0, 10, 1)
-y <- dphtype(x, dph)
-barplot(y, xlab = 'time before absorbing state', ylab = 'density probability', 
-        ylim = c(0, 1))
+rph <- reward_phase_type(ph, c(1, 2, 3))
+print(rph)
+```
 
-y <- pphtype(x, dph)
-barplot(y, xlab = 'time before absorbing state', ylab = 'cumulated density probability', ylim = c(0, 1))
+```{r, fig.show = 'hide', results = FALSE}
+x <- seq(0, qphtype(0.95, rph), length.out = 100)
+pdf <- dphtype(x, rph)
+cdf <- pphtype(x, rph)
 
-y <- seq(0, 0.99, 0.01)
-x <- qphtype(y, dph)
-plot(x, y, xlab = 'time before absorbing state', ylab = 'quantile')
 
-cat('10 random samples: \n \n', rphtype(5, dph), '\n', rphtype(5, dph))
+plot(x, cdf, xlab = "Time to absorbing state", ylab = "", col = "orange", type = 'l')
+lines(x, pdf, col = "blue")
+```
+```{r, fig.width = 7, fig.height = 3, echo = FALSE}
+
+
+xmax <- qphtype(0.95, rph)
+x <- matrix(seq(0, xmax, length.out = 100))
+pdf <- data.frame(cbind(x, dphtype(x, rph)))
+cdf <- data.frame(cbind(x, pphtype(x, rph)))
+pdf['curve'] = 'PDF'
+cdf['curve'] = 'CDF'
+pcdf <- rbind(pdf, cdf)
+
+x <- matrix(seq(0.05, 0.95, 0.01))
+quantile <- data.frame(cbind(x, qphtype(x, rph)))
+
+
+p1 <- ggplot(pcdf, aes(x = X1, y = X2, fill = curve)) + geom_area(alpha = 0.5, position = "identity") +  geom_point(size = 0.6) + theme_bw() + labs(x = "time to absorbing state", y = "") + scale_fill_manual(values=c("#ff9900", "#408cce")) + theme(legend.title=element_blank(), text = element_text(size = 12))
+
+p2 <- ggplot(quantile, aes(x = X1, y = X2)) + geom_point(color = "#ff9900") + theme_bw() + labs(y = "Time to absorbing state", x = "Quantiles") + theme(text = element_text(size = 12))
+
+print(p1)
+```
+### Positive rewards for discrete phase-type distribution
+
+In discrete phase-type distribution, the reward transformation can be achieved using intermadiate states as presented by Navarro 2019. 
+
+Considering $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$ with $\{X_n\}_{n \ge 0}$ the underlying Markov chain, and the reward vector  $\boldsymbol{r} = (r_1,\ r_2,\ ...\,,\ r_n) \in \mathbb{N}$. As for the continuous phase-type
+
+$$
+Y = \sum r(X_n)
+$$
+```{r}
+rdph <- reward_phase_type(dph, c(1, 2, 3))
+print(rdph)
+```
+
+```{r, fig.show='hide'}
+x <- seq(0, qphtype(0.95, rdph), 1)
+pmf <- dphtype(x, rdph)
+cdf <- pphtype(x, rdph)
+
+data <- cbind(cdf, pmf)
+barplot(t(data), xlab = "Time to absorbing state", col = c("orange","blue"), beside = T)
+```
+
+```{r, fig.width = 7, fig.height = 3, echo = FALSE}
+
+x <- matrix(seq(0, qphtype(0.95, rdph), 1))
+pdf <- data.frame(cbind(x, dphtype(x, rdph)))
+pdf$X3 <- 'PMF'
+
+cdf <- data.frame(cbind(x, pphtype(x, rdph)))
+cdf$X3 <- 'CDF'
+
+data <- data.frame(rbind(cdf, pdf))
+data$X1 <- as.numeric(data$X1)
+data$X2 <- as.numeric(data$X2)
+x <- matrix(seq(0.05, 0.95, 0.01))
+quantile <- data.frame(cbind(x, qphtype(x, rdph)))
+
+
+
+p1 <- ggplot(data, aes(x = X1, y = X2, fill = X3)) + geom_bar(alpha = 0.85, stat = "identity", position = position_dodge()) + theme_bw() + labs(x = "Time to absorbing state", y = "") + scale_fill_manual(values=c("#ff9900", "#408cce")) + theme(legend.title=element_blank(), text = element_text(size = 12)) +  scale_x_continuous(breaks = seq(0, qphtype(0.95, rdph), 1))
+
+p2 <- ggplot(quantile, aes(x = X1, y = X2)) + geom_point(color = "#ff9900") + theme_bw() + labs(y = "Time to absorbing state", x = "Quantiles") + theme(text = element_text(size = 12))
+
+print(p1)
+```
+
+### dealing with zero rewards
+
+To perform a reward transformation with at least one reward of zero, it is necessary to transform the subintensity matrix and initial probabilities by removing the zero rewarded state and then apply the positive rewards on the remaining states. 
+
+**Theorem 3.1.33** of [Bladt and Nieslen (2017)](#BN) (page 147) describes the intermediates matrix $\boldsymbol{P}$ define by 
+
+$$
+\boldsymbol{P} = \boldsymbol{Q}^{++} + \boldsymbol{Q}^{+0} \, (\boldsymbol{I} - \boldsymbol{Q}^{+0})^{-1} \ \boldsymbol{Q}^{0+}
+$$
+Where $\boldsymbol{Q}$ is the reorganisation of $\boldsymbol{T}$ which gives:
+
+$$
+\boldsymbol{Q} =
+\left(\begin{array}{cc} 
+\boldsymbol{Q}^{++} & \boldsymbol{Q}^{+0}\\
+\boldsymbol{Q}^{+0} & \boldsymbol{Q}^{00}
+\end{array}\right)
+$$
+
+Where the powers of the submatrices are the transition rate or probabilities between states with positive (+) or null reward (0) and positive or null (e.g. $\boldsymbol{Q}^{0+}$, is the submatrix which gather the transition rates or probabilities between states with a reward of zero and states with a positive reward). Also from a phase-type perspective, for any $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$ then $\tau \sim PH(\boldsymbol{Q}, \boldsymbol{\rho})$ with $\rho$ the reorder initial probabilities. This is because the order of the states in the matrix does not matter.
+
+Let's apply a reward of $\boldsymbol{r} = (0,\ 2,\ 3)$ to the example discrete phase-type example. 
+
+Applying the zero reward to the first state will give
+```{r}
+zero_dph <- reward_phase_type(dph, c(0, 1, 1))
+print(zero_dph)
+```
+Also because of computational approximation on matrix calculation, the defect is slighlty positive where it should be zero.
+
+Then the positive rewards are apply from this new phase-type like in the previous section
+
+```{r}
+reward_phase_type(zero_dph, c(2, 3))
+```
+
+This is obviously possible to do it in one step with 
+```{r, echo = F}
+reward_phase_type(dph, c(0, 2, 3))
 ```
 
 
 # The multivariate distribution
+
 ## The continuous multivariate
 
+For details see **section 8.1** of [Bladt and Nieslen (2017)](#BN) (page 438).
+
+Let $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$ with $\{X_t\}_{t \ge 0}$ the underlying Markov jumpe process and $\boldsymbol{R}$ a matrix of size $p\times n$, then the variable $\boldsymbol{Y} \sim MPH^*_p(\boldsymbol{T},\  \boldsymbol{\pi},\  \boldsymbol{R})$ is the vector $\boldsymbol{Y} = (Y_1,\  Y_2,\  ...\,,\  Y_n)$ where $Y_i$ will corresponds to
+
+$$
+Y_j = \int_0^\tau r_j(X_t)dt
+$$
+i.e. the reward transformation of \boldsymbol{T} and \boldsymbol{\pi} using $r_j$.
+
+### The moments
 
 ## The discrete multivariate
 
 
-# The discrete phase-type distribution
+It is really similar to continuous multivariate phase-tySimilarly to the continuous phase-type a multivariate discrete phase-type is also possible, with more details available in **section 5.2** of [Navarro (2019)](#BN) (page 79).
+pe in the construction so we can just write that $\boldsymbol{Y} = (Y_1,\  Y_2,\  ...\,,\  Y_n)$ where $Y_i$ will corresponds to
+
+$$
+Y_j = \sum_0^n r_j(X_n)dt
+$$
+Using the ```phase_type()``` function with the reward matrix in the ```reward_mat``` parameter
+
+```{r}
+
+R <- matrix(c(0, 1, 1,
+              2, 1, 5, 
+              0, 1, 10), ncol = 3)
+mdph <- phase_type(dph$subint_mat, dph$init_probs, reward_mat = R)
+print(mdph)
+```
+
+### The moments
+
+from **Proposition 5.7** of [Navarro (2019)](#BN) (page 85)
+we get that the cross moment in the bivariate case is 
+$$
+\mathbb{E}(Y_j Y_k) = \boldsymbol{\pi} \left\{\boldsymbol{U\Delta}(\boldsymbol{r}_j)\boldsymbol{U\Delta}(\boldsymbol{r}_k) + \boldsymbol{U\Delta}(\boldsymbol{r}_k)\boldsymbol{U\Delta}(\boldsymbol{r}_j) - \boldsymbol{U\Delta}(\boldsymbol{r}_j)\boldsymbol{\Delta}(\boldsymbol{r}_k)\right\}\boldsymbol{e}.
+$$
+
+and the covariance is given by
+$$
+\mathrm{Cov}(Y_j,\,Y_k) = \boldsymbol{\pi} \left\{\boldsymbol{U\Delta}(\boldsymbol{r}_j)\boldsymbol{U\Delta}(\boldsymbol{r}_k) + \boldsymbol{U\Delta}(\boldsymbol{r}_k)\boldsymbol{U\Delta}(\boldsymbol{r}_j) \\- \boldsymbol{U\Delta}(\boldsymbol{r}_j)\boldsymbol{\Delta}(\boldsymbol{r}_k) - \boldsymbol{U\Delta}(\boldsymbol{r}_j)\boldsymbol{e\pi U\Delta}(\boldsymbol{r}_k) \right\}\boldsymbol{e}.
+$$
+
+Which can be reach in ```phasty``` using the ```var``` which gives the covariance matrix
+
+```{r}
+var(mdph)
+
+mean(mdph)
+```
 
 
+# References {#BN}
+
+Bladt, M., & Nielsen, B. F. (2017). *Matrix-exponential distributions in applied probability* (Vol. 81). New York: Springer. 
+
+Campillo Navarro, A. (2019). *Order statistics and multivariate discrete phase-type distributions*. DTU Compute. DTU Compute PHD-2018, Vol.. 492

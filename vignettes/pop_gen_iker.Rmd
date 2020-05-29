@@ -69,7 +69,6 @@ subint_mat_t_mrca <- function(n) {
   }
   subint_mat
 }
-
 ```
 
 For a sample size of $n=4$, the sub-intensity matrix can be generated using the function above, and the initial probabilities can be defined as a vector of length $n-1$, starting with one and the rest entries filled with zeros:

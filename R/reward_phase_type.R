@@ -166,10 +166,10 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
       }
 
       reward_max <- reward
-      reward <- matrix(0, ncol = max(reward) + as.numeric(0 %in% reward_max),
+      reward <- matrix(0, ncol = max(reward) + 1,
                        nrow = n)
       for (i in 1:n){
-        reward[i, reward_max[i] + as.numeric(0 %in% reward_max)] <-  1
+        reward[i, reward_max[i] + 1] <-  1
       }
 
     } else {
@@ -187,9 +187,9 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
         if (i == j) {
           matij[-size[i], -1] <- diag(1, size[i] - 1)
         }
-        if (sum(reward[j, 2:n]) > 0){
+        if (sum(reward[j, 2:(max(reward_max)+1)]) > 0){
           matij[size[i], 1:size[j]] <- subint_mat[i, j] *
-            reward[j, (size[j]+1):2]
+            reward[j, (size[j] + 1):2]
         } else {
           matij[size[i], 1] <- subint_mat[i, j]
         }

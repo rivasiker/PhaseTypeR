@@ -213,7 +213,7 @@ phase_type <- function(subint_mat = NULL, init_probs = NULL,
     }
 
     if (is.matrix(reward_mat)){
-      if (round(reward_mat) != reward_mat){
+      if (sum(round(reward_mat)) != sum(reward_mat)){
         stop('The reward matrix should only contains integers.')
       }
       value <- list(subint_mat = subint_mat,
