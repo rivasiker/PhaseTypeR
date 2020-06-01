@@ -97,7 +97,7 @@ disc_phase_type and mult_cont_phase_type classes respectively." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Phasty.html">Phasty v0.1</a>
+      <a href="../articles/Phasty.html">Phasty v0.9</a>
     </li>
     <li>
       <a href="../articles/pop_gen_iker.html">Using phasty for population genetics</a>
@@ -196,10 +196,10 @@ different usages can be distinguished:</p><ul>
 <span class='no'>reward_matrix</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>), <span class='fl'>6</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 <span class='no'>ph2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phase_type.html'>phase_type</a></span>(<span class='no'>subintensity_matrix</span>, <span class='kw'>reward_mat</span> <span class='kw'>=</span> <span class='no'>reward_matrix</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='input'><span class='co'>## Variance-covariance matrix</span>
 <span class='fu'>var</span>(<span class='no'>ph2</span>)</div><div class='output co'>#&gt;          [,1]     [,2]
-#&gt; [1,] 15.66667 25.66667
-#&gt; [2,] 25.66667 54.00000</div><div class='input'><span class='co'>## Variance for the first state in the reward matrix</span>
-<span class='fu'>var</span>(<span class='no'>ph2</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] 15.66667</div><div class='input'><span class='co'>## Variance for the second state in the reward matrix</span>
-<span class='fu'>var</span>(<span class='no'>ph2</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] 54</div><div class='input'>
+#&gt; [1,] 78.22222 64.05556
+#&gt; [2,] 64.05556 55.55556</div><div class='input'><span class='co'>## Variance for the first state in the reward matrix</span>
+<span class='fu'>var</span>(<span class='no'>ph2</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] 78.22222</div><div class='input'><span class='co'>## Variance for the second state in the reward matrix</span>
+<span class='fu'>var</span>(<span class='no'>ph2</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] 55.55556</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

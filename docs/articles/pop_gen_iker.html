@@ -54,7 +54,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Phasty.html">Phasty v0.1</a>
+      <a href="../articles/Phasty.html">Phasty v0.9</a>
     </li>
     <li>
       <a href="../articles/pop_gen_iker.html">Using phasty for population genetics</a>
@@ -116,7 +116,7 @@
 <div id="time-until-the-most-recent-common-ancestor-t_mrca" class="section level2">
 <h2 class="hasAnchor">
 <a href="#time-until-the-most-recent-common-ancestor-t_mrca" class="anchor"></a>2.2. Time until the most recent common ancestor (<span class="math inline">\(T_{MRCA}\)</span>)</h2>
-<p>Following Hobolth et al. (2018), we can build a phase-type representation of <span class="math inline">\(T_{MRCA}\)</span> by defining the sub-intensity matrix, which each row and column will represent the states of the coalescent process.</p>
+<p>Following Hobolth et al. (2018), we can build a phase-type representation of <span class="math inline">\(T_{MRCA}\)</span> by defining the sub-intensity matrix, which each row and column will represent the states of the coalescent process.</p>
 <p>For example, for Kingman’s coalescent the sub-intensity matrix can be defined as:</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r">
 <span class="no">subint_mat_t_mrca</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">n</span>) {

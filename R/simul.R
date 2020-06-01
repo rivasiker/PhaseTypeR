@@ -9,7 +9,7 @@
 #' @param obj an object of class \code{disc_phase_type} or
 #' \code{cont_phase_type}
 #'
-#' @usage sim_phase_type <- function(obj)
+#' @usage sim_phase_type
 #'
 #' @examples
 #'

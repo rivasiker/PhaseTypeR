@@ -3,6 +3,7 @@
 S3method(mean,cont_phase_type)
 S3method(mean,disc_phase_type)
 S3method(mean,mult_cont_phase_type)
+S3method(mean,mult_disc_phase_type)
 S3method(summary,cont_phase_type)
 S3method(summary,disc_phase_type)
 S3method(summary,mult_cont_phase_type)
