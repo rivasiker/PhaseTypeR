@@ -11,10 +11,10 @@
 #' @param reward a vector of the same length as the number of
 #' states. The vector should contains non negative values and only integer for
 #' discrete phase-type class.
-#' For \code{disc_phase_type} object, a matrix with as many rows as states,
-#' and as many columns as the maximum values of reward plus one. Also in this
-#' case, each cell of the matrix should be probabilities and the sum of the
-#' rows should sum up to one.
+#' For \code{disc_phase_type} object, it could also be a matrix with as many
+#' rows as states and as many columns as the maximum values of reward plus one.
+#' Also in this case, each cell of the matrix should be probabilities and the
+#' sum of the rows should sum up to one.
 #'
 #' @param round_zero  is a positive integer or \code{NULL}, if it is a positive
 #' integer, all the values in the subintensity matrix and initial probabilities
@@ -24,7 +24,7 @@
 #' discrete cases, or higher than 0 for continuous cases.
 #'
 #' @return
-#' An object of \code{class disc_phase_type} or \code{cont_phase_type}.
+#' An object of class \code{disc_phase_type} or \code{cont_phase_type}.
 #' Be aware that if the input is a multivariate phase_type the output will be
 #' univariate.
 #'
@@ -34,7 +34,7 @@
 #' Nielsen (2017).
 #'
 #' For the discrete phase_type distribution is based on the PhD of Navarro and
-#' the article of Hobolth and
+#' the *in prep.* manuscript of Andersen *et al.*
 #'
 #' Every state of the subintensity matrix should have a reward, in the case of
 #' continuous phase-type, this reward should be a vector with non negative
@@ -50,7 +50,10 @@
 #'
 #' @author C. Guetemme, A. Hobolth
 #'
-#' @references Bladt, Nielsen, blablabla
+#' @references
+#' Bladt, M., & Nielsen, B. F. (2017). *Matrix-exponential distributions in applied probability* (Vol. 81). New York: Springer.
+#' Campillo Navarro, A. (2019). *Order statistics and multivariate discrete phase-type distributions*. DTU Compute. DTU Compute PHD-2018, Vol.. 492
+#' Andersen, L. *et al.* (*in prep.*)
 #'
 #' @seealso \code{\link{phase_type}}
 #'
@@ -120,38 +123,42 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
     n <- length(init_probs)
 
     if (is.matrix(reward)) {
-      if (nrow(reward) != n){
-        stop('')
+      if (nrow(reward) == 1){
+        reward  <- as.vector(reward)
+      } else if (nrow(reward) != n){
+        stop('Wrong dimensions, Rewards should be a vector or a matrix of',
+             'n rows')
+      } else {
+        if (! all(rowSums(reward) == 1)){
+          stop('The row sums for the reward matrix should be equal to 1')
+        }
+
+        if (! all(reward >= 0) || ! all(reward <= 1)){
+          stop('The reward matrix should only contains probabilities')
+        }
+
+        for (i in which(reward[, 1] > 0 & reward[, 1] < 1)){
+
+          new_subint_mat <- subint_mat
+          new_subint_mat[, i] <- new_subint_mat[, i] * sum(reward[i, -1])
+          new_subint_mat <- cbind(new_subint_mat, subint_mat[,i] * reward[i, 1])
+          subint_mat <- rbind(new_subint_mat, new_subint_mat[i,])
+
+          reward <- rbind(reward, c(reward[i, 1], rep(0, ncol(reward) - 1)))
+          reward[i, 1] <- 0
+
+          init_probs <- c(init_probs, init_probs[i] * reward[nrow(reward), 1])
+          init_probs[i] <- init_probs[i] * (1 - reward[nrow(reward), 1])
+        }
+
+        reward <- reward / rowSums(reward)
+        n <- length(init_probs)
+        reward_mat <- col(reward) - 1
+        reward_max <- apply(reward_mat * as.numeric(reward > 0), 1, max)
       }
 
-      if (! all(rowSums(reward) == 1)){
-        stop('The ')
-      }
-
-      if (! all(reward >= 0) || ! all(reward <= 1)){
-        stop('The ')
-      }
-
-      for (i in which(reward[, 1] > 0 & reward[, 1] < 1)){
-
-        new_subint_mat <- subint_mat
-        new_subint_mat[, i] <- new_subint_mat[, i] * sum(reward[i, -1])
-        new_subint_mat <- cbind(new_subint_mat, subint_mat[,i] * reward[i, 1])
-        subint_mat <- rbind(new_subint_mat, new_subint_mat[i,])
-
-        reward <- rbind(reward, c(reward[i, 1], rep(0, ncol(reward) - 1)))
-        reward[i, 1] <- 0
-
-        init_probs <- c(init_probs, init_probs[i] * reward[nrow(reward), 1])
-        init_probs[i] <- init_probs[i] * (1 - reward[nrow(reward), 1])
-      }
-
-      reward <- reward / rowSums(reward)
-      n <- length(init_probs)
-      reward_mat <- col(reward) - 1
-      reward_max <- apply(reward_mat * as.numeric(reward > 0), 1, max)
-
-    } else if (is.vector(reward)) {
+    }
+    if (is.vector(reward)) {
       if (length(reward) != n){
         stop('The reward vector has wrong dimensions (should be of the ',
              'same size that the inital probabilities).')
@@ -171,9 +178,6 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
       for (i in 1:n){
         reward[i, reward_max[i] + 1] <-  1
       }
-
-    } else {
-      stop('The rewards should be in a vector or a matrix.')
     }
 
     # Initialisation of the set of all T_tilde matrices
@@ -255,7 +259,7 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
 
     if (length(z) > 0) {
       subint_mat <- T_tilde$pp + (T_tilde$pz %*% solve(diag(1, ncol(T_tilde$zz))
-                                                  - T_tilde$zz) %*% T_tilde$zp)
+                                                       - T_tilde$zz) %*% T_tilde$zp)
 
       init_probs_z <- init_probs[z]
       init_probs <- init_probs_p +
@@ -283,8 +287,14 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
 
     n <- length(init_probs)
 
-    if (!is.vector(reward)) {
-      stop('The rewards should be in a vector.')
+    if (is.matrix(reward)){
+      if (nrow(reward) == 1){
+        reward <- vector(reward)
+      } else {
+        stop('The rewards should be a vector.')
+      }
+    } else if (!is.vector(reward)) {
+      stop('The rewards should be a vector.')
     }
 
     if (length(reward) != n) {
@@ -295,6 +305,7 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
     if (sum(reward < 0) != 0) {
       stop('The reward vector should only contain non-negative values.')
     }
+
 
     # Section to get the embended matrix of T (the subintensity matrix)
     Q <- subint_mat * 0

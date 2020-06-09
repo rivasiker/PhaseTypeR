@@ -6,7 +6,7 @@
 \usage{
 sim_phase_type <- function(obj)
 
-sim_phase_type <- function(obj)
+sim_phase_type
 }
 \arguments{
 \item{obj}{an object of class \code{disc_phase_type} or

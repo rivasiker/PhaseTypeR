@@ -9,3 +9,4 @@ If you install devtools in your R environment with `install.packages("devtools")
 ```
 devtools::install_github("rivasiker/phasty")
 ```
+

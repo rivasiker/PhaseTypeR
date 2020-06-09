@@ -18,7 +18,8 @@ Depends: expm, methods
 Suggests: 
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 VignetteBuilder: knitr
 Collate: 
     'convph.R'

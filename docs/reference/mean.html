@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>mean method for <code>cont_phase_type</code> — mean • phasty</title>
+<title>Mean of Phase-Type Distributions — mean • phasty</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,10 @@
 
 
 
-<meta property="og:title" content="mean method for <code>cont_phase_type</code> — mean" />
-<meta property="og:description" content="mean method for cont_phase_type
-mean method for disc_phase_type
-mean method for mult_cont_phase_type
-mean method for mult_disc_phase_type" />
+<meta property="og:title" content="Mean of Phase-Type Distributions — mean" />
+<meta property="og:description" content="Calculates the mean of continuous, discrete and multivariate phase-type
+distributions, represented by the cont_phase_type,
+disc_phase_type and mult_cont_phase_type classes." />
 
 
 
@@ -98,7 +97,7 @@ mean method for mult_disc_phase_type" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Phasty.html">Phasty v0.9</a>
+      <a href="../articles/Phasty.html">Phasty v0.1</a>
     </li>
     <li>
       <a href="../articles/pop_gen_iker.html">Using phasty for population genetics</a>
@@ -126,16 +125,15 @@ mean method for mult_disc_phase_type" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>mean method for <code>cont_phase_type</code></h1>
+    <h1>Mean of Phase-Type Distributions</h1>
     <small class="dont-index">Source: <a href='https://github.com/rivasiker/phasty/blob/master/R/mean.R'><code>R/mean.R</code></a></small>
     <div class="hidden name"><code>mean.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>mean method for <code>cont_phase_type</code></p>
-<p>mean method for <code>disc_phase_type</code></p>
-<p>mean method for <code>mult_cont_phase_type</code></p>
-<p>mean method for <code>mult_disc_phase_type</code></p>
+    <p>Calculates the mean of continuous, discrete and multivariate phase-type
+distributions, represented by the <code>cont_phase_type</code>,
+<code>disc_phase_type</code> and <code>mult_cont_phase_type</code> classes.</p>
     </div>
 
     <pre class="usage"><span class='fu'>mean</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -147,9 +145,6 @@ mean method for mult_disc_phase_type" />
 <span class='fu'>mean</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for mult_cont_phase_type</span>
-<span class='fu'>mean</span>(<span class='no'>x</span>, <span class='kw'>v</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for mult_disc_phase_type</span>
 <span class='fu'>mean</span>(<span class='no'>x</span>, <span class='kw'>v</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -169,6 +164,20 @@ mean method for mult_disc_phase_type" />
       <td><p>NULL, integer or vector.</p></td>
     </tr>
     </table>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>For the univariate case (<code>cont_phase_type</code> and <code>disc_phase_type</code>),
+the mean of the distribution is returned.</p>
+<p>In the case of multivariate phase-type distributions three
+different usages can be distinguished:</p><ul>
+<li><p>If <code>v = NULL</code> (default), the means of all the variables defined by
+ the sub-intensity matrix are returned</p></li>
+<li><p>If <code>v</code> is an integer, then the mean of the variable with the specified index in the
+ reward matrix is returned.</p></li>
+<li><p>If <code>v</code> is a vector, then the means of the variables defined
+by those indices will be returned.</p></li>
+</ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

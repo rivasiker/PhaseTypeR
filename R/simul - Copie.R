@@ -146,7 +146,7 @@ sim_phase_type <- function(obj, R = 100){
 
 # output: An n times R vector
 
-mvrewsim <- function(R, obj, reward_mat = NULL) {
+sim_rew_phase_type <- function(R, obj, reward_mat = NULL) {
   if (!(class(obj) == 'mult_cont_phase_type' || class(obj) == 'cont_phase_type')) {
     stop("Please provide an object of type cont_phase_type or mult_cont_phase_type")
   }
@@ -166,7 +166,7 @@ mvrewsim <- function(R, obj, reward_mat = NULL) {
   if (p != dim(subint_mat)[1]) {stop("Dimension mismatch between subint_mat and reward_mat")}
   out <- matrix(0, n, R)
   for(i in 1:R) {
-    smph <- naivesimph(ph_obj); #Simulate a single path
+    smph <- sim_phase_type(ph_obj); #Simulate a single path
     pointwiserewards <- matrix(0, n, length(smph[[1]])) # a vector to hold the rewards oexit_rateained for each state (no reward is oexit_rateained in the aborbing state so length is that of the inter-jump-times)
     # right now, smph[[2]] holds a rowvector of the states visited prior to in incl. absorexit_rateion
     #
@@ -174,7 +174,9 @@ mvrewsim <- function(R, obj, reward_mat = NULL) {
       pointwiserewards[, which(smph[[2]] == j)] <- reward_mat[j,]
     }
     #calculate the rewards times the time spent in each state using point-wise multiplication
-    out[,i] <- rowSums(pointwiserewards * matrix(smph[[1]], n, length(smph[[1]]), byrow = TRUE))
+    out[,i] <- rowSums(pointwiserewards * matrix(smph[[1]], n,
+                                                 length(smph[[1]]), byrow = TRUE))
   }
   return(out)
 }
+
