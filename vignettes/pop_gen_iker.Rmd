@@ -11,7 +11,7 @@ vignette: >
 
 # 1. Introduction to the package
 
-`phasty` is a flexible aand efficient package for using phase-type theory in R. This vignette describes how to use the general-purpose phase-type functions for modelling common statistics in population genomics at the finest level. The formulation of general phase-type theory can be consulted in Bladt and Nielsen's 'Matrix-Exponential Distributions in Applied Probability', and the notation for this vignette is also adopted from this book. On the other hand, the theory behind applying phase-type theory in population genomics is based on Hobolth et al (2018).
+`phasty` is a flexible and efficient package for using phase-type theory in R. This vignette describes how to use the general-purpose phase-type functions for modelling common statistics in population genomics at the finest level. The formulation of general phase-type theory can be consulted in Bladt and Nielsen's 'Matrix-Exponential Distributions in Applied Probability', and the notation for this vignette is also adopted from this book. On the other hand, the theory behind applying phase-type theory in population genomics is based on Hobolth et al (2018).
 
 Do not hesitate to run `?phasty` for a quick summary of the available general-purpose functions, or to open the help files for the individual functions. 
 
