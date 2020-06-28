@@ -1,0 +1,16 @@
+---
+  title: "Using phasty for the sites fequence spectrum"
+  output:
+    html_document:
+    toc: true
+  vignette: >
+    %\VignetteIndexEntry{Using phasty for population genetics}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+---
+
+# 1. Introduction 
+
+Here we recreate the figures from the paper.
+
+
