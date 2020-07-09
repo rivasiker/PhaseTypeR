@@ -13,10 +13,10 @@ reward_phase_type(phase_type, reward, round_zero = NULL)
 \item{reward}{a vector of the same length as the number of
 states. The vector should contains non negative values and only integer for
 discrete phase-type class.
-For \code{disc_phase_type} object, a matrix with as many rows as states,
-and as many columns as the maximum values of reward plus one. Also in this
-case, each cell of the matrix should be probabilities and the sum of the
-rows should sum up to one.}
+For \code{disc_phase_type} object, it could also be a matrix with as many
+rows as states and as many columns as the maximum values of reward plus one.
+Also in this case, each cell of the matrix should be probabilities and the
+sum of the rows should sum up to one.}
 
 \item{round_zero}{is a positive integer or \code{NULL}, if it is a positive
 integer, all the values in the subintensity matrix and initial probabilities
@@ -26,7 +26,7 @@ sums of the subintensity  matrix to be higher than 1 or smaller than 0 for
 discrete cases, or higher than 0 for continuous cases.}
 }
 \value{
-An object of \code{class disc_phase_type} or \code{cont_phase_type}.
+An object of class \code{disc_phase_type} or \code{cont_phase_type}.
 Be aware that if the input is a multivariate phase_type the output will be
 univariate.
 }
@@ -40,7 +40,7 @@ transformation will be performed as presented in the book of Bladt and
 Nielsen (2017).
 
 For the discrete phase_type distribution is based on the PhD of Navarro and
-the article of Hobolth and
+the *in prep.* manuscript of Andersen *et al.*
 
 Every state of the subintensity matrix should have a reward, in the case of
 continuous phase-type, this reward should be a vector with non negative
@@ -102,7 +102,9 @@ reward_phase_type(ph, reward)
 
 }
 \references{
-Bladt, Nielsen, blablabla
+Bladt, M., & Nielsen, B. F. (2017). *Matrix-exponential distributions in applied probability* (Vol. 81). New York: Springer.
+Campillo Navarro, A. (2019). *Order statistics and multivariate discrete phase-type distributions*. DTU Compute. DTU Compute PHD-2018, Vol.. 492
+Andersen, L. *et al.* (*in prep.*)
 }
 \seealso{
 \code{\link{phase_type}}
