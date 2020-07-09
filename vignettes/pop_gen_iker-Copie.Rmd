@@ -4,7 +4,7 @@ output:
   html_document:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Using phasty for population genetics}
+  %\VignetteIndexEntry{Using phasty for population genetics-cop}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: for_vignette.bib
