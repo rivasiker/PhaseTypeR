@@ -2,7 +2,9 @@
 title: "Using phasty for the site frequency spectrum"
 output:
   html_document:
-  toc: true
+    includes:
+      before_body: preamble-mathjax.tex
+    toc: true
 vignette: >
   %\VignetteIndexEntry{Using phasty for the site frequency spectrum}
   %\VignetteEngine{knitr::rmarkdown}
@@ -56,7 +58,7 @@ for(i in 2:length(lambdavals)) {
 }
 ```
 
-Figures for numerical inversion of chf
+Next, we numerically invert the characteristic function of the numerator of Tajima's $D$ and compare to simulated values. First, we obtain the rate-matrix and state space for the block counting process. 
 
 ```{r}
 n = 4
@@ -84,6 +86,7 @@ ph_obj=phase_type(subintensity_matrix)
 ph_rew_obj=phase_type(subintensity_matrix, reward_mat = rew_mat)
 ```
 
+Next, we simulate random site frequency spectra by using REF
 
 ```{r}
 R = 1e4
@@ -96,20 +99,66 @@ for(i in 1:rew_dim) {
 }
 ```
 
-```{r}
-res = 1000
-ba = res*(2*((1:(n-1))*( (n-1):1))/(n*(n-1)) - 1/sum(1/(1:(n-1))))
-```
+An alternative is to simulate the SFS using the coalo package
 
 ```{r}
-themean = mean(mean(ph_rew_obj)*ba) #the mean of the linear combination
+library(coala)
+loc_length = 1e4; theta = 3
+model <- coal_model(sample_size = n, loci_number = R,loc_length) + feat_mutation(theta) + sumstat_trees() + sumstat_seg_sites()
+stats <- simulate(model, seed = 15)
+
+out = rep(0,R)
+for(i in 1:R) {out[i] = length(stats$seg_sites[[i]]$position)}
+N=min(max(out),n)
+
+out = matrix(0,R,N)
+for(i in 1:R) {
+  curcolsums = colSums(stats$seg_sites[[i]]$snps)
+  for(j in 1:N) {
+    out[i,j]=sum(curcolsums==j)
+  }
+}
+out = out[,-n]
+sfs = out
+```
+
+TODO: compare
+
+The numerator of Tajima's $D$ is $\hat{\theta}_{\pi}-\hat{\theta}_{\rm W}$ so the coefficient vector $\mathbf{c}$ is
+$$
+c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}}
+$$
+which is implemented below
+
+```{r}
+res = 1000
+bc = res*(2*((1:(n-1))*( (n-1):1))/(n*(n-1)) - 1/sum(1/(1:(n-1))))
+```
+
+According to REF, the characteristic function is obtained as
+$$
+\phi(t) = \tilde{\psi}(\e^{\ih t})
+$$
+where
+\begin{align*}
+\tilde{\psi}(z) \eqdef \Exp [z^{\bc^\ast \bxi}] = \balpha^\ast \left( \bS + \lambda \Delta[\bR z^\bc] \right)^{-1} \bT \bone
+\label{eq:phitildefun}
+\end{align*}
+
+The next snippet implements the $\phi$-function
+
+
+```{r}
+themean = mean(mean(ph_rew_obj)*bc) #the mean of the linear combination
 bT = subintensity_matrix #bold T
 bR = rew_mat #bold R
 bS = bT - diag(rowSums(bR)) #bold S
 bone = matrix(1,dim(bT)[1],1) #bold one = (1,1,...,1)^T
 balpha = matrix(0,1,dim(bT)[1]);balpha[1]=1 #(1,0,...,0)
-phi <- function(t) (exp(-1i*themean*t))*balpha%*%solve(bS+diag(c(bR%*%(exp(1i*t)^ba))) )%*%bT%*%bone
+phi <- function(t) (exp(-1i*themean*t))*balpha%*%solve(bS+diag(c(bR%*%(exp(1i*t)^bc))) )%*%bT%*%bone
 ```
+
+
 
 
 ```{r}
@@ -118,10 +167,10 @@ appvals=ApproxCDF(phi,H = 1e5,eta=0.001,xlim=c(-1.5*res,2.5*res))
 xvals=appvals[[1]]
 yvals=appvals[[2]]
 
-ba2 = (1/res)*ba
+bc2 = (1/res)*bc
 xvals2 = (1/res)*xvals
 themean2 = (1/res)*themean
-centered_sim2 = t(ph_counts)%*%ba2-c(themean2)
+centered_sim2 = t(ph_counts)%*%bc2-c(themean2)
 ecdfobj2 = ecdf(centered_sim2)
 
 plot(xvals2,yvals,type="l",ylim=c(0,1))
@@ -172,16 +221,16 @@ for(i in 1:rew_dim) {
 }
 
 res = 1000
-ba = res*(2*((1:(n-1))*( (n-1):1))/(n*(n-1)) - 1/sum(1/(1:(n-1))))
+bc = res*(2*((1:(n-1))*( (n-1):1))/(n*(n-1)) - 1/sum(1/(1:(n-1))))
 
 #compute characteristic function
-themean = mean(mean(ph_rew_obj)*ba) #the mean of the linear combination
+themean = mean(mean(ph_rew_obj)*bc) #the mean of the linear combination
 bT = subintensity_matrix #bold T
 bR = rew_mat #bold R
 bS = bT - diag(rowSums(bR)) #bold S
 bone = matrix(1,dim(bT)[1],1) #bold one = (1,1,...,1)^T
 balpha = matrix(0,1,dim(bT)[1]);balpha[1]=1 #(1,0,...,0)
-phi <- function(t) (exp(-1i*themean*t))*balpha%*%solve(bS+diag(c(bR%*%(exp(1i*t)^ba))) )%*%bT%*%bone
+phi <- function(t) (exp(-1i*themean*t))*balpha%*%solve(bS+diag(c(bR%*%(exp(1i*t)^bc))) )%*%bT%*%bone
 
 #Invert numerically
 appvals=ApproxCDF(phi,H = 1e5,eta=0.001,xlim=c(-3*res,3*res))
@@ -189,10 +238,10 @@ appvals=ApproxCDF(phi,H = 1e5,eta=0.001,xlim=c(-3*res,3*res))
 xvals=appvals[[1]]
 yvals=appvals[[2]]
 
-ba2 = (1/res)*ba
+bc2 = (1/res)*bc
 xvals2 = (1/res)*xvals
 themean2 = (1/res)*themean
-centered_sim2 = t(ph_counts)%*%ba2-c(themean2)
+centered_sim2 = t(ph_counts)%*%bc2-c(themean2)
 ecdfobj2 = ecdf(centered_sim2)
 
 plot(xvals2,yvals,type="l",ylim=c(0,1))
