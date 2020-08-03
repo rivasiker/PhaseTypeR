@@ -8,7 +8,7 @@
 #' \code{cont_phase_type}
 #' @param R Number of replications
 #'
-#' @usage sim_phase_type <- function(obj)
+#' @usage sim_phase_type(obj, R = 100)
 #'
 #' @examples
 #'
@@ -139,14 +139,16 @@ sim_phase_type <- function(obj, R = 100){
 
 #' sim_rew_phase_type implements a naive simulation scheme for simulation of
 #' multivariate phase-type distributions.
-
-#' @param R - number of replications
+#'
+#' @param R number of replications
 #' @param obj an object of class \code{mult_cont_phase_type} or
 #' \code{cont_phase_type}
-#' @param R reward_mat A p times n matrix of rewards. If a vector is provided it is converted to a matrix and univariate rewards are assumed the number of columns of reward_mat must match subint_mat
-
+#' @param reward_mat A p times n matrix of rewards. If a vector is
+#' provided it is converted to a matrix and univariate rewards are assumed
+#' the number of columns of reward_mat must match subint_mat
+#'
 #' @return An n times R vector
-
+#'
 #' @export
 
 sim_rew_phase_type <- function(R, obj, reward_mat = NULL) {

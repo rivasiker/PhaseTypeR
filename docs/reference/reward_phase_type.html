@@ -96,7 +96,13 @@ non-negative reward vector." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Phasty.html">Phasty v0.1</a>
+      <a href="../articles/Phasty.html">Phasty v0.9</a>
+    </li>
+    <li>
+      <a href="../articles/old_vignettes/pop_gen_iker-Copie.html">Using phasty for population genetics</a>
+    </li>
+    <li>
+      <a href="../articles/phasty_SFS.html">Using phasty for the site frequency spectrum</a>
     </li>
     <li>
       <a href="../articles/pop_gen_iker.html">Using phasty for population genetics</a>
@@ -149,10 +155,10 @@ non-negative reward vector.</p>
       <td><p>a vector of the same length as the number of
 states. The vector should contains non negative values and only integer for
 discrete phase-type class.
-For <code>disc_phase_type</code> object, a matrix with as many rows as states,
-and as many columns as the maximum values of reward plus one. Also in this
-case, each cell of the matrix should be probabilities and the sum of the
-rows should sum up to one.</p></td>
+For <code>disc_phase_type</code> object, it could also be a matrix with as many
+rows as states and as many columns as the maximum values of reward plus one.
+Also in this case, each cell of the matrix should be probabilities and the
+sum of the rows should sum up to one.</p></td>
     </tr>
     <tr>
       <th>round_zero</th>
@@ -167,7 +173,7 @@ discrete cases, or higher than 0 for continuous cases.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of <code>class disc_phase_type</code> or <code>cont_phase_type</code>.
+    <p>An object of class <code>disc_phase_type</code> or <code>cont_phase_type</code>.
 Be aware that if the input is a multivariate phase_type the output will be
 univariate.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -176,7 +182,7 @@ univariate.</p>
 transformation will be performed as presented in the book of Bladt and
 Nielsen (2017).</p>
 <p>For the discrete phase_type distribution is based on the PhD of Navarro and
-the article of Hobolth and</p>
+the *in prep.* manuscript of Andersen *et al.*</p>
 <p>Every state of the subintensity matrix should have a reward, in the case of
 continuous phase-type, this reward should be a vector with non negative
 values of a size equal to the number of states.</p>
@@ -189,7 +195,9 @@ that we attribute to this state a reward j corresponds to the value of the
 matrix in row i and column j+1.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Bladt, Nielsen, blablabla</p>
+    <p>Bladt, M., &amp; Nielsen, B. F. (2017). *Matrix-exponential distributions in applied probability* (Vol. 81). New York: Springer.
+Campillo Navarro, A. (2019). *Order statistics and multivariate discrete phase-type distributions*. DTU Compute. DTU Compute PHD-2018, Vol.. 492
+Andersen, L. *et al.* (*in prep.*)</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='phase_type.html'>phase_type</a></code></p></div>

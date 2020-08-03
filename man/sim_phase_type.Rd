@@ -4,7 +4,7 @@
 \alias{sim_phase_type}
 \title{Phase-type simulations}
 \usage{
-sim_phase_type <- function(obj)
+sim_phase_type(obj, R = 100)
 }
 \arguments{
 \item{obj}{an object of class \code{disc_phase_type} or

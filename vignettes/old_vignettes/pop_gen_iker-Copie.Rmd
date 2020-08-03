@@ -58,7 +58,6 @@ Following Hobolth et al. [-@Hobolth2019], we can build a phase-type representati
 For example, for Kingman's coalescent the sub-intensity matrix can be defined as:
 
 $$
-
 \boldsymbol{T}
 =
 \begin{bmatrix}
@@ -68,7 +67,6 @@ $$
     \vdots & \vdots & \vdots & \vdots & \vdots \\
     0 & 0 & 0 & 0 & -1
 \end{bmatrix}
-
 $$
 
 and the initial probability vector 
@@ -139,7 +137,9 @@ T_total_n <- function(n) {
 ```
 
 Indeed the core of the subintensity matrix for $T_{MRCA}$ and $T_{Total}$ is the same. But when $T_{MRCA}$ measure the time to reach the MRCA, so the length of one branch, $T_{Total}$ will measure the length of all branches. This leads to proceed to a reward transformation of the original subintensity matrix.
+
 The rewards is a way to give more weights to some states than other. So the first state of the subintensity matrix should have a rate of $n$, because before any coalescent event there are $n$ lineages, then the second state a rate of $n-1$ and so on.
+
 In the subintensity matrix the rates of each states are divided by the rewards which leads for $n = 4$ to:
 
 ```{r, warning = FALSE}
@@ -356,6 +356,7 @@ subint_itons_4 <- matrix(c(-6, 6, 0, 0,
                            0, 0, -1, 0,
                            0, 0, 0, -1), nrow = 4, byrow = T)
 ```
+
 **Note** that the function ```block_couting_process``` to get the corresponding block counting process for the n-coalescent model for any $n$ is provided at the end of this document. Therefore ```sub_itons_4 <- block_counting_process(4)```
 
 And we can also define a continuous phase-type representation of this process:

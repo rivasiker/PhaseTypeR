@@ -7,11 +7,13 @@ vignette: >
   %\VignetteIndexEntry{Using phasty for population genetics}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: for_vignette.bib
+link-citations: yes
 ---
 
 # 1. Introduction to the package
 
-`phasty` is a flexible and efficient package for using phase-type theory in R. This vignette describes how to use the general-purpose phase-type functions for modelling common statistics in population genomics at the finest level. The formulation of general phase-type theory can be consulted in Bladt and Nielsen's 'Matrix-Exponential Distributions in Applied Probability', and the notation for this vignette is also adopted from this book. On the other hand, the theory behind applying phase-type theory in population genomics is based on Hobolth et al (2018).
+`phasty` is a flexible and efficient package for using phase-type theory in R. This vignette describes how to use the general-purpose phase-type functions for modelling common statistics in population genomics at the finest level. The formulation of general phase-type theory can be consulted in Bladt and Nielsen's 'Matrix-Exponential Distributions in Applied Probability' [@Bladt2017], and the notation for this vignette is also adopted from this book. On the other hand, the theory behind applying phase-type theory in population genomics is based on Hobolth et al [-@Hobolth2019].
 
 Do not hesitate to run `?phasty` for a quick summary of the available general-purpose functions, or to open the help files for the individual functions. 
 
@@ -33,7 +35,7 @@ library(phasty)
 
 ## 2.1. Theoretical background
 
-In an evolutionary tree the time until two sequences coalesce $T_i$ can be measured in number of generations $R_i$ divided by the population size $N$, this is, $T_i=R_i/N$. $T_i$ can easily be proven to approximate to an exponential distribution with rate $\binom{i}{2}$.
+In an evolutionary tree the time until two sequences coalesce $T_i$ can be measured in number of generations $R_i$ divided by the population size $N$, this is, $T_i=R_i/N$. $T_i$ can easily be proven to approximate to an exponential distribution with rate $\binom{i}{2}$ [@Kingman1982].
 
 In order to understand the evolutionary history of sequences two additional quantities can be defined --namely the time until the most recent common ancestor $T_{MRCA}$ and the total tree length $T_{Total}$. $T_{MRCA}$ will simply be the sum of all times until two sequences coalesce, in other words $T_{MRCA}=T_n+T_{n-1}+...+T_2$, where $T_i\sim\text{exp}(\binom{i}{2})$. $T_{Total}$, on the other hand, takes into account the length of all possible branches, so $T_{Total}=nT_n+(n-1)T_{n-1}+...+2T_2$ and, thus, $iT_i\sim \text{exp}(\frac{i-1}{2})$.
 
@@ -49,25 +51,36 @@ The Markov chain can be represented using phase-type theory, where the jump rate
 
 ## 2.2. Time until the most recent common ancestor ($T_{MRCA}$)
 
-Following Hobolth et al. (2018), we can build a phase-type representation of $T_{MRCA}$ by defining the sub-intensity matrix, which each row and column will represent the states of the coalescent process. 
+Following Hobolth et al. [-@Hobolth2019], we can build a phase-type representation of $T_{MRCA}$ by defining the sub-intensity matrix, which each row and column will represent the states of the coalescent process. 
 
 For example, for Kingman's coalescent the sub-intensity matrix can be defined as:
 
+$$
+\boldsymbol{T}
+=
+\begin{bmatrix}
+    -\binom{n}{2}  &  \binom{n}{2} & 0 & \cdots & 0 \\
+    0 & -\binom{n-1}{2} & \binom{n-1}{2} & \cdots & 0 \\
+    0 & 0 & -\binom{n-2}{2} & \cdots & 0 \\
+    \vdots & \vdots & \vdots & \vdots & \vdots \\
+    0 & 0 & 0 & 0 & -1
+\end{bmatrix}
+$$
+
+and the initial probability vector 
+
+$$
+ \boldsymbol{\pi} = (1,\ 0, \ ...\,,\ 0)
+$$
+
+We can therefore define $T_{MRCA}$ as following a phase-type distribution using `phasty` with the following function
 
 ```{r}
-
+# for any integer n > 2
 subint_mat_t_mrca <- function(n) {
-  # Define an matrix filled with zeros
-  subint_mat <- matrix(c(0), nrow = n-1, ncol = n-1)
-  for (i in 1:n-1) {
-    # Save negative exponential rates in the diagonal
-    subint_mat[i, i] <- - (n - i+1)*(n - i)/2
-    if (i < n-1) {
-      # Define the exponential jumping rates
-      subint_mat[i, i+1] <- -subint_mat[i, i]
-    }
-  }
-  subint_mat
+  subint_mat <- diag(-choose(n:2, 2))
+  subint_mat[-(n-1), -1] <- subint_mat[-(n-1), -1] - subint_mat[-(n-1), -(n-1)]
+  return(subint_mat)
 }
 ```
 
@@ -110,9 +123,28 @@ var(t_mrca_4)
 
 ## 2.3. Total tree lenght ($T_{Total}$) and the reward-transformation
 
-In a similar way to $T_{MRCA}$, the total tree length or $T_{Total}$ can also be represented using phase-type theory (Hobolth et al. 2018).
+In a similar way to $T_{MRCA}$, the total tree length or $T_{Total}$ can also be represented using phase-type theory [@Hobolth2019].
 
 For Kingman's coalescent the sub-intensity matrix can be defined as:
+
+$$
+\boldsymbol{T}
+=
+\begin{bmatrix}
+    -(n-1)/2  &  (n-1)/2 & 0 & \cdots & 0 \\
+    0 & -(n-2)/2 & (n-2)/2 & \cdots & 0 \\
+    0 & 0 & -(n-3)/2 & \cdots & 0 \\
+    \vdots & \vdots & \vdots & \vdots & \vdots \\
+    0 & 0 & 0 & 0 & -0.5
+\end{bmatrix}
+$$
+
+and the initial probability vector 
+
+$$
+ \boldsymbol{\pi} = (1,\ 0, \ ...\,,\ 0)
+$$
+
 
 ```{r}
 
@@ -166,6 +198,9 @@ $$
 T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 $$
 
+Indeed the core of the subintensity matrix for $T_{MRCA}$ and $T_{Total}$ is the same. But when $T_{MRCA}$ measure the time to reach the MRCA, so the length of one branch, $T_{Total}$ will measure the length of all branches. This leads to proceed to a reward transformation of the original subintensity matrix.
+
+The reward-transformation is a way to give more weights to some states than other. So the first state of the subintensity matrix should have a rate of $n$, because before any coalescent event there are $n$ lineages, then the second state a rate of $n-1$ and so on.
 
 Therefore, $T_{total}$ can be represented as a reward-transformed $T_{MRCA}$, where the reward vector is $[n, n-1, ..., 2]$:
 
@@ -188,21 +223,21 @@ dphtype(0.5, t_mrca_4)
 dphtype(1:3, t_total_4)
 ```
 
-```{r fig.width=6, fig.align='center'}
-x <- seq(0,10,0.1)
-y <- dphtype(x, t_mrca_4)
-plot(x, y, type = 'l')
-lines(x, y)
-title(expression('Density function of T'[MRCA]))
-```
+
 
 ```{r fig.width=6, fig.align='center'}
-x <- seq(0,20,0.1)
-y <- dphtype(x, t_total_4)
-plot(x, y, type = 'l')
-lines(x, y)
-title(expression('Density function of T'[Total]))
+
+x <- seq(0, 10, 0.1)
+y <- dphtype(x, t_mrca_4)
+plot(x, y, type = 'l', col = 'orange')
+y2 <- dphtype(x, t_total_4)
+lines(x, y2, col = 'blue')
+legend(6, 0.5, legend=c(expression('T'[MRCA]), expression('T'[total])),
+       col=c("orange", "blue"), lty=1)
+title('Density function (n=4)')
+
 ```
+
 
 
 The quantile function:
@@ -213,19 +248,16 @@ qphtype(c(0.25, 0.75), t_total_4)
 ```
 
 ```{r fig.width=6, fig.align='center'}
-x <- seq(0,0.99,0.01)
-y <- qphtype(x, t_mrca_4)
-plot(x, y, type = 'l')
-lines(x, y)
-title(expression('Quantile function of T'[MRCA]))
-```
 
-```{r fig.width=6, fig.align='center'}
 x <- seq(0,0.99,0.01)
 y <- qphtype(x, t_total_4)
-plot(x, y, type = 'l')
-lines(x, y)
-title('Quantile function of T_total')
+plot(x, y, type = 'l', col = 'blue')
+y2 <- qphtype(x, t_mrca_4)
+lines(x, y2, col = 'orange')
+title('Quantile function (n=4)')
+legend(0.1, 10, legend=c(expression('T'[MRCA]), expression('T'[total])),
+       col=c("orange", "blue"), lty=1)
+
 ```
 
 
@@ -237,21 +269,17 @@ pphtype(c(0.25, 0.75), t_total_4)
 ```
 
 ```{r fig.width=6, fig.align='center'}
-x <- seq(0,6,0.1)
+
+x <- seq(0, 10, 0.1)
 y <- pphtype(x, t_mrca_4)
-plot(x, y, type = 'l')
-lines(x, y)
-title('Probability function of T_MRCA')
-```
-
-```{r fig.width=6, fig.align='center'}
-x <- seq(0,12,0.1)
+plot(x, y, type = 'l', col = 'orange')
 y <- pphtype(x, t_total_4)
-plot(x, y, type = 'l')
-lines(x, y)
-title('Probability function of T_total')
-```
+lines(x, y, col = 'blue')
+title('Probability function (n=4)')
+legend(6, 0.4, legend=c(expression('T'[MRCA]), expression('T'[total])),
+       col=c("orange", "blue"), lty=1)
 
+```
 
 And the random drawer:
 
@@ -263,14 +291,14 @@ rphtype(10, t_total_4)
 
 ```{r fig.width=6, fig.align='center'}
 set.seed(0)
-x <- rphtype(10000, t_mrca_4)
-hist(x, main = '10,000 random draws of T_MRCA', breaks=50)
-```
-
-```{r fig.width=6, fig.align='center'}
-set.seed(0)
 x <- rphtype(10000, t_total_4)
-hist(x, main = '10,000 random draws of T_total', breaks=50)
+hist(x, main = '10,000 random draws (n=4)', breaks = seq(0, 30, 0.5), ylim = c(0, 3000), xlim=c(0, 20),
+     col=rgb(0,0,1,0.5))
+x <- rphtype(10000, t_mrca_4)
+hist(x, breaks = seq(0, 30, 0.5), add = T, col=rgb(1,0.5,0,0.5))
+legend(15, 2000, legend=c(expression('T'[MRCA]), expression('T'[total])),
+       col=c("orange", "blue"), lty=1)
+box()
 ```
 
 
@@ -282,9 +310,9 @@ Some quantities in population genomics are discrete, such as the total number of
 
 Luckily, all these quantities can be represented using discrete phase-type theory. Similar to the continuous phase-type distribution being a generalization of exponentially distributed variables, the discrete phase-type distribution can be seen as a generalization of various geometric distributions. Each state in the discrete phase-type distribution will represent a stochastic process, such that the time until absorption of a random variable ($\tau$) follows an absorbing Markov chain. In this case we say that $\tau+1\sim DPH(\pi, T)$, where $T$ is the sub-intensity matrix that gathers the transition rates and $\pi$ is the vector of initial probabilities.
 
-The discrete phase-type representation of $S_{total}$ can be built from the continuous phase-type representation of the total branch length. Folllowing theorem 3.5 in Hobolth et. al (2019), the total branch length can be discretized if the mutation parameter $\theta$ is supplied. 
+The discrete phase-type representation of $S_{total}$ can be built from the continuous phase-type representation of the total branch length. Folllowing **theorem 3.5** in Hobolth et al. [-@Hobolth2019], the total branch length can be discretized if the mutation parameter $\theta$ is supplied. 
 
-On the other hand, singletons, doubletons and related variables (referred to as i-tons or $\xi_i$ throughout this vignette), require a more elaborate formulation. The idea behind consists in first building a continuous phase-type representation of the coalescent process, where the sub-intensity matrix will contain the rates of transition between all the possible branch types of all possible genealogies. Among all these branches, only a certain number will give rise to i-tons. We can calculate which branches these are, together with the weights associated to each of them. Using this information, we can reward-transform the continuous phase-type representation of the coalescent process, so it only represents those branches that give rise to a certain i-ton. Afterwards, we can discretize this representation using theorem 3.5 in Hobolth et. al (2019) and the mutation parameter $\theta$. 
+On the other hand, singletons, doubletons and related variables (referred to as i-tons or $\xi_i$ throughout this vignette), require a more elaborate formulation. The idea behind consists in first building a continuous phase-type representation of the coalescent process, where the sub-intensity matrix will contain the rates of transition between all the possible branch types of all possible genealogies. Among all these branches, only a certain number will give rise to i-tons. We can calculate which branches these are, together with the weights associated to each of them. Using this information, we can reward-transform the continuous phase-type representation of the coalescent process, so it only represents those branches that give rise to a certain i-ton. Afterwards, we can discretize this representation using **theorem 3.5** in Hobolth et. al [-@Hobolth2019] and the mutation parameter $\theta$. 
 
 Bear in mind that it is possible for some i-tons to never be observed. This means that the initial probability vector might not sum up to 1, because the variable might directly jump to the absorbing state. The probability that this happens is the so-called defect.
 
@@ -293,7 +321,7 @@ Because phase-type theory has well-defined functions for discrete phase-type dis
 
 ## 3.2. Total number of segregating sites ($S_{total}$)
 
-As explained above, we can use our previous definition of $T_{total}$ and use theorem 3.5 in Hobolth et. al (2018) for a given theta to discretize the phase-type distribution into the sub-intensity matrix for $S_{total}$:
+As explained above, we can use our previous definition of $T_{total}$ and use **theorem 3.5** in Hobolth et. al [-@Hobolth2019] for a given theta to discretize the phase-type distribution into the sub-intensity matrix for $S_{total}$:
 
 ```{r}
 theta <- 3
@@ -320,9 +348,9 @@ mean(s_tot_4_3)
 var(s_tot_4_3)
 ```
 
-$S_{total}$ can also be defined in a different way. As suggested by Hobolth et al. 2018, we can get a matrix that summarizes all the possible states, each state being a specific combination of i-ton branches.
+$S_{total}$ can also be defined in a different way. As suggested by Hobolth et al. [-@Hobolth2019], we can get a matrix that summarizes all the possible states, each state being a specific combination of i-ton branches.
 
-As a mock example, we will be using a sample size of $n=4$, although the matrix corresponding to an arbitrary sample size can be obtained using the so-called block-counting process (Hobolth et al. 2018). Using the standard coalescent model, we can define this matrix as:
+As a mock example, we will be using a sample size of $n=4$, although the matrix corresponding to an arbitrary sample size can be obtained using the so-called block-counting process [@Hobolth2019]. Using the standard coalescent model, we can define this matrix as:
 
 ```{r}
 subint_itons_4 <- matrix(c(-6, 6, 0, 0,
@@ -332,7 +360,6 @@ subint_itons_4 <- matrix(c(-6, 6, 0, 0,
 ```
 
 And we can also define a continuous phase-type representation of this process:
-
 
 ```{r}
 kingman_4 <- phase_type(subint_itons_4)
@@ -347,7 +374,7 @@ seg_sites_cont_4 <- reward_phase_type(kingman_4, reward)
 seg_sites_cont_4
 ```
 
-Now we need to discretize this continuous phase-type distribution for getting the discrete phase-type representation of $S_{total}$. Using 3.5 in Hobolth et. al (2018):
+Now we need to discretize this continuous phase-type distribution for getting the discrete phase-type representation of $S_{total}$. Using **theorem 3.5** in Hobolth et. al [-@Hobolth2019]:
 
 ```{r}
 theta <- 3
@@ -374,7 +401,7 @@ Because we do not care about the nature of each of the mutations (this is, we do
 
 The i-tons $\xi_i$ can also be represented using a discrete phase-type distribution. We will use the same definition of Kingman's coalescent process, but this time we need to the reward-transform the continuous phase-type distribution with a vector corresponding only to the branches that give rise to a certain $\xi_i$.
 
-For example, the reward matrix for singletons and the subsequent continuous phase-type representation of the branches that give rise to singletons when $n=4$ (see Hobolth et al. 2018 for further details):
+For example, the reward matrix for singletons and the subsequent continuous phase-type representation of the branches that give rise to singletons when $n=4$ (see Hobolth et al. [-@Hobolth2019] for further details):
 
 ```{r}
 reward <- c(4, 2, 1, 0)
@@ -382,7 +409,7 @@ xi1_cont_4 <- reward_phase_type(kingman_4, reward)
 xi1_cont_4
 ```
 
-Again, we need to discretize this continuous phase-type distribution for getting the discrete phase-type representation of $\xi_1$. Using 3.5 in Hobolth et. al (2018):
+Again, we need to discretize this continuous phase-type distribution for getting the discrete phase-type representation of $\xi_1$. Using **theorem 3.5** in Hobolth et al. [-@Hobolth2019]:
 
 ```{r}
 theta <- 3
@@ -433,7 +460,7 @@ var(xi1_4_3);  var(xi2_4_3);  var(xi3_4_3)
 
 ```
 
-Note that we need to substract 1 from the mean to retrieve the true value. This is because of the way discrete phase-type distributions are defined (see Bladt/Nielsen and Hobolth 2018 for details).
+Note that we need to substract 1 from the mean to retrieve the true value. This is because of the way discrete phase-type distributions are defined (see [@Bladt2017] and [@Hobolth2019] for details).
 
 ## 3.4. Density, distribution and quantile functions
 
@@ -448,20 +475,18 @@ dphtype(4, s_tot_4_3)
 dphtype(1:3, xi1_4_3)
 ```
 
-```{r fig.width=6, fig.align='center'}
-x <- 1:20
-y <- dphtype(x, s_tot_4_3)
-plot(x-1, y, type = 'l')
-lines(x-1, y)
-title('Density function of S_total')
-```
 
 ```{r fig.width=6, fig.align='center'}
+
 x <- 1:20
-y <- dphtype(x, xi1_4_3)
-plot(x-1, y, type = 'l')
-lines(x-1, y)
-title('Density function of xi_1')
+y <- dphtype(x, s_tot_4_3)
+plot(x, y, type = 'l', col = 'green', ylim = c(0, 0.2))
+y2 <- dphtype(x, xi1_4_3)
+lines(x, y2, col = 'red')
+legend(15, 0.15, legend=c(expression('S'[total]), expression('X'[1])),
+       col=c("green", "red"), lty=1)
+title('Density function (n=4)')
+
 ```
 
 
@@ -472,22 +497,19 @@ qphtype(0.5, s_tot_4_3)
 qphtype(c(0.25, 0.75), xi1_4_3)
 ```
 
+
 ```{r fig.width=6, fig.align='center'}
+
 x <- seq(0,0.99,0.01)
 y <- qphtype(x, s_tot_4_3)
-plot(x, y, type = 'l')
-lines(x, y)
-title('Quantile function of S_total')
-```
+plot(x, y, type = 'l', col = 'green')
+y2 <- qphtype(x, xi1_4_3)
+lines(x, y2, col = 'red')
+title('Quantile function (n=4)')
+legend(0.1, 18, legend=c(expression('S'[total]), expression('X'[1])),
+       col=c("green", "red"), lty=1)
 
-```{r fig.width=6, fig.align='center'}
-x <- seq(0,0.99,0.01)
-y <- qphtype(x, xi1_4_3)
-plot(x, y, type = 'l')
-lines(x, y)
-title('Quantile function of xi_1')
 ```
-
 
 The probability function:
 
@@ -496,20 +518,18 @@ pphtype(0.5, s_tot_4_3)
 pphtype(c(0.25, 0.75), xi1_4_3)
 ```
 
-```{r fig.width=6, fig.align='center'}
-x <- 0:20
-y <- pphtype(x, s_tot_4_3)
-plot(x, y, type = 'l')
-lines(x, y)
-title('Probability function of S_total')
-```
 
 ```{r fig.width=6, fig.align='center'}
-x <- 0:12
+
+x <- 0:15
+y <- pphtype(x, s_tot_4_3)
+plot(x, y, type = 'l', col = 'green', ylim = c(0, 1))
 y <- pphtype(x, xi1_4_3)
-plot(x, y, type = 'l')
-lines(x, y)
-title('Probability function of xi_1')
+lines(x, y, col = 'red')
+title('Probability function (n=4)')
+legend(10, 0.4, legend=c(expression('S'[total]), expression('X'[1])),
+       col=c("green", "red"), lty=1)
+
 ```
 
 
@@ -521,16 +541,18 @@ rphtype(3, s_tot_4_3)
 rphtype(10, xi1_4_3)
 ```
 
-```{r fig.width=6, fig.align='center'}
-set.seed(0)
-x <- rphtype(10000, s_tot_4_3)-1
-hist(x, main = '10,000 random draws of S_total', breaks=40)
-```
 
 ```{r fig.width=6, fig.align='center'}
 set.seed(0)
+x <- rphtype(10000, s_tot_4_3)-1
+hist(x, main = '10,000 random draws (n=4)',
+     breaks = seq(0, 40, 1), col=rgb(0,1,0,0.5),
+     ylim = c(0, 3500), xlim = c(0, 25))
 x <- rphtype(10000, xi1_4_3)-1
-hist(x, main = '10,000 random draws of xi_1', breaks=20)
+hist(x, breaks = seq(0, 40, 1), add = T, col=rgb(1,0,0,0.5))
+legend(15, 2500, legend=c(expression('S'[total]), expression('X'[1])),
+       col=c("green", "red"), lty=1)
+box()
 ```
 
 # 4. The Multivariate Discrete Phase-Type Distribution: $Y_i$
@@ -540,7 +562,7 @@ hist(x, main = '10,000 random draws of xi_1', breaks=20)
 ## 4.2. Variance-covariance matrix for $Y_i$
 
 
-
+# References
 
 
 

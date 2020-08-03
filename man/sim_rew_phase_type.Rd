@@ -8,10 +8,14 @@ multivariate phase-type distributions.}
 sim_rew_phase_type(R, obj, reward_mat = NULL)
 }
 \arguments{
-\item{R}{reward_mat A p times n matrix of rewards. If a vector is provided it is converted to a matrix and univariate rewards are assumed the number of columns of reward_mat must match subint_mat}
+\item{R}{number of replications}
 
 \item{obj}{an object of class \code{mult_cont_phase_type} or
 \code{cont_phase_type}}
+
+\item{reward_mat}{A p times n matrix of rewards. If a vector is
+provided it is converted to a matrix and univariate rewards are assumed
+the number of columns of reward_mat must match subint_mat}
 }
 \value{
 An n times R vector
