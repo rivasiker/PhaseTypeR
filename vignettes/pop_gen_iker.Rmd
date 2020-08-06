@@ -5,7 +5,6 @@ output:
     toc: true
 vignette: >
   %\VignetteIndexEntry{Using phasty for population genetics}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: for_vignette.bib
 link-citations: yes
@@ -353,10 +352,10 @@ $S_{total}$ can also be defined in a different way. As suggested by Hobolth et a
 As a mock example, we will be using a sample size of $n=4$, although the matrix corresponding to an arbitrary sample size can be obtained using the so-called block-counting process [@Hobolth2019]. Using the standard coalescent model, we can define this matrix as:
 
 ```{r}
-subint_itons_4 <- matrix(c(-6, 6, 0, 0,
-                           0, -3, 2, 1,
-                           0, 0, -1, 0,
-                           0, 0, 0, -1), nrow = 4, byrow = T)
+subint_itons_4 <- matrix(c(-6,  6,  0,  0,
+                            0, -3,  2,  1,
+                            0,  0, -1,  0,
+                            0,  0,  0, -1), nrow = 4, byrow = T)
 ```
 
 And we can also define a continuous phase-type representation of this process:
@@ -557,10 +556,73 @@ box()
 
 # 4. The Multivariate Discrete Phase-Type Distribution: $Y_i$
 
-## 4.1. Theoretical background
+If the evolutionary tree is given, then each element of the site frequency spectrum (singletons, doubletons, etc) can be defined as mutations sprinkled over the tree following a Poisson distribution with rate $\theta/2$. The mean of each $\xi_i$ will be directly proportional to the mean of the total branch length that gives rise to each i-ton, or $Y_i$:
 
-## 4.2. Variance-covariance matrix for $Y_i$
+$$
+\mathop{\mathbb{E}}[\xi_i]=\mathop{\mathbb{E}}[\mathop{\mathbb{E}}(\xi_i|Y_i)]=
+\mathop{\mathbb{E}}\left[ \frac{\theta}{2}Y_i \right]=\frac{\theta}{2}\mathop{\mathbb{E}}[Y_i]
+$$
 
+Each $Y_i$ can be represented using a univariate phase-type distribution. However, instead of defining each $Y_i$ individually, we can build a multivariate phase-type representation of the coalescent process, such that $Y\sim MPH^*(\alpha, S, R)$, where $\alpha$ is the initial probability vector, $S$ is the sub-intensity matrix for the coalescent process and $R$ is the reward vector where each of the columns summarizes how the subintensity matrix should be transformed to obtain a phase-type representation of $Y_i$.
+
+For example, when $n=4$, the sub-intensity matrix for Kingman's coalescent is:
+
+```{r}
+
+subint_itons_4 <- matrix(c(-6,  6,  0,  0,
+                            0, -3,  2,  1,
+                            0,  0, -1,  0,
+                            0,  0,  0, -1), nrow = 4, byrow = T)
+
+```
+
+On the other hand, we need to define a reward matrix:
+
+```{r}
+
+reward_mat_4 <- matrix(c(4, 0, 0,
+                         2, 1, 0,
+                         1, 0, 1,
+                         0, 2, 0), nrow = 4, byrow = T)
+```
+
+We can define a continuous phase-type representation of $Y_i$ with the `phase_type` generator function:
+
+```{r}
+
+Y_i_phase_type <- phase_type(subint_mat = subint_itons_4, 
+                             reward_mat = reward_mat_4)
+
+```
+
+We can compute the mean of each of the i-tons all together:
+
+```{r}
+
+mean(Y_i_phase_type)
+
+```
+
+or separately:
+
+```{r}
+
+mean(Y_i_phase_type, 1)
+mean(Y_i_phase_type, 2)
+mean(Y_i_phase_type, 3)
+
+
+```
+
+We can also calculate the variance-covariance matrix:
+
+```{r}
+
+var(Y_i_phase_type)
+
+```
+
+where the diagonal corresponds to the variance and the rest of the elements to the covariances.
 
 # References
 

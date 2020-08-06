@@ -386,10 +386,10 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="co">#&gt; [1] 17.75</span></pre></body></html></div>
 <p><span class="math inline">\(S_{total}\)</span> can also be defined in a different way. As suggested by Hobolth et al. <span class="citation">(<a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span>, we can get a matrix that summarizes all the possible states, each state being a specific combination of i-ton branches.</p>
 <p>As a mock example, we will be using a sample size of <span class="math inline">\(n=4\)</span>, although the matrix corresponding to an arbitrary sample size can be obtained using the so-called block-counting process <span class="citation">(Hobolth, Siri-Jégousse, and Bladt <a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span>. Using the standard coalescent model, we can define this matrix as:</p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">subint_itons_4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">6</span>, <span class="fl">6</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-                           <span class="fl">0</span>, -<span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span>,
-                           <span class="fl">0</span>, <span class="fl">0</span>, -<span class="fl">1</span>, <span class="fl">0</span>,
-                           <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, -<span class="fl">1</span>), <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">byrow</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">subint_itons_4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">6</span>,  <span class="fl">6</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,
+                            <span class="fl">0</span>, -<span class="fl">3</span>,  <span class="fl">2</span>,  <span class="fl">1</span>,
+                            <span class="fl">0</span>,  <span class="fl">0</span>, -<span class="fl">1</span>,  <span class="fl">0</span>,
+                            <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>, -<span class="fl">1</span>), <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">byrow</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
 <p>And we can also define a continuous phase-type representation of this process:</p>
 <div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">kingman_4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/phase_type.html">phase_type</a></span>(<span class="no">subint_itons_4</span>)
 <span class="co">#&gt; Warning in phase_type(subint_itons_4): The initial probability vector is</span>
@@ -644,15 +644,50 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <h1 class="hasAnchor">
 <a href="#the-multivariate-discrete-phase-type-distribution-y_i" class="anchor"></a>4. The Multivariate Discrete Phase-Type Distribution: <span class="math inline">\(Y_i\)</span>
 </h1>
-<div id="theoretical-background-2" class="section level2">
-<h2 class="hasAnchor">
-<a href="#theoretical-background-2" class="anchor"></a>4.1. Theoretical background</h2>
-</div>
-<div id="variance-covariance-matrix-for-y_i" class="section level2">
-<h2 class="hasAnchor">
-<a href="#variance-covariance-matrix-for-y_i" class="anchor"></a>4.2. Variance-covariance matrix for <span class="math inline">\(Y_i\)</span>
-</h2>
-</div>
+<p>If the evolutionary tree is given, then each element of the site frequency spectrum (singletons, doubletons, etc) can be defined as mutations sprinkled over the tree following a Poisson distribution with rate <span class="math inline">\(\theta/2\)</span>. The mean of each <span class="math inline">\(\xi_i\)</span> will be directly proportional to the mean of the total branch length that gives rise to each i-ton, or <span class="math inline">\(Y_i\)</span>:</p>
+<p><span class="math display">\[
+\mathop{\mathbb{E}}[\xi_i]=\mathop{\mathbb{E}}[\mathop{\mathbb{E}}(\xi_i|Y_i)]=
+\mathop{\mathbb{E}}\left[ \frac{\theta}{2}Y_i \right]=\frac{\theta}{2}\mathop{\mathbb{E}}[Y_i]
+\]</span></p>
+<p>Each <span class="math inline">\(Y_i\)</span> can be represented using a univariate phase-type distribution. However, instead of defining each <span class="math inline">\(Y_i\)</span> individually, we can build a multivariate phase-type representation of the coalescent process, such that <span class="math inline">\(Y\sim MPH^*(\alpha, S, R)\)</span>, where <span class="math inline">\(\alpha\)</span> is the initial probability vector, <span class="math inline">\(S\)</span> is the sub-intensity matrix for the coalescent process and <span class="math inline">\(R\)</span> is the reward vector where each of the columns summarizes how the subintensity matrix should be transformed to obtain a phase-type representation of <span class="math inline">\(Y_i\)</span>.</p>
+<p>For example, when <span class="math inline">\(n=4\)</span>, the sub-intensity matrix for Kingman’s coalescent is:</p>
+<div class="sourceCode" id="cb41"><html><body><pre class="r">
+<span class="no">subint_itons_4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">6</span>,  <span class="fl">6</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,
+                            <span class="fl">0</span>, -<span class="fl">3</span>,  <span class="fl">2</span>,  <span class="fl">1</span>,
+                            <span class="fl">0</span>,  <span class="fl">0</span>, -<span class="fl">1</span>,  <span class="fl">0</span>,
+                            <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>, -<span class="fl">1</span>), <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">byrow</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
+<p>On the other hand, we need to define a reward matrix:</p>
+<div class="sourceCode" id="cb42"><html><body><pre class="r">
+<span class="no">reward_mat_4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">0</span>, <span class="fl">0</span>,
+                         <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span>,
+                         <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>,
+                         <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0</span>), <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">byrow</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
+<p>We can define a continuous phase-type representation of <span class="math inline">\(Y_i\)</span> with the <code>phase_type</code> generator function:</p>
+<div class="sourceCode" id="cb43"><html><body><pre class="r">
+<span class="no">Y_i_phase_type</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/phase_type.html">phase_type</a></span>(<span class="kw">subint_mat</span> <span class="kw">=</span> <span class="no">subint_itons_4</span>,
+                             <span class="kw">reward_mat</span> <span class="kw">=</span> <span class="no">reward_mat_4</span>)
+<span class="co">#&gt; Warning in phase_type(subint_mat = subint_itons_4, reward_mat = reward_mat_4):</span>
+<span class="co">#&gt; The initial probability vector is automatically generated.</span></pre></body></html></div>
+<p>We can compute the mean of each of the i-tons all together:</p>
+<div class="sourceCode" id="cb44"><html><body><pre class="r">
+<span class="fu"><a href="../reference/mean.html">mean</a></span>(<span class="no">Y_i_phase_type</span>)
+<span class="co">#&gt; [1] 2.0000000 1.0000000 0.6666667</span></pre></body></html></div>
+<p>or separately:</p>
+<div class="sourceCode" id="cb45"><html><body><pre class="r">
+<span class="fu"><a href="../reference/mean.html">mean</a></span>(<span class="no">Y_i_phase_type</span>, <span class="fl">1</span>)
+<span class="co">#&gt; [1] 2</span>
+<span class="fu"><a href="../reference/mean.html">mean</a></span>(<span class="no">Y_i_phase_type</span>, <span class="fl">2</span>)
+<span class="co">#&gt; [1] 1</span>
+<span class="fu"><a href="../reference/mean.html">mean</a></span>(<span class="no">Y_i_phase_type</span>, <span class="fl">3</span>)
+<span class="co">#&gt; [1] 0.6666667</span></pre></body></html></div>
+<p>We can also calculate the variance-covariance matrix:</p>
+<div class="sourceCode" id="cb46"><html><body><pre class="r">
+<span class="fu"><a href="../reference/var.html">var</a></span>(<span class="no">Y_i_phase_type</span>)
+<span class="co">#&gt;            [,1]       [,2]       [,3]</span>
+<span class="co">#&gt; [1,]  1.7777778 -0.2222222  0.8888889</span>
+<span class="co">#&gt; [2,] -0.2222222  2.3333333 -0.4444444</span>
+<span class="co">#&gt; [3,]  0.8888889 -0.4444444  0.8888889</span></pre></body></html></div>
+<p>where the diagonal corresponds to the variance and the rest of the elements to the covariances.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">

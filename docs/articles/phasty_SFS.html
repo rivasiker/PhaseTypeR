@@ -101,16 +101,14 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>1. Introduction</h1>
+<p>TODO: Check final references to paper.</p>
 <p>Here we recreate the figures from the paper and give more example of how to use the phase-type representation of the block counting process.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">phasty</span>)</pre></body></html></div>
-<p>First, a sanity check, we recover the numerical values of the covariance matrix for the site frequency spectrum, which is also computed on p. 5 of Durrett.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">n</span> <span class="kw">=</span> <span class="fl">8</span>
-<span class="no">ph_rew_obj</span> <span class="kw">=</span> <span class="fu"><a href="../reference/block_counting_process.html">block_counting_process</a></span>(<span class="no">n</span>)
-<span class="co">#&gt; Warning in phase_type(subintensity_matrix): The initial probability vector is</span>
-<span class="co">#&gt; automatically generated.</span>
-<span class="co">#&gt; Warning in phase_type(subintensity_matrix, reward_mat = rew_mat): The initial</span>
-<span class="co">#&gt; probability vector is automatically generated.</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fl">0.25</span>*<span class="fu"><a href="../reference/var.html">var</a></span>(<span class="no">ph_rew_obj</span>),<span class="fl">4</span>)
+<p>On p. 55 of Durrett <span class="citation">(<a href="#ref-durrett2008probability" role="doc-biblioref">2008</a>)</span> the numerical values of the covariances between the entries of the site frequency spectrum for <span class="math inline">\(n=8\)</span> are computed and from eqn (eq:covmatdecomp) in <span class="citation">(<a href="#ref-asgertemp2020" role="doc-biblioref">2020</a>)</span> we know that the off-diagonal entries of the covariance matrix of the site frequency spectrum are proportional to the covariance matrix of the underlying phase-type distribution.</p>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">n</span> <span class="kw">&lt;-</span> <span class="fl">8</span>
+<span class="no">ph_rew_obj</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/block_counting_process.html">block_counting_process</a></span>(<span class="no">n</span>) <span class="co"># Create the phasetype distribution with rewards associated the block counted process with n = 8</span>
+<span class="no">Covmat</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/var.html">var</a></span>(<span class="no">ph_rew_obj</span>) <span class="co"># Compute the covariance matrix </span>
+<span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fl">0.25</span>*<span class="no">Covmat</span>,<span class="fl">4</span>)
 <span class="co">#&gt;         [,1]    [,2]    [,3]    [,4]    [,5]    [,6]    [,7]</span>
 <span class="co">#&gt; [1,]  0.3211 -0.0358 -0.0210 -0.0141 -0.0103 -0.0079  0.1384</span>
 <span class="co">#&gt; [2,] -0.0358  0.2495 -0.0210 -0.0141 -0.0103  0.1328 -0.0356</span>
@@ -119,13 +117,12 @@
 <span class="co">#&gt; [5,] -0.0103 -0.0103  0.1283 -0.0359  0.1394 -0.0230 -0.0183</span>
 <span class="co">#&gt; [6,] -0.0079  0.1328 -0.0346 -0.0275 -0.0230  0.1310 -0.0159</span>
 <span class="co">#&gt; [7,]  0.1384 -0.0356 -0.0267 -0.0216 -0.0183 -0.0159  0.1224</span></pre></body></html></div>
-<p>Next, we recreate some of the figures in the paper</p>
+<div id="figure-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#figure-1" class="anchor"></a>1. Figure 1</h2>
+<p>Next, we recreate the figure in the paper. Firstly, we recreate the left figure of Figure 1.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">n</span> <span class="kw">=</span> <span class="fl">10</span>
 <span class="no">ph_rew_obj</span> <span class="kw">=</span> <span class="fu"><a href="../reference/block_counting_process.html">block_counting_process</a></span>(<span class="no">n</span>)
-<span class="co">#&gt; Warning in phase_type(subintensity_matrix): The initial probability vector is</span>
-<span class="co">#&gt; automatically generated.</span>
-<span class="co">#&gt; Warning in phase_type(subintensity_matrix, reward_mat = rew_mat): The initial</span>
-<span class="co">#&gt; probability vector is automatically generated.</span>
 <span class="no">lambdavals</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.02</span>,<span class="fl">0.2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">10</span>)
 <span class="no">coef_matrix</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">lambdavals</span>),<span class="no">n</span>-<span class="fl">1</span>)
 <span class="no">nu</span> <span class="kw">=</span> <span class="fl">1</span>/(<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>) )
@@ -140,7 +137,12 @@
   <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">coef_matrix</span>[<span class="no">i</span>,])
 }</pre></body></html></div>
 <p><img src="phasty_SFS_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<p>Figures for numerical inversion of chf</p>
+<p>Next, we recreate th right figure in Figure 1 (TODO)</p>
+</div>
+<div id="figure-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#figure-2" class="anchor"></a>1. Figure 2</h2>
+<p>Next, we numerically invert the characteristic function of the numerator of Tajima’s <span class="math inline">\(D\)</span> and compare to simulated values. First, we obtain the rate-matrix and state space for the block counting process.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">n</span> <span class="kw">=</span> <span class="fl">4</span>
 <span class="co"># create rate-matrix and state space for block counting process</span>
 <span class="no">RMASS</span> <span class="kw">=</span> <span class="fu"><a href="../reference/RateMAndStateSpace.html">RateMAndStateSpace</a></span>(<span class="no">n</span>)
@@ -151,16 +153,8 @@
 <span class="no">subintensity_matrix</span> <span class="kw">=</span> <span class="no">RMASS</span>$<span class="no">RateM</span>[<span class="fl">1</span>:(<span class="no">m</span>-<span class="fl">1</span>),<span class="fl">1</span>:(<span class="no">m</span>-<span class="fl">1</span>)]
 
 <span class="co"># The reward matrix is the state space matrix of the block counting process, except the row &amp; column related to the</span>
-<span class="co"># aborping state.</span>
+<span class="co"># absorbing state.</span>
 <span class="no">rew_mat</span> <span class="kw">=</span> <span class="no">RMASS</span>$<span class="no">StSpM</span>[<span class="fl">1</span>:(<span class="no">m</span>-<span class="fl">1</span>),<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>)]
-
-<span class="no">bT</span><span class="kw">=</span><span class="no">RMASS</span>$<span class="no">RateM</span>[<span class="fl">1</span>:(<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">RMASS</span>$<span class="no">RateM</span>)[<span class="fl">1</span>]-<span class="fl">1</span>),<span class="fl">1</span>:(<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">RMASS</span>$<span class="no">RateM</span>)[<span class="fl">1</span>]-<span class="fl">1</span>)]
-<span class="no">SPMAT</span><span class="kw">=</span><span class="no">RMASS</span>$<span class="no">StSpM</span>[<span class="fl">1</span>:(<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">RMASS</span>$<span class="no">StSpM</span>)[<span class="fl">1</span>]-<span class="fl">1</span>),<span class="fl">1</span>:(<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">RMASS</span>$<span class="no">StSpM</span>)[<span class="fl">2</span>]-<span class="fl">1</span>)]
-<span class="no">bone</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">1</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">bT</span>)[<span class="fl">1</span>],<span class="fl">1</span>) <span class="co">#(1,1,...,1)*</span>
-<span class="no">alpha</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">0</span>,<span class="fl">1</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">bT</span>)[<span class="fl">1</span>]);<span class="no">alpha</span>[<span class="fl">1</span>]<span class="kw">=</span><span class="fl">1</span> <span class="co">#(1,0,...,0)</span>
-<span class="no">bR</span> <span class="kw">=</span> <span class="no">SPMAT</span> <span class="co">#the rewards matrix *is* the statespace matrix</span>
-<span class="no">bS</span> <span class="kw">=</span> <span class="no">bT</span> - <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span>(<span class="no">bR</span>))
-
 
 <span class="no">ph_obj</span><span class="kw">=</span><span class="fu"><a href="../reference/phase_type.html">phase_type</a></span>(<span class="no">subintensity_matrix</span>)
 <span class="co">#&gt; Warning in phase_type(subintensity_matrix): The initial probability vector is</span>
@@ -168,6 +162,7 @@
 <span class="no">ph_rew_obj</span><span class="kw">=</span><span class="fu"><a href="../reference/phase_type.html">phase_type</a></span>(<span class="no">subintensity_matrix</span>, <span class="kw">reward_mat</span> <span class="kw">=</span> <span class="no">rew_mat</span>)
 <span class="co">#&gt; Warning in phase_type(subintensity_matrix, reward_mat = rew_mat): The initial</span>
 <span class="co">#&gt; probability vector is automatically generated.</span></pre></body></html></div>
+<p>Next, we simulate random site frequency spectra by using REF</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">R</span> <span class="kw">=</span> <span class="fl">1e4</span>
 <span class="no">ph_mv_sim_obj</span> <span class="kw">=</span> <span class="fu"><a href="../reference/sim_rew_phase_type.html">sim_rew_phase_type</a></span>(<span class="no">R</span>,<span class="no">ph_rew_obj</span>)
 <span class="no">rew_dim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">ph_mv_sim_obj</span>)[<span class="fl">1</span>]
@@ -176,42 +171,348 @@
 <span class="kw">for</span>(<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">rew_dim</span>) {
   <span class="no">ph_counts</span>[<span class="no">i</span>,] <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span>(<span class="no">R</span>,<span class="no">lambda</span>*<span class="no">ph_mv_sim_obj</span>[<span class="no">i</span>,])
 }</pre></body></html></div>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">res</span> <span class="kw">=</span> <span class="fl">1000</span>
-<span class="no">ba</span> <span class="kw">=</span> <span class="no">res</span>*(<span class="fl">2</span>*((<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>))*( (<span class="no">n</span>-<span class="fl">1</span>):<span class="fl">1</span>))/(<span class="no">n</span>*(<span class="no">n</span>-<span class="fl">1</span>)) - <span class="fl">1</span>/<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="fl">1</span>/(<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>))))</pre></body></html></div>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">themean</span> <span class="kw">=</span> <span class="fu"><a href="../reference/mean.html">mean</a></span>(<span class="fu"><a href="../reference/mean.html">mean</a></span>(<span class="no">ph_rew_obj</span>)*<span class="no">ba</span>) <span class="co">#the mean of the linear combination</span>
+<p>An alternative is to simulate the SFS using the <em>coala</em> package</p>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">coala</span>)
+<span class="no">loc_length</span> <span class="kw">=</span> <span class="fl">1e4</span>; <span class="no">theta</span> <span class="kw">=</span> <span class="fl">3</span>
+<span class="no">model</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/coala/man/coal_model.html">coal_model</a></span>(<span class="kw">sample_size</span> <span class="kw">=</span> <span class="no">n</span>, <span class="kw">loci_number</span> <span class="kw">=</span> <span class="no">R</span>,<span class="no">loc_length</span>) + <span class="fu"><a href="https://rdrr.io/pkg/coala/man/feat_mutation.html">feat_mutation</a></span>(<span class="no">theta</span>) + <span class="fu"><a href="https://rdrr.io/pkg/coala/man/sumstat_trees.html">sumstat_trees</a></span>() + <span class="fu"><a href="https://rdrr.io/pkg/coala/man/sumstat_seg_sites.html">sumstat_seg_sites</a></span>()
+<span class="no">stats</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html">simulate</a></span>(<span class="no">model</span>, <span class="kw">seed</span> <span class="kw">=</span> <span class="fl">15</span>)
+
+<span class="no">out</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>,<span class="no">R</span>)
+<span class="kw">for</span>(<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">R</span>) {<span class="no">out</span>[<span class="no">i</span>] <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">stats</span>$<span class="no">seg_sites</span><span class="kw">[[</span><span class="no">i</span>]]$<span class="no">position</span>)}
+<span class="no">N</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">out</span>),<span class="no">n</span>)
+
+<span class="no">out</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">0</span>,<span class="no">R</span>,<span class="no">N</span>)
+<span class="kw">for</span>(<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">R</span>) {
+  <span class="no">curcolsums</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colSums</a></span>(<span class="no">stats</span>$<span class="no">seg_sites</span><span class="kw">[[</span><span class="no">i</span>]]$<span class="no">snps</span>)
+  <span class="kw">for</span>(<span class="no">j</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">N</span>) {
+    <span class="no">out</span>[<span class="no">i</span>,<span class="no">j</span>]<span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">curcolsums</span><span class="kw">==</span><span class="no">j</span>)
+  }
+}
+<span class="no">out</span> <span class="kw">=</span> <span class="no">out</span>[,-<span class="no">n</span>]
+<span class="no">sfs</span> <span class="kw">=</span> <span class="no">out</span></pre></body></html></div>
+<p>TODO: compare</p>
+<p>The numerator of Tajima’s <span class="math inline">\(D\)</span> is <span class="math inline">\(\hat{\theta}_{\pi}-\hat{\theta}_{\rm W}\)</span> so the coefficient vector <span class="math inline">\(\mathbf{c}\)</span> is <span class="math display">\[
+c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}}
+\]</span> which is implemented below</p>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">res</span> <span class="kw">=</span> <span class="fl">1000</span>
+<span class="no">bc</span> <span class="kw">=</span> <span class="no">res</span>*(<span class="fl">2</span>*((<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>))*( (<span class="no">n</span>-<span class="fl">1</span>):<span class="fl">1</span>))/(<span class="no">n</span>*(<span class="no">n</span>-<span class="fl">1</span>)) - <span class="fl">1</span>/<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="fl">1</span>/(<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>))))</pre></body></html></div>
+<p>According to REF, the characteristic function is obtained as <span class="math display">\[
+\phi(t) = \tilde{\psi}(\e^{\ih t})
+\]</span> where <span class="math display">\[\begin{align*}
+\tilde{\psi}(z) \eqdef \Exp [z^{\bc^\ast \bxi}] = \balpha^\ast \left( \bS + \lambda \Delta[\bR z^\bc] \right)^{-1} \bT \bone
+\label{eq:phitildefun}
+\end{align*}\]</span></p>
+<p>The next snippet implements the <span class="math inline">\(\phi\)</span>-function</p>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">themean</span> <span class="kw">=</span> <span class="fu"><a href="../reference/mean.html">mean</a></span>(<span class="fu"><a href="../reference/mean.html">mean</a></span>(<span class="no">ph_rew_obj</span>)*<span class="no">bc</span>) <span class="co">#the mean of the linear combination</span>
 <span class="no">bT</span> <span class="kw">=</span> <span class="no">subintensity_matrix</span> <span class="co">#bold T</span>
 <span class="no">bR</span> <span class="kw">=</span> <span class="no">rew_mat</span> <span class="co">#bold R</span>
 <span class="no">bS</span> <span class="kw">=</span> <span class="no">bT</span> - <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span>(<span class="no">bR</span>)) <span class="co">#bold S</span>
 <span class="no">bone</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">1</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">bT</span>)[<span class="fl">1</span>],<span class="fl">1</span>) <span class="co">#bold one = (1,1,...,1)^T</span>
 <span class="no">balpha</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">0</span>,<span class="fl">1</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">bT</span>)[<span class="fl">1</span>]);<span class="no">balpha</span>[<span class="fl">1</span>]<span class="kw">=</span><span class="fl">1</span> <span class="co">#(1,0,...,0)</span>
-<span class="no">phi</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">t</span>) (<span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>(-<span class="fl">1i</span>*<span class="no">themean</span>*<span class="no">t</span>))*<span class="no">balpha</span><span class="kw">%*%</span><span class="fu"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>(<span class="no">bS</span>+<span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">bR</span><span class="kw">%*%</span>(<span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>(<span class="fl">1i</span>*<span class="no">t</span>)^<span class="no">ba</span>))) )<span class="kw">%*%</span><span class="no">bT</span><span class="kw">%*%</span><span class="no">bone</span></pre></body></html></div>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">appvals</span><span class="kw">=</span><span class="fu"><a href="../reference/ApproxCDF.html">ApproxCDF</a></span>(<span class="no">phi</span>,<span class="kw">H</span> <span class="kw">=</span> <span class="fl">1e5</span>,<span class="kw">eta</span><span class="kw">=</span><span class="fl">0.001</span>,<span class="kw">xlim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">1.5</span>*<span class="no">res</span>,<span class="fl">2.5</span>*<span class="no">res</span>))
+<span class="no">phi</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">t</span>) (<span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>(-<span class="fl">1i</span>*<span class="no">themean</span>*<span class="no">t</span>))*<span class="no">balpha</span><span class="kw">%*%</span><span class="fu"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>(<span class="no">bS</span>+<span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">bR</span><span class="kw">%*%</span>(<span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>(<span class="fl">1i</span>*<span class="no">t</span>)^<span class="no">bc</span>))) )<span class="kw">%*%</span><span class="no">bT</span><span class="kw">%*%</span><span class="no">bone</span></pre></body></html></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">appvals</span><span class="kw">=</span><span class="fu"><a href="../reference/ApproxCDF.html">ApproxCDF</a></span>(<span class="no">phi</span>,<span class="kw">H</span> <span class="kw">=</span> <span class="fl">1e5</span>,<span class="kw">eta</span><span class="kw">=</span><span class="fl">0.001</span>,<span class="kw">xlim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">1.5</span>*<span class="no">res</span>,<span class="fl">2.5</span>*<span class="no">res</span>))
 
 <span class="no">xvals</span><span class="kw">=</span><span class="no">appvals</span><span class="kw">[[</span><span class="fl">1</span>]]
 <span class="no">yvals</span><span class="kw">=</span><span class="no">appvals</span><span class="kw">[[</span><span class="fl">2</span>]]
 
-<span class="no">ba2</span> <span class="kw">=</span> (<span class="fl">1</span>/<span class="no">res</span>)*<span class="no">ba</span>
+<span class="no">bc2</span> <span class="kw">=</span> (<span class="fl">1</span>/<span class="no">res</span>)*<span class="no">bc</span>
 <span class="no">xvals2</span> <span class="kw">=</span> (<span class="fl">1</span>/<span class="no">res</span>)*<span class="no">xvals</span>
 <span class="no">themean2</span> <span class="kw">=</span> (<span class="fl">1</span>/<span class="no">res</span>)*<span class="no">themean</span>
-<span class="no">centered_sim2</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="no">ph_counts</span>)<span class="kw">%*%</span><span class="no">ba2</span>-<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">themean2</span>)
+<span class="no">centered_sim2</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="no">ph_counts</span>)<span class="kw">%*%</span><span class="no">bc2</span>-<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">themean2</span>)
 <span class="no">ecdfobj2</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/ecdf.html">ecdf</a></span>(<span class="no">centered_sim2</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">xvals2</span>,<span class="no">yvals</span>,<span class="kw">type</span><span class="kw">=</span><span class="st">"l"</span>,<span class="kw">ylim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="fl">1</span>))
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">ecdfobj2</span>,<span class="kw">col</span><span class="kw">=</span><span class="st">"blue"</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">xvals2</span>,<span class="no">yvals</span>,<span class="kw">lwd</span><span class="kw">=</span><span class="fl">2</span>)</pre></body></html></div>
-<p><img src="phasty_SFS_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">xvals2</span>,<span class="no">yvals</span>,<span class="kw">type</span><span class="kw">=</span><span class="st">"l"</span>,<span class="kw">ylim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="fl">1</span>),<span class="kw">xlim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">0.5</span>,<span class="fl">0.5</span>))
+<p><img src="phasty_SFS_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">xvals2</span>,<span class="no">yvals</span>,<span class="kw">type</span><span class="kw">=</span><span class="st">"l"</span>,<span class="kw">ylim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="fl">1</span>),<span class="kw">xlim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">0.5</span>,<span class="fl">0.5</span>))
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">ecdfobj2</span>,<span class="kw">col</span><span class="kw">=</span><span class="st">"blue"</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="no">xvals2</span>,<span class="no">yvals</span>,<span class="kw">lwd</span><span class="kw">=</span><span class="fl">2</span>)</pre></body></html></div>
-<p><img src="phasty_SFS_files/figure-html/unnamed-chunk-9-1.png" width="700"> Next, we run the above code with</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">n</span> <span class="kw">=</span> <span class="fl">8</span></pre></body></html></div>
+<p><img src="phasty_SFS_files/figure-html/unnamed-chunk-10-1.png" width="700"> Next, we run the above code with</p>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">n</span> <span class="kw">=</span> <span class="fl">8</span></pre></body></html></div>
 <pre><code>#&gt; Warning in phase_type(subintensity_matrix): The initial probability vector is
 #&gt; automatically generated.
 #&gt; Warning in phase_type(subintensity_matrix, reward_mat = rew_mat): The initial
 #&gt; probability vector is automatically generated.</code></pre>
-<p><img src="phasty_SFS_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<p><img src="phasty_SFS_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+</div>
+<div id="figure-4" class="section level2">
+<h2 class="hasAnchor">
+<a href="#figure-4" class="anchor"></a>Figure 4</h2>
+<p>Figures on p. 13</p>
+<div class="sourceCode" id="cb13"><html><body><pre class="r">
+<span class="no">n</span> <span class="kw">=</span> <span class="fl">5</span>
+<span class="co"># create rate-matrix and state space for block counting process</span>
+<span class="no">RMASS</span> <span class="kw">=</span> <span class="fu"><a href="../reference/RateMAndStateSpace.html">RateMAndStateSpace</a></span>(<span class="no">n</span>)
+
+<span class="no">m</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">RMASS</span>$<span class="no">RateM</span>)[<span class="fl">1</span>] <span class="co">#(m should be equal to partitions::P(n))</span>
+
+<span class="co"># Obtain subintensity matrix</span>
+<span class="no">subintensity_matrix</span> <span class="kw">=</span> <span class="no">RMASS</span>$<span class="no">RateM</span>[<span class="fl">1</span>:(<span class="no">m</span>-<span class="fl">1</span>),<span class="fl">1</span>:(<span class="no">m</span>-<span class="fl">1</span>)]
+
+<span class="co"># The reward matrix is the state space matrix of the block counting process, except the row &amp; column related to the</span>
+<span class="co"># absorbing state.</span>
+<span class="no">rew_mat</span> <span class="kw">=</span> <span class="no">RMASS</span>$<span class="no">StSpM</span>[<span class="fl">1</span>:(<span class="no">m</span>-<span class="fl">1</span>),<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>)]
+
+<span class="no">ph</span> <span class="kw">=</span> <span class="fu"><a href="../reference/phase_type.html">phase_type</a></span>(<span class="no">subintensity_matrix</span>)
+<span class="co">#&gt; Warning in phase_type(subintensity_matrix): The initial probability vector is</span>
+<span class="co">#&gt; automatically generated.</span>
+<span class="no">ph_rew_obj</span><span class="kw">=</span><span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span>(<span class="no">ph</span>, <span class="no">rew_mat</span>[,<span class="fl">1</span>])
+
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="fl">1</span>, <span class="kw">type</span><span class="kw">=</span><span class="st">"n"</span>, <span class="kw">xlab</span><span class="kw">=</span><span class="st">""</span>, <span class="kw">ylab</span><span class="kw">=</span><span class="st">""</span>, <span class="kw">xlim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">4</span>), <span class="kw">ylim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">1</span>),<span class="kw">las</span><span class="kw">=</span><span class="fl">1</span>)
+
+<span class="kw">for</span>(<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>)) {
+  <span class="no">ph_rew_obj</span><span class="kw">=</span><span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span>(<span class="no">ph</span>, <span class="no">rew_mat</span>[,<span class="no">i</span>])
+  <span class="no">bone</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">1</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">ph_rew_obj</span>$<span class="no">init_probs</span>),<span class="fl">1</span>)
+  <span class="no">abstime</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">u</span>) {
+    <span class="fl">1</span> - <span class="no">ph_rew_obj</span>$<span class="no">init_probs</span><span class="kw">%*%</span><span class="fu">expm</span>(<span class="no">ph_rew_obj</span>$<span class="no">subint_mat</span>*<span class="no">u</span>)<span class="kw">%*%</span><span class="no">bone</span>
+  }
+  <span class="no">abstime</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Vectorize.html">Vectorize</a></span>(<span class="no">abstime</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/curve.html">curve</a></span>(<span class="no">abstime</span>,<span class="kw">lty</span><span class="kw">=</span><span class="no">i</span>,<span class="kw">add</span><span class="kw">=</span><span class="fl">TRUE</span>)
+}</pre></body></html></div>
+<p><img src="phasty_SFS_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<div class="sourceCode" id="cb14"><html><body><pre class="r">
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="fl">1</span>, <span class="kw">type</span><span class="kw">=</span><span class="st">"n"</span>, <span class="kw">xlab</span><span class="kw">=</span><span class="st">""</span>, <span class="kw">ylab</span><span class="kw">=</span><span class="st">""</span>, <span class="kw">xlim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">4</span>), <span class="kw">ylim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">1</span>),<span class="kw">las</span><span class="kw">=</span><span class="fl">1</span>)
+
+<span class="kw">for</span>(<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>)) {
+  <span class="no">ph_rew_obj</span><span class="kw">=</span><span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span>(<span class="no">ph</span>, <span class="no">rew_mat</span>[,<span class="no">i</span>])
+  <span class="no">bS</span> <span class="kw">=</span> <span class="no">ph_rew_obj</span>$<span class="no">subint_mat</span>
+  <span class="no">bM</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">bS</span>)[<span class="fl">1</span>])-<span class="fl">2</span>*<span class="no">bS</span>)
+  <span class="no">bpi</span> <span class="kw">=</span> <span class="no">ph_rew_obj</span>$<span class="no">init_probs</span>
+  <span class="no">bone</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">1</span>,<span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">bS</span>)[<span class="fl">1</span>],<span class="fl">1</span>))
+  <span class="no">bm</span> <span class="kw">=</span> <span class="no">bone</span> - <span class="no">bM</span><span class="kw">%*%</span><span class="no">bone</span>
+  <span class="no">probs</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">0</span>:<span class="fl">5</span>),<span class="fl">1</span>,<span class="kw">function</span>(<span class="no">i</span>) <span class="no">bpi</span><span class="kw">%*%</span>(<span class="no">bM</span><span class="kw">%^%</span><span class="no">i</span>)<span class="kw">%*%</span><span class="no">bm</span>)
+  <span class="no">probs</span>[<span class="fl">1</span>] <span class="kw">=</span> <span class="no">probs</span>[<span class="fl">1</span>] + <span class="no">ph_rew_obj</span>$<span class="no">defect</span>
+  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(<span class="fl">0</span>:<span class="fl">5</span>,<span class="no">probs</span>,<span class="kw">pch</span><span class="kw">=</span><span class="fl">16</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="fl">0</span>:<span class="fl">5</span>,<span class="no">probs</span>,<span class="kw">lty</span><span class="kw">=</span><span class="no">i</span>)
+}</pre></body></html></div>
+<p><img src="phasty_SFS_files/figure-html/unnamed-chunk-13-2.png" width="700"></p>
+</div>
+<div id="figure-6" class="section level2">
+<h2 class="hasAnchor">
+<a href="#figure-6" class="anchor"></a>Figure 6</h2>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">n</span> <span class="kw">=</span> <span class="fl">4</span>
+<span class="co"># create rate-matrix and state space for block counting process</span>
+<span class="no">RMASS</span> <span class="kw">=</span> <span class="fu"><a href="../reference/RateMAndStateSpace.html">RateMAndStateSpace</a></span>(<span class="no">n</span>)
+
+<span class="no">m</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">RMASS</span>$<span class="no">RateM</span>)[<span class="fl">1</span>] <span class="co">#(m should be equal to partitions::P(n))</span>
+
+<span class="co"># Obtain subintensity matrix</span>
+<span class="no">subintensity_matrix</span> <span class="kw">=</span> <span class="no">RMASS</span>$<span class="no">RateM</span>[<span class="fl">1</span>:(<span class="no">m</span>-<span class="fl">1</span>),<span class="fl">1</span>:(<span class="no">m</span>-<span class="fl">1</span>)]
+
+
+<span class="no">ph</span> <span class="kw">=</span> <span class="fu"><a href="../reference/phase_type.html">phase_type</a></span>(<span class="no">subintensity_matrix</span>)
+<span class="co">#&gt; Warning in phase_type(subintensity_matrix): The initial probability vector is</span>
+<span class="co">#&gt; automatically generated.</span>
+
+<span class="co"># The reward vector is the rows sums of the state space matrix</span>
+
+<span class="no">bC</span> <span class="kw">=</span> <span class="no">RMASS</span>$<span class="no">StSpM</span>[<span class="fl">1</span>:(<span class="no">m</span>-<span class="fl">1</span>),<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>)]
+<span class="no">br</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span>(<span class="no">bC</span>)
+<span class="no">ph_rew_obj</span><span class="kw">=</span><span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span>(<span class="no">ph</span>, <span class="no">br</span>)
+<span class="no">bS</span> <span class="kw">=</span> <span class="no">ph_rew_obj</span>$<span class="no">subint_mat</span>
+<span class="no">lambda</span> <span class="kw">=</span> <span class="fl">1</span>/<span class="fl">2</span>
+<span class="no">bM</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">bS</span>)[<span class="fl">1</span>])-(<span class="fl">1</span>/<span class="no">lambda</span>)*<span class="no">bS</span>)
+
+<span class="no">m</span> <span class="kw">=</span> <span class="no">m</span> - <span class="fl">1</span>
+
+<span class="no">baMat</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>),(<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>))*((<span class="no">n</span>-<span class="fl">1</span>):<span class="fl">1</span>),(<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>))^<span class="fl">2</span>),<span class="no">n</span>-<span class="fl">1</span>,<span class="no">n</span>-<span class="fl">1</span>,<span class="kw">byrow</span><span class="kw">=</span><span class="fl">TRUE</span>)
+<span class="co">#baMat = matrix(c(1,2,3,3,4,3,1,4,9),3,3,byrow=TRUE)</span>
+
+<span class="no">len</span> <span class="kw">=</span> <span class="no">n</span>*(<span class="no">n</span>-<span class="fl">1</span>)+<span class="fl">1</span>
+<span class="no">probsMat</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">0</span>,<span class="fl">3</span>,<span class="no">len</span>)
+
+<span class="kw">for</span>(<span class="no">i_outer</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="fl">3</span>) {
+  <span class="no">ba</span> <span class="kw">=</span> <span class="no">baMat</span>[<span class="no">i_outer</span>,]
+  <span class="no">sizes_of_blocks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>,<span class="no">m</span>)
+  <span class="kw">for</span>(<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">m</span>) {
+    <span class="no">sizes_of_blocks</span>[<span class="no">i</span>]<span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">ba</span>*(<span class="no">bC</span>[<span class="no">i</span>,] <span class="kw">&gt;</span> <span class="fl">0</span>))
+  }
+
+  <span class="no">i</span> <span class="kw">=</span> <span class="fl">4</span>
+  <span class="no">bmvec</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>,<span class="no">sizes_of_blocks</span>[<span class="no">i</span>])
+  <span class="kw">for</span>(<span class="no">k</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">sizes_of_blocks</span>[<span class="no">i</span>]) {
+    <span class="no">bmvec</span>[<span class="no">sizes_of_blocks</span>[<span class="no">i</span>]-<span class="no">k</span>+<span class="fl">1</span>]<span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">bC</span>[<span class="no">i</span>,]*(<span class="no">ba</span> <span class="kw">==</span> <span class="no">k</span>))
+  }
+  <span class="no">bmvec</span>
+
+
+  <span class="no">bMt</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">sizes_of_blocks</span>),<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">sizes_of_blocks</span>))
+  <span class="kw">for</span>(<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">m</span>) {
+    <span class="kw">for</span>(<span class="no">j</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">m</span>) {
+      <span class="kw">if</span>(<span class="no">i</span> <span class="kw">&lt;=</span> <span class="no">j</span>) {
+        <span class="no">bmvec</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>,<span class="no">sizes_of_blocks</span>[<span class="no">j</span>])
+        <span class="kw">for</span>(<span class="no">k</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">sizes_of_blocks</span>[<span class="no">j</span>]) {
+          <span class="no">bmvec</span>[<span class="no">sizes_of_blocks</span>[<span class="no">j</span>]-<span class="no">k</span>+<span class="fl">1</span>]<span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">bC</span>[<span class="no">j</span>,]*(<span class="no">ba</span> <span class="kw">==</span> <span class="no">k</span>))
+        }
+        <span class="no">bmvec</span> <span class="kw">=</span> <span class="no">bM</span>[<span class="no">i</span>,<span class="no">j</span>]*<span class="no">bmvec</span>/<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">bmvec</span>)
+        <span class="no">cur_i</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">sizes_of_blocks</span>[<span class="fl">1</span>:<span class="no">i</span>])
+        <span class="kw">if</span>(<span class="no">j</span> <span class="kw">==</span> <span class="fl">1</span>) {
+          <span class="no">cur_j</span> <span class="kw">=</span> <span class="fl">1</span>
+        }
+        <span class="kw">else</span> {
+          <span class="no">cur_j</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">sizes_of_blocks</span>[<span class="fl">1</span>:(<span class="no">j</span>-<span class="fl">1</span>)]) + <span class="fl">1</span>
+        }
+        <span class="co">#print(cur_i)</span>
+        <span class="co">#print(cur_j)</span>
+        <span class="co">#print(bmvec)</span>
+        <span class="co">#print("--")</span>
+        <span class="no">bMt</span>[<span class="no">cur_i</span>,<span class="no">cur_j</span>:(<span class="no">cur_j</span>+<span class="no">sizes_of_blocks</span>[<span class="no">j</span>]-<span class="fl">1</span>)] <span class="kw">=</span> <span class="no">bmvec</span>
+      }
+      <span class="kw">if</span>((<span class="no">i</span> <span class="kw">==</span> <span class="no">j</span>) <span class="kw">&amp;&amp;</span> <span class="no">sizes_of_blocks</span>[<span class="no">i</span>] <span class="kw">&gt;</span> <span class="fl">1</span>) {
+        <span class="no">size_of_current_block</span> <span class="kw">=</span> <span class="no">sizes_of_blocks</span>[<span class="no">i</span>]
+        <span class="no">cur_i</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">sizes_of_blocks</span>[<span class="fl">1</span>:<span class="no">i</span>]) - <span class="no">size_of_current_block</span> + <span class="fl">1</span>
+        <span class="no">cur_j</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">sizes_of_blocks</span>[<span class="fl">1</span>:<span class="no">j</span>]) - <span class="no">size_of_current_block</span> + <span class="fl">2</span>
+        <span class="no">bMt</span>[<span class="no">cur_i</span>:(<span class="no">cur_i</span> + <span class="no">size_of_current_block</span> - <span class="fl">2</span>),<span class="no">cur_j</span>:(<span class="no">cur_j</span> + <span class="no">size_of_current_block</span> - <span class="fl">2</span>)] <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="no">size_of_current_block</span>-<span class="fl">1</span>)
+        <span class="co">#print(cur_i)</span>
+        <span class="co">#print(cur_j)</span>
+        <span class="co">#print(bmvec)</span>
+        <span class="co">#print("--")</span>
+        <span class="co">#  bMt[cur_i,cur_j:(cur_j+sizes_of_blocks[j]-1)] = bmvec</span>
+      }
+    }
+  }
+  <span class="no">balpha</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">bMt</span>)[<span class="fl">1</span>])
+  <span class="no">balpha</span>[<span class="no">sizes_of_blocks</span>[<span class="fl">1</span>]] <span class="kw">=</span> <span class="fl">1</span> <span class="co">#den skal starte det rigtige sted</span>
+  <span class="no">bone</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">1</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">bMt</span>)[<span class="fl">1</span>]))
+  <span class="no">bmt</span> <span class="kw">=</span> <span class="no">bone</span> - <span class="no">bMt</span><span class="kw">%*%</span><span class="no">bone</span>
+  <span class="no">probs</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>,<span class="no">len</span>)
+  <span class="kw">for</span>(<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">len</span>) {
+    <span class="no">probs</span>[<span class="no">i</span>] <span class="kw">=</span> <span class="no">balpha</span><span class="kw">%*%</span>(<span class="no">bMt</span><span class="kw">%^%</span>(<span class="no">i</span>-<span class="fl">1</span>))<span class="kw">%*%</span><span class="no">bmt</span>
+  }
+  <span class="co">#probsMat[i_outer,] = c((1-rowSums(bM)[1]),probs)</span>
+  <span class="no">probsMat</span>[<span class="no">i_outer</span>,] <span class="kw">=</span> <span class="no">probs</span>
+}
+<span class="co">#xs = c(0,(1:6)/3)</span>
+<span class="co">#plot(xs,probsMat[1,1:7],type="b",lty=1,pch=16,ylim=c(0,0.25),col="black")</span>
+<span class="co">#xs = c(0,(1:12)/6)</span>
+<span class="co">#points(xs,probsMat[2,],type="b",lty=2,pch=16,col="blue")</span>
+<span class="co">#points(xs,probsMat[3,],type="b",lty=3,pch=16,col="red")</span>
+
+<span class="no">xs</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,(<span class="fl">1</span>:(<span class="fl">2</span>*(<span class="no">n</span>-<span class="fl">1</span>)))/(<span class="no">n</span>-<span class="fl">1</span>))
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">xs</span>,<span class="no">probsMat</span>[<span class="fl">1</span>,<span class="fl">1</span>:(<span class="fl">2</span>*(<span class="no">n</span>-<span class="fl">1</span>)+<span class="fl">1</span>)],<span class="kw">type</span><span class="kw">=</span><span class="st">"b"</span>,<span class="kw">lty</span><span class="kw">=</span><span class="fl">1</span>,<span class="kw">pch</span><span class="kw">=</span><span class="fl">16</span>,<span class="kw">ylim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="fl">0.25</span>),<span class="kw">col</span><span class="kw">=</span><span class="st">"black"</span>)
+<span class="no">xs</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,(<span class="fl">1</span>:((<span class="no">n</span>*(<span class="no">n</span>-<span class="fl">1</span>))))/(<span class="no">n</span>*(<span class="no">n</span>-<span class="fl">1</span>)/<span class="fl">2</span>))
+<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(<span class="no">xs</span>,<span class="no">probsMat</span>[<span class="fl">2</span>,],<span class="kw">type</span><span class="kw">=</span><span class="st">"b"</span>,<span class="kw">lty</span><span class="kw">=</span><span class="fl">2</span>,<span class="kw">pch</span><span class="kw">=</span><span class="fl">16</span>,<span class="kw">col</span><span class="kw">=</span><span class="st">"blue"</span>)
+<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(<span class="no">xs</span>,<span class="no">probsMat</span>[<span class="fl">3</span>,],<span class="kw">type</span><span class="kw">=</span><span class="st">"b"</span>,<span class="kw">lty</span><span class="kw">=</span><span class="fl">3</span>,<span class="kw">pch</span><span class="kw">=</span><span class="fl">16</span>,<span class="kw">col</span><span class="kw">=</span><span class="st">"red"</span>)</pre></body></html></div>
+<p><img src="phasty_SFS_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
+<div class="sourceCode" id="cb16"><html><body><pre class="r">
+
+
+
+
+<span class="co"># ----------------- n = 6 ----------------</span>
+
+
+<span class="no">n</span> <span class="kw">=</span> <span class="fl">6</span>
+<span class="co"># create rate-matrix and state space for block counting process</span>
+<span class="no">RMASS</span> <span class="kw">=</span> <span class="fu"><a href="../reference/RateMAndStateSpace.html">RateMAndStateSpace</a></span>(<span class="no">n</span>)
+
+<span class="no">m</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">RMASS</span>$<span class="no">RateM</span>)[<span class="fl">1</span>] <span class="co">#(m should be equal to partitions::P(n))</span>
+
+<span class="co"># Obtain subintensity matrix</span>
+<span class="no">subintensity_matrix</span> <span class="kw">=</span> <span class="no">RMASS</span>$<span class="no">RateM</span>[<span class="fl">1</span>:(<span class="no">m</span>-<span class="fl">1</span>),<span class="fl">1</span>:(<span class="no">m</span>-<span class="fl">1</span>)]
+
+
+<span class="no">ph</span> <span class="kw">=</span> <span class="fu"><a href="../reference/phase_type.html">phase_type</a></span>(<span class="no">subintensity_matrix</span>)
+<span class="co">#&gt; Warning in phase_type(subintensity_matrix): The initial probability vector is</span>
+<span class="co">#&gt; automatically generated.</span>
+
+<span class="co"># The reward vector is the rows sums of the state space matrix</span>
+
+<span class="no">bC</span> <span class="kw">=</span> <span class="no">RMASS</span>$<span class="no">StSpM</span>[<span class="fl">1</span>:(<span class="no">m</span>-<span class="fl">1</span>),<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>)]
+<span class="no">br</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span>(<span class="no">bC</span>)
+<span class="no">ph_rew_obj</span><span class="kw">=</span><span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span>(<span class="no">ph</span>, <span class="no">br</span>)
+<span class="no">bS</span> <span class="kw">=</span> <span class="no">ph_rew_obj</span>$<span class="no">subint_mat</span>
+<span class="no">lambda</span> <span class="kw">=</span> <span class="fl">1</span>/<span class="fl">2</span>
+<span class="no">bM</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">bS</span>)[<span class="fl">1</span>])-(<span class="fl">1</span>/<span class="no">lambda</span>)*<span class="no">bS</span>)
+
+<span class="no">m</span> <span class="kw">=</span> <span class="no">m</span> - <span class="fl">1</span>
+
+<span class="no">baMat</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>),(<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>))*((<span class="no">n</span>-<span class="fl">1</span>):<span class="fl">1</span>),(<span class="fl">1</span>:(<span class="no">n</span>-<span class="fl">1</span>))^<span class="fl">2</span>),<span class="no">n</span>-<span class="fl">1</span>,<span class="no">n</span>-<span class="fl">1</span>,<span class="kw">byrow</span><span class="kw">=</span><span class="fl">TRUE</span>)
+<span class="co">#baMat = matrix(c(1,2,3,3,4,3,1,4,9),3,3,byrow=TRUE)</span>
+
+<span class="no">len</span> <span class="kw">=</span> <span class="no">n</span>*(<span class="no">n</span>-<span class="fl">1</span>)+<span class="fl">1</span>
+<span class="no">probsMat</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">0</span>,<span class="fl">3</span>,<span class="no">len</span>)
+
+<span class="kw">for</span>(<span class="no">i_outer</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="fl">3</span>) {
+  <span class="no">ba</span> <span class="kw">=</span> <span class="no">baMat</span>[<span class="no">i_outer</span>,]
+  <span class="no">sizes_of_blocks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>,<span class="no">m</span>)
+  <span class="kw">for</span>(<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">m</span>) {
+    <span class="no">sizes_of_blocks</span>[<span class="no">i</span>]<span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">ba</span>*(<span class="no">bC</span>[<span class="no">i</span>,] <span class="kw">&gt;</span> <span class="fl">0</span>))
+  }
+
+  <span class="no">i</span> <span class="kw">=</span> <span class="fl">4</span>
+  <span class="no">bmvec</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>,<span class="no">sizes_of_blocks</span>[<span class="no">i</span>])
+  <span class="kw">for</span>(<span class="no">k</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">sizes_of_blocks</span>[<span class="no">i</span>]) {
+    <span class="no">bmvec</span>[<span class="no">sizes_of_blocks</span>[<span class="no">i</span>]-<span class="no">k</span>+<span class="fl">1</span>]<span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">bC</span>[<span class="no">i</span>,]*(<span class="no">ba</span> <span class="kw">==</span> <span class="no">k</span>))
+  }
+  <span class="no">bmvec</span>
+
+
+  <span class="no">bMt</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">sizes_of_blocks</span>),<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">sizes_of_blocks</span>))
+  <span class="kw">for</span>(<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">m</span>) {
+    <span class="kw">for</span>(<span class="no">j</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">m</span>) {
+      <span class="kw">if</span>(<span class="no">i</span> <span class="kw">&lt;=</span> <span class="no">j</span>) {
+        <span class="no">bmvec</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>,<span class="no">sizes_of_blocks</span>[<span class="no">j</span>])
+        <span class="kw">for</span>(<span class="no">k</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">sizes_of_blocks</span>[<span class="no">j</span>]) {
+          <span class="no">bmvec</span>[<span class="no">sizes_of_blocks</span>[<span class="no">j</span>]-<span class="no">k</span>+<span class="fl">1</span>]<span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">bC</span>[<span class="no">j</span>,]*(<span class="no">ba</span> <span class="kw">==</span> <span class="no">k</span>))
+        }
+        <span class="no">bmvec</span> <span class="kw">=</span> <span class="no">bM</span>[<span class="no">i</span>,<span class="no">j</span>]*<span class="no">bmvec</span>/<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">bmvec</span>)
+        <span class="no">cur_i</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">sizes_of_blocks</span>[<span class="fl">1</span>:<span class="no">i</span>])
+        <span class="kw">if</span>(<span class="no">j</span> <span class="kw">==</span> <span class="fl">1</span>) {
+          <span class="no">cur_j</span> <span class="kw">=</span> <span class="fl">1</span>
+        }
+        <span class="kw">else</span> {
+          <span class="no">cur_j</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">sizes_of_blocks</span>[<span class="fl">1</span>:(<span class="no">j</span>-<span class="fl">1</span>)]) + <span class="fl">1</span>
+        }
+        <span class="co">#print(cur_i)</span>
+        <span class="co">#print(cur_j)</span>
+        <span class="co">#print(bmvec)</span>
+        <span class="co">#print("--")</span>
+        <span class="no">bMt</span>[<span class="no">cur_i</span>,<span class="no">cur_j</span>:(<span class="no">cur_j</span>+<span class="no">sizes_of_blocks</span>[<span class="no">j</span>]-<span class="fl">1</span>)] <span class="kw">=</span> <span class="no">bmvec</span>
+      }
+      <span class="kw">if</span>((<span class="no">i</span> <span class="kw">==</span> <span class="no">j</span>) <span class="kw">&amp;&amp;</span> <span class="no">sizes_of_blocks</span>[<span class="no">i</span>] <span class="kw">&gt;</span> <span class="fl">1</span>) {
+        <span class="no">size_of_current_block</span> <span class="kw">=</span> <span class="no">sizes_of_blocks</span>[<span class="no">i</span>]
+        <span class="no">cur_i</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">sizes_of_blocks</span>[<span class="fl">1</span>:<span class="no">i</span>]) - <span class="no">size_of_current_block</span> + <span class="fl">1</span>
+        <span class="no">cur_j</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">sizes_of_blocks</span>[<span class="fl">1</span>:<span class="no">j</span>]) - <span class="no">size_of_current_block</span> + <span class="fl">2</span>
+        <span class="no">bMt</span>[<span class="no">cur_i</span>:(<span class="no">cur_i</span> + <span class="no">size_of_current_block</span> - <span class="fl">2</span>),<span class="no">cur_j</span>:(<span class="no">cur_j</span> + <span class="no">size_of_current_block</span> - <span class="fl">2</span>)] <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="no">size_of_current_block</span>-<span class="fl">1</span>)
+        <span class="co">#print(cur_i)</span>
+        <span class="co">#print(cur_j)</span>
+        <span class="co">#print(bmvec)</span>
+        <span class="co">#print("--")</span>
+        <span class="co">#  bMt[cur_i,cur_j:(cur_j+sizes_of_blocks[j]-1)] = bmvec</span>
+      }
+    }
+  }
+  <span class="no">balpha</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">bMt</span>)[<span class="fl">1</span>])
+  <span class="no">balpha</span>[<span class="no">sizes_of_blocks</span>[<span class="fl">1</span>]] <span class="kw">=</span> <span class="fl">1</span> <span class="co">#den skal starte det rigtige sted</span>
+  <span class="no">bone</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">1</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">bMt</span>)[<span class="fl">1</span>]))
+  <span class="no">bmt</span> <span class="kw">=</span> <span class="no">bone</span> - <span class="no">bMt</span><span class="kw">%*%</span><span class="no">bone</span>
+  <span class="no">probs</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>,<span class="no">len</span>)
+  <span class="kw">for</span>(<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">len</span>) {
+    <span class="no">probs</span>[<span class="no">i</span>] <span class="kw">=</span> <span class="no">balpha</span><span class="kw">%*%</span>(<span class="no">bMt</span><span class="kw">%^%</span>(<span class="no">i</span>-<span class="fl">1</span>))<span class="kw">%*%</span><span class="no">bmt</span>
+  }
+  <span class="co">#probsMat[i_outer,] = c((1-rowSums(bM)[1]),probs)</span>
+  <span class="no">probsMat</span>[<span class="no">i_outer</span>,] <span class="kw">=</span> <span class="no">probs</span>
+}
+<span class="no">xs</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,(<span class="fl">1</span>:(<span class="fl">2</span>*(<span class="no">n</span>-<span class="fl">1</span>)))/(<span class="no">n</span>-<span class="fl">1</span>))
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">xs</span>,<span class="no">probsMat</span>[<span class="fl">1</span>,<span class="fl">1</span>:(<span class="fl">2</span>*(<span class="no">n</span>-<span class="fl">1</span>)+<span class="fl">1</span>)],<span class="kw">type</span><span class="kw">=</span><span class="st">"b"</span>,<span class="kw">lty</span><span class="kw">=</span><span class="fl">1</span>,<span class="kw">pch</span><span class="kw">=</span><span class="fl">16</span>,<span class="kw">ylim</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="fl">0.15</span>),<span class="kw">col</span><span class="kw">=</span><span class="st">"black"</span>)
+<span class="no">xs</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,(<span class="fl">1</span>:((<span class="no">n</span>*(<span class="no">n</span>-<span class="fl">1</span>))))/(<span class="no">n</span>*(<span class="no">n</span>-<span class="fl">1</span>)/<span class="fl">2</span>))
+<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(<span class="no">xs</span>,<span class="no">probsMat</span>[<span class="fl">2</span>,],<span class="kw">type</span><span class="kw">=</span><span class="st">"b"</span>,<span class="kw">lty</span><span class="kw">=</span><span class="fl">2</span>,<span class="kw">pch</span><span class="kw">=</span><span class="fl">16</span>,<span class="kw">col</span><span class="kw">=</span><span class="st">"blue"</span>)
+<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(<span class="no">xs</span>,<span class="no">probsMat</span>[<span class="fl">3</span>,],<span class="kw">type</span><span class="kw">=</span><span class="st">"b"</span>,<span class="kw">lty</span><span class="kw">=</span><span class="fl">3</span>,<span class="kw">pch</span><span class="kw">=</span><span class="fl">16</span>,<span class="kw">col</span><span class="kw">=</span><span class="st">"red"</span>)</pre></body></html></div>
+<p><img src="phasty_SFS_files/figure-html/unnamed-chunk-14-2.png" width="700"></p>
+<div id="refs" class="references">
+<div id="ref-durrett2008probability">
+<p>Durrett, Richard. 2008. <em>Probability Models for Dna Sequence Evolution</em>. Springer Science &amp; Business Media.</p>
+</div>
+<div id="ref-asgertemp2020">
+<p>Hobolth, A, M. Bladt, and L. A. Andersen. 2020. “Multivariate Phase-Type Theory for the Site Frequency Spectrum.”</p>
+</div>
+</div>
+</div>
 </div>
   </div>
 
