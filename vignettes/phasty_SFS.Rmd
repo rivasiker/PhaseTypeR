@@ -9,6 +9,8 @@ vignette: >
   %\VignetteIndexEntry{Using phasty for the site frequency spectrum}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: for_vignette.bib
+link-citations: yes
 ---
 
 ```{r, include = FALSE}
@@ -22,6 +24,8 @@ knitr::opts_chunk$set(
 
 # 1. Introduction 
 
+TODO: Check final references to paper.
+
 Here we recreate the figures from the paper and give more example of how to use the phase-type representation of the block counting process.
 
 
@@ -29,18 +33,21 @@ Here we recreate the figures from the paper and give more example of how to use 
 library(phasty)
 ```
 
-First, a sanity check, we recover the numerical values of the covariance matrix for the site frequency spectrum, which is also computed on p. 5 of Durrett. 
+On p. 55 of Durrett [-@durrett2008probability] the numerical values of the covariances between the entries of the site frequency spectrum for $n=8$ are computed and from eqn (eq:covmatdecomp) in [-@asgertemp2020] we know that the off-diagonal entries of the covariance matrix of the site frequency spectrum are proportional to the covariance matrix of the underlying phase-type distribution.
 
 
-```{r}
-n = 8
-ph_rew_obj = block_counting_process(n)
-round(0.25*var(ph_rew_obj),4)
+```{r, message=FALSE, warning=FALSE}
+n <- 8
+ph_rew_obj <- block_counting_process(n) # Create the phasetype distribution with rewards associated the block counted process with n = 8
+Covmat <- var(ph_rew_obj) # Compute the covariance matrix 
+round(0.25*Covmat,4) 
 ```
 
-Next, we recreate some of the figures in the paper
+## 1. Figure 1
 
-```{r}
+Next, we recreate the figure in the paper. Firstly, we recreate the left figure of Figure 1.
+
+```{r, message=FALSE, warning=FALSE}
 n = 10
 ph_rew_obj = block_counting_process(n)
 lambdavals = c(0.02,0.2,1,2,10)
@@ -58,6 +65,10 @@ for(i in 2:length(lambdavals)) {
 }
 ```
 
+Next, we recreate th right figure in Figure 1 (TODO)
+
+## 1. Figure 2
+
 Next, we numerically invert the characteristic function of the numerator of Tajima's $D$ and compare to simulated values. First, we obtain the rate-matrix and state space for the block counting process. 
 
 ```{r}
@@ -71,16 +82,8 @@ m = dim(RMASS$RateM)[1] #(m should be equal to partitions::P(n))
 subintensity_matrix = RMASS$RateM[1:(m-1),1:(m-1)]
 
 # The reward matrix is the state space matrix of the block counting process, except the row & column related to the
-# aborping state.
+# absorbing state.
 rew_mat = RMASS$StSpM[1:(m-1),1:(n-1)]
-
-bT=RMASS$RateM[1:(dim(RMASS$RateM)[1]-1),1:(dim(RMASS$RateM)[1]-1)]
-SPMAT=RMASS$StSpM[1:(dim(RMASS$StSpM)[1]-1),1:(dim(RMASS$StSpM)[2]-1)]
-bone = matrix(1,dim(bT)[1],1) #(1,1,...,1)*
-alpha = matrix(0,1,dim(bT)[1]);alpha[1]=1 #(1,0,...,0)
-bR = SPMAT #the rewards matrix *is* the statespace matrix
-bS = bT - diag(rowSums(bR))
-
 
 ph_obj=phase_type(subintensity_matrix)
 ph_rew_obj=phase_type(subintensity_matrix, reward_mat = rew_mat)
@@ -99,7 +102,7 @@ for(i in 1:rew_dim) {
 }
 ```
 
-An alternative is to simulate the SFS using the coalo package
+An alternative is to simulate the SFS using the *coala* package
 
 ```{r}
 library(coala)
@@ -201,12 +204,8 @@ subintensity_matrix = RMASS$RateM[1:(m-1),1:(m-1)]
 
 rew_mat = RMASS$StSpM[1:(m-1),1:(n-1)]
 
-bT=RMASS$RateM[1:(dim(RMASS$RateM)[1]-1),1:(dim(RMASS$RateM)[1]-1)]
-SPMAT=RMASS$StSpM[1:(dim(RMASS$StSpM)[1]-1),1:(dim(RMASS$StSpM)[2]-1)]
 bone = matrix(1,dim(bT)[1],1) 
 alpha = matrix(0,1,dim(bT)[1]);alpha[1]=1 
-bR = SPMAT 
-bS = bT - diag(rowSums(bR))
 
 #Simulation
 ph_obj=phase_type(subintensity_matrix)
@@ -248,5 +247,266 @@ plot(xvals2,yvals,type="l",ylim=c(0,1))
 
 lines(ecdfobj2,col="blue")
 lines(xvals2,yvals,lwd=2)
+```
+
+## Figure 4
+
+Figures on p. 13
+
+```{r}
+
+n = 5
+# create rate-matrix and state space for block counting process
+RMASS = RateMAndStateSpace(n)
+
+m = dim(RMASS$RateM)[1] #(m should be equal to partitions::P(n))
+
+# Obtain subintensity matrix
+subintensity_matrix = RMASS$RateM[1:(m-1),1:(m-1)]
+
+# The reward matrix is the state space matrix of the block counting process, except the row & column related to the
+# absorbing state.
+rew_mat = RMASS$StSpM[1:(m-1),1:(n-1)]
+
+ph = phase_type(subintensity_matrix)
+ph_rew_obj=reward_phase_type(ph, rew_mat[,1])
+
+
+plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 1),las=1)
+
+for(i in 1:(n-1)) {
+  ph_rew_obj=reward_phase_type(ph, rew_mat[,i])
+  bone = matrix(1,length(ph_rew_obj$init_probs),1)
+  abstime <- function(u) {
+    1 - ph_rew_obj$init_probs%*%expm(ph_rew_obj$subint_mat*u)%*%bone
+  }
+  abstime = Vectorize(abstime)
+  curve(abstime,lty=i,add=TRUE)
+}
+
+plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 1),las=1)
+
+for(i in 1:(n-1)) {
+  ph_rew_obj=reward_phase_type(ph, rew_mat[,i])
+  bS = ph_rew_obj$subint_mat
+  bM = solve(diag(dim(bS)[1])-2*bS)
+  bpi = ph_rew_obj$init_probs
+  bone = matrix(1,diag(dim(bS)[1],1))
+  bm = bone - bM%*%bone
+  probs = apply(matrix(0:5),1,function(i) bpi%*%(bM%^%i)%*%bm)
+  probs[1] = probs[1] + ph_rew_obj$defect
+  points(0:5,probs,pch=16)
+  lines(0:5,probs,lty=i)
+}
+```
+
+## Figure 6
+
+```{r}
+n = 4
+# create rate-matrix and state space for block counting process
+RMASS = RateMAndStateSpace(n)
+
+m = dim(RMASS$RateM)[1] #(m should be equal to partitions::P(n))
+
+# Obtain subintensity matrix
+subintensity_matrix = RMASS$RateM[1:(m-1),1:(m-1)]
+
+
+ph = phase_type(subintensity_matrix)
+
+# The reward vector is the rows sums of the state space matrix
+
+bC = RMASS$StSpM[1:(m-1),1:(n-1)]
+br = rowSums(bC)
+ph_rew_obj=reward_phase_type(ph, br)
+bS = ph_rew_obj$subint_mat
+lambda = 1/2
+bM = solve(diag(dim(bS)[1])-(1/lambda)*bS)
+
+m = m - 1
+
+baMat = matrix(c(1:(n-1),(1:(n-1))*((n-1):1),(1:(n-1))^2),n-1,n-1,byrow=TRUE)
+#baMat = matrix(c(1,2,3,3,4,3,1,4,9),3,3,byrow=TRUE)
+
+len = n*(n-1)+1
+probsMat = matrix(0,3,len)
+
+for(i_outer in 1:3) {
+  ba = baMat[i_outer,]
+  sizes_of_blocks = rep(0,m)
+  for(i in 1:m) {
+    sizes_of_blocks[i]=max(ba*(bC[i,] > 0))
+  }
+  
+  i = 4
+  bmvec = rep(0,sizes_of_blocks[i])
+  for(k in 1:sizes_of_blocks[i]) {
+    bmvec[sizes_of_blocks[i]-k+1]=sum(bC[i,]*(ba == k))
+  }
+  bmvec
+  
+  
+  bMt = matrix(0,sum(sizes_of_blocks),sum(sizes_of_blocks))
+  for(i in 1:m) {
+    for(j in 1:m) {
+      if(i <= j) {
+        bmvec = rep(0,sizes_of_blocks[j])
+        for(k in 1:sizes_of_blocks[j]) {
+          bmvec[sizes_of_blocks[j]-k+1]=sum(bC[j,]*(ba == k))
+        }
+        bmvec = bM[i,j]*bmvec/sum(bmvec)
+        cur_i = sum(sizes_of_blocks[1:i])
+        if(j == 1) {
+          cur_j = 1
+        }
+        else {
+          cur_j = sum(sizes_of_blocks[1:(j-1)]) + 1
+        }
+        #print(cur_i)
+        #print(cur_j)
+        #print(bmvec)
+        #print("--")
+        bMt[cur_i,cur_j:(cur_j+sizes_of_blocks[j]-1)] = bmvec
+      }
+      if((i == j) && sizes_of_blocks[i] > 1) {
+        size_of_current_block = sizes_of_blocks[i]
+        cur_i = sum(sizes_of_blocks[1:i]) - size_of_current_block + 1
+        cur_j = sum(sizes_of_blocks[1:j]) - size_of_current_block + 2
+        bMt[cur_i:(cur_i + size_of_current_block - 2),cur_j:(cur_j + size_of_current_block - 2)] = diag(size_of_current_block-1)
+        #print(cur_i)
+        #print(cur_j)
+        #print(bmvec)
+        #print("--")
+        #  bMt[cur_i,cur_j:(cur_j+sizes_of_blocks[j]-1)] = bmvec
+      }
+    }
+  }
+  balpha = rep(0,dim(bMt)[1])
+  balpha[sizes_of_blocks[1]] = 1 #den skal starte det rigtige sted
+  bone = matrix(rep(1,dim(bMt)[1]))
+  bmt = bone - bMt%*%bone
+  probs = rep(0,len)
+  for(i in 1:len) {
+    probs[i] = balpha%*%(bMt%^%(i-1))%*%bmt
+  }
+  #probsMat[i_outer,] = c((1-rowSums(bM)[1]),probs)
+  probsMat[i_outer,] = probs
+}
+#xs = c(0,(1:6)/3)
+#plot(xs,probsMat[1,1:7],type="b",lty=1,pch=16,ylim=c(0,0.25),col="black")
+#xs = c(0,(1:12)/6)
+#points(xs,probsMat[2,],type="b",lty=2,pch=16,col="blue")
+#points(xs,probsMat[3,],type="b",lty=3,pch=16,col="red")
+
+xs = c(0,(1:(2*(n-1)))/(n-1))
+plot(xs,probsMat[1,1:(2*(n-1)+1)],type="b",lty=1,pch=16,ylim=c(0,0.25),col="black")
+xs = c(0,(1:((n*(n-1))))/(n*(n-1)/2))
+points(xs,probsMat[2,],type="b",lty=2,pch=16,col="blue")
+points(xs,probsMat[3,],type="b",lty=3,pch=16,col="red")
+
+
+
+
+
+# ----------------- n = 6 ----------------
+
+
+n = 6
+# create rate-matrix and state space for block counting process
+RMASS = RateMAndStateSpace(n)
+
+m = dim(RMASS$RateM)[1] #(m should be equal to partitions::P(n))
+
+# Obtain subintensity matrix
+subintensity_matrix = RMASS$RateM[1:(m-1),1:(m-1)]
+
+
+ph = phase_type(subintensity_matrix)
+
+# The reward vector is the rows sums of the state space matrix
+
+bC = RMASS$StSpM[1:(m-1),1:(n-1)]
+br = rowSums(bC)
+ph_rew_obj=reward_phase_type(ph, br)
+bS = ph_rew_obj$subint_mat
+lambda = 1/2
+bM = solve(diag(dim(bS)[1])-(1/lambda)*bS)
+
+m = m - 1
+
+baMat = matrix(c(1:(n-1),(1:(n-1))*((n-1):1),(1:(n-1))^2),n-1,n-1,byrow=TRUE)
+#baMat = matrix(c(1,2,3,3,4,3,1,4,9),3,3,byrow=TRUE)
+
+len = n*(n-1)+1
+probsMat = matrix(0,3,len)
+
+for(i_outer in 1:3) {
+  ba = baMat[i_outer,]
+  sizes_of_blocks = rep(0,m)
+  for(i in 1:m) {
+    sizes_of_blocks[i]=max(ba*(bC[i,] > 0))
+  }
+  
+  i = 4
+  bmvec = rep(0,sizes_of_blocks[i])
+  for(k in 1:sizes_of_blocks[i]) {
+    bmvec[sizes_of_blocks[i]-k+1]=sum(bC[i,]*(ba == k))
+  }
+  bmvec
+  
+  
+  bMt = matrix(0,sum(sizes_of_blocks),sum(sizes_of_blocks))
+  for(i in 1:m) {
+    for(j in 1:m) {
+      if(i <= j) {
+        bmvec = rep(0,sizes_of_blocks[j])
+        for(k in 1:sizes_of_blocks[j]) {
+          bmvec[sizes_of_blocks[j]-k+1]=sum(bC[j,]*(ba == k))
+        }
+        bmvec = bM[i,j]*bmvec/sum(bmvec)
+        cur_i = sum(sizes_of_blocks[1:i])
+        if(j == 1) {
+          cur_j = 1
+        }
+        else {
+          cur_j = sum(sizes_of_blocks[1:(j-1)]) + 1
+        }
+        #print(cur_i)
+        #print(cur_j)
+        #print(bmvec)
+        #print("--")
+        bMt[cur_i,cur_j:(cur_j+sizes_of_blocks[j]-1)] = bmvec
+      }
+      if((i == j) && sizes_of_blocks[i] > 1) {
+        size_of_current_block = sizes_of_blocks[i]
+        cur_i = sum(sizes_of_blocks[1:i]) - size_of_current_block + 1
+        cur_j = sum(sizes_of_blocks[1:j]) - size_of_current_block + 2
+        bMt[cur_i:(cur_i + size_of_current_block - 2),cur_j:(cur_j + size_of_current_block - 2)] = diag(size_of_current_block-1)
+        #print(cur_i)
+        #print(cur_j)
+        #print(bmvec)
+        #print("--")
+        #  bMt[cur_i,cur_j:(cur_j+sizes_of_blocks[j]-1)] = bmvec
+      }
+    }
+  }
+  balpha = rep(0,dim(bMt)[1])
+  balpha[sizes_of_blocks[1]] = 1 #den skal starte det rigtige sted
+  bone = matrix(rep(1,dim(bMt)[1]))
+  bmt = bone - bMt%*%bone
+  probs = rep(0,len)
+  for(i in 1:len) {
+    probs[i] = balpha%*%(bMt%^%(i-1))%*%bmt
+  }
+  #probsMat[i_outer,] = c((1-rowSums(bM)[1]),probs)
+  probsMat[i_outer,] = probs
+}
+xs = c(0,(1:(2*(n-1)))/(n-1))
+plot(xs,probsMat[1,1:(2*(n-1)+1)],type="b",lty=1,pch=16,ylim=c(0,0.15),col="black")
+xs = c(0,(1:((n*(n-1))))/(n*(n-1)/2))
+points(xs,probsMat[2,],type="b",lty=2,pch=16,col="blue")
+points(xs,probsMat[3,],type="b",lty=3,pch=16,col="red")
+
 ```
 
