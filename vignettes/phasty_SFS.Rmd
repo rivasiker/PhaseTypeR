@@ -30,10 +30,11 @@ Here we recreate the figures from the paper and give more example of how to use 
 
 
 ```{r setup}
+set.seed(0)
 library(phasty)
 ```
 
-On p. 55 of Durrett [-@durrett2008probability] the numerical values of the covariances between the entries of the site frequency spectrum for $n=8$ are computed and from eqn (eq:covmatdecomp) in [-@asgertemp2020] we know that the off-diagonal entries of the covariance matrix of the site frequency spectrum are proportional to the covariance matrix of the underlying phase-type distribution.
+On p. 55 of Durrett [-@durrett2008probability] the numerical values of the covariances between the entries of the site frequency spectrum for $n=8$ are computed and from eqn (eq:covmatdecomp) in Asger [-@asgertemp2020] we know that the off-diagonal entries of the covariance matrix of the site frequency spectrum are proportional to the covariance matrix of the underlying phase-type distribution.
 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -45,68 +46,140 @@ round(0.25*Covmat,4)
 
 ## 1. Figure 1
 
-Next, we recreate the figure in the paper. Firstly, we recreate the left figure of Figure 1.
+
+Next, we recreate the figures in the paper. Firstly, we recreate the left figure of Figure 1. This display the coefficients of for the site frequency spectrum for different unbiased estimators of the mutation rate $\theta$. The coefficients of the  H, L, Wattersons, pairwise and singleton estimators are given Section 1.1 of Asger [-@asgertemp2020]. The coefficients of the LMVU estimator are given by
+\begin{eqnarray}
+  \hat{\bc}=
+  \frac{\bLambda^{-1}\bv}{\bv^{\ast}\;\bLambda^{-1}\bv}.
+\end{eqnarray} 
+where $\bLambda$ is the covariance matrix of the site frequency spectrum, which, using formula XX in Asger [-@asgertemp2020] can be calculated in terms of the mean and covariance matrix of the underlying 
+block counting process 
+\begin{align}
+\Var \bZ = \lambda^2 \bSigma + \lambda \diag(\bmu)
+\end{align}
+The latter two are easily calculated:
 
 ```{r, message=FALSE, warning=FALSE}
 n = 10
 ph_rew_obj = block_counting_process(n)
-lambdavals = c(0.02,0.2,1,2,10)
-coef_matrix = matrix(0,length(lambdavals),n-1)
-nu = 1/(1:(n-1) )
-for(i in 1:length(lambdavals)) {
-  lambda = lambdavals[i]
-  bLambda=lambda^2*var(ph_rew_obj) + lambda*diag( mean(ph_rew_obj) )
-  coef_matrix[i,]=solve(bLambda)%*%nu/c(nu%*%solve(bLambda)%*%nu)
-}
-
-plot(coef_matrix[1,],type="l",las=1,ylab="Coefficient",ylim=c(-0.5,2))
-for(i in 2:length(lambdavals)) {
-  lines(coef_matrix[i,])
-}
+bmu = mean(ph_rew_obj)
+bSigma = var(ph_rew_obj)
 ```
 
-Next, we recreate th right figure in Figure 1 (TODO)
+Using these two quantities, the coefficients are calculated below.
 
-## 1. Figure 2
 
-Next, we numerically invert the characteristic function of the numerator of Tajima's $D$ and compare to simulated values. First, we obtain the rate-matrix and state space for the block counting process. 
+```{r, message=FALSE, warning=FALSE}
+thetaVec <- c(0.1,1,5,10,100)
+bv = 1/(1:(n-1))
+##LMVU Estimators
+coef_matrix = matrix(0,length(thetaVec),n-1)
+for(i in 1:length(thetaVec)) {
+  theta = thetaVec[i]
+  bLambda=(theta/2)^2*bSigma + (theta/2)*diag( bmu )
+  coef_matrix[i,]=solve(bLambda)%*%bv/c(bv%*%solve(bLambda)%*%bv)
+}
+
+## Wattersons estimator
+xWatt <- rep(1,length(bv))/sum(bv)
+##-------------------------------------------------------------
+## Singleton estimator
+xsngltns <- c(1,rep(0,(length(bv)-1)))
+##-------------------------------------------------------------
+## Pairwise difference estimator
+xpair <- ( 1:(n-1) )*( (n-1):1 )/n/(n-1)*2
+##-------------------------------------------------------------
+## H estimator
+xH <- ( 1:(n-1) )^2 *2/n/(n-1)
+##-------------------------------------------------------------
+## L estimator
+xL <- ( 1:(n-1) )/(n-1)
+##---------------------------------------------------------------
+## Plot the coefficients of the 5 different estimators (W,S,P,H,L)
+plot(1:(n-1),xWatt,ylim=c(-0.5,2),col="black",lwd=2,type="l",xlim=c(1,n),
+     xlab="Index",ylab="Coefficient",cex.lab=1.2,lty=2,las=1)
+abline(v=1:9,col="gray")
+points(1:(n-1),xsngltns,col="black",type="l",lty=3,lwd=2)
+points(1:(n-1),xpair,col="black",type="l",lty=4,lwd=2)
+points(1:(n-1),xH,col="black",type="l",lty=5,lwd=2)
+points(1:(n-1),xL,col="black",type="l",lty=6,lwd=2)
+for (i in 1:length(thetaVec)){
+  xhat = coef_matrix[i,]
+  points(1:(n-1),xhat,type="l",lwd=2)
+  text(n-1,xhat[n-1],bquote(theta==.(thetaVec[i])),pos=4)
+}
+
+txtVec <- c("Watterson","Singleton","Pairwise","H","L","LMVU")
+ltyVec <- c(2,3,4,5,6,1)
+indx <- c(4,5,1,3,2,6)
+legend(2,2,txtVec[indx],lty=ltyVec[indx],lwd=2,bty="n",cex=1.2)
+```
+
+The right figure in Figure 1 displays the variances as a function of $\theta$ - these can be calculated as $\bc^\ast \bLambda \bc$, where $\bc$ are the coefficients calculated above, and $\bLambda$ is the covariance of the site frequency spectrum as above.
+
+```{r}
+thetaVec <- seq(0.01,2.5,by=0.1)
+ntheta <- length(thetaVec)
+vrW <- rep(0,ntheta) ; vrS <- rep(0,ntheta) ; vrP <- rep(0,ntheta)
+vrH <- rep(0,ntheta) ; vrL <- rep(0,ntheta) ; vrLMVU <- rep(0,ntheta) 
+for (i in 1:ntheta){
+  tht <- thetaVec[i]
+  bLambda=(tht^2/4)*bSigma + (tht/2)*diag( bmu )
+  xhat <- (solve(bLambda) %*% bv)/as.numeric(bv %*% solve(bLambda) %*% bv)
+  vrLMVU[i] <- t(xhat) %*% bLambda %*% xhat
+  vrW[i] <- t(xWatt) %*% bLambda %*% xWatt
+  vrS[i] <- t(xsngltns) %*% bLambda %*% xsngltns
+  vrP[i] <- t(xpair) %*% bLambda %*% xpair
+  vrH[i] <- t(xH) %*% bLambda %*% xH
+  vrL[i] <- t(xL) %*% bLambda %*% xL
+}
+plot(thetaVec,vrLMVU,type="l",lty=1,lwd=2,xlim=c(0,max(thetaVec)),
+     xlab=bquote(theta),ylab="Variance for estimator",cex.lab=1.2)
+points(thetaVec,vrW,type="l",lty=2,lwd=2)
+points(thetaVec,vrS,type="l",lty=3,lwd=2)
+points(thetaVec,vrP,type="l",lty=4,lwd=2)
+points(thetaVec,vrH,type="l",lty=5,lwd=2)
+points(thetaVec,vrL,type="l",lty=6,lwd=2)
+indx <- c(4,5,2,3,1,6)
+legend("topleft",txtVec[indx],lty=ltyVec[indx],lwd=2,bty="n",cex=1.2)
+```
+
+
+## Simulation and characteristic function
+
+Here, we numerically invert the characteristic function of the numerator of Tajima's $D$ and compare to simulated values. First, we obtain the rate-matrix and state space for the block counting process. First, we simulate using the results in XX Asger [-@asgertemp2020], from which it follows that the site frequency spectra can be simulated by first sampling a random variate from the appropriate block counting process, and letting the entries of this variate be the rates of independent Poisson random variables. First, we obtain the block counting process for $n=4$
 
 ```{r}
 n = 4
 # create rate-matrix and state space for block counting process
-RMASS = RateMAndStateSpace(n)
-
-m = dim(RMASS$RateM)[1] #(m should be equal to partitions::P(n))
+ph_rew_obj = block_counting_process(n)
 
 # Obtain subintensity matrix
-subintensity_matrix = RMASS$RateM[1:(m-1),1:(m-1)]
+subintensity_matrix = ph_rew_obj$subint_mat
 
-# The reward matrix is the state space matrix of the block counting process, except the row & column related to the
-# absorbing state.
-rew_mat = RMASS$StSpM[1:(m-1),1:(n-1)]
+rew_mat = ph_rew_obj$reward_mat
 
 ph_obj=phase_type(subintensity_matrix)
 ph_rew_obj=phase_type(subintensity_matrix, reward_mat = rew_mat)
 ```
 
-Next, we simulate random site frequency spectra by using REF
+Next, we simulate random site frequency spectra by using REF.
 
 ```{r}
 R = 1e4
 ph_mv_sim_obj = sim_rew_phase_type(R,ph_rew_obj)
-rew_dim = dim(ph_mv_sim_obj)[1]
 lambda = 1
-ph_counts = matrix(0,rew_dim,dim(ph_mv_sim_obj)[2])
-for(i in 1:rew_dim) {
-  ph_counts[i,] = rpois(R,lambda*ph_mv_sim_obj[i,])
+ph_counts = matrix(0,dim(ph_mv_sim_obj)[2],dim(ph_mv_sim_obj)[1])
+for(i in 1:R) {
+  ph_counts[i,] = rpois(n-1,lambda*ph_mv_sim_obj[,i])
 }
 ```
 
-An alternative is to simulate the SFS using the *coala* package
+An alternative is to simulate the site frequency spectrum using the *coala* package
 
 ```{r}
 library(coala)
-loc_length = 1e4; theta = 3
+loc_length = 1e4; theta = 2
 model <- coal_model(sample_size = n, loci_number = R,loc_length) + feat_mutation(theta) + sumstat_trees() + sumstat_seg_sites()
 stats <- simulate(model, seed = 15)
 
@@ -125,31 +198,71 @@ out = out[,-n]
 sfs = out
 ```
 
-TODO: compare
+We can compare the two samples by converting each of the observed triples to a three-character string and compare the counts of each string.
 
+```{r}
+all_obs = unique(rbind(ph_counts,sfs)+1)
+myletters = c(letters,LETTERS)
+collapse_to_string = function(lst) paste(myletters[lst],collapse="")
+all_obs = apply(all_obs,1,collapse_to_string)
+table_ph_counts = rep(0,length(all_obs))
+table_sfs = rep(0,length(all_obs))
+for(i in 1:R) {
+  table_ph_counts[which(collapse_to_string(ph_counts[i,]+1)==all_obs)] = table_ph_counts[which(collapse_to_string(ph_counts[i,]+1)==all_obs)] + 1
+  table_sfs[which(collapse_to_string(sfs[i,]+1)==all_obs)] = table_sfs[which(collapse_to_string(sfs[i,]+1)==all_obs)] + 1
+}
+max_count = max(c(table_ph_counts,table_sfs))
+plot(table_ph_counts,table_sfs,pch=16,xlim=c(0,max_count),ylim=c(0,max_count))
+abline(a=0,b=1)
+```
+
+We can perform a statistical test of equailty of the two underlying multinomial distribution by using an approximate likelihood ratio test, where we collapse strings with less than five observations in either sample:
+
+```{r}
+small_counts = union(which(table_ph_counts <= 5),which(table_sfs <= 5))
+table_sfs_collapsed=table_sfs[-small_counts]
+table_ph_counts_collapsed=table_ph_counts[-small_counts]
+table_sfs_collapsed = c(table_sfs_collapsed,sum(table_sfs[small_counts]))
+table_ph_counts_collapsed = c(table_ph_counts_collapsed,sum(table_ph_counts[small_counts]))
+
+
+table_tot = table_sfs_collapsed + table_ph_counts_collapsed
+val1 = -2*sum(table_sfs_collapsed*log(table_tot/(2*R))+table_ph_counts_collapsed*log(table_tot/(2*R)))
+val2 = -2*(sum(table_sfs_collapsed*log(table_sfs_collapsed/R),na.rm=TRUE)+sum(table_ph_counts_collapsed*log(table_ph_counts_collapsed/R),na.rm=TRUE))
+1-pchisq(val1-val2,length(table_tot))
+```
 The numerator of Tajima's $D$ is $\hat{\theta}_{\pi}-\hat{\theta}_{\rm W}$ so the coefficient vector $\mathbf{c}$ is
 $$
 c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}}
 $$
+
 which is implemented below
 
 ```{r}
+bc = (2*((1:(n-1))*( (n-1):1))/(n*(n-1)) - 1/sum(1/(1:(n-1))))
+```
+
+For numeric reasons, we scale the coefficients by 1000 and rescale later
+
+```{r}
 res = 1000
-bc = res*(2*((1:(n-1))*( (n-1):1))/(n*(n-1)) - 1/sum(1/(1:(n-1))))
+bc = res*bc
 ```
 
 According to REF, the characteristic function is obtained as
+
 $$
 \phi(t) = \tilde{\psi}(\e^{\ih t})
 $$
+
 where
 \begin{align*}
 \tilde{\psi}(z) \eqdef \Exp [z^{\bc^\ast \bxi}] = \balpha^\ast \left( \bS + \lambda \Delta[\bR z^\bc] \right)^{-1} \bT \bone
 \label{eq:phitildefun}
 \end{align*}
+with $\bT,\bR$ being respectively the subintensity matrix and reward matrix of the block counting process, $\bone = (1,1,\dots,1)^\ast$ and $\bS = \bT - \bR \bone$.
 
 The next snippet implements the $\phi$-function
-
 
 ```{r}
 themean = mean(mean(ph_rew_obj)*bc) #the mean of the linear combination
@@ -161,8 +274,7 @@ balpha = matrix(0,1,dim(bT)[1]);balpha[1]=1 #(1,0,...,0)
 phi <- function(t) (exp(-1i*themean*t))*balpha%*%solve(bS+diag(c(bR%*%(exp(1i*t)^bc))) )%*%bT%*%bone
 ```
 
-
-
+Finally, we approximate the CDF and rescale
 
 ```{r}
 appvals=ApproxCDF(phi,H = 1e5,eta=0.001,xlim=c(-1.5*res,2.5*res))
@@ -173,7 +285,7 @@ yvals=appvals[[2]]
 bc2 = (1/res)*bc
 xvals2 = (1/res)*xvals
 themean2 = (1/res)*themean
-centered_sim2 = t(ph_counts)%*%bc2-c(themean2)
+centered_sim2 = ph_counts%*%bc2-c(themean2)
 ecdfobj2 = ecdf(centered_sim2)
 
 plot(xvals2,yvals,type="l",ylim=c(0,1))
@@ -188,12 +300,8 @@ plot(xvals2,yvals,type="l",ylim=c(0,1),xlim=c(-0.5,0.5))
 lines(ecdfobj2,col="blue")
 lines(xvals2,yvals,lwd=2)
 ```
-Next, we run the above code with
 
-```{r}
-n = 8
-```
-
+Next, we run the above code with $n=8$.
 
 ```{r,echo = FALSE}
 #Define reward process
