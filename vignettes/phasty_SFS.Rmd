@@ -359,10 +359,9 @@ lines(xvals2,yvals,lwd=2)
 
 ## Figure 4
 
-Figures on p. 13
+In this section we recreate the bottom two sub-figures of Figure 4, and first we consider the bottom left figure, which displays the CDFs of the $i$-ton branch-length for $i = 1,2,3,4$. As described in Section 3, these branch-lengths all have (possibly defective) $PH$ distributions, whose subintensity matrix (and possible defect) can be calculated from the subintesity matrix and state-space of the block-counting process, so first compute these two objects:
 
 ```{r}
-
 n = 5
 # create rate-matrix and state space for block counting process
 RMASS = RateMAndStateSpace(n)
@@ -375,12 +374,29 @@ subintensity_matrix = RMASS$RateM[1:(m-1),1:(m-1)]
 # The reward matrix is the state space matrix of the block counting process, except the row & column related to the
 # absorbing state.
 rew_mat = RMASS$StSpM[1:(m-1),1:(n-1)]
+subintensity_matrix
+rew_mat
+```
 
+The first column of the state-space matrix, $\br = (5,3,2,1,1,0)^\ast$, then corresponds to the rewards which give rise to the singleton branch-lengths, which can then be generated as
+
+
+```{r}
 ph = phase_type(subintensity_matrix)
 ph_rew_obj=reward_phase_type(ph, rew_mat[,1])
+```
 
+The code below generates the phase type distribution of the $i$-ton branches and their CDFs using the formula (TODO: REF)
 
-plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 1),las=1)
+$$
+1 - F(t)= \Prob (\tau>t) = 1- \balphae^{\bS t}\bone, 
+$$
+The code below plots the four distributions functions:
+
+```{r}
+plot(1, type="n",xlim=c(0,4),ylim=c(0,1),
+     xlab="t",ylab="Cumulative distribution function",cex.lab=1.2,
+     main="Branch length distributions for i-tons with sample size n=5",las=1)
 
 for(i in 1:(n-1)) {
   ph_rew_obj=reward_phase_type(ph, rew_mat[,i])
@@ -392,7 +408,21 @@ for(i in 1:(n-1)) {
   curve(abstime,lty=i,add=TRUE)
 }
 
-plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 1),las=1)
+legend("bottomright",c("singleton","doubleton","tripleton","quardrupleton"),
+       lty=1:4,bty="n",cex=1.3,lwd=2)
+```
+
+
+The the bottom right plot of Figure 4, we find the point probabilities og $i$ mutations $i=1,\dots,4$ corresponding to Phase-type distributions of the bottom left figure. These are easily computed using Theorem 2.3 which in this case has the interpretation, that adding mutations to branches whose length is $PH$-distributed, gives a $DPH$ distribution, whose sub-transition matrix is given by
+
+$$
+   \bM=\Big(\bI-\frac{2}{\theta} \bS\Big)^{-1}.
+$$
+where $\bS$ is the sub-transition matrix of the underlying phase-type distribution.
+
+```{r}
+plot(1, type="n", xlim=c(0, 4), ylim=c(0, 1),las=1,xlab="Number of mutations",ylab="Probability",
+     main="Probability of mutations for theta=1")
 
 for(i in 1:(n-1)) {
   ph_rew_obj=reward_phase_type(ph, rew_mat[,i])
@@ -406,9 +436,13 @@ for(i in 1:(n-1)) {
   points(0:5,probs,pch=16)
   lines(0:5,probs,lty=i)
 }
+legend("topright",c("singleton","doubleton","tripleton","quardrupleton"),
+       lty=1:4,bty="n",cex=1.3,lwd=2)
 ```
 
 ## Figure 6
+
+TODO: Add explanation of figure
 
 ```{r}
 n = 4
@@ -435,7 +469,6 @@ bM = solve(diag(dim(bS)[1])-(1/lambda)*bS)
 m = m - 1
 
 baMat = matrix(c(1:(n-1),(1:(n-1))*((n-1):1),(1:(n-1))^2),n-1,n-1,byrow=TRUE)
-#baMat = matrix(c(1,2,3,3,4,3,1,4,9),3,3,byrow=TRUE)
 
 len = n*(n-1)+1
 probsMat = matrix(0,3,len)
@@ -471,10 +504,6 @@ for(i_outer in 1:3) {
         else {
           cur_j = sum(sizes_of_blocks[1:(j-1)]) + 1
         }
-        #print(cur_i)
-        #print(cur_j)
-        #print(bmvec)
-        #print("--")
         bMt[cur_i,cur_j:(cur_j+sizes_of_blocks[j]-1)] = bmvec
       }
       if((i == j) && sizes_of_blocks[i] > 1) {
@@ -482,40 +511,35 @@ for(i_outer in 1:3) {
         cur_i = sum(sizes_of_blocks[1:i]) - size_of_current_block + 1
         cur_j = sum(sizes_of_blocks[1:j]) - size_of_current_block + 2
         bMt[cur_i:(cur_i + size_of_current_block - 2),cur_j:(cur_j + size_of_current_block - 2)] = diag(size_of_current_block-1)
-        #print(cur_i)
-        #print(cur_j)
-        #print(bmvec)
-        #print("--")
-        #  bMt[cur_i,cur_j:(cur_j+sizes_of_blocks[j]-1)] = bmvec
       }
     }
   }
   balpha = rep(0,dim(bMt)[1])
-  balpha[sizes_of_blocks[1]] = 1 #den skal starte det rigtige sted
+  balpha[sizes_of_blocks[1]] = 1 
   bone = matrix(rep(1,dim(bMt)[1]))
   bmt = bone - bMt%*%bone
   probs = rep(0,len)
   for(i in 1:len) {
     probs[i] = balpha%*%(bMt%^%(i-1))%*%bmt
   }
-  #probsMat[i_outer,] = c((1-rowSums(bM)[1]),probs)
   probsMat[i_outer,] = probs
 }
-#xs = c(0,(1:6)/3)
-#plot(xs,probsMat[1,1:7],type="b",lty=1,pch=16,ylim=c(0,0.25),col="black")
-#xs = c(0,(1:12)/6)
-#points(xs,probsMat[2,],type="b",lty=2,pch=16,col="blue")
-#points(xs,probsMat[3,],type="b",lty=3,pch=16,col="red")
+main.txt <- paste("Integer-weighted SFS distributions for n=",n,"and theta=",1)
 
 xs = c(0,(1:(2*(n-1)))/(n-1))
-plot(xs,probsMat[1,1:(2*(n-1)+1)],type="b",lty=1,pch=16,ylim=c(0,0.25),col="black")
+plot(xs,probsMat[1,1:(2*(n-1)+1)],type="b",lty="dashed",pch=19,ylim=c(0,probsMat[1,1]),xlab="Weighted SFS",ylab="Probability",
+     main=main.txt,cex.main=1.2,cex.lab=1.2,lwd=2,las=1)
+
 xs = c(0,(1:((n*(n-1))))/(n*(n-1)/2))
-points(xs,probsMat[2,],type="b",lty=2,pch=16,col="blue")
-points(xs,probsMat[3,],type="b",lty=3,pch=16,col="red")
+points(xs,probsMat[2,],type="b",lty="dotted",pch=19)
+points(xs,probsMat[3,],type="b",lty="solid",pch=19)
 
+abline(v=1,col="gray")
+txt <- paste("mean=theta=",1)
+text(1,probsMat[1,1],txt,pos=2,cex=1.2)
 
-
-
+legend("topright",c("Pairwise","H","L"),lwd=2,
+       lty=c("dotted","solid","dashed"),bty="n",cex=1.2)
 
 # ----------------- n = 6 ----------------
 
@@ -544,7 +568,6 @@ bM = solve(diag(dim(bS)[1])-(1/lambda)*bS)
 m = m - 1
 
 baMat = matrix(c(1:(n-1),(1:(n-1))*((n-1):1),(1:(n-1))^2),n-1,n-1,byrow=TRUE)
-#baMat = matrix(c(1,2,3,3,4,3,1,4,9),3,3,byrow=TRUE)
 
 len = n*(n-1)+1
 probsMat = matrix(0,3,len)
@@ -580,10 +603,6 @@ for(i_outer in 1:3) {
         else {
           cur_j = sum(sizes_of_blocks[1:(j-1)]) + 1
         }
-        #print(cur_i)
-        #print(cur_j)
-        #print(bmvec)
-        #print("--")
         bMt[cur_i,cur_j:(cur_j+sizes_of_blocks[j]-1)] = bmvec
       }
       if((i == j) && sizes_of_blocks[i] > 1) {
@@ -591,11 +610,6 @@ for(i_outer in 1:3) {
         cur_i = sum(sizes_of_blocks[1:i]) - size_of_current_block + 1
         cur_j = sum(sizes_of_blocks[1:j]) - size_of_current_block + 2
         bMt[cur_i:(cur_i + size_of_current_block - 2),cur_j:(cur_j + size_of_current_block - 2)] = diag(size_of_current_block-1)
-        #print(cur_i)
-        #print(cur_j)
-        #print(bmvec)
-        #print("--")
-        #  bMt[cur_i,cur_j:(cur_j+sizes_of_blocks[j]-1)] = bmvec
       }
     }
   }
@@ -607,14 +621,26 @@ for(i_outer in 1:3) {
   for(i in 1:len) {
     probs[i] = balpha%*%(bMt%^%(i-1))%*%bmt
   }
-  #probsMat[i_outer,] = c((1-rowSums(bM)[1]),probs)
   probsMat[i_outer,] = probs
 }
-xs = c(0,(1:(2*(n-1)))/(n-1))
-plot(xs,probsMat[1,1:(2*(n-1)+1)],type="b",lty=1,pch=16,ylim=c(0,0.15),col="black")
-xs = c(0,(1:((n*(n-1))))/(n*(n-1)/2))
-points(xs,probsMat[2,],type="b",lty=2,pch=16,col="blue")
-points(xs,probsMat[3,],type="b",lty=3,pch=16,col="red")
 
+xs = c(0,(1:(2*(n-1)))/(n-1))
+plot(xs,probsMat[1,1:(2*(n-1)+1)],type="b",lty=1,pch=19,ylim=c(0,probsMat[1,1]),xlab="Weighted SFS",ylab="Probability",
+     main=main.txt,cex.main=1.2,cex.lab=1.2,lwd=2,las=1)
+
+xs = c(0,(1:((n*(n-1))))/(n*(n-1)/2))
+points(xs,probsMat[2,],type="b",lty="dotted",pch=19)
+points(xs,probsMat[3,],type="b",lty="solid",pch=19)
+
+main.txt <- paste("Integer-weighted SFS distributions for n=",n,"and theta=",1)
+
+xs = c(0,(1:(2*(n-1)))/(n-1))
+
+abline(v=1,col="gray")
+txt <- paste("mean=theta=",1)
+text(1,probsMat[1,1],txt,pos=2,cex=1.2)
+
+legend("topright",c("Pairwise","H","L"),lwd=2,
+       lty=c("dotted","solid","dashed"),bty="n",cex=1.2)
 ```
 
