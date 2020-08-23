@@ -389,7 +389,7 @@ ph_rew_obj=reward_phase_type(ph, rew_mat[,1])
 The code below generates the phase type distribution of the $i$-ton branches and their CDFs using the formula (TODO: REF)
 
 $$
-1 - F(t)= \Prob (\tau>t) = 1- \balphae^{\bS t}\bone, 
+1 - F(t)= \Prob (\tau>t) = 1- \balpha e^{\bS t}\bone, 
 $$
 The code below plots the four distributions functions:
 
@@ -415,9 +415,10 @@ legend("bottomright",c("singleton","doubleton","tripleton","quardrupleton"),
 
 The the bottom right plot of Figure 4, we find the point probabilities og $i$ mutations $i=1,\dots,4$ corresponding to Phase-type distributions of the bottom left figure. These are easily computed using Theorem 2.3 which in this case has the interpretation, that adding mutations to branches whose length is $PH$-distributed, gives a $DPH$ distribution, whose sub-transition matrix is given by
 
-$$
-   \bM=\Big(\bI-\frac{2}{\theta} \bS\Big)^{-1}.
-$$
+\begin{equation}
+   \bM=\Big(\bI-\frac{2}{\theta} \bS\Big)^{-1}.  \tag{$\spadesuit$}
+\end{equation}
+
 where $\bS$ is the sub-transition matrix of the underlying phase-type distribution.
 
 ```{r}
@@ -442,31 +443,134 @@ legend("topright",c("singleton","doubleton","tripleton","quardrupleton"),
 
 ## Figure 6
 
-TODO: Add explanation of figure
+Figure 6 displays the point probabilities of  
+the three integer--weighted estimators for $\theta$ ($\hat{\theta}_{\pi}, \hat{\theta}_H$ and $\hat{\theta}_L$ for $n=4$ and $n=6$. First, we consider the left sub-figure, i.e. $n=4$. The three estimators are all integer-weighted versions of the site frequency spectrum, i.e., of the form $\ba^\ast \bxi = a_1 \xi_1 + a_2 \xi_2 + \dots + a_{n-1} \xi_{n-1}$, where the $a_i$s are integers. As described in section 4.1 of Asger [-@asgertemp2020], these estimators have a $DPH$ distribution, whose subtransition matrix is constructed using the entries of ($\spadesuit$), so we first, calculate the latter:
 
 ```{r}
 n = 4
 # create rate-matrix and state space for block counting process
 RMASS = RateMAndStateSpace(n)
 
-m = dim(RMASS$RateM)[1] #(m should be equal to partitions::P(n))
+m = dim(RMASS$RateM)[1] - 1
 
 # Obtain subintensity matrix
-subintensity_matrix = RMASS$RateM[1:(m-1),1:(m-1)]
+subintensity_matrix = RMASS$RateM[1:m,1:m]
 
 
 ph = phase_type(subintensity_matrix)
 
 # The reward vector is the rows sums of the state space matrix
 
-bC = RMASS$StSpM[1:(m-1),1:(n-1)]
+bC = RMASS$StSpM[1:m,1:(n-1)]
 br = rowSums(bC)
 ph_rew_obj=reward_phase_type(ph, br)
 bS = ph_rew_obj$subint_mat
-lambda = 1/2
-bM = solve(diag(dim(bS)[1])-(1/lambda)*bS)
+bM = solve(diag(dim(bS)[1])-2*bS)
+```
 
-m = m - 1
+Next, we define the three $\ba$ vectors of coefficients. These are
+$(1,2,3)$ , $(3,4,3)$  and $(1,4,9)$ for $(\hat{\theta}_L)$,$(\hat{\theta}_{\pi})$ and $(\hat{\theta}_{H})$ respectively.
+
+```{r}
+baMat = matrix(c(1:(n-1),(1:(n-1))*((n-1):1),(1:(n-1))^2),n-1,n-1,byrow=TRUE)
+baMat
+```
+
+Next, we proceed with the construction as described in section 4.1 of Asger [-@asgertemp2020] (TODO and Chap XX)
+
+```{r}
+len = n*(n-1)+1
+probsMat = matrix(0,3,len)
+
+for(i_outer in 1:3) {
+  ba = baMat[i_outer,] #This is the current a-vector
+  sizes_of_blocks = rep(0,m) #obtain the sizes of the blocks using formula XX
+  for(i in 1:m) {
+    sizes_of_blocks[i]=max(ba*(bC[i,] > 0))
+  }
+  
+  bMt = matrix(0,sum(sizes_of_blocks),sum(sizes_of_blocks)) #bold-Mtilde
+  for(i in 1:m) {
+    for(j in 1:m) {
+      if(i <= j) { #off-diagonal blocks
+        bmvec = rep(0,sizes_of_blocks[j])
+        # The bottom row is calculated using formula DD
+        for(k in 1:sizes_of_blocks[j]) {
+          bmvec[sizes_of_blocks[j]-k+1]=sum(bC[j,]*(ba == k)) 
+        }
+        bmvec = bM[i,j]*bmvec/sum(bmvec)
+        cur_i = sum(sizes_of_blocks[1:i])
+        if(j == 1) {
+          cur_j = 1
+        }
+        else {
+          cur_j = sum(sizes_of_blocks[1:(j-1)]) + 1
+        }
+        bMt[cur_i,cur_j:(cur_j+sizes_of_blocks[j]-1)] = bmvec
+      }
+      # The diagonal-blocks are treated as a separate case
+      if((i == j) && sizes_of_blocks[i] > 1) {
+        size_of_current_block = sizes_of_blocks[i]
+        cur_i = sum(sizes_of_blocks[1:i]) - size_of_current_block + 1
+        cur_j = sum(sizes_of_blocks[1:j]) - size_of_current_block + 2
+        bMt[cur_i:(cur_i + size_of_current_block - 2),cur_j:(cur_j + size_of_current_block - 2)] = diag(size_of_current_block-1) #add identity-matrix of appropriate size
+      }
+    }
+  }
+  balpha = rep(0,dim(bMt)[1])
+  balpha[sizes_of_blocks[1]] = 1 
+  bone = matrix(rep(1,dim(bMt)[1]))
+  bmt = bone - bMt%*%bone
+  probs = rep(0,len)
+  for(i in 1:len) {
+    probs[i] = balpha%*%(bMt%^%(i-1))%*%bmt
+  }
+  probsMat[i_outer,] = probs
+}
+#Finally, plot the figures
+main.txt <- paste("Integer-weighted SFS distributions for n=",n,"and theta=",1)
+
+xs = c(0,(1:(2*(n-1)))/(n-1))
+plot(xs,probsMat[1,1:(2*(n-1)+1)],type="l",lty="dashed",pch=19,ylim=c(0,probsMat[1,1]),xlab="Weighted SFS",ylab="Probability",
+     main=main.txt,cex.main=1.2,cex.lab=1.2,las=1,lwd=2)
+points(xs,probsMat[1,1:(2*(n-1)+1)],type="p",pch=19)
+
+xs = c(0,(1:((n*(n-1))))/(n*(n-1)/2))
+points(xs,probsMat[2,],type="l",lty="dotted",lwd=2)
+points(xs,probsMat[2,],type="p",pch=19)
+points(xs,probsMat[3,],type="l",lty="solid",lwd=2)
+points(xs,probsMat[3,],type="p",pch=19)
+
+abline(v=1,col="gray")
+txt <- paste("mean=theta=",1)
+text(1,probsMat[1,1],txt,pos=2,cex=1.2)
+
+legend("topright",c("Pairwise","H","L"),lwd=2,
+       lty=c("dotted","solid","dashed"),bty="n",cex=1.2)
+```
+
+The figure for $n=6$ is created in a similar fashion
+
+```{R}
+n = 6
+# create rate-matrix and state space for block counting process
+RMASS = RateMAndStateSpace(n)
+
+m = dim(RMASS$RateM)[1] - 1
+
+# Obtain subintensity matrix
+subintensity_matrix = RMASS$RateM[1:m,1:m]
+
+
+ph = phase_type(subintensity_matrix)
+
+# The reward vector is the rows sums of the state space matrix
+
+bC = RMASS$StSpM[1:m,1:(n-1)]
+br = rowSums(bC)
+ph_rew_obj=reward_phase_type(ph, br)
+bS = ph_rew_obj$subint_mat
+bM = solve(diag(dim(bS)[1])-2*bS)
 
 baMat = matrix(c(1:(n-1),(1:(n-1))*((n-1):1),(1:(n-1))^2),n-1,n-1,byrow=TRUE)
 
@@ -479,14 +583,6 @@ for(i_outer in 1:3) {
   for(i in 1:m) {
     sizes_of_blocks[i]=max(ba*(bC[i,] > 0))
   }
-  
-  i = 4
-  bmvec = rep(0,sizes_of_blocks[i])
-  for(k in 1:sizes_of_blocks[i]) {
-    bmvec[sizes_of_blocks[i]-k+1]=sum(bC[i,]*(ba == k))
-  }
-  bmvec
-  
   
   bMt = matrix(0,sum(sizes_of_blocks),sum(sizes_of_blocks))
   for(i in 1:m) {
@@ -524,115 +620,22 @@ for(i_outer in 1:3) {
   }
   probsMat[i_outer,] = probs
 }
-main.txt <- paste("Integer-weighted SFS distributions for n=",n,"and theta=",1)
 
 xs = c(0,(1:(2*(n-1)))/(n-1))
-plot(xs,probsMat[1,1:(2*(n-1)+1)],type="b",lty="dashed",pch=19,ylim=c(0,probsMat[1,1]),xlab="Weighted SFS",ylab="Probability",
-     main=main.txt,cex.main=1.2,cex.lab=1.2,lwd=2,las=1)
-
-xs = c(0,(1:((n*(n-1))))/(n*(n-1)/2))
-points(xs,probsMat[2,],type="b",lty="dotted",pch=19)
-points(xs,probsMat[3,],type="b",lty="solid",pch=19)
-
-abline(v=1,col="gray")
-txt <- paste("mean=theta=",1)
-text(1,probsMat[1,1],txt,pos=2,cex=1.2)
-
-legend("topright",c("Pairwise","H","L"),lwd=2,
-       lty=c("dotted","solid","dashed"),bty="n",cex=1.2)
-
-# ----------------- n = 6 ----------------
-
-
-n = 6
-# create rate-matrix and state space for block counting process
-RMASS = RateMAndStateSpace(n)
-
-m = dim(RMASS$RateM)[1] #(m should be equal to partitions::P(n))
-
-# Obtain subintensity matrix
-subintensity_matrix = RMASS$RateM[1:(m-1),1:(m-1)]
-
-
-ph = phase_type(subintensity_matrix)
-
-# The reward vector is the rows sums of the state space matrix
-
-bC = RMASS$StSpM[1:(m-1),1:(n-1)]
-br = rowSums(bC)
-ph_rew_obj=reward_phase_type(ph, br)
-bS = ph_rew_obj$subint_mat
-lambda = 1/2
-bM = solve(diag(dim(bS)[1])-(1/lambda)*bS)
-
-m = m - 1
-
-baMat = matrix(c(1:(n-1),(1:(n-1))*((n-1):1),(1:(n-1))^2),n-1,n-1,byrow=TRUE)
-
-len = n*(n-1)+1
-probsMat = matrix(0,3,len)
-
-for(i_outer in 1:3) {
-  ba = baMat[i_outer,]
-  sizes_of_blocks = rep(0,m)
-  for(i in 1:m) {
-    sizes_of_blocks[i]=max(ba*(bC[i,] > 0))
-  }
-  
-  i = 4
-  bmvec = rep(0,sizes_of_blocks[i])
-  for(k in 1:sizes_of_blocks[i]) {
-    bmvec[sizes_of_blocks[i]-k+1]=sum(bC[i,]*(ba == k))
-  }
-  bmvec
-  
-  
-  bMt = matrix(0,sum(sizes_of_blocks),sum(sizes_of_blocks))
-  for(i in 1:m) {
-    for(j in 1:m) {
-      if(i <= j) {
-        bmvec = rep(0,sizes_of_blocks[j])
-        for(k in 1:sizes_of_blocks[j]) {
-          bmvec[sizes_of_blocks[j]-k+1]=sum(bC[j,]*(ba == k))
-        }
-        bmvec = bM[i,j]*bmvec/sum(bmvec)
-        cur_i = sum(sizes_of_blocks[1:i])
-        if(j == 1) {
-          cur_j = 1
-        }
-        else {
-          cur_j = sum(sizes_of_blocks[1:(j-1)]) + 1
-        }
-        bMt[cur_i,cur_j:(cur_j+sizes_of_blocks[j]-1)] = bmvec
-      }
-      if((i == j) && sizes_of_blocks[i] > 1) {
-        size_of_current_block = sizes_of_blocks[i]
-        cur_i = sum(sizes_of_blocks[1:i]) - size_of_current_block + 1
-        cur_j = sum(sizes_of_blocks[1:j]) - size_of_current_block + 2
-        bMt[cur_i:(cur_i + size_of_current_block - 2),cur_j:(cur_j + size_of_current_block - 2)] = diag(size_of_current_block-1)
-      }
-    }
-  }
-  balpha = rep(0,dim(bMt)[1])
-  balpha[sizes_of_blocks[1]] = 1 #den skal starte det rigtige sted
-  bone = matrix(rep(1,dim(bMt)[1]))
-  bmt = bone - bMt%*%bone
-  probs = rep(0,len)
-  for(i in 1:len) {
-    probs[i] = balpha%*%(bMt%^%(i-1))%*%bmt
-  }
-  probsMat[i_outer,] = probs
-}
-
-xs = c(0,(1:(2*(n-1)))/(n-1))
-plot(xs,probsMat[1,1:(2*(n-1)+1)],type="b",lty=1,pch=19,ylim=c(0,probsMat[1,1]),xlab="Weighted SFS",ylab="Probability",
-     main=main.txt,cex.main=1.2,cex.lab=1.2,lwd=2,las=1)
-
-xs = c(0,(1:((n*(n-1))))/(n*(n-1)/2))
-points(xs,probsMat[2,],type="b",lty="dotted",pch=19)
-points(xs,probsMat[3,],type="b",lty="solid",pch=19)
 
 main.txt <- paste("Integer-weighted SFS distributions for n=",n,"and theta=",1)
+
+
+plot(xs,probsMat[1,1:(2*(n-1)+1)],type="l",lty="dashed",pch=19,ylim=c(0,probsMat[1,1]),xlab="Weighted SFS",ylab="Probability",
+     main=main.txt,cex.main=1.2,cex.lab=1.2,las=1,lwd=2)
+points(xs,probsMat[1,1:(2*(n-1)+1)],type="p",pch=19)
+
+xs = c(0,(1:((n*(n-1))))/(n*(n-1)/2))
+points(xs,probsMat[2,],type="l",lty="dotted",lwd=2)
+points(xs,probsMat[2,],type="p",pch=19)
+points(xs,probsMat[3,],type="l",lty="solid",lwd=2)
+points(xs,probsMat[3,],type="p",pch=19)
+
 
 xs = c(0,(1:(2*(n-1)))/(n-1))
 
