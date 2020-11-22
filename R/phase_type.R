@@ -179,8 +179,8 @@ phase_type <- function(subint_mat = NULL, init_probs = NULL,
   #############
 
   if (length(which(diag(subint_mat) < 0)) == length(init_probs)) {
-
-    if (sum(apply(subint_mat, 1, sum) > 0) > 0){
+    # check if any rowsums are postive
+    if (any(rowSums(subint_mat)>1e-14)){
       stop('The row sums of the subintensity matrix should be non-positive.')
     }
     if (is.matrix(reward_mat)){
