@@ -8,7 +8,9 @@ output:
   pdf_document:
     toc: yes
 vignette: |
-  %\VignetteIndexEntry{Phasty} %\VignetteEncoding{UTF-8} %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Phasty} 
+  %\VignetteEncoding{UTF-8} 
+  %\VignetteEngine{knitr::rmarkdown}
 bibliography: for_vignette.bib
 link-citations: yes
 ---
@@ -242,7 +244,7 @@ $$
 Y \sim PH(\boldsymbol{T}^\star, \boldsymbol{\pi}^\star)
 $$
 
-Getting $\boldsymbol{T}^\star$ and $\boldsymbol{\pi}^\star$ is rather simple if the given rewards only contains positive values, in that case, the rate will be divided by the corresponding rewards ($\boldsymbol{T}^\star$ = $\boldsymbol{Tr}$) and the initial probabilities will not be modify ($\boldsymbol{\pi}^\star$ = $\boldsymbol{\pi}$).
+Getting $\boldsymbol{T}^\star$ and $\boldsymbol{\pi}^\star$ is rather simple if the given rewards only contains positive values, in that case, the rate will be divided by the corresponding rewards ($\boldsymbol{T}^\star$ = $\boldsymbol{Tr}$) and the initial probabilities will not be modified ($\boldsymbol{\pi}^\star$ = $\boldsymbol{\pi}$).
 
 Taking the previous example and applying a reward vector $\boldsymbol{r} = (1,\ 2,\ 3).$
 
