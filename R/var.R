@@ -50,7 +50,12 @@ NULL
 #' @export
 
 var <- function(obj, ...) {
-  UseMethod('var', obj)
+  if (class(obj) %in% c("cont_phase_type","mult_cont_phase_type","mult_disc_phase_type")) {
+    UseMethod('var', obj)
+  }
+  else {
+   stats::var(obj)
+  }
 }
 
 #' var method for \code{cont_phase_type}
