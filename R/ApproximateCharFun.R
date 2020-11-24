@@ -1,4 +1,4 @@
-#'Numerical Approximation of charaterstic function
+#'Numerical Approximation of characteristic function
 #'
 #'\code{ApproxCDF} approximates the cdf F when given a characteristic function phi of a centered random variable, using the formula found in Waller (1995) with
 #'original reference to Bohman (1974). The procedure can be numerically unstable in the tails of the distribution, so
@@ -7,9 +7,10 @@
 #'
 #'@param phi the characteristic function to be inverted
 #'@param H A total of 2H+1 values of F are approximated. By default H of these values are returned unless an interval is provided.
-#'@param eta A scaling paramter. By default equidistant points in the interval (-2*pi/eta,2*pi/(eta)) are approximated.
-#
+#'@param eta A scaling paramter. By default equidistant points in the interval (-2*phi/eta,2*phi/(eta)) are approximated.
 #'@param xlim (optional) limits on the x-axis
+#'@param smoothe (optional) Should smoothing be used? If TRUE default weights of the function \code{simple_smoothe} are used. If an object of length > 1 is provided,
+#'this will be passed to \code{simple_smoothe}
 #'
 #'@examples
 #'phi <- function(t) exp(-t^2/2)
@@ -23,7 +24,7 @@
 #'lines(appvals[[1]],pt(appvals[[1]],df=2),type="l",col="red")
 #'
 #'@export
-ApproxCDF = function(phi,H=2000,eta=0.5,xlim=NULL) {
+ApproxCDF = function(phi,H=2000,eta=0.5,xlim=NULL,smoothe=FALSE) {
   z_vals = rep(0,H)
   co = 1
   for(n in 1:(H-1))  {
@@ -49,5 +50,36 @@ ApproxCDF = function(phi,H=2000,eta=0.5,xlim=NULL) {
 
   xvals = xvals[indexes]
   yvals = yvals[indexes]
+  if(smoothe) {
+    if(length(smoothe)>1) {
+      yvals = simple_smoothe(yvals,smoothe)
+    }
+    else {
+      yvals = simple_smoothe(yvals)
+    }
+  }
   return(list(xvals,yvals))
+}
+
+#' Simple smoothing
+#'
+#' \code{simple_smoothe} computes a simple moving weighted average of a input vector \code{x}. The weight vector must have an odd number of entries, and defaults to
+#' \code{c(0.1,0.20,0.4,0.20,0.1)}
+#'
+#' @param x input to be smoothed
+#' @param svec smoothing vector
+#'
+#'@examples
+#'smoothed_yvals = simple_smoothe(yvals)
+#'smoothed_yvals = simple_smoothe(yvals,c(0.2,0.6,0.2))
+#'
+#'@export
+simple_smoothe <- function(x,svec= c(0.1,0.20,0.4,0.20,0.1)) {
+  if ((length(svec) %% 2)  == 0) {stop("Please provide an odd number of smoothing weigths")}
+  out = x
+  offset = floor(length(svec)/2)
+  for(i in (1+offset):(length(x)-offset)) {
+    out[i] = sum(x[(i-offset):(i+offset)]*svec)
+  }
+  return(out)
 }
