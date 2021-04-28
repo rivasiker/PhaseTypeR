@@ -25,6 +25,8 @@
 #'
 #'
 #' @export
+
+
 DPHrep <- function(bM,bA,ba) {
   m = nrow(bA) #this is p in the paper
   sizes_of_blocks = rep(0,m) #obtain the sizes of the blocks using formula XX

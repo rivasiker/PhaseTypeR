@@ -2,18 +2,21 @@
 % Please edit documentation in R/ApproximateCharFun.R
 \name{ApproxCDF}
 \alias{ApproxCDF}
-\title{Numerical Approximation of charaterstic function}
+\title{Numerical Approximation of characteristic function}
 \usage{
-ApproxCDF(phi, H = 2000, eta = 0.5, xlim = NULL)
+ApproxCDF(phi, H = 2000, eta = 0.5, xlim = NULL, smoothe = FALSE)
 }
 \arguments{
 \item{phi}{the characteristic function to be inverted}
 
 \item{H}{A total of 2H+1 values of F are approximated. By default H of these values are returned unless an interval is provided.}
 
-\item{eta}{A scaling paramter. By default equidistant points in the interval (-2*pi/eta,2*pi/(eta)) are approximated.}
+\item{eta}{A scaling paramter. By default equidistant points in the interval (-2*phi/eta,2*phi/(eta)) are approximated.}
 
 \item{xlim}{(optional) limits on the x-axis}
+
+\item{smoothe}{(optional) Should smoothing be used? If TRUE default weights of the function \code{simple_smoothe} are used. If an object of length > 1 is provided,
+this will be passed to \code{simple_smoothe}}
 }
 \description{
 \code{ApproxCDF} approximates the cdf F when given a characteristic function phi of a centered random variable, using the formula found in Waller (1995) with
