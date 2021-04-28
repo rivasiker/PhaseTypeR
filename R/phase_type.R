@@ -123,7 +123,7 @@ phase_type <- function(subint_mat = NULL, init_probs = NULL,
   if (is.null(init_probs)) {
     init_probs <- matrix(c(1, rep(0, nrow(subint_mat) - 1)),
                          1, nrow(subint_mat))
-    warning('The initial probability vector is automatically generated.')
+    warning('The initial probability vector is automatically generated.\n')
   }
 
   if ((is.vector(init_probs) & is.atomic(init_probs)) | is.matrix(init_probs)) {
@@ -149,7 +149,7 @@ phase_type <- function(subint_mat = NULL, init_probs = NULL,
 
     if (sum(init_probs) == 0){
       warning('The sum of the inital probability is equal to 0 with a defect
-              of 1.')
+              of 1.\n')
     }
 
     if (sum(init_probs) < 0 || sum(init_probs) > 1){
