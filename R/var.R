@@ -50,7 +50,7 @@ NULL
 #' @export
 
 var <- function(obj, ...) {
-  if (class(obj) %in% c("cont_phase_type","mult_cont_phase_type","mult_disc_phase_type")) {
+  if (class(obj) %in% c("cont_phase_type","disc_phase_type","mult_cont_phase_type","mult_disc_phase_type")) {
     UseMethod('var', obj)
   }
   else {
