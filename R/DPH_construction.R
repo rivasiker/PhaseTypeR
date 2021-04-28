@@ -13,6 +13,7 @@
 #' sizes_of_blocks: The sizes of the constructed blocks.
 #'
 #' @examples
+#' \dontrun{
 #' ba = c(1,2,3)
 #' ph_bcp = block_counting_process(4)
 #' subintensity_matrix = ph_bcp$subint_mat
@@ -22,7 +23,7 @@
 #' bS = ph_rew_obj$subint_mat
 #' bM = solve(diag(dim(bS)[1])-(2/theta)*bS)
 #' DPHrep(ba,bM)
-#'
+#' }
 #'
 #' @export
 

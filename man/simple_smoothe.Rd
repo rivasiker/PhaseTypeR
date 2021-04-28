@@ -16,7 +16,9 @@ simple_smoothe(x, svec = c(0.1, 0.2, 0.4, 0.2, 0.1))
 \code{c(0.1,0.20,0.4,0.20,0.1)}
 }
 \examples{
+\dontrun{
 smoothed_yvals = simple_smoothe(yvals)
 smoothed_yvals = simple_smoothe(yvals,c(0.2,0.6,0.2))
+}
 
 }

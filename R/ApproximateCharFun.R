@@ -70,8 +70,10 @@ ApproxCDF = function(phi,H=2000,eta=0.5,xlim=NULL,smoothe=FALSE) {
 #' @param svec smoothing vector
 #'
 #'@examples
+#'\dontrun{
 #'smoothed_yvals = simple_smoothe(yvals)
 #'smoothed_yvals = simple_smoothe(yvals,c(0.2,0.6,0.2))
+#'}
 #'
 #'@export
 simple_smoothe <- function(x,svec= c(0.1,0.20,0.4,0.20,0.1)) {

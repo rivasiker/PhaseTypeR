@@ -5,6 +5,7 @@ output:
     toc: true
 vignette: >
   %\VignetteIndexEntry{Using phasty for population genetics}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: for_vignette.bib
 link-citations: yes

@@ -7,7 +7,7 @@ output:
       before_body: preamble-mathjax.tex
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Using phasty for the site frequency spectrum}
+  %\VignetteIndexEntry{Using phasty for the site frequency spectrum - Figures}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: for_vignette.bib

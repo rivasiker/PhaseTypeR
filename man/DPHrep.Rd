@@ -23,6 +23,7 @@ sizes_of_blocks: The sizes of the constructed blocks.
 The construction is described in Section 7.1 of Hobolth (2020).
 }
 \examples{
+\dontrun{
 ba = c(1,2,3)
 ph_bcp = block_counting_process(4)
 subintensity_matrix = ph_bcp$subint_mat
@@ -32,6 +33,6 @@ ph_rew_obj = reward_phase_type(ph, rowSums(rew_mat))
 bS = ph_rew_obj$subint_mat
 bM = solve(diag(dim(bS)[1])-(2/theta)*bS)
 DPHrep(ba,bM)
-
+}
 
 }

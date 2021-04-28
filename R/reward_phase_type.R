@@ -367,6 +367,7 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
     } else {
       diag_mat <- matrix((apply(mat_T, 1, sum) + ti))
     }
+
     # Calculate the rate of leaving each state
     subint_mat <- mat_T - diag_mat
     # Get a cont_phase_type object
