@@ -180,8 +180,8 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
       }
     }
 
-    # Initialisation of the set of all T_tilde matrices
-    # i.e. all the rewarded submatrices to go from i to j
+    # Initialization of the set of all T_tilde matrices
+    # i.e. all the rewarded sub-matrices to go from i to j
     T_tilde_ij <- rep(list(as.list(1:n)), n)
     size <- reward_max + as.numeric(reward_max == 0)
     # Building of each T_tilde_ij matrix
@@ -361,14 +361,19 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
         }
       }
     }
-    # Calculate the rate of leaving each state
-    subint_mat <- mat_T - diag((apply(mat_T, 1, sum) + ti))
-    # Get a cont_phase_type object
 
+    if (length(ti) != 1) {
+      diag_mat <- diag((apply(mat_T, 1, sum) + ti))
+    } else {
+      diag_mat <- matrix((apply(mat_T, 1, sum) + ti))
+    }
+    # Calculate the rate of leaving each state
+    subint_mat <- mat_T - diag_mat
+    # Get a cont_phase_type object
     ph <- phase_type(subint_mat, init_probs, round_zero = round_zero)
     return(ph)
   } else {
-    stop('The object provided should be of class disc_phase_type or ',
+    stop("The object provided should be of class 'disc_phase_type' or ",
          'cont_phase_type.')
   }
 }

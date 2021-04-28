@@ -85,7 +85,7 @@ dphtype <- function(x, obj){
     return(vec)
   } else if (class(obj) == 'disc_phase_type') {
     if (sum(x %% 1 > 0) > 0){
-      stop('x should only contains integer')
+      stop('x should only contain integers.')
     }
     e <- matrix(1, nrow = nrow(obj$subint_mat))
     t <- e - obj$subint_mat %*% e
@@ -180,7 +180,7 @@ pphtype <- function(q, obj){
     }
     return(prob_vec)
   } else {
-    stop("Please provide a 'cont_phase_type' or a 'disc_phase_type' class.")
+    stop("Please provide an object of class 'cont_phase_type' or 'disc_phase_type'.")
   }
 }
 
@@ -258,7 +258,7 @@ rphtype <- function(n, obj){
     return(n_vec)
 
   } else {
-    stop("Please provide a 'cont_phase_type' or a 'disc_phase_type' class.")
+    stop("Please provide an object of class 'cont_phase_type' or 'disc_phase_type'.")
   }
 }
 
