@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>mean method for <code>cont_phase_type</code> — mean • phasty</title>
+<title>mean method for cont_phase_type — mean • phasty</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="mean method for <code>cont_phase_type</code> — mean" />
+<meta property="og:title" content="mean method for cont_phase_type — mean" />
 <meta property="og:description" content="mean method for cont_phase_type
 mean method for disc_phase_type
 mean method for mult_cont_phase_type
@@ -101,10 +101,10 @@ mean method for mult_disc_phase_type" />
       <a href="../articles/Phasty.html">Phasty v0.9</a>
     </li>
     <li>
-      <a href="../articles/old_vignettes/pop_gen_iker-Copie.html">Using phasty for population genetics</a>
+      <a href="../articles/phasty_SFS.html">Using phasty for the site frequency spectrum</a>
     </li>
     <li>
-      <a href="../articles/phasty_SFS.html">Using phasty for the site frequency spectrum</a>
+      <a href="../articles/phasty_SFS_Figures.html">Using phasty for the site frequency spectrum - Figures</a>
     </li>
     <li>
       <a href="../articles/pop_gen_iker.html">Using phasty for population genetics</a>
@@ -144,19 +144,19 @@ mean method for mult_disc_phase_type" />
 <p>mean method for <code>mult_disc_phase_type</code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>mean</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>mean</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for cont_phase_type</span>
-<span class='fu'>mean</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>mean</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for disc_phase_type</span>
-<span class='fu'>mean</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>mean</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for mult_cont_phase_type</span>
-<span class='fu'>mean</span>(<span class='no'>x</span>, <span class='kw'>v</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'>mean</span><span class='op'>(</span><span class='va'>x</span>, v <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for mult_disc_phase_type</span>
-<span class='fu'>mean</span>(<span class='no'>x</span>, <span class='kw'>v</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>mean</span><span class='op'>(</span><span class='va'>x</span>, v <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,17 +179,22 @@ mean method for mult_disc_phase_type" />
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># For univariate continuous phase-type distributions</span>
-<span class='no'>ph1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phase_type.html'>phase_type</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, -<span class='fl'>2</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, -<span class='fl'>1</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>,<span class='fl'>0.25</span>,<span class='fl'>0.5</span>))
-<span class='fu'>mean</span>(<span class='no'>ph1</span>)</div><div class='output co'>#&gt; [1] 0.9166667</div><div class='input'>
+<span class='va'>ph1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='phase_type.html'>phase_type</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>2</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.25</span>,<span class='fl'>0.25</span>,<span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>mean</span><span class='op'>(</span><span class='va'>ph1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.9166667</div><div class='input'>
 <span class='co'># For multivariate continuous phase-type distributions</span>
-<span class='no'>subintensity_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
-                               <span class='fl'>2</span>, -<span class='fl'>2</span>, <span class='fl'>0</span>,
-                               <span class='fl'>0</span>, <span class='fl'>1</span>, -<span class='fl'>1</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='no'>reward_matrix</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>), <span class='fl'>6</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='no'>ph2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phase_type.html'>phase_type</a></span>(<span class='no'>subintensity_matrix</span>, <span class='kw'>reward_mat</span> <span class='kw'>=</span> <span class='no'>reward_matrix</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='input'><span class='co'>## Mean for both states in the reward matrix</span>
-<span class='fu'>mean</span>(<span class='no'>ph2</span>)</div><div class='output co'>#&gt; [1] 5.000000 5.666667</div><div class='input'><span class='co'>## Mean for the first state in the reward matrix</span>
-<span class='fu'>mean</span>(<span class='no'>ph2</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='co'>## Mean for the second state in the reward matrix</span>
-<span class='fu'>mean</span>(<span class='no'>ph2</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] 5.666667</div><div class='input'>
+<span class='va'>subintensity_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
+                               <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>2</span>, <span class='fl'>0</span>,
+                               <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>reward_matrix</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fl'>6</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>ph2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='phase_type.html'>phase_type</a></span><span class='op'>(</span><span class='va'>subintensity_matrix</span>, reward_mat <span class='op'>=</span> <span class='va'>reward_matrix</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='input'><span class='co'>## Mean for both states in the reward matrix</span>
+<span class='fu'>mean</span><span class='op'>(</span><span class='va'>ph2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 5.000000 5.666667</div><div class='input'><span class='co'>## Mean for the first state in the reward matrix</span>
+<span class='fu'>mean</span><span class='op'>(</span><span class='va'>ph2</span>, <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='co'>## Mean for the second state in the reward matrix</span>
+<span class='fu'>mean</span><span class='op'>(</span><span class='va'>ph2</span>, <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 5.666667</div><div class='input'>
 
 </div></pre>
   </div>
@@ -207,7 +212,7 @@ mean method for mult_disc_phase_type" />
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

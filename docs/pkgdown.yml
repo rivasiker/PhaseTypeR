@@ -1,10 +1,10 @@
-pandoc: 2.7.3
-pkgdown: 1.5.1
+pandoc: 2.11.4
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   Phasty: Phasty.html
-  pop_gen_iker-Copie: old_vignettes/pop_gen_iker-Copie.html
   phasty_SFS: phasty_SFS.html
+  phasty_SFS_Figures: phasty_SFS_Figures.html
   pop_gen_iker: pop_gen_iker.html
-last_built: 2020-08-06T16:41Z
+last_built: 2021-04-28T10:09Z
 

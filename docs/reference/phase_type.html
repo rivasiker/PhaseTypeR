@@ -100,10 +100,10 @@ different phase-type distributions." />
       <a href="../articles/Phasty.html">Phasty v0.9</a>
     </li>
     <li>
-      <a href="../articles/old_vignettes/pop_gen_iker-Copie.html">Using phasty for population genetics</a>
+      <a href="../articles/phasty_SFS.html">Using phasty for the site frequency spectrum</a>
     </li>
     <li>
-      <a href="../articles/phasty_SFS.html">Using phasty for the site frequency spectrum</a>
+      <a href="../articles/phasty_SFS_Figures.html">Using phasty for the site frequency spectrum - Figures</a>
     </li>
     <li>
       <a href="../articles/pop_gen_iker.html">Using phasty for population genetics</a>
@@ -142,11 +142,11 @@ different phase-type distributions." />
 different phase-type distributions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>phase_type</span>(<span class='kw'>subint_mat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>init_probs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>reward_mat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-                  <span class='kw'>round_zero</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>phase_type</span><span class='op'>(</span>subint_mat <span class='op'>=</span> <span class='cn'>NULL</span>, init_probs <span class='op'>=</span> <span class='cn'>NULL</span>, reward_mat <span class='op'>=</span> <span class='cn'>NULL</span>,
+                  round_zero <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='co'># S3 method for cont_phase_type</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -218,10 +218,11 @@ number of transient states.</p>
 <span class='co'>## For continuous univariate ##</span>
 <span class='co'>##===========================##</span>
 
-<span class='no'>subintensity_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1.5</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
-                               <span class='fl'>1.5</span>, -<span class='fl'>1</span>, <span class='fl'>0</span>,
-                               <span class='fl'>0</span>, <span class='fl'>1</span>, -<span class='fl'>0.5</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='fu'>phase_type</span>(<span class='no'>subintensity_matrix</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='output co'>#&gt; $subint_mat
+<span class='va'>subintensity_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1.5</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
+                               <span class='fl'>1.5</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>,
+                               <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>0.5</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'>phase_type</span><span class='op'>(</span><span class='va'>subintensity_matrix</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='output co'>#&gt; $subint_mat
 #&gt;      [,1] [,2] [,3]
 #&gt; [1,] -1.5  1.5  0.0
 #&gt; [2,]  0.0 -1.0  1.0
@@ -238,11 +239,12 @@ number of transient states.</p>
 #&gt; [1] "cont_phase_type"</div><div class='input'>
 <span class='co'>#---</span>
 
-<span class='no'>subintensity_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1.5</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
-                               <span class='fl'>1.5</span>, -<span class='fl'>1</span>, <span class='fl'>0</span>,
-                               <span class='fl'>0</span>, <span class='fl'>1</span>, -<span class='fl'>0.5</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='no'>initial_probabilities</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.9</span>, <span class='fl'>0.1</span>, <span class='fl'>0</span>)
-<span class='fu'>phase_type</span>(<span class='no'>subintensity_matrix</span>, <span class='no'>initial_probabilities</span>)</div><div class='output co'>#&gt; $subint_mat
+<span class='va'>subintensity_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1.5</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
+                               <span class='fl'>1.5</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>,
+                               <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>0.5</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>initial_probabilities</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.9</span>, <span class='fl'>0.1</span>, <span class='fl'>0</span><span class='op'>)</span>
+<span class='fu'>phase_type</span><span class='op'>(</span><span class='va'>subintensity_matrix</span>, <span class='va'>initial_probabilities</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $subint_mat
 #&gt;      [,1] [,2] [,3]
 #&gt; [1,] -1.5  1.5  0.0
 #&gt; [2,]  0.0 -1.0  1.0
@@ -261,10 +263,11 @@ number of transient states.</p>
 <span class='co'>## For discrete univariate ##</span>
 <span class='co'>##=========================##</span>
 
-<span class='no'>subintensity_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.4</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
+<span class='va'>subintensity_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.4</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
                                <span class='fl'>0.24</span>, <span class='fl'>0.4</span>, <span class='fl'>0</span>,
-                               <span class='fl'>0.12</span>, <span class='fl'>0.2</span>, <span class='fl'>0.5</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='fu'>phase_type</span>(<span class='no'>subintensity_matrix</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='output co'>#&gt; $subint_mat
+                               <span class='fl'>0.12</span>, <span class='fl'>0.2</span>, <span class='fl'>0.5</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'>phase_type</span><span class='op'>(</span><span class='va'>subintensity_matrix</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='output co'>#&gt; $subint_mat
 #&gt;      [,1] [,2] [,3]
 #&gt; [1,]  0.4 0.24 0.12
 #&gt; [2,]  0.0 0.40 0.20
@@ -281,11 +284,12 @@ number of transient states.</p>
 #&gt; [1] "disc_phase_type"</div><div class='input'>
 <span class='co'>#---</span>
 
-<span class='no'>subintensity_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.4</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
+<span class='va'>subintensity_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.4</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
                                <span class='fl'>0.24</span>, <span class='fl'>0.4</span>, <span class='fl'>0</span>,
-                               <span class='fl'>0.12</span>, <span class='fl'>0.2</span>, <span class='fl'>0.5</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='no'>initial_probabilities</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.9</span>, <span class='fl'>0.1</span>, <span class='fl'>0</span>)
-<span class='fu'>phase_type</span>(<span class='no'>subintensity_matrix</span>, <span class='no'>initial_probabilities</span>)</div><div class='output co'>#&gt; $subint_mat
+                               <span class='fl'>0.12</span>, <span class='fl'>0.2</span>, <span class='fl'>0.5</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>initial_probabilities</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.9</span>, <span class='fl'>0.1</span>, <span class='fl'>0</span><span class='op'>)</span>
+<span class='fu'>phase_type</span><span class='op'>(</span><span class='va'>subintensity_matrix</span>, <span class='va'>initial_probabilities</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $subint_mat
 #&gt;      [,1] [,2] [,3]
 #&gt; [1,]  0.4 0.24 0.12
 #&gt; [2,]  0.0 0.40 0.20
@@ -304,11 +308,12 @@ number of transient states.</p>
 <span class='co'>## For continuous multivariate ##</span>
 <span class='co'>##=============================##</span>
 
-<span class='no'>subintensity_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
-                               <span class='fl'>2</span>, -<span class='fl'>2</span>, <span class='fl'>0</span>,
-                               <span class='fl'>0</span>, <span class='fl'>1</span>, -<span class='fl'>1</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='no'>reward_matrix</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>0.1</span>), <span class='fl'>6</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='fu'>phase_type</span>(<span class='no'>subintensity_matrix</span>, <span class='kw'>reward_mat</span> <span class='kw'>=</span> <span class='no'>reward_matrix</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='output co'>#&gt; $subint_mat
+<span class='va'>subintensity_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
+                               <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>2</span>, <span class='fl'>0</span>,
+                               <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>reward_matrix</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>0.1</span><span class='op'>)</span>, <span class='fl'>6</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'>phase_type</span><span class='op'>(</span><span class='va'>subintensity_matrix</span>, reward_mat <span class='op'>=</span> <span class='va'>reward_matrix</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='output co'>#&gt; $subint_mat
 #&gt;      [,1] [,2] [,3]
 #&gt; [1,]   -3    2    0
 #&gt; [2,]    0   -2    1
@@ -333,11 +338,12 @@ number of transient states.</p>
 <span class='co'>## For discrete multivariate ##</span>
 <span class='co'>##===========================##</span>
 
-<span class='no'>subintensity_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.4</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
+<span class='va'>subintensity_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.4</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
                                <span class='fl'>0.24</span>, <span class='fl'>0.4</span>, <span class='fl'>0</span>,
-                               <span class='fl'>0.12</span>, <span class='fl'>0.2</span>, <span class='fl'>0.5</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='no'>reward_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>), <span class='fl'>6</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='fu'>phase_type</span>(<span class='no'>subintensity_matrix</span>, <span class='kw'>reward_mat</span> <span class='kw'>=</span> <span class='no'>reward_matrix</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='output co'>#&gt; $subint_mat
+                               <span class='fl'>0.12</span>, <span class='fl'>0.2</span>, <span class='fl'>0.5</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>reward_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fl'>6</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'>phase_type</span><span class='op'>(</span><span class='va'>subintensity_matrix</span>, reward_mat <span class='op'>=</span> <span class='va'>reward_matrix</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='output co'>#&gt; $subint_mat
 #&gt;      [,1] [,2] [,3]
 #&gt; [1,]  0.4 0.24 0.12
 #&gt; [2,]  0.0 0.40 0.20
@@ -374,7 +380,7 @@ number of transient states.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
