@@ -112,7 +112,6 @@
 <p>The basic idea is considering a markov jump process (or a Markov chain for discrete cases) with <span class="math inline">\(n\)</span> transient states and 1 absorbing state (i.e. once in the absorbing state, it cannot go out), you can have the time before reaching that absorbing state using the intensity matrix and the initial probabilities to start in each state. The matrix form of phase-type distribution allow great simplification, in particular to find the moments of the time before reaching the absorbing state.</p>
 <p>The package <code>phasty</code> handle this phase-type distribution and the calculation behind it.</p>
 <p>This package is a complete as possible, nevertheless, it stays a package which bring mathematical tools and its not oriented for a specific application.</p>
-<p>The main references that have been used for this package are:</p>
 </div>
 <div id="the-phase-type-s3-class-objects" class="section level1">
 <h1 class="hasAnchor">
@@ -143,8 +142,7 @@
 <span class="co">#&gt; [1] "cont_phase_type"</span></code></pre></div>
 <p>Where <code>subint_mat</code> is the subintensity matrix and <code>init_probs</code> is the vector of initial probabilities. An object of one of the <code>phase_type</code> class always has a subintensity matrix, a initial probability vector, a defect (the probability of starting directly in the absorbing state, which can happen when using reward transformation (see section )), and the type of class. We can also print a summary of the object:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Subintensity matrix:</span>
 <span class="co">#&gt;      [,1] [,2] [,3]</span>
@@ -164,8 +162,7 @@
 <span class="co">#&gt; Variance: 5.44</span></code></pre></div>
 <p>The <code>init_probs</code> argument is optional, and in case of not providing it the probability of the first state will be set to 1, this is, <span class="math inline">\(\boldsymbol{\pi} = (1,\, 0,\, 0,\, ...\,,0)\)</span>. If this is the case, <code><a href="../reference/phase_type.html">phase_type()</a></code> will print a warning:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">subintensity_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>, <span class="fl">0</span>, <span class="fl">0</span>,
+<code class="sourceCode R"><span class="va">subintensity_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>, <span class="fl">0</span>, <span class="fl">0</span>,
                               <span class="fl">1.5</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>,
                               <span class="fl">0</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="../reference/phase_type.html">phase_type</a></span><span class="op">(</span><span class="va">subintensity_matrix</span><span class="op">)</span>
@@ -195,15 +192,14 @@
 <p>Consider <span class="math inline">\(\{X_t\}_{t\ge0}\)</span> to be a <span style="color:orange"> <strong>Markov jump process (MJP)</strong> </span> with <span class="math inline">\(n\)</span> transient states and 1 absorbing state. If <span class="math inline">\(\tau\)</span> is defined as time where <span class="math inline">\(\{X_t\}_{t\ge0}\)</span> reaches the absorbing state, then <span class="math inline">\(\tau\)</span> follows a continuous phase-type distribution <span class="math inline">\(\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})\)</span>, where <span class="math inline">\(\boldsymbol{T}\)</span> is the subintensity matrix of the corresponding MJP and <span class="math inline">\(\boldsymbol{\pi}\)</span> is the vector of starting probabilities.</p>
 <p>As specified before, a continuous phase-type distribution object can be created in <code>phasty</code> using the <code><a href="../reference/phase_type.html">phase_type()</a></code> function:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">subintensity_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>, <span class="fl">0</span>, <span class="fl">0</span>,
+<code class="sourceCode R"><span class="va">subintensity_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>, <span class="fl">0</span>, <span class="fl">0</span>,
                               <span class="fl">1.5</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>,
                               <span class="fl">0</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="va">initial_probabilities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span>
 
 <span class="va">ph</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phase_type.html">phase_type</a></span><span class="op">(</span><span class="va">subintensity_matrix</span>, <span class="va">initial_probabilities</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span><span class="op">)</span> <span class="co"># Check that phase_type() recognise the cont_phase_type</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span><span class="op">)</span> 
 <span class="co">#&gt; [1] "cont_phase_type"</span></code></pre></div>
 <p>Given the formulas from <strong>theorem 3.1.16</strong> and <strong>corollary 3.1.18</strong> <span class="citation">(<a href="#ref-Bladt2017" role="doc-biblioref">Bladt and Nielsen 2017, 81:p.135</a>)</span>, the mean of a variable following a continuous phase-type distribution is define as:</p>
 <p><span class="math display">\[
@@ -227,8 +223,7 @@
 <span class="co">#&gt; </span></code></pre></div>
 <p>These two quantitites are also printed when using the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Subintensity matrix:</span>
 <span class="co">#&gt;      [,1] [,2] [,3]</span>
@@ -268,19 +263,17 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}
 <p><img src="Phasty_files/figure-html/plot_cont-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>Additionally, we can compute the quantile function using <code><a href="../reference/Phase-type.html">qphtype()</a></code>:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="fl">0.01</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="fl">0.01</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">ph</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"orange"</span>, 
      ylab <span class="op">=</span> <span class="st">"Time to absorbing state"</span>, xlab <span class="op">=</span> <span class="st">"Quantile"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span><span class="op">(</span><span class="st">'Quantile function'</span><span class="op">)</span></code></pre></div>
 <p><img src="Phasty_files/figure-html/unnamed-chunk-5-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>We can also create random draws from the phase-type distribution by using <code><a href="../reference/Phase-type.html">rphtype()</a></code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">'10 random samples: \n'</span>, <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>, <span class="st">'\n'</span>, <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">'10 random samples: \n'</span>, <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>, <span class="st">'\n'</span>, <span class="fu"><a href="../reference/Phase-type.html">rphtype</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 10 random samples: </span>
-<span class="co">#&gt;  1.709541 0.3395202 5.339088 2.244383 2.401902 </span>
-<span class="co">#&gt;  4.754836 2.123776 0.9929439 3.217385 1.398271</span></code></pre></div>
+<span class="co">#&gt;  1.280275 3.683659 2.338855 3.987669 3.98074 </span>
+<span class="co">#&gt;  2.51746 3.090333 2.937113 4.417769 3.77229</span></code></pre></div>
 </div>
 <div id="the-discrete-univariate-phase-type" class="section level2">
 <h2 class="hasAnchor">
@@ -377,8 +370,7 @@ Y \sim PH(\boldsymbol{T}^\star, \boldsymbol{\pi}^\star)
 <span class="co">#&gt; attr(,"class")</span>
 <span class="co">#&gt; [1] "cont_phase_type"</span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="va">rph</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="va">rph</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
 <span class="va">pdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">dphtype</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">rph</span><span class="op">)</span>
 <span class="va">cdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">pphtype</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">rph</span><span class="op">)</span>
 
@@ -421,8 +413,7 @@ Y = \sum_{n=0}^{\tau - 1} r(X_n)
 <span class="co">#&gt; attr(,"class")</span>
 <span class="co">#&gt; [1] "disc_phase_type"</span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="va">rdph</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="../reference/Phase-type.html">qphtype</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="va">rdph</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
 <span class="va">pmf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">dphtype</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">rdph</span><span class="op">)</span>
 <span class="va">cdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Phase-type.html">pphtype</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">rdph</span><span class="op">)</span>
 
@@ -452,8 +443,7 @@ Y = \sum_{n=0}^{\tau - 1} r(X_n)
 <p>The superscripts of the sub-matrices represent whether the states have positive (+) or null (0) rewards. For example, <span class="math inline">\(\boldsymbol{Q}^{0+}\)</span>, is the sub-matrix which gathers the transition rates from states with a reward of zero to states with a positive reward. Also from a phase-type perspective, for any <span class="math inline">\(\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})\)</span> then <span class="math inline">\(\tau \sim PH(\boldsymbol{Q}, \boldsymbol{\rho})\)</span>, where <span class="math inline">\(\rho\)</span> represents reordered initial probabilities.</p>
 <p>Let’s apply a reward of <span class="math inline">\(\boldsymbol{r} = (0,\ 2,\ 3)\)</span> to the example discrete phase-type example. We can do it in two separate steps. First, we will remove those states with a null reward:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">zero_dph</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">dph</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">zero_dph</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">dph</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">zero_dph</span><span class="op">)</span>
 <span class="co">#&gt; $subint_mat</span>
 <span class="co">#&gt;      [,1] [,2]</span>
@@ -472,8 +462,7 @@ Y = \sum_{n=0}^{\tau - 1} r(X_n)
 <p>Because of the computational approximation on matrix calculation, the defect is slightly positive but it is effectively zero.</p>
 <p>Then, the positive rewards can be applied to each of the remaining states to create a new discrete phase-type distribution:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">zero_dph</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">zero_dph</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $subint_mat</span>
 <span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="co">#&gt; [1,]  0.0    1  0.0    0    0</span>
@@ -511,8 +500,7 @@ Y = \sum_{n=0}^{\tau - 1} r(X_n)
 #&gt; [1] "disc_phase_type"</code></pre>
 <p>The same function can be used for continuous phase-type distributions:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">ph</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">ph</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $subint_mat</span>
 <span class="co">#&gt;      [,1]       [,2]</span>
 <span class="co">#&gt; [1,] -0.5  0.5000000</span>
@@ -562,8 +550,7 @@ Y_j = \int_0^\tau r_j(X_t)dt
 \]</span> i.e. the reward transformation of <span class="math inline">\(\boldsymbol{T}\)</span> and <span class="math inline">\(\boldsymbol{\pi}\)</span> using <span class="math inline">\(r_j\)</span>.</p>
 <p>Using the <code><a href="../reference/phase_type.html">phase_type()</a></code> function with the reward matrix in the <code>reward_mat</code> parameter</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">R</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,
+<code class="sourceCode R"><span class="va">R</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,
               <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">5</span>, 
               <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">10</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="va">mph</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phase_type.html">phase_type</a></span><span class="op">(</span><span class="va">ph</span><span class="op">$</span><span class="va">subint_mat</span>, <span class="va">ph</span><span class="op">$</span><span class="va">init_probs</span>, reward_mat <span class="op">=</span> <span class="va">R</span><span class="op">)</span>
@@ -621,8 +608,7 @@ Y_j = \int_0^\tau r_j(X_t)dt
 Y_j = \sum_0^n r_j(X_n)
 \]</span> Using the <code><a href="../reference/phase_type.html">phase_type()</a></code> function with the reward matrix in the <code>reward_mat</code> parameter</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">R</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,
+<code class="sourceCode R"><span class="va">R</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,
               <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">5</span>, 
               <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">10</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="va">mdph</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phase_type.html">phase_type</a></span><span class="op">(</span><span class="va">dph</span><span class="op">$</span><span class="va">subint_mat</span>, <span class="va">dph</span><span class="op">$</span><span class="va">init_probs</span>, reward_mat <span class="op">=</span> <span class="va">R</span><span class="op">)</span>

@@ -45,7 +45,6 @@ The package ```phasty``` handle this phase-type distribution and the calculation
 
 This package is a complete as possible, nevertheless, it stays a package which bring mathematical tools and its not oriented for a specific application. 
 
-The main references that have been used for this package are:
 
 # 2. The phase-type S3 class objects
 
@@ -65,21 +64,17 @@ Where ```subint_mat``` is the subintensity matrix and ```init_probs``` is the ve
 An object of one of the ```phase_type``` class always has a subintensity matrix, a initial probability vector, a defect (the probability of starting directly in the absorbing state, which can happen when using reward transformation (see section \)), and the type of class. We can also print a summary of the object:
 
 ```{r}
-
 summary(ph)
-
 ```
 
 
 The ```init_probs``` argument is optional, and in case of not providing it the probability of the first state will be set to 1, this is, $\boldsymbol{\pi} = (1,\, 0,\, 0,\, ...\,,0)$. If this is the case, ```phase_type()``` will print a warning:
 
 ```{r}
-
 subintensity_matrix <- matrix(c(-1.5, 0, 0,
                               1.5, -1, 0,
                               0, 1, -0.5), ncol = 3)
 phase_type(subintensity_matrix)
-
 ```
 
 
@@ -92,7 +87,6 @@ Consider $\{X_t\}_{t\ge0}$ to be a  <span style="color:orange"> **Markov jump pr
 As specified before, a continuous phase-type distribution object can be created in ```phasty``` using the ```phase_type()``` function:
 
 ```{r cont_example}
-
 subintensity_matrix <- matrix(c(-1.5, 0, 0,
                               1.5, -1, 0,
                               0, 1, -0.5), ncol = 3)
@@ -100,8 +94,7 @@ initial_probabilities <- c(0.9, 0.1, 0)
 
 ph <- phase_type(subintensity_matrix, initial_probabilities)
 
-print(class(ph)) # Check that phase_type() recognise the cont_phase_type
-
+print(class(ph)) 
 ```
 
 
@@ -134,9 +127,7 @@ cat(' Variance: ',var(ph),'\n \n')
 These two quantitites are also printed when using the `summary()` function:
 
 ```{r}
-
 summary(ph)
-
 ```
 
 
@@ -164,28 +155,23 @@ lines(x, pdf, col = "blue")
 title('PDF and CFD')
 legend(6, 0.4, legend=c('PDF', 'CDF'),
        col=c("orange", "blue"), lty=1)
-
 ```
 
 
 Additionally, we can compute the quantile function using `qphtype()`:
 
 ```{r}
-
 x <- seq(0.05, 0.95, 0.01)
 plot(x, qphtype(x, ph), col = "orange", 
      ylab = "Time to absorbing state", xlab = "Quantile")
 title('Quantile function')
-
 ```
 
 
 We can also create random draws from the phase-type distribution by using `rphtype()`:
 
 ```{r}
-
 cat('10 random samples: \n', rphtype(5, ph), '\n', rphtype(5, ph))
-
 ```
 
 
@@ -267,8 +253,6 @@ legend(2, 0.7, legend=c('PDF', 'CDF'),
 x <- seq(0.05, 0.95, 0.01)
 plot(x, qphtype(x, dph), col = "orange", ylab = "Time to absorbing state", xlab = "Quantile")
 title('Quantile function')
-
-
 ```
 
 ```{r disc_ggplot, echo=FALSE, out.width = '70%'}
@@ -314,7 +298,6 @@ print(rph)
 ```
 
 ```{r}
-
 x <- seq(0, qphtype(0.95, rph), length.out = 100)
 pdf <- dphtype(x, rph)
 cdf <- pphtype(x, rph)
@@ -325,8 +308,6 @@ lines(x, pdf, col = "blue")
 title('Density and distribution functions')
 legend(15, 0.6, legend=c('PDF', 'CDF'),
        col=c("orange", "blue"), lty=1)
-
-
 ```
 
 ```{r reward_cont_ggplot, echo=FALSE, out.width = '70%'}
@@ -351,7 +332,6 @@ print(rdph)
 ```
 
 ```{r}
-
 x <- seq(0, qphtype(0.95, rdph), 1)
 pmf <- dphtype(x, rdph)
 cdf <- pphtype(x, rdph)
@@ -361,7 +341,6 @@ barplot(t(data), xlab = "Time to absorbing state", col = c("orange","blue"), bes
 title('Density and distribution functions')
 legend(1, 0.7, legend=c('PDF', 'CDF'),
        col=c("orange", "blue"), lty=1)
-
 ```
 
 ```{r reward_disc_ggplot, echo=FALSE, out.width = '70%'}
@@ -393,10 +372,8 @@ The superscripts of the sub-matrices represent whether the states have positive 
 Let's apply a reward of $\boldsymbol{r} = (0,\ 2,\ 3)$ to the example discrete phase-type example. We can do it in two separate steps. First, we will remove those states with a null reward:
 
 ```{r}
-
 zero_dph <- reward_phase_type(dph, c(0, 1, 1))
 print(zero_dph)
-
 ```
 
 Because of the computational approximation on matrix calculation, the defect is slightly positive but it is effectively zero.
@@ -404,25 +381,19 @@ Because of the computational approximation on matrix calculation, the defect is 
 Then, the positive rewards can be applied to each of the remaining states to create a new discrete phase-type distribution:
 
 ```{r}
-
 reward_phase_type(zero_dph, c(2, 3))
-
 ```
 
 These two steps can be unified into the same line of code by directly specifying the $\boldsymbol{r} = (0,\ 2,\ 3)$ reward vector:
 
 ```{r, echo = F}
-
 reward_phase_type(dph, c(0, 2, 3))
-
 ```
 
 The same function can be used for continuous phase-type distributions:
 
 ```{r}
-
 reward_phase_type(ph, c(0, 2, 3))
-
 ```
 
 
@@ -466,7 +437,6 @@ i.e. the reward transformation of $\boldsymbol{T}$ and $\boldsymbol{\pi}$ using 
 Using the ```phase_type()``` function with the reward matrix in the ```reward_mat``` parameter
 
 ```{r}
-
 R <- matrix(c(0, 1, 1,
               2, 1, 5, 
               0, 1, 10), ncol = 3)
@@ -510,7 +480,6 @@ $$
 Using the ```phase_type()``` function with the reward matrix in the ```reward_mat``` parameter
 
 ```{r}
-
 R <- matrix(c(0, 1, 1,
               2, 1, 5, 
               0, 1, 10), ncol = 3)
