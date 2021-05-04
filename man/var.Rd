@@ -50,7 +50,7 @@ different usages can be distinguished:
 }
 \examples{
 # For univariate continuous phase-type distributions
-ph1 <- phase_type(matrix(c(-3, 0, 0, 1, -2, 0, 0, 1, -1), ncol = 3), c(0.25,0.25,0.5))
+ph1 <- PH(matrix(c(-3, 0, 0, 1, -2, 0, 0, 1, -1), ncol = 3), c(0.25,0.25,0.5))
 var(ph1)
 
 # For multivariate continuous phase-type distributions
@@ -58,7 +58,7 @@ subintensity_matrix <- matrix(c(-3, 0, 0,
                                2, -2, 0,
                                0, 1, -1), nrow = 3, ncol = 3)
 reward_matrix = matrix(sample(seq(0, 10), 6), nrow = 3, ncol = 2)
-ph2 <- phase_type(subintensity_matrix, reward_mat = reward_matrix)
+ph2 <- MPH(subintensity_matrix, reward_mat = reward_matrix)
 ## Variance-covariance matrix
 var(ph2)
 ## Variance for the first state in the reward matrix

@@ -26,7 +26,7 @@ set.seed(2)
 subintensity_matrix <- matrix(c(-1.5, 0, 0.5,
                                1.5, -1, 0,
                                0, 1, -1), ncol = 3)
-obj <- phase_type(subintensity_matrix)
+obj <- PH(subintensity_matrix)
 
 sim_phase_type(obj)
 
@@ -38,7 +38,7 @@ set.seed(2)
 subintensity_matrix <- matrix(c(0.4, 0, 0.1,
                                0.24, 0.6, 0.3,
                                0.26, 0.4, 0.5), ncol = 3)
-obj <- phase_type(subintensity_matrix)
+obj <- DPH(subintensity_matrix)
 
 sim_phase_type(obj)
 
@@ -50,7 +50,7 @@ subintensity_matrix <- matrix(c(-3, 0, 0,
                                2, -2, 0,
                                0, 1, -1), nrow = 3, ncol = 3)
 reward_matrix = matrix(sample(seq(0, 10, 0.1), 6), nrow = 3, ncol = 2)
-obj <- phase_type(subintensity_matrix, reward_mat = reward_matrix)
+obj <- MPH(subintensity_matrix, reward_mat = reward_matrix)
 sim_phase_type(obj)
 
 ##===========================##
@@ -61,6 +61,6 @@ subintensity_matrix <- matrix(c(0.4, 0, 0,
                                0.24, 0.4, 0,
                                0.12, 0.2, 0.5), ncol = 3)
 reward_matrix <- matrix(sample(seq(0, 10), 6), nrow = 3, ncol = 2)
-phase_type(subintensity_matrix, reward_mat = reward_matrix)
+MDPH(subintensity_matrix, reward_mat = reward_matrix)
 
 }

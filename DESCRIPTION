@@ -39,4 +39,5 @@ Collate:
     'phtype_functions.R'
     'reward_phase_type.R'
     'simul.R'
+    'summary.R'
     'var.R'

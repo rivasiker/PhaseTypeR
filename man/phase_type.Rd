@@ -2,13 +2,10 @@
 % Please edit documentation in R/phase_type.R
 \name{phase_type}
 \alias{phase_type}
-\alias{summary.cont_phase_type}
 \title{Generator Function for Phase-Type Distributions}
 \usage{
 phase_type(subint_mat = NULL, init_probs = NULL, reward_mat = NULL,
                   round_zero = NULL)
-
-\method{summary}{cont_phase_type}(object, ...)
 }
 \arguments{
 \item{subint_mat}{is the square matrix containing the transition rates or
@@ -35,10 +32,6 @@ It could be useful in the scenarios where there is a reward transformation
 leading to values with many decimals and potentially computational
 approximation and potentially to positive row sums in continuous phase-type
 .}
-
-\item{object}{a phase-type object}
-
-\item{...}{other arguments passed to methods}
 }
 \description{
 Description of the S3 classes \code{cont_phase_type}, \code{disc_phase_type},
@@ -56,11 +49,6 @@ If the initial probabilities are not specified, then the initial probability
 will be \code{init_probs = c(1, 0, 0, ...)} with the same length as the
 number of transient states.
 }
-\section{Methods (by generic)}{
-\itemize{
-\item \code{summary}: pretty summary of the class.
-}}
-
 \examples{
 
 ##===========================##

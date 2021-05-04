@@ -10,8 +10,8 @@
 #' @usage convph(ph1 = NULL, ph2 = NULL)
 #'
 #' @examples
-#' ph1 = phase_type(matrix(c(-3, 0, 0, 1, -2, 0, 0, 1, -1), ncol = 3), c(0.25,0.25,0.5))
-#' ph2 = phase_type(matrix(c(-1.5, 0, 0, 1.5, -1, 0, 0, 1, -0.5), ncol = 3), c(0.25,0.25,0.5))
+#' ph1 = PH(matrix(c(-3, 0, 0, 1, -2, 0, 0, 1, -1), ncol = 3), c(0.25,0.25,0.5))
+#' ph2 = PH(matrix(c(-1.5, 0, 0, 1.5, -1, 0, 0, 1, -0.5), ncol = 3), c(0.25,0.25,0.5))
 #'
 #' convph(ph1,ph2)
 #' #---
@@ -38,7 +38,7 @@ convph <- function(ph1 = NULL, ph2 = NULL) {
                              ph2$subint_mat))
 
     # Return a new object of type cont_phase_type
-    obj = phase_type(subint_mat, init_probs)
+    obj = PH(subint_mat, init_probs)
     return(obj)
 
   }else{
