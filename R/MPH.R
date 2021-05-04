@@ -1,9 +1,32 @@
 
 
-#' Multivariate continuous phase-type distribution
+#' @rdname generator_functions
+#' @order 4
+#'
+#' @title Multivariate continuous phase-type distribution
+#'
+#' @usage MPH(subint_mat = NULL, init_probs = NULL,
+#'     reward_mat = NULL, round_zero = NULL)
+#'
+#' @examples
+#'
+#'
+#' ##=============================##
+#' ## For continuous multivariate ##
+#' ##=============================##
+#'
+#' subintensity_matrix <- matrix(c(-3,  2,  0,
+#'                                  0, -2,  1,
+#'                                  0,  0, -1),
+#'                               nrow = 3,
+#'                               byrow = TRUE)
+#' reward_matrix = matrix(sample(seq(0, 10, 0.1), 6), nrow = 3, ncol = 2)
+#' initial_probabilities = c(1, 0, 0)
+#' MPH(subintensity_matrix,
+#'     initial_probabilities,
+#'     reward_matrix)
 #'
 #' @export
-#'
 
 
 MPH <- function(subint_mat = NULL, init_probs = NULL,

@@ -2,11 +2,6 @@
 
 
 
-#' Generator Function for Phase-Type Distributions
-#'
-#' @export
-
-
 
 
 check_phase_type <- function(subint_mat, init_probs,

@@ -1,10 +1,34 @@
-#' Multivariate discrete phase-type distribution
+
+
+#' @rdname generator_functions
+#' @order 5
+#'
+#' @title Multivariate discrete phase-type distribution
+#'
+#' @usage MDPH(subint_mat = NULL, init_probs = NULL,
+#'      reward_mat = NULL, round_zero = NULL)
+#'
+#' @examples
+#'
+#' ##===========================##
+#' ## For discrete multivariate ##
+#' ##===========================##
+#'
+#' subintensity_matrix <- matrix(c(0.4, 0.24, 0.12,
+#'                                 0,   0.4,  0.2,
+#'                                 0,   0,    0.5),
+#'                               ncol = 3,
+#'                               byrow = TRUE)
+#' reward_matrix <- matrix(sample(seq(0, 10), 6), nrow = 3, ncol = 2)
+#' initial_probabilities = c(1, 0, 0)
+#' MDPH(subintensity_matrix,
+#'      initial_probabilities,
+#'      reward_mat = reward_matrix)
 #'
 #' @export
 
 
-MDPH <- function(subint_mat = NULL, init_probs = NULL,
-                 reward_mat = NULL, round_zero = NULL) {
+MDPH <- function(subint_mat = NULL, init_probs = NULL, reward_mat = NULL, round_zero = NULL) {
 
   if (!is.matrix(reward_mat)){
     stop('Please provide a reward matrix.')

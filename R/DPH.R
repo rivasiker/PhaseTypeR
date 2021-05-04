@@ -1,6 +1,33 @@
 
-
-#' Discrete phase-type distribution
+#' @rdname generator_functions
+#' @order 3
+#'
+#' @title Discrete phase-type distribution
+#'
+#' @usage DPH(subint_mat = NULL, init_probs = NULL, round_zero = NULL)
+#'
+#' @examples
+#'
+#' ##=========================##
+#' ## For discrete univariate ##
+#' ##=========================##
+#'
+#' subintensity_matrix <- matrix(c(0.4, 0.24, 0.12,
+#'                                 0,   0.4,  0.2,
+#'                                 0,   0,    0.5),
+#'                               ncol = 3,
+#'                               byrow = TRUE)
+#' DPH(subintensity_matrix)
+#'
+#' #---
+#'
+#' subintensity_matrix <- matrix(c(0.4, 0.24, 0.12,
+#'                                 0,   0.4,  0.2,
+#'                                 0,   0,    0.5),
+#'                               ncol = 3,
+#'                               byrow = TRUE)
+#' initial_probabilities <- c(0.9, 0.1, 0)
+#' DPH(subintensity_matrix, initial_probabilities)
 #'
 #' @export
 

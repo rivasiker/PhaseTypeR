@@ -1,6 +1,33 @@
 
-
-#' Continuous phase-type distribution
+#' @rdname generator_functions
+#' @order 2
+#'
+#' @title Continuous phase-type distribution
+#'
+#' @usage PH(subint_mat = NULL, init_probs = NULL, round_zero = NULL)
+#'
+#' @examples
+#'
+#' ##===========================##
+#' ## For continuous univariate ##
+#' ##===========================##
+#'
+#' subintensity_matrix <- matrix(c(-1.5, 1.5, 0,
+#'                                  0,  -1,   1,
+#'                                  0,   0,  -0.5),
+#'                               ncol = 3,
+#'                               byrow = TRUE)
+#' PH(subintensity_matrix)
+#'
+#' #---
+#'
+#' subintensity_matrix <- matrix(c(-1.5, 1.5, 0,
+#'                                  0,  -1,   1,
+#'                                  0,   0,  -0.5),
+#'                               ncol = 3,
+#'                               byrow = TRUE)
+#' initial_probabilities <- c(0.9, 0.1, 0)
+#' PH(subintensity_matrix, initial_probabilities)
 #'
 #' @export
 
