@@ -143,10 +143,7 @@ different phase-type distributions.</p>
     </div>
 
     <pre class="usage"><span class='fu'>phase_type</span><span class='op'>(</span>subint_mat <span class='op'>=</span> <span class='cn'>NULL</span>, init_probs <span class='op'>=</span> <span class='cn'>NULL</span>, reward_mat <span class='op'>=</span> <span class='cn'>NULL</span>,
-                  round_zero <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-
-<span class='co'># S3 method for cont_phase_type</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+                  round_zero <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,14 +181,6 @@ leading to values with many decimals and potentially computational
 approximation and potentially to positive row sums in continuous phase-type
 .</p></td>
     </tr>
-    <tr>
-      <th>object</th>
-      <td><p>a phase-type object</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>other arguments passed to methods</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -205,12 +194,6 @@ phase-type.
 If the initial probabilities are not specified, then the initial probability
 will be <code>init_probs = c(1, 0, 0, ...)</code> with the same length as the
 number of transient states.</p>
-    <h2 class="hasAnchor" id="methods-by-generic-"><a class="anchor" href="#methods-by-generic-"></a>Methods (by generic)</h2>
-
-    
-<ul>
-<li><p><code>summary</code>: pretty summary of the class.</p></li>
-</ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>

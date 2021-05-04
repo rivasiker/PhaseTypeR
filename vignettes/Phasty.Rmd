@@ -1,6 +1,8 @@
 ---
 title: "Phasty v0.9"
-Author: Colin Guétemme
+Author: 
+- Iker Rivas-González
+- Colin Guétemme
 output:
   html_document:
     fig_caption: yes
@@ -48,33 +50,34 @@ This package is a complete as possible, nevertheless, it stays a package which b
 
 # 2. The phase-type S3 class objects
 
-The functions provided by ```phasty``` require objects of class ```disc_phase_type```, ```cont_phase_type```, ```mult_disc_phase_type``` or ```mult_cont_phase_type```, which can be obtain using the generator function ```phase_type()```. here is an example considering a univariate continuous phase-type distribution:
+The functions provided by ```phasty``` require objects of class ```disc_phase_type```, ```cont_phase_type```, ```mult_disc_phase_type``` or ```mult_cont_phase_type```, which can be obtain using the generator functions ```PH()```, ```DPH()```, ```MPH()``` and ```MDPH()``` respectively. here is an example considering a univariate continuous phase-type distribution:
 
-```{r phase_type()_example}
+```{r PH()_example}
 subintensity_matrix <- matrix(c(-1.5, 0, 0,
                               1.5, -1, 0,
                               0, 1, -0.5), ncol = 3)
 initial_probabilities <- c(0.9, 0.1, 0)
-ph <- phase_type(subintensity_matrix, initial_probabilities)
+ph <- PH(subintensity_matrix, initial_probabilities)
 
-print(ph)
+ph
+
 ```
 
-Where ```subint_mat``` is the subintensity matrix and ```init_probs``` is the vector of initial probabilities. 
-An object of one of the ```phase_type``` class always has a subintensity matrix, a initial probability vector, a defect (the probability of starting directly in the absorbing state, which can happen when using reward transformation (see section \)), and the type of class. We can also print a summary of the object:
+Where ```subint_mat``` is the sub-intensity matrix and ```init_probs``` is the vector of initial probabilities. 
+An object of one of the phase-type classes always has a sub-intensity matrix, a initial probability vector, a defect (the probability of starting directly in the absorbing state, which can happen when using reward transformation (see section \)), and the type of class. We can also print a summary of the object:
 
 ```{r}
 summary(ph)
 ```
 
 
-The ```init_probs``` argument is optional, and in case of not providing it the probability of the first state will be set to 1, this is, $\boldsymbol{\pi} = (1,\, 0,\, 0,\, ...\,,0)$. If this is the case, ```phase_type()``` will print a warning:
+The ```init_probs``` argument is optional, and in case of not providing it the probability of the first state will be set to 1, this is, $\boldsymbol{\pi} = (1,\, 0,\, 0,\, ...\,,0)$. If this is the case, the generator function will print a warning:
 
 ```{r}
 subintensity_matrix <- matrix(c(-1.5, 0, 0,
                               1.5, -1, 0,
                               0, 1, -0.5), ncol = 3)
-phase_type(subintensity_matrix)
+PH(subintensity_matrix)
 ```
 
 
@@ -82,9 +85,9 @@ phase_type(subintensity_matrix)
 
 ## 3.1. The continuous univariate phase-type
 
-Consider $\{X_t\}_{t\ge0}$ to be a  <span style="color:orange"> **Markov jump process (MJP)** </span>  with $n$ transient states and 1 absorbing state. If $\tau$ is defined as time where $\{X_t\}_{t\ge0}$ reaches the absorbing state, then $\tau$ follows a continuous phase-type distribution $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\boldsymbol{T}$ is the subintensity matrix of the corresponding MJP and $\boldsymbol{\pi}$ is the vector of starting probabilities.
+Consider $\{X_t\}_{t\ge0}$ to be a  <span style="color:orange"> **Markov jump process (MJP)** </span>  with $n$ transient states and 1 absorbing state. If $\tau$ is defined as time where $\{X_t\}_{t\ge0}$ reaches the absorbing state, then $\tau$ follows a continuous phase-type distribution $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\boldsymbol{T}$ is the sub-intensity matrix of the corresponding MJP and $\boldsymbol{\pi}$ is the vector of starting probabilities.
 
-As specified before, a continuous phase-type distribution object can be created in ```phasty``` using the ```phase_type()``` function:
+As specified before, a continuous phase-type distribution object can be created in ```phasty``` using the ```PH()``` function:
 
 ```{r cont_example}
 subintensity_matrix <- matrix(c(-1.5, 0, 0,
@@ -92,9 +95,10 @@ subintensity_matrix <- matrix(c(-1.5, 0, 0,
                               0, 1, -0.5), ncol = 3)
 initial_probabilities <- c(0.9, 0.1, 0)
 
-ph <- phase_type(subintensity_matrix, initial_probabilities)
+ph <- PH(subintensity_matrix, initial_probabilities)
 
-print(class(ph)) 
+ph
+
 ```
 
 
@@ -136,7 +140,7 @@ summary(ph)
 $$
 f(u) = \boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{t}
 $$
-where $\boldsymbol{t} = -\boldsymbol{T}\boldsymbol{e}$ is the exit rate of the subintensity matrix (the vector of transition from state $i$ to the absorbing state). From there we can get the **cumulative distribution function** (CDF) as:
+where $\boldsymbol{t} = -\boldsymbol{T}\boldsymbol{e}$ is the exit rate of the sub-intensity matrix (the vector of transition from state $i$ to the absorbing state). From there we can get the **cumulative distribution function** (CDF) as:
 
 $$ 
 F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}
@@ -191,18 +195,19 @@ cat('10 random samples: \n', rphtype(5, ph), '\n', rphtype(5, ph))
 
 ## 3.2. The discrete univariate phase-type
 
-Instead of using a MJP (also called continuous Markov chain), it is also possible to consider a <span style="color:orange"> **Markov chain (MC)** </span>. Let's consider $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\tau \in \mathbb{N}$. $\tau$ will represent the number of states visited before entering the absorbing state. For that reason, the subintensity matrix $\boldsymbol{T}$ will not contain rates, but rather the probability of jumping from one state to another. 
+Instead of using a MJP (also called continuous Markov chain), it is also possible to consider a <span style="color:orange"> **Markov chain (MC)** </span>. Let's consider $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\tau \in \mathbb{N}$. $\tau$ will represent the number of states visited before entering the absorbing state. For that reason, the sub-intensity matrix $\boldsymbol{T}$ will not contain rates, but rather the probability of jumping from one state to another. 
 
-Discrete phase-type distributions can be created in `phasty` using the very same `phase_type()` function used for the continuous case, but specifying a subintensity matrix that meets the requirements for a discrete phase-type distribution:
+Discrete phase-type distributions can be created in `phasty` using the very same `DPH()` function used for the continuous case, but specifying a sub-intensity matrix that meets the requirements for a discrete phase-type distribution:
 
 ```{r disc_example}
 subintensity_matrix <- matrix(c(0, 0.2, 0.8,
                               0.5, 0.5, 0,
                               0, 0, 0.4), ncol = 3, byrow = T)
 initial_probabilities <- c(0.7, 0.3, 0)
-dph <- phase_type(subintensity_matrix, initial_probabilities)
+dph <- DPH(subintensity_matrix, initial_probabilities)
 
-print(class(dph))
+dph
+
 ```
 
 As for the continuous phase-type, it is possible to describe any moment using the factorial moment using describe in  **proposition 2.7.iii** [@Navarro2019 page p.12]
@@ -349,7 +354,7 @@ legend(1, 0.7, legend=c('PDF', 'CDF'),
 
 ### 3.3.3. Dealing with zero rewards
 
-To perform a reward transformation with at least one reward of zero, it is necessary to transform the subintensity matrix and initial probabilities by removing the zero rewarded state and then apply the positive rewards on the remaining states. 
+To perform a reward transformation with at least one reward of zero, it is necessary to transform the sub-intensity matrix and initial probabilities by removing the zero rewarded state and then apply the positive rewards on the remaining states. 
 
 **Theorem 3.1.33** [@Bladt2017 page p.147] describes the intermediates matrix $\boldsymbol{P}$ define by 
 
@@ -418,7 +423,7 @@ $$
 \boldsymbol{\pi} = (0.35,\ 0.35,\ 0.3,\ 0)
 $$
 
-In phasty this can be computed using a matrix of probability rather than a vector. Note that this matrix is not the same as in the ```phase_type()``` function, since the ```disc_phase_type``` object stays univariate.
+In phasty this can be computed using a matrix of probability rather than a vector. Note that this matrix is not the same as in the ```DPH()``` function, since the ```disc_phase_type``` object stays univariate.
 
 
 # 4. The multivariate phase-type distribution
@@ -434,13 +439,13 @@ Y_j = \int_0^\tau r_j(X_t)dt
 $$
 i.e. the reward transformation of $\boldsymbol{T}$ and $\boldsymbol{\pi}$ using $r_j$.
 
-Using the ```phase_type()``` function with the reward matrix in the ```reward_mat``` parameter
+Using the ```MPH()``` function with the reward matrix in the ```reward_mat``` parameter
 
 ```{r}
 R <- matrix(c(0, 1, 1,
               2, 1, 5, 
               0, 1, 10), ncol = 3)
-mph <- phase_type(ph$subint_mat, ph$init_probs, reward_mat = R)
+mph <- MPH(ph$subint_mat, ph$init_probs, reward_mat = R)
 print(mph)
 ```
 
@@ -477,13 +482,13 @@ The discrete phase-type distribution is really similar to the continuous one  wi
 $$
 Y_j = \sum_0^n r_j(X_n)
 $$
-Using the ```phase_type()``` function with the reward matrix in the ```reward_mat``` parameter
+Using the ```MDPH()``` function with the reward matrix in the ```reward_mat``` parameter
 
 ```{r}
 R <- matrix(c(0, 1, 1,
               2, 1, 5, 
               0, 1, 10), ncol = 3)
-mdph <- phase_type(dph$subint_mat, dph$init_probs, reward_mat = R)
+mdph <- MDPH(dph$subint_mat, dph$init_probs, reward_mat = R)
 print(mdph)
 ```
 

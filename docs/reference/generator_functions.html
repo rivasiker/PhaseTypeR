@@ -132,7 +132,7 @@ different phase-type distributions." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>The phase-type distribution</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rivasiker/phasty/blob/master/R/generator_functions.R'><code>R/generator_functions.R</code></a>, <a href='https://github.com/rivasiker/phasty/blob/master/R/PH.R'><code>R/PH.R</code></a>, <a href='https://github.com/rivasiker/phasty/blob/master/R/DPH.R'><code>R/DPH.R</code></a>, and 2 more</small>
+    <small class="dont-index">Source: <a href='https://github.com/rivasiker/phasty/blob/master/R/generator_functions.R'><code>R/generator_functions.R</code></a>, <a href='https://github.com/rivasiker/phasty/blob/master/R/PH.R'><code>R/PH.R</code></a>, <a href='https://github.com/rivasiker/phasty/blob/master/R/DPH.R'><code>R/DPH.R</code></a>, and 3 more</small>
     <div class="hidden name"><code>generator_functions.Rd</code></div>
     </div>
 
@@ -150,7 +150,19 @@ different phase-type distributions.</p>
     reward_mat <span class='op'>=</span> <span class='cn'>NULL</span>, round_zero <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='fu'>MDPH</span><span class='op'>(</span>subint_mat <span class='op'>=</span> <span class='cn'>NULL</span>, init_probs <span class='op'>=</span> <span class='cn'>NULL</span>,
-     reward_mat <span class='op'>=</span> <span class='cn'>NULL</span>, round_zero <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+     reward_mat <span class='op'>=</span> <span class='cn'>NULL</span>, round_zero <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+
+<span class='co'># S3 method for cont_phase_type</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for disc_phase_type</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for mult_cont_phase_type</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for mult_disc_phase_type</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,6 +198,14 @@ approximation and potentially to positive row sums in continuous phase-type.s</p
 vector, and each column corresponds to a state. It should have the same
 number of columns as the length of the initial probabilities.</p></td>
     </tr>
+    <tr>
+      <th>object</th>
+      <td><p>a phase-type object</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>other arguments passed to methods</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -205,6 +225,15 @@ phase-type.
 If the initial probabilities are not specified, then the initial probability
 will be <code>init_probs = c(1, 0, 0, ...)</code> with the same length as the
 number of transient states.</p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    
+<ul>
+<li><p><code>summary.cont_phase_type</code>: pretty summary of the <code>cont_phase_type</code> class.</p></li>
+<li><p><code>summary.disc_phase_type</code>: pretty summary of the <code>disc_phase_type</code> class.</p></li>
+<li><p><code>summary.mult_cont_phase_type</code>: pretty summary of the <code>mult_cont_phase_type</code> class.</p></li>
+<li><p><code>summary.mult_disc_phase_type</code>: pretty summary of the <code>mult_dist_phase_type</code> class.</p></li>
+</ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>

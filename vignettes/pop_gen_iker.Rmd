@@ -1,5 +1,6 @@
 ---
 title: "Using phasty for population genetics"
+author: Iker Rivas-González
 output: 
   html_document:
     toc: true
@@ -94,11 +95,11 @@ init_probs <- matrix(c(1, rep(0,n-2)), 1, n-1)
 
 ```
 
-Now we can use a `cont_phase_type` class of the `phasty` package to generate a phase-type representation of $T_{MRCA}$ by using `phase_type()`:
+Now we can use a `cont_phase_type` class of the `phasty` package to generate a phase-type representation of $T_{MRCA}$ by using `PH()`:
 
 ```{r}
 
-t_mrca_4 <- phase_type(subint_mat, init_probs)
+t_mrca_4 <- PH(subint_mat, init_probs)
 
 t_mrca_4
 
@@ -176,7 +177,7 @@ $T_{Total}$ can also be represented using the `cont_phase_type` class:
 
 ```{r}
 
-t_total_4 <- phase_type(subint_mat, init_probs)
+t_total_4 <- PH(subint_mat, init_probs)
 
 t_total_4
 
@@ -332,11 +333,11 @@ init_probs <- t_total_4$init_probs
 disc_subint_mat <- solve(diag(nrow(subint_mat)) - 2/theta * subint_mat)
 ```
 
-And we can now use the `phase_type()` function of `phasty` to build a discrete phase-type class `disc_phase_type` for $S_{total}$:
+And we can now use the `DPH()` function of `phasty` to build a discrete phase-type class `disc_phase_type` for $S_{total}$:
 
 ```{r}
 
-s_tot_4_3 <- phase_type(disc_subint_mat, init_probs)
+s_tot_4_3 <- DPH(disc_subint_mat, init_probs)
 s_tot_4_3
 
 ```
@@ -362,7 +363,7 @@ subint_itons_4 <- matrix(c(-6,  6,  0,  0,
 And we can also define a continuous phase-type representation of this process:
 
 ```{r}
-kingman_4 <- phase_type(subint_itons_4)
+kingman_4 <- PH(subint_itons_4)
 kingman_4
 ```
 
@@ -384,7 +385,7 @@ init_probs <- seg_sites_cont_4$init_probs
 
 disc_subint_mat <- solve(diag(nrow(subint_mat)) - 2/theta * subint_mat)
 
-s_tot_4_3_bis <- phase_type(disc_subint_mat, init_probs)
+s_tot_4_3_bis <- DPH(disc_subint_mat, init_probs)
 s_tot_4_3_bis
 ```
 
@@ -419,7 +420,7 @@ init_probs <- xi1_cont_4$init_probs
 
 disc_subint_mat <- solve(diag(nrow(subint_mat)) - 2/theta * subint_mat)
 
-xi1_4_3 <- phase_type(disc_subint_mat, init_probs)
+xi1_4_3 <- DPH(disc_subint_mat, init_probs)
 xi1_4_3
 ```
 
@@ -434,7 +435,7 @@ subint_mat <- xi2_cont_4$subint_mat
 init_probs <- xi2_cont_4$init_probs
 
 disc_subint_mat <- solve(diag(nrow(subint_mat)) - 2/theta * subint_mat)
-xi2_4_3 <- phase_type(disc_subint_mat, init_probs)
+xi2_4_3 <- DPH(disc_subint_mat, init_probs)
 xi2_4_3
 ```
 
@@ -447,7 +448,7 @@ subint_mat <- xi3_cont_4$subint_mat
 init_probs <- xi3_cont_4$init_probs
 
 disc_subint_mat <- solve(diag(nrow(subint_mat)) - 2/theta * subint_mat)
-xi3_4_3 <- phase_type(disc_subint_mat, init_probs)
+xi3_4_3 <- DPH(disc_subint_mat, init_probs)
 xi3_4_3
 ```
 
@@ -555,7 +556,7 @@ legend(15, 2500, legend=c(expression('S'[total]), expression('X'[1])),
 box()
 ```
 
-# 4. The Multivariate Discrete Phase-Type Distribution: $Y_i$
+# 4. The Multivariate Continuous Phase-Type Distribution: $Y_i$
 
 If the evolutionary tree is given, then each element of the site frequency spectrum (singletons, doubletons, etc) can be defined as mutations sprinkled over the tree following a Poisson distribution with rate $\theta/2$. The mean of each $\xi_i$ will be directly proportional to the mean of the total branch length that gives rise to each i-ton, or $Y_i$:
 
@@ -587,12 +588,14 @@ reward_mat_4 <- matrix(c(4, 0, 0,
                          0, 2, 0), nrow = 4, byrow = T)
 ```
 
-We can define a continuous phase-type representation of $Y_i$ with the `phase_type` generator function:
+We can define a continuous phase-type representation of $Y_i$ with the `MPH` generator function, which will yield an object of class `mult_cont_phase_type`:
 
 ```{r}
 
-Y_i_phase_type <- phase_type(subint_mat = subint_itons_4, 
-                             reward_mat = reward_mat_4)
+Y_i_phase_type <- MPH(subint_mat = subint_itons_4, 
+                      reward_mat = reward_mat_4)
+
+Y_i_phase_type
 
 ```
 
