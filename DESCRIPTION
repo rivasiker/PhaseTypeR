@@ -26,7 +26,12 @@ VignetteBuilder: knitr
 Collate: 
     'ApproximateCharFun.R'
     'BlockCountingProcess.R'
+    'DPH.R'
     'DPH_construction.R'
+    'MDPH.R'
+    'MPH.R'
+    'PH.R'
+    'check_phase_type.R'
     'convph.R'
     'phase_type.R'
     'mean.R'
