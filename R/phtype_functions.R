@@ -36,7 +36,7 @@
 #' cont_phase_type <- matrix(c(-3, 0, 1,
 #'                             2, -3, 1,
 #'                             1, 1, -2), ncol = 3)
-#' Y <- phase_type(cont_phase_type)
+#' Y <- PH(cont_phase_type)
 #' x <- seq(0, 2, length.out = 20)
 #' plot(x, dphtype(x, Y), ylab = 'pdf')
 #'
@@ -45,7 +45,7 @@
 #' disc_phase_type <- matrix(c(0.4, 0, 0.2,
 #'                             0.5, 0.3, 0.2,
 #'                             0, 0.7, 0.2), ncol = 3)
-#' Y <- phase_type(disc_phase_type)
+#' Y <- DPH(disc_phase_type)
 #' x <- seq(0, 20, 1) # Only integer for the x values.
 #' plot(x, dphtype(x, Y), ylab = 'pmf')
 #'
