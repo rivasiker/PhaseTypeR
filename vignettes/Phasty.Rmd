@@ -32,25 +32,24 @@ library(phasty)
 # Informations
 Please report any issues on [the git page of the package](https://github.com/rivasiker/phasty)
 
-Most informations and details can be find in the book of Bladt and Nielsen [-@Bladt2017]: Matrix-Exponential Distributions in Applied Probability
-and the PhD of Campillo Navarro [-@Navarro2019]
+Most informations and details can be found in the book by Bladt and Nielsen [-@Bladt2017]: Matrix-Exponential Distributions in Applied Probability
+and the PhD thesis by Campillo Navarro [-@Navarro2019]
 
 
 # 1. Introduction
 
-Phase-type distributions are great mathematical tool especially in fields like insurance or population genetics.
+Phase-type distributions are a general class of distributions. They have been used extensively in fields like insurance mathematics, queyeing theory and population genetics.
 
-The basic idea is considering a markov jump process (or a Markov chain for discrete cases) with $n$ transient states and 1 absorbing state (i.e. once in the absorbing state, it cannot go out), you can have the time before reaching that absorbing state using the intensity matrix and the initial probabilities to start in each state. The matrix form of phase-type distribution allow great simplification, in particular to find the moments of the time before reaching 
+The basic idea is to consider a Markov jump process (or a Markov chain for discrete cases) with $p$ transient states and one absorbing state. The time to absorption is phase-type distributed. The parameters of a Phase-type distribution is thus an intensity matrix and the initial probabilities to begin in each state. The matrix form of the phase-type distribution allow great simplification, in particular to find the moments of the time before reaching 
 the absorbing state.
 
 The package ```phasty``` handle this phase-type distribution and the calculation behind it.
 
-This package is a complete as possible, nevertheless, it stays a package which bring mathematical tools and its not oriented for a specific application. 
-
+This package is as complete as possible, nevertheless, it stays a package which bring mathematical tools and its not oriented for a specific application. 
 
 # 2. The phase-type S3 class objects
 
-The functions provided by ```phasty``` require objects of class ```disc_phase_type```, ```cont_phase_type```, ```mult_disc_phase_type``` or ```mult_cont_phase_type```, which can be obtain using the generator functions ```PH()```, ```DPH()```, ```MPH()``` and ```MDPH()``` respectively. Here is an example considering a univariate continuous phase-type distribution:
+The functions provided by ```phasty``` require objects of class ```disc_phase_type```, ```cont_phase_type```, ```mult_disc_phase_type``` or ```mult_cont_phase_type```, which can be obtained using the generator functions ```PH()```, ```DPH()```, ```MPH()``` and ```MDPH()``` respectively. Here is an example of a univariate continuous phase-type distribution:
 
 ```{r PH()_example}
 subintensity_matrix <- matrix(c(-1.5, 0, 0,
@@ -63,15 +62,15 @@ ph
 
 ```
 
-Where ```subint_mat``` is the sub-intensity matrix and ```init_probs``` is the vector of initial probabilities. 
-An object of one of the phase-type classes always has a sub-intensity matrix, a initial probability vector, a defect (the probability of starting directly in the absorbing state, which can happen when using reward transformation (see section \)), and the type of class. We can also print a summary of the object:
+Here ```subint_mat``` is the sub-intensity matrix and ```init_probs``` is the vector of initial probabilities. 
+An object of one of the phase-type classes always has a sub-intensity matrix, an initial probability vector, a defect (the probability of starting directly in the absorbing state, which can happen when using reward transformation (see section \)), and the type of class. We can also print a summary of the object:
 
 ```{r}
 summary(ph)
 ```
 
 
-The ```init_probs``` argument is optional, and in case of not providing it the probability of the first state will be set to 1, this is, $\boldsymbol{\pi} = (1,\, 0,\, 0,\, ...\,,0)$. If this is the case, the generator function will print a warning:
+The ```init_probs``` argument is optional, and in case of not providing it the probability of the first state will be set to 1, that is, $\boldsymbol{\pi} = (1,\, 0,\, 0,\, ...\,,0)$. If this is the case, the generator function will print a warning:
 
 ```{r}
 subintensity_matrix <- matrix(c(-1.5, 0, 0,
@@ -85,7 +84,7 @@ PH(subintensity_matrix)
 
 ## 3.1. The continuous univariate phase-type
 
-Consider $\{X_t\}_{t\ge0}$ to be a  <span style="color:orange"> **Markov jump process (MJP)** </span>  with $n$ transient states and 1 absorbing state. If $\tau$ is defined as time where $\{X_t\}_{t\ge0}$ reaches the absorbing state, then $\tau$ follows a continuous phase-type distribution $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\boldsymbol{T}$ is the sub-intensity matrix of the corresponding MJP and $\boldsymbol{\pi}$ is the vector of starting probabilities.
+Consider $\{X_t\}_{t\ge0}$ to be a  <span style="color:orange"> **Markov jump process (MJP)** </span>  with $p$ transient states and 1 absorbing state. If $\tau$ is defined as the time when $\{X_t\}_{t\ge0}$ reaches the absorbing state, then $\tau$ follows a continuous phase-type distribution $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\boldsymbol{T}$ is the sub-intensity matrix of the corresponding MJP and $\boldsymbol{\pi}$ is the vector of starting probabilities.
 
 As specified before, a continuous phase-type distribution object can be created in ```phasty``` using the ```PH()``` function:
 
@@ -102,15 +101,15 @@ ph
 ```
 
 
-Given the formulas from **theorem 3.1.16** and **corollary 3.1.18** [@Bladt2017 page p.135], the mean of a variable following a continuous phase-type distribution is define as:
+Given the formulas from **Theorem 3.1.16** and **Corollary 3.1.18** [@Bladt2017 page p.135], the mean of a variable following a continuous phase-type distribution is define as:
 
 $$
 \mathbb{E} (\tau) = \boldsymbol{\pi U e} = \boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e}
 $$
-and from **corollary 3.1.18** [@Bladt2017 page p.], the expectation of $\tau^n$ is defined as:
+and from **Corollary 3.1.18** [@Bladt2017 page p.135], the expectation of $\tau^n$ is defined as:
 
 $$
-\mathbb{E} (\tau^n) = n!\boldsymbol{\pi} (-\boldsymbol{T})^{-n} \boldsymbol{e}
+\mathbb{E} (\tau^n) = n!\boldsymbol{\pi} (-\boldsymbol{T})^{-n} \boldsymbol{e}.
 $$
 
 From these two formulas we can derive the variance of $\tau$ as:
@@ -120,7 +119,7 @@ $$
 -(\boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e})^2
 $$
 
-Calculating the mean and variance of phase-type distributions is straightforward in ```phasty```. We can do so by using the generic functions  ```mean()``` and ```var()``` on a ```cont_phase_type``` object. For example:
+Calculating the mean and variance of a phase-type distributed random variable is straightforward in ```phasty```. We can do so by using the generic functions  ```mean()``` and ```var()``` on a ```cont_phase_type``` object. For example:
 
 
 ```{r mean_var_cont, collapse = TRUE}
@@ -138,12 +137,12 @@ summary(ph)
 **The probability density function** (PDF) of a continuous phase-type distribution is defined by **equation 3.1.7** [@Bladt2017 page p.131]:
 
 $$
-f(u) = \boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{t}
+f(u) = \boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{t}, \quad u\ge0,
 $$
-where $\boldsymbol{t} = -\boldsymbol{T}\boldsymbol{e}$ is the exit rate of the sub-intensity matrix (the vector of transition from state $i$ to the absorbing state). From there we can get the **cumulative distribution function** (CDF) as:
+where $\boldsymbol{t} = -\boldsymbol{T}\boldsymbol{e}$ is the exit rate of the sub-intensity matrix (the vector of rates from state $i$ to the absorbing state). We can get the **cumulative distribution function** (CDF) as:
 
 $$ 
-F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}
+F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 $$
 
 We can easily calculate the PDF and the CDF with `dphtype()` and `pphtype()` respectively:
@@ -154,11 +153,12 @@ pdf <- dphtype(x, ph)
 cdf <- pphtype(x, ph)
 
 
-plot(x, cdf, xlab = "Time to absorbing state", ylab = "", col = "orange", type = 'l')
-lines(x, pdf, col = "blue")
-title('PDF and CFD')
-legend(6, 0.4, legend=c('PDF', 'CDF'),
-       col=c("orange", "blue"), lty=1)
+plot(x, cdf, xlab = "Time to absorbtion", ylab = "PDF and CDF", col = "orange", 
+     type = 'l', lwd=2, ylim=c(0,1))
+lines(x, pdf, col = "blue",lwd=2)
+title('Probability and cumulative density functions (PDF and CDF)')
+legend("topleft", bty="n", legend=c('PDF', 'CDF'),
+       col=c("orange", "blue"), lty=1, lwd=2)
 ```
 
 
@@ -166,8 +166,8 @@ Additionally, we can compute the quantile function using `qphtype()`:
 
 ```{r}
 x <- seq(0.05, 0.95, 0.01)
-plot(x, qphtype(x, ph), col = "orange", 
-     ylab = "Time to absorbing state", xlab = "Quantile")
+plot(x, qphtype(x, ph), col = "orange", type="l", lwd=2, xlim=c(0,1),
+     ylab = "Time to absorbtion", xlab = "Quantile")
 title('Quantile function')
 ```
 
