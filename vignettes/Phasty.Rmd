@@ -50,7 +50,7 @@ This package is a complete as possible, nevertheless, it stays a package which b
 
 # 2. The phase-type S3 class objects
 
-The functions provided by ```phasty``` require objects of class ```disc_phase_type```, ```cont_phase_type```, ```mult_disc_phase_type``` or ```mult_cont_phase_type```, which can be obtain using the generator functions ```PH()```, ```DPH()```, ```MPH()``` and ```MDPH()``` respectively. here is an example considering a univariate continuous phase-type distribution:
+The functions provided by ```phasty``` require objects of class ```disc_phase_type```, ```cont_phase_type```, ```mult_disc_phase_type``` or ```mult_cont_phase_type```, which can be obtain using the generator functions ```PH()```, ```DPH()```, ```MPH()``` and ```MDPH()``` respectively. Here is an example considering a univariate continuous phase-type distribution:
 
 ```{r PH()_example}
 subintensity_matrix <- matrix(c(-1.5, 0, 0,
