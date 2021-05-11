@@ -3,6 +3,7 @@ title: "Phasty v0.9"
 Author: 
 - Iker Rivas-González
 - Colin Guétemme
+- Asger Hobolth
 output:
   html_document:
     fig_caption: yes
@@ -104,7 +105,7 @@ ph
 Given the formulas from **Theorem 3.1.16** and **Corollary 3.1.18** [@Bladt2017 page p.135], the mean of a variable following a continuous phase-type distribution is define as:
 
 $$
-\mathbb{E} (\tau) = \boldsymbol{\pi U e} = \boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e}
+\mathbb{E} (\tau) = \boldsymbol{\pi U e} = \boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e},
 $$
 and from **Corollary 3.1.18** [@Bladt2017 page p.135], the expectation of $\tau^n$ is defined as:
 
@@ -116,7 +117,7 @@ From these two formulas we can derive the variance of $\tau$ as:
 
 $$
 \mathbb{V} (\tau) = (2\boldsymbol{\pi} (-\boldsymbol{T})^{-2} \boldsymbol{e})
--(\boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e})^2
+-(\boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e})^2.
 $$
 
 Calculating the mean and variance of a phase-type distributed random variable is straightforward in ```phasty```. We can do so by using the generic functions  ```mean()``` and ```var()``` on a ```cont_phase_type``` object. For example:
@@ -245,14 +246,14 @@ $$
 As for the continuous case, it is possible to investigate this distribution by using a similar set of functions:
 
 ```{r plot_disc}
-x <- seq(0, qphtype(0.95, dph), 1)
+x <- seq(0, qphtype(0.95, dph), by=1)
 pmf <- dphtype(x, dph)
 cdf <- pphtype(x, dph)
 data <- cbind(pmf,cdf)
-plot(t(data), xlab = "Time to absorbing state", col = c("orange","blue"), beside = T)
-title('Density and distribution functions')
-legend("topleft", bty="n", legend=c('PDF', 'CDF'),
-       col=c("orange", "blue"), lty=1)
+#plot(t(data), xlab = "Time to absorbing state", col = c("orange","blue"), beside = T)
+#title('Density and distribution functions')
+#legend("topleft", bty="n", legend=c('PDF', 'CDF'),
+#       col=c("orange", "blue"), lty=1)
 
 x <- seq(0.05, 0.95, 0.01)
 plot(x, qphtype(x, dph), col = "orange", ylab = "Time to absorbing state", xlab = "Quantile",xlim=c(0,1),ylim=c(0,10))
