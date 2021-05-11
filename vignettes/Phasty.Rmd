@@ -3,6 +3,7 @@ title: "Phasty v0.9"
 Author: 
 - Iker Rivas-González
 - Colin Guétemme
+- Asger Hobolth
 output:
   html_document:
     fig_caption: yes
@@ -104,7 +105,7 @@ ph
 Given the formulas from **Theorem 3.1.16** and **Corollary 3.1.18** [@Bladt2017 page p.135], the mean of a variable following a continuous phase-type distribution is define as:
 
 $$
-\mathbb{E} (\tau) = \boldsymbol{\pi U e} = \boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e}
+\mathbb{E} (\tau) = \boldsymbol{\pi U e} = \boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e},
 $$
 and from **Corollary 3.1.18** [@Bladt2017 page p.135], the expectation of $\tau^n$ is defined as:
 
@@ -116,7 +117,7 @@ From these two formulas we can derive the variance of $\tau$ as:
 
 $$
 \mathbb{V} (\tau) = (2\boldsymbol{\pi} (-\boldsymbol{T})^{-2} \boldsymbol{e})
--(\boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e})^2
+-(\boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e})^2.
 $$
 
 Calculating the mean and variance of a phase-type distributed random variable is straightforward in ```phasty```. We can do so by using the generic functions  ```mean()``` and ```var()``` on a ```cont_phase_type``` object. For example:
@@ -172,7 +173,7 @@ title('Quantile function')
 ```
 
 
-We can also create random draws from the phase-type distribution by using `rphtype()`:
+We can also make random draws from the phase-type distribution using `rphtype()`:
 
 ```{r}
 cat('10 random samples: \n', rphtype(5, ph), '\n', rphtype(5, ph))
@@ -195,9 +196,11 @@ cat('10 random samples: \n', rphtype(5, ph), '\n', rphtype(5, ph))
 
 ## 3.2. The discrete univariate phase-type
 
-Instead of using a MJP (also called continuous Markov chain), it is also possible to consider a <span style="color:orange"> **Markov chain (MC)** </span>. Let's consider $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\tau \in \mathbb{N}$. $\tau$ will represent the number of states visited before entering the absorbing state. For that reason, the sub-intensity matrix $\boldsymbol{T}$ will not contain rates, but rather the probability of jumping from one state to another. 
 
-Discrete phase-type distributions can be created in `phasty` using the very same `DPH()` function used for the continuous case, but specifying a sub-intensity matrix that meets the requirements for a discrete phase-type distribution:
+Instead of using a Markov Jump Process (also called continuous time Markov chain), it is also possible to consider a discrete <span style="color:orange"> **Markov chain (MC)** </span>. Let's consider $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\tau \in \mathbb{N}$. Here $\tau$ is the number of state transitions before entering the absorbing state. The sub-intensity matrix $\boldsymbol{T}$ contains the probability of jumping from one state to another. 
+
+
+Discrete phase-type distributions can be created in `phasty` using the `DPH()` function by specifying a sub-intensity matrix that meets the requirements for a discrete phase-type distribution:
 
 ```{r disc_example}
 subintensity_matrix <- matrix(c(0, 0.2, 0.8,
@@ -210,10 +213,10 @@ dph
 
 ```
 
-As for the continuous phase-type, it is possible to describe any moment using the factorial moment using describe in  **proposition 2.7.iii** [@Navarro2019 page p.12]
+As for the continuous phase-type, it is possible to determine any moment by using the formula in  **Proposition 2.7.iii** [@Navarro2019 page p.12]
 
 $$
-\mathbb{E} (\tau(\tau - 1) ... (\tau-(n-1))) = n!\boldsymbol{\pi T}^{n-1} (\boldsymbol{I}-\boldsymbol{T})^{-n} \boldsymbol{e}
+\mathbb{E} (\tau(\tau - 1) ... (\tau-(n-1))) = n!\boldsymbol{\pi T}^{n-1} (\boldsymbol{I}-\boldsymbol{T})^{-n} \boldsymbol{e}, \quad n=1,2,\ldots.
 $$
 
 This leads to a mean and variance given by:
@@ -230,33 +233,32 @@ cat('\n', 'Mean: ',mean(dph),'\n')
 cat(' Variance: ',var(dph),'\n \n')
 ```
 
-On the other hand, **theorem 1.2.58 and 1.2.59** [@Bladt2017 page p.30] shows respectively that the density of a discrete phase-type distributed variable is
+On the other hand, **Theorem 1.2.58 and 1.2.59** in [@Bladt2017 page p.30] shows that the density of a discrete phase-type distributed variable is
 
 $$
-f_\tau(n) = \boldsymbol{\pi T}^{n-1}\boldsymbol{t}
+f_\tau(n) = \boldsymbol{\pi T}^{n-1}\boldsymbol{t}, \quad n=1,2,\ldots,
 $$
 
 and its distribution function is
 
 $$
-F_\tau(n) = 1-\boldsymbol{\pi T}^{n}\boldsymbol{e}
+F_\tau(n) = 1-\boldsymbol{\pi T}^{n}\boldsymbol{e}, \quad n=1,2,\ldots.
 $$
 
-As for the continuous case, it is possible to build this distribution by using the same set of functions:
+As for the continuous case, it is possible to investigate this distribution by using a similar set of functions:
 
 ```{r plot_disc}
-x <- seq(0, qphtype(0.95, dph), 1)
+x <- seq(0, qphtype(0.95, dph), by=1)
 pmf <- dphtype(x, dph)
 cdf <- pphtype(x, dph)
-
-data <- cbind(cdf, pmf)
-barplot(t(data), xlab = "Time to absorbing state", col = c("orange","blue"), beside = T)
-title('Density and distribution functions')
-legend(2, 0.7, legend=c('PDF', 'CDF'),
-       col=c("orange", "blue"), lty=1)
+data <- cbind(pmf,cdf)
+#plot(t(data), xlab = "Time to absorbing state", col = c("orange","blue"), beside = T)
+#title('Density and distribution functions')
+#legend("topleft", bty="n", legend=c('PDF', 'CDF'),
+#       col=c("orange", "blue"), lty=1)
 
 x <- seq(0.05, 0.95, 0.01)
-plot(x, qphtype(x, dph), col = "orange", ylab = "Time to absorbing state", xlab = "Quantile")
+plot(x, qphtype(x, dph), col = "orange", ylab = "Time to absorbing state", xlab = "Quantile",xlim=c(0,1),ylim=c(0,10))
 title('Quantile function')
 ```
 
