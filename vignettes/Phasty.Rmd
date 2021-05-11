@@ -84,7 +84,7 @@ PH(subintensity_matrix)
 
 ## 3.1. The continuous univariate phase-type
 
-Consider $\{X_t\}_{t\ge0}$ to be a  <span style="color:orange"> **Markov jump process (MJP)** </span>  with $p$ transient states and 1 absorbing state. If $\tau$ is defined as the time when $\{X_t\}_{t\ge0}$ reaches the absorbing state, then $\tau$ follows a continuous phase-type distribution $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\boldsymbol{T}$ is the sub-intensity matrix of the corresponding MJP and $\boldsymbol{\pi}$ is the vector of starting probabilities.
+Consider $\{X_t\}_{t\ge0}$ to be a  **Markov jump process (MJP)** with $p$ transient states and 1 absorbing state. If $\tau$ is defined as the time when $\{X_t\}_{t\ge0}$ reaches the absorbing state, then $\tau$ follows a continuous phase-type distribution $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\boldsymbol{T}$ is the sub-intensity matrix of the corresponding MJP and $\boldsymbol{\pi}$ is the vector of starting probabilities.
 
 As specified before, a continuous phase-type distribution object can be created in ```phasty``` using the ```PH()``` function:
 
@@ -195,7 +195,7 @@ cat('10 random samples: \n', rphtype(5, ph), '\n', rphtype(5, ph))
 
 ## 3.2. The discrete univariate phase-type
 
-Instead of using a MJP (also called continuous Markov chain), it is also possible to consider a <span style="color:orange"> **Markov chain (MC)** </span>. Let's consider $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\tau \in \mathbb{N}$. $\tau$ will represent the number of states visited before entering the absorbing state. For that reason, the sub-intensity matrix $\boldsymbol{T}$ will not contain rates, but rather the probability of jumping from one state to another. 
+Instead of using a MJP (also called continuous Markov chain), it is also possible to consider a **Markov chain (MC)**. Let's consider $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\tau \in \mathbb{N}$. $\tau$ will represent the number of states visited before entering the absorbing state. For that reason, the sub-intensity matrix $\boldsymbol{T}$ will not contain rates, but rather the probability of jumping from one state to another. 
 
 Discrete phase-type distributions can be created in `phasty` using the very same `DPH()` function used for the continuous case, but specifying a sub-intensity matrix that meets the requirements for a discrete phase-type distribution:
 
