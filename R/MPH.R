@@ -32,9 +32,6 @@
 MPH <- function(subint_mat = NULL, init_probs = NULL,
                 reward_mat = NULL, round_zero = NULL) {
 
-  if (!is.matrix(reward_mat)){
-    stop('Please provide a reward matrix.')
-  }
 
   lst_check <- check_phase_type(subint_mat, init_probs,
                                 reward_mat, round_zero)

@@ -84,6 +84,8 @@ check_phase_type <- function(subint_mat, init_probs,
     if (nrow(reward_mat) != length(init_probs)){
       stop('The reward matrix does not have the same number of columns as the number of states.')
     }
+  } else {
+    stop('Please provide a reward matrix.')
   }
 
   list(subint_mat = subint_mat,
