@@ -76,6 +76,17 @@ check_phase_type <- function(subint_mat, init_probs,
 
   ###### Check if the reward matrix has the right shape
 
+
+  list(subint_mat = subint_mat,
+       init_probs = init_probs)
+
+
+}
+
+
+
+check_reward <- function(reward_mat, init_probs) {
+
   if (is.matrix(reward_mat)){
     if (sum(reward_mat < 0) > 0){
       stop('The reward matrix should only contains non-negative values.')
@@ -87,10 +98,6 @@ check_phase_type <- function(subint_mat, init_probs,
   } else {
     stop('Please provide a reward matrix.')
   }
-
-  list(subint_mat = subint_mat,
-       init_probs = init_probs)
-
 
 }
 

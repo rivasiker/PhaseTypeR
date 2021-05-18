@@ -39,6 +39,8 @@ MPH <- function(subint_mat = NULL, init_probs = NULL,
   subint_mat <- lst_check$subint_mat
   init_probs <- lst_check$init_probs
 
+  check_reward(reward_mat, init_probs)
+
   #############
   # Check the conditions necessary for continuous phase-type distribution
   #############

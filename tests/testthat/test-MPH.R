@@ -65,6 +65,21 @@ test_that(
                      reward_matrix),
                  'size')
 
+  })
+
+
+test_that(
+  'test of all the error and warnings in the check_reward function with MPH', {
+
+    # [E] No reward matrix provided
+    expect_error(
+      MPH(
+        subintensity_matrix,
+        initial_probabilities
+      ),
+      'reward matrix'
+    )
+
     # [E] Non-negative reward vector values
     expect_error(
       MPH(
@@ -87,8 +102,6 @@ test_that(
 
 
   })
-
-
 
 test_that(
   'test of all the error and warnings in the MPH function', {
