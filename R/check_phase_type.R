@@ -14,8 +14,7 @@ check_phase_type <- function(subint_mat, init_probs,
   ###### Check if sub-intensity matrix is provided
 
   if (is.null(subint_mat)) {
-    stop('Unable to construct the phase-type distribution.
-         Please provide either the type or the subintensity matrix.')
+    stop('Please provide a valid subintensity matrix.')
   }
 
   ###### Check if sub-intensity matrix is a matrix
@@ -58,17 +57,15 @@ check_phase_type <- function(subint_mat, init_probs,
     }
 
     if (nrow(subint_mat) != length(init_probs)) {
-      stop('The length of the initial probabilities does not match the size of
-           the subintensity matrix.')
+      stop('The length of the initial probability vector does not match the size of the subintensity matrix.')
     }
 
     if (sum(init_probs) == 0){
-      warning('The sum of the inital probability is equal to 0 with a defect
-              of 1.\n')
+      warning('The sum of the inital probability is equal to 0 with a defect of 1.')
     }
 
     if (sum(init_probs) < 0 || sum(init_probs) > 1){
-      stop('The total initial probability should be between 0 and 1')
+      stop('The sum of the initial probabilities should be between 0 and 1')
     } else if (sum(init_probs < 0) != 0 || sum(init_probs > 1) != 0) {
       stop('Each initial probability should be between 0 and 1.')
     }

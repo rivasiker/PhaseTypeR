@@ -107,6 +107,10 @@
 
 reward_phase_type <- function(phase_type, reward, round_zero = NULL){
 
+  if (!is.numeric(reward)) {
+    stop('Please provide a valid reward vector.')
+  }
+
   ##=====================##
   ## Discrete phase-type ##
   ##=====================##
