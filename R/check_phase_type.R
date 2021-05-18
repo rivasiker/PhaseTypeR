@@ -71,20 +71,18 @@ check_phase_type <- function(subint_mat, init_probs,
     }
 
   } else {
-    stop('The initial probabilities must be a a matrix with one row or
-         a vector.')
+    stop('The initial probabilities must be a a matrix with one row or a vector.')
   }
 
   ###### Check if the reward matrix has the right shape
 
   if (is.matrix(reward_mat)){
-    if (sum(reward_mat < 0) < 0){
+    if (sum(reward_mat < 0) > 0){
       stop('The reward matrix should only contains non-negative values.')
     }
 
     if (nrow(reward_mat) != length(init_probs)){
-      stop('The reward matrix does not have the same number of columns as the
-           number of states.')
+      stop('The reward matrix does not have the same number of columns as the number of states.')
     }
   }
 
