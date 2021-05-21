@@ -45,6 +45,7 @@ phase_type_to_network <- function(phase_type, t = NULL) {
 
     mat <- phase_type$subint_mat
     x <- rbind(cbind(mat, -rowSums(mat)), c(rep(0, nrow(mat)+1)))
+    print(x)
     if (is.numeric(t)) {
       x <- round(expm(x*t), 3)
     } else if (is.null(t)) {
