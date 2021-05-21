@@ -9,6 +9,8 @@
 #' @param t NULL or numeric. Sampling time for the continuous phase-type distribution.
 #'
 #' @usage phase_type_to_network(phase_type, t = NULL)
+#'
+#' @export
 
 
 
