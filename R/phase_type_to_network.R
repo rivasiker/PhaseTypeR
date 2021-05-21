@@ -43,15 +43,9 @@ phase_type_to_network <- function(phase_type, t = NULL) {
 
 
 
-
-    id_mat <-
-      data.frame(
-        id = paste0('V', 0:(nrow(x)-1)),
-        color = c('tomato', rep('gray80', nrow(x)-2), 'gold')
-      )
-
     mat <- phase_type$subint_mat
     x <- rbind(cbind(mat, -rowSums(mat)), c(rep(0, nrow(mat)+1)))
+    print(x)
     if (is.numeric(t)) {
       x <- round(expm(x*t), 3)
     } else if (is.null(t)) {
@@ -64,6 +58,12 @@ phase_type_to_network <- function(phase_type, t = NULL) {
     rownames(x) <- colnames(x)
     link_mat <- data.frame(from=rownames(x)[row(x)], to=colnames(x)[col(x)],  weight=c(x))
     link_mat <- link_mat[link_mat$weight != 0,]
+
+    id_mat <-
+      data.frame(
+        id = paste0('V', 0:(nrow(x)-1)),
+        color = c('tomato', rep('gray80', nrow(x)-2), 'gold')
+      )
 
 
   }
