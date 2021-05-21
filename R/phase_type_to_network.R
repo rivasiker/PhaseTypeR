@@ -1,0 +1,70 @@
+
+#' Phase-type distribution to network
+#'
+#' phase_type_to_network
+#'
+#'
+#' @param phase_type an object of class \code{disc_phase_type} or
+#' \code{cont_phase_type}
+#' @param t NULL or numeric. Sampling time for the continuous phase-type distribution.
+#'
+#' @usage phase_type_to_network(phase_type, t = NULL)
+
+
+
+
+phase_type_to_network <- function(phase_type, t = NULL) {
+
+  if (class(phase_type) == 'disc_phase_type') {
+
+    if (!is.null(t)) {
+      warning('Argument t not used')
+    }
+
+    mat <- phase_type$subint_mat
+    x <- rbind(cbind(mat, 1-rowSums(mat)), c(rep(0, nrow(mat)), 1))
+    x <- rbind(c(phase_type$init_probs, 1-sum(phase_type$init_probs)), x)
+    x <- cbind(rep(0, nrow(x)), x)
+    colnames(x) <- paste0('V', 0:(nrow(x)-1))
+    rownames(x) <- colnames(x)
+    link_mat <- data.frame(from=rownames(x)[row(x)], to=colnames(x)[col(x)],  weight=c(x))
+    link_mat <- link_mat[link_mat$weight != 0,]
+
+    id_mat <-
+      data.frame(
+        id = paste0('V', 0:(nrow(x)-1)),
+        color = c('tomato', rep('gray80', nrow(x)-2), 'gold')
+      )
+
+
+  } else if (class(phase_type) == 'cont_phase_type') {
+
+
+
+
+    id_mat <-
+      data.frame(
+        id = paste0('V', 0:(nrow(x)-1)),
+        color = c('tomato', rep('gray80', nrow(x)-2), 'gold')
+      )
+
+    mat <- phase_type$subint_mat
+    x <- rbind(cbind(mat, -rowSums(mat)), c(rep(0, nrow(mat)+1)))
+    if (is.numeric(t)) {
+      x <- round(expm(x*t), 3)
+    } else if (is.null(t)) {
+    } else {
+      stop('Please provide a numeric time or NULL')
+    }
+    x <- rbind(c(phase_type$init_probs, 1-sum(phase_type$init_probs)), x)
+    x <- cbind(rep(0, nrow(x)), x)
+    colnames(x) <- paste0('V', 0:(nrow(x)-1))
+    rownames(x) <- colnames(x)
+    link_mat <- data.frame(from=rownames(x)[row(x)], to=colnames(x)[col(x)],  weight=c(x))
+    link_mat <- link_mat[link_mat$weight != 0,]
+
+
+  }
+
+  graph_from_data_frame(d=link_mat, vertices=id_mat, directed=T)
+}
