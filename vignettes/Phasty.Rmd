@@ -107,13 +107,14 @@ Given the formulas from **Theorem 3.1.16** and **Corollary 3.1.18** [@Bladt2017 
 $$
 \mathbb{E} (\tau) = \boldsymbol{\pi U e} = \boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e},
 $$
-and from **Corollary 3.1.18** [@Bladt2017 page p.135], the expectation of $\tau^n$ is defined as:
+and from **Corollary 3.1.18** [@Bladt2017 page p.135], the expectation of $\tau^n$ is given by
 
 $$
-\mathbb{E} (\tau^n) = n!\boldsymbol{\pi} (-\boldsymbol{T})^{-n} \boldsymbol{e}.
+\mathbb{E} (\tau^n) = n!\boldsymbol{\pi} (-\boldsymbol{T})^{-n} \boldsymbol{e},
+\quad n=1,2,\ldots.
 $$
 
-From these two formulas we can derive the variance of $\tau$ as:
+From these two formulas we can derive the variance of $\tau$ as
 
 $$
 \mathbb{V} (\tau) = (2\boldsymbol{\pi} (-\boldsymbol{T})^{-2} \boldsymbol{e})
@@ -153,13 +154,12 @@ x <- seq(0, qphtype(0.95, ph), length.out = 100)
 pdf <- dphtype(x, ph)
 cdf <- pphtype(x, ph)
 
-
-plot(x, cdf, xlab = "Time to absorbtion", ylab = "PDF and CDF", col = "orange", 
+{plot(x, cdf, xlab = "Time to absorption", ylab = "PDF and CDF", col = "orange", 
      type = 'l', lwd=2, ylim=c(0,1))
 lines(x, pdf, col = "blue",lwd=2)
 title('Probability and cumulative density functions (PDF and CDF)')
 legend("topleft", bty="n", legend=c('PDF', 'CDF'),
-       col=c("orange", "blue"), lty=1, lwd=2)
+       col=c("orange", "blue"), lty=1, lwd=2)}
 ```
 
 
@@ -167,9 +167,9 @@ Additionally, we can compute the quantile function using `qphtype()`:
 
 ```{r}
 x <- seq(0.05, 0.95, 0.01)
-plot(x, qphtype(x, ph), col = "orange", type="l", lwd=2, xlim=c(0,1),
+{plot(x, qphtype(x, ph), col = "orange", type="l", lwd=2, xlim=c(0,1),
      ylab = "Time to absorbtion", xlab = "Quantile")
-title('Quantile function')
+title('Quantile function')}
 ```
 
 
@@ -220,24 +220,26 @@ $$
 This leads to a mean and variance given by:
 
 $$
- \mathbb{E} (\tau) = \boldsymbol{\pi}(\boldsymbol{I}-\boldsymbol{T})^{-1}\boldsymbol{e} \\
- \mathbb{V} (\tau) = 2\boldsymbol{\pi}\boldsymbol{T}(\boldsymbol{I}-\boldsymbol{T})^{-2}\boldsymbol{e} + \mathbb{E} (\tau) - \mathbb{E} (\tau)^2
+ \mathbb{E} (\tau) = \boldsymbol{\pi}(\boldsymbol{I}-\boldsymbol{T})^{-1}\boldsymbol{e}, \\
+ \mathbb{E} (\tau(\tau-1))=
+   2\boldsymbol{\pi}\boldsymbol{T}(\boldsymbol{I}-\boldsymbol{T})^{-2}\boldsymbol{e}, \\
+ \mathbb{V} (\tau) = \mathbb{E} (\tau(\tau-1)) + \mathbb{E} (\tau) - \mathbb{E} (\tau)^2.
 $$
 
-In ```phasty``` the mean and variance of a discrete phase-type distribution can be reached using the generic functions `mean()` and `var()`:
+In ```phasty``` the mean and variance of a discrete phase-type distribution can be obtained using the generic functions `mean()` and `var()`:
 
 ```{r mean_var_disc}
 cat('\n', 'Mean: ',mean(dph),'\n')
 cat(' Variance: ',var(dph),'\n \n')
 ```
 
-On the other hand, **Theorem 1.2.58 and 1.2.59** in [@Bladt2017 page p.30] shows that the density of a discrete phase-type distributed variable is
+**Theorem 1.2.58 and 1.2.59** in [@Bladt2017 page p.30] shows that the probability distribution of a discrete phase-type distributed variable is
 
 $$
 f_\tau(n) = \boldsymbol{\pi T}^{n-1}\boldsymbol{t}, \quad n=1,2,\ldots,
 $$
 
-and its distribution function is
+and its cumulative distribution function is
 
 $$
 F_\tau(n) = 1-\boldsymbol{\pi T}^{n}\boldsymbol{e}, \quad n=1,2,\ldots.
@@ -247,17 +249,18 @@ As for the continuous case, it is possible to investigate this distribution by u
 
 ```{r plot_disc}
 x <- seq(0, qphtype(0.95, dph), by=1)
-pmf <- dphtype(x, dph)
+pdf <- dphtype(x, dph)
 cdf <- pphtype(x, dph)
-data <- cbind(pmf,cdf)
-#plot(t(data), xlab = "Time to absorbing state", col = c("orange","blue"), beside = T)
-#title('Density and distribution functions')
-#legend("topleft", bty="n", legend=c('PDF', 'CDF'),
-#       col=c("orange", "blue"), lty=1)
+{plot(x, cdf, xlab = "Time to absorption", ylab = "PDF and CDF", col = "orange", 
+     type = 'l', lwd=2, ylim=c(0,1))
+lines(x, pdf, col = "blue",lwd=2)
+title('Probability and cumulative density functions (PDF and CDF)')
+legend("topleft", bty="n", legend=c('PDF', 'CDF'),
+       col=c("orange", "blue"), lty=1, lwd=2)}
 
 x <- seq(0.05, 0.95, 0.01)
-plot(x, qphtype(x, dph), col = "orange", ylab = "Time to absorbing state", xlab = "Quantile",xlim=c(0,1),ylim=c(0,10))
-title('Quantile function')
+{plot(x, qphtype(x, dph), col = "orange", ylab = "Time to absorption", xlab = "Quantile",xlim=c(0,1),ylim=c(0,10))
+title('Quantile function')}
 ```
 
 ```{r disc_ggplot, echo=FALSE, out.width = '70%'}
@@ -275,25 +278,25 @@ title('Quantile function')
 
 ## 3.3. The reward transformation
 
-A reward transformation allows to give a weights to each state. Those weights should be non-negative (but they can be zero). 
+A reward transformation allows to give a non-negative weights to each state. 
 
-### 3.3.1 Positive rewards for continuous phase-type distribution
+### 3.3.1 Strictly positive rewards for continuous phase-type distribution
 
 Considering $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$ with $\{X_t\}_{t \ge 0}$ the underlying Markov jump process, and the reward vector $\boldsymbol{r} = (r_1,\ r_2,\ ...\,,\ r_n) \in \mathbb{R}^p_+$.
 
-We can then set the new variable:
+We can then define the new variable
 
 $$
- Y = \int^\tau_0 r(X_t)dt
+ Y = \int^\tau_0 r(X_t)dt,
 $$
 
-which corresponds to the weighted time before absorption (or the reward earned until absorption). Given **theorem 3.1.33** [@Bladt2017], this new variable also follows a continuous phase-type distributed that can be described as:
+which corresponds to the weighted time before absorption (or the reward earned until absorption). From **theorem 3.1.33** [@Bladt2017] it follows that this new variable also follows a continuous phase-type distributed 
 
 $$
-Y \sim PH(\boldsymbol{T}^\star, \boldsymbol{\pi}^\star)
+Y \sim PH(\boldsymbol{T}^\star, \boldsymbol{\pi}^\star).
 $$
 
-Deriving $\boldsymbol{T}^\star$ and $\boldsymbol{\pi}^\star$ is rather simple if the given rewards only contain positive values, in that case, the rates are divided by the corresponding rewards ($\boldsymbol{T}^\star$ = $\boldsymbol{Tr}$) and the initial probabilities are not modified ($\boldsymbol{\pi}^\star$ = $\boldsymbol{\pi}$).
+Deriving $\boldsymbol{T}^\star$ and $\boldsymbol{\pi}^\star$ is rather simple if the given rewards only contain positive values, in that case, the rates are divided by the corresponding rewards ($\boldsymbol{T}^\star$ = $\boldsymbol{Tr}$) and the initial probabilities remain the same ($\boldsymbol{\pi}^\star$ = $\boldsymbol{\pi}$).
 
 Taking the previous example and applying a reward vector $\boldsymbol{r} = (1,\ 2,\ 3)$, the continuous phase-type distribution can easily be reward-transformed in `phasty` using `reward_phase_type()`:
 
@@ -308,28 +311,28 @@ pdf <- dphtype(x, rph)
 cdf <- pphtype(x, rph)
 
 
-plot(x, cdf, xlab = "Time to absorbing state", ylab = "", col = "orange", type = 'l')
+{plot(x, cdf, xlab = "Time to absorption", ylab = "", col = "orange", type = 'l',ylim=c(0,1))
 lines(x, pdf, col = "blue")
 title('Density and distribution functions')
-legend(15, 0.6, legend=c('PDF', 'CDF'),
-       col=c("orange", "blue"), lty=1)
+legend("topleft", legend=c('PDF', 'CDF'),
+       col=c("orange", "blue"), lty=1,bty="n")}
 ```
 
 ```{r reward_cont_ggplot, echo=FALSE, out.width = '70%'}
 # knitr::include_graphics("pic/reward_cont_ggplot.jpg")
 ```
 
-### 3.3.2. Positive rewards for discrete phase-type distribution
+### 3.3.2. Strictly positive rewards for discrete phase-type distribution
 
-In discrete phase-type distribution, the reward transformation can be achieved using intermediate states as presented by Navarro [-@Navarro2019]. 
+In the discrete phase-type distribution, the reward transformation can be achieved using intermediate states as presented by Navarro [-@Navarro2019]. 
 
 Considering $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$ with $\{X_n\}_{n \ge 0}$ the underlying Markov chain, and the reward vector  $\boldsymbol{r} = (r_1,\ r_2,\ ...\,,\ r_p) \in \mathbb{N}$. As for the continuous phase-type:
 
 $$
-Y = \sum_{n=0}^{\tau - 1} r(X_n)
+Y = \sum_{n=0}^{\tau - 1} r(X_n).
 $$
 
-Using the same discrete phase-type distribution as before, we can reward-transform the distribution using $\boldsymbol{r} = (1,\ 2,\ 3)$:
+Using the same discrete phase-type distribution as before, we can reward-transform the distribution using $\boldsymbol{r} = (1,\ 2,\ 3)$
 
 ```{r}
 rdph <- reward_phase_type(dph, c(1, 2, 3))
@@ -338,21 +341,21 @@ print(rdph)
 
 ```{r}
 x <- seq(0, qphtype(0.95, rdph), 1)
-pmf <- dphtype(x, rdph)
+pdf <- dphtype(x, rdph)
 cdf <- pphtype(x, rdph)
-
-data <- cbind(cdf, pmf)
-barplot(t(data), xlab = "Time to absorbing state", col = c("orange","blue"), beside = T)
-title('Density and distribution functions')
-legend(1, 0.7, legend=c('PDF', 'CDF'),
-       col=c("orange", "blue"), lty=1)
+{plot(x, cdf, xlab = "Time to absorption", ylab = "PDF and CDF", col = "orange", 
+     type = 'l', lwd=2, ylim=c(0,1))
+lines(x, pdf, col = "blue",lwd=2)
+title('Probability and cumulative density functions (PDF and CDF)')
+legend("topleft", bty="n", legend=c('PDF', 'CDF'),
+       col=c("orange", "blue"), lty=1, lwd=2)}
 ```
 
 ```{r reward_disc_ggplot, echo=FALSE, out.width = '70%'}
 # knitr::include_graphics("pic/reward_disc_ggplot.jpg")
 ```
 
-### 3.3.3. Dealing with zero rewards
+### 3.3.3. Non-negative reward transformation
 
 To perform a reward transformation with at least one reward of zero, it is necessary to transform the sub-intensity matrix and initial probabilities by removing the zero rewarded state and then apply the positive rewards on the remaining states. 
 
