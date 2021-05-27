@@ -31,7 +31,7 @@ knitr::opts_chunk$set(
 library(phasty)
 ```
 
-# Background
+# Preface
 Please report any issues on [the git page of the package](https://github.com/rivasiker/phasty).
 
 Most background and details can be found in the book by Mogens Bladt and Bo Friis Nielsen [-@Bladt2017]: Matrix-Exponential Distributions in Applied Probability,
@@ -283,7 +283,7 @@ title('Quantile function')}
 
 ```
 
-## 4. Reward transformations
+# 4. Reward transformations
 
 A reward transformation allows to give a non-negative weights to each state. 
 
