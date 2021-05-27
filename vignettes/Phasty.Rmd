@@ -203,7 +203,7 @@ cat('10 random samples: \n', rphtype(5, ph), '\n', rphtype(5, ph))
 
 ## 3.2. The discrete univariate phase-type
 
-Instead of using a Markov Jump Process (also called continuous time Markov chain), it is also possible to consider a discrete **Markov chain (MC)**. Let's consider $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\tau \in \mathbb{N}$. Here $\tau$ is the number of state transitions before entering the absorbing state. The sub-intensity matrix $\boldsymbol{T}$ contains the probability of jumping from one state to another. 
+Instead of using a Markov Jump Process (also sometimes called a continuous time Markov chain), it is also possible to consider a discrete **Markov chain (MC)**. Let's consider $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\tau \in \mathbb{N}$. Here $\tau$ is the number of state transitions before entering the absorbing state. The sub-intensity matrix $\boldsymbol{T}$ contains the probability of jumping from one state to another. 
 
 Discrete phase-type distributions can be created in `phasty` using the `DPH()` function by specifying a sub-intensity matrix that meets the requirements for a discrete phase-type distribution:
 
@@ -221,15 +221,15 @@ dph
 As for the continuous phase-type, it is possible to determine any moment by using the formula in  **Proposition 2.7.iii** [@Navarro2019 page p.12]
 
 $$
-\mathbb{E} (\tau(\tau - 1) ... (\tau-(n-1))) = n!\boldsymbol{\pi T}^{n-1} (\boldsymbol{I}-\boldsymbol{T})^{-n} \boldsymbol{e}, \quad n=1,2,\ldots.
+\mathbb{E} (\tau(\tau - 1) \cdots (\tau-(n-1))) = n!\boldsymbol{\pi T}^{n-1} (\boldsymbol{I}-\boldsymbol{T})^{-n} \boldsymbol{e}, \quad n=1,2,\ldots.
 $$
 
 This leads to a mean and variance given by:
 
 $$
- \mathbb{E} (\tau) = \boldsymbol{\pi}(\boldsymbol{I}-\boldsymbol{T})^{-1}\boldsymbol{e}, \\
+ \mathbb{E} (\tau) = \boldsymbol{\pi}(\boldsymbol{I}-\boldsymbol{T})^{-1}\boldsymbol{e}, \quad \\
  \mathbb{E} (\tau(\tau-1))=
-   2\boldsymbol{\pi}\boldsymbol{T}(\boldsymbol{I}-\boldsymbol{T})^{-2}\boldsymbol{e}, \\
+   2\boldsymbol{\pi}\boldsymbol{T}(\boldsymbol{I}-\boldsymbol{T})^{-2}\boldsymbol{e}, \quad \\
  \mathbb{V} (\tau) = \mathbb{E} (\tau(\tau-1)) + \mathbb{E} (\tau) - \mathbb{E} (\tau)^2.
 $$
 
