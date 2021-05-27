@@ -283,13 +283,13 @@ title('Quantile function')}
 
 ```
 
-## 3.3. The reward transformation
+## 4. Reward transformations
 
 A reward transformation allows to give a non-negative weights to each state. 
 
-### 3.3.1 Strictly positive rewards for continuous phase-type distribution
+### 4.1 Strictly positive rewards for continuous phase-type distribution
 
-Considering $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$ with $\{X_t\}_{t \ge 0}$ the underlying Markov jump process, and the reward vector $\boldsymbol{r} = (r_1,\ r_2,\ ...\,,\ r_n) \in \mathbb{R}^p_+$.
+Let $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$ and let $\{X_t\}_{t \ge 0}$ denote the underlying Markov jump process. Furthermore, let the reward vector be $\boldsymbol{r} = (r_1,\ r_2,\ ...\,,\ r_n) \in \mathbb{R}^p_+$.
 
 We can then define the new variable
 
@@ -297,13 +297,13 @@ $$
  Y = \int^\tau_0 r(X_t)dt,
 $$
 
-which corresponds to the weighted time before absorption (or the reward earned until absorption). From **theorem 3.1.33** [@Bladt2017] it follows that this new variable also follows a continuous phase-type distributed 
+which corresponds to the weighted time before absorption (or the reward earned until absorption). From **Theorem 3.1.33** [@Bladt2017] it follows that this new variable is also continuous phase-type distributed 
 
 $$
 Y \sim PH(\boldsymbol{T}^\star, \boldsymbol{\pi}^\star).
 $$
 
-Deriving $\boldsymbol{T}^\star$ and $\boldsymbol{\pi}^\star$ is rather simple if the given rewards only contain positive values, in that case, the rates are divided by the corresponding rewards ($\boldsymbol{T}^\star$ = $\boldsymbol{Tr}$) and the initial probabilities remain the same ($\boldsymbol{\pi}^\star$ = $\boldsymbol{\pi}$).
+Deriving $\boldsymbol{T}^\star$ and $\boldsymbol{\pi}^\star$ is rather simple if the rewards only contain positive values. In that case the rates are divided by the corresponding rewards ($\boldsymbol{T}^\star$ = $\triangle(\boldsymbol{1/r})\boldsymbol{T}$) and the initial probabilities remain the same ($\boldsymbol{\pi}^\star$ = $\boldsymbol{\pi}$).
 
 Taking the previous example and applying a reward vector $\boldsymbol{r} = (1,\ 2,\ 3)$, the continuous phase-type distribution can easily be reward-transformed in `phasty` using `reward_phase_type()`:
 
@@ -329,11 +329,11 @@ legend("topleft", legend=c('PDF', 'CDF'),
 # knitr::include_graphics("pic/reward_cont_ggplot.jpg")
 ```
 
-### 3.3.2. Strictly positive rewards for discrete phase-type distribution
+### 4.2. Strictly positive integer-valued rewards for the discrete phase-type distribution
 
 In the discrete phase-type distribution, the reward transformation can be achieved using intermediate states as presented by Navarro [-@Navarro2019]. 
 
-Considering $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$ with $\{X_n\}_{n \ge 0}$ the underlying Markov chain, and the reward vector  $\boldsymbol{r} = (r_1,\ r_2,\ ...\,,\ r_p) \in \mathbb{N}$. As for the continuous phase-type:
+Let $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$ and let $\{X_n\}_{n \ge 0}$ be the underlying Markov chain, and the reward vector  $\boldsymbol{r} = (r_1,\ r_2,\ ...\,,\ r_p) \in \mathbb{N}$. As for the continuous phase-type:
 
 $$
 Y = \sum_{n=0}^{\tau - 1} r(X_n).
@@ -362,7 +362,7 @@ legend("topleft", bty="n", legend=c('PDF', 'CDF'),
 # knitr::include_graphics("pic/reward_disc_ggplot.jpg")
 ```
 
-### 3.3.3. Non-negative reward transformation for continuous phase-type distribution
+### 4.3. Non-negative reward transformation for continuous phase-type distribution
 
 To perform a reward transformation with one or more rewards of zero, it is necessary to transform the sub-intensity matrix and initial probabilities by removing the zero rewarded states and then apply the positive rewards on the remaining states. 
 
@@ -387,7 +387,7 @@ $$
 
 The superscripts of the sub-matrices represent whether the states have positive (+) or null (0) rewards. For example, $\boldsymbol{Q}^{0+}$, is the sub-matrix which gathers the transition rates from states with a reward of zero to states with a positive reward. Also from a phase-type perspective, for any $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$ then $\tau \sim PH(\boldsymbol{Q}, \boldsymbol{\rho})$, where $\rho$ represents reordered initial probabilities. 
 
-### 3.3.4. Non-negative integer valued reward transformation for discrete phase-type distribution
+### 4.4. Non-negative integer valued reward transformation for discrete phase-type distribution
 
 Let's apply a reward of $\boldsymbol{r} = (0,\ 2,\ 3)$ to the example discrete phase-type example. We can do it in two separate steps. First, we will remove those states with a null reward:
 
@@ -417,7 +417,7 @@ reward_phase_type(ph, c(0, 2, 3))
 ```
 
 
-### 3.3.4. The variable reward in discrete phase-type
+### 4.5. The variable reward in discrete phase-type
 
 Recently unpusblished results from A. Hobolth et al. leads to think at an expansion of the reward for DPH. At each arrival in a new state the reward of this state is randomly chosen using a vector of probability 
 Applying variable reward in the discrete case is relatively easy because of the construction of the reward transformation in discrete phase-type.
@@ -441,9 +441,9 @@ $$
 In phasty this can be computed using a matrix of probability rather than a vector. Note that this matrix is not the same as in the ```DPH()``` function, since the ```disc_phase_type``` object stays univariate.
 
 
-# 4. The multivariate phase-type distribution
+# 5. The multivariate phase-type distribution
 
-## 4.1. The continuous multivariate phase-type
+## 5.1. The continuous multivariate phase-type
 
 For further details see **section 8.1** [@Bladt2017 page p.438].
 
@@ -464,9 +464,9 @@ mph <- MPH(ph$subint_mat, ph$init_probs, reward_mat = R)
 print(mph)
 ```
 
-### 4.1.1 The moments
+### 5.1.1 The moments
 
-From **theorem 8.1.5** [@Bladt2017 page p.440], the bivariate moment of an $MPH^*$ distributed variable is given by
+From **Theorem 8.1.5** [@Bladt2017 page p.440], the bivariate moment of an $MPH^*$ distributed variable is given by
 
 $$
     \mathbb{E}(Y_j Y_k) = \boldsymbol{\pi U \Delta}(\boldsymbol{r}_j)\boldsymbol{Ur}_k + \boldsymbol{\pi U \Delta}(\boldsymbol{r}_j)\boldsymbol{Ur}_i
@@ -490,9 +490,9 @@ and ```mean```, which gives the mean of each reward transformation:
 mean(mph)
 ```
 
-## 4.2 The discrete multivariate phase-type
+## 5.2 The discrete multivariate phase-type
 
-The discrete phase-type distribution is really similar to the continuous one  with more details available in **section 5.2** [@Navarro2019 page p.79]. The same construction as for the continuous will be use so we can just write  $\boldsymbol{Y} = (Y_1,\  Y_2,\  ...\,,\  Y_n)$ where $Y_i$ will corresponds to
+The discrete phase-type distribution is really similar to the continuous one  with more details available in **Section 5.2** [@Navarro2019 page p.79]. The same construction as for the continuous will be use so we can just write  $\boldsymbol{Y} = (Y_1,\  Y_2,\  ...\,,\  Y_n)$ where $Y_i$ will corresponds to
 
 $$
 Y_j = \sum_0^n r_j(X_n)
@@ -507,7 +507,7 @@ mdph <- MDPH(dph$subint_mat, dph$init_probs, reward_mat = R)
 print(mdph)
 ```
 
-### 4.2.1 The moments
+### 5.2.1 The moments
 
 From **Proposition 5.7** [@Navarro2019 page p.85] we get that the cross moment in the bivariate case is:
 
@@ -562,9 +562,10 @@ set.seed(42)
 ```
 
 
-## approximation of the CDF (for negative reward)
+## Approximation of the CDF (for negative reward). 
 
-##
+Belongs in Section 4 on reward transformations
+Lars ToDo?
 
 # References
 
