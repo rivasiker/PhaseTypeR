@@ -35,7 +35,7 @@ phase_type_to_network <- function(phase_type, t = NULL) {
     id_mat <-
       data.frame(
         id = paste0('V', 0:(nrow(x)-1)),
-        color = c('tomato', rep('gray80', nrow(x)-2), 'gold')
+        color = c('green', rep('gray80', nrow(x)-2), 'red')
       )
 
 
@@ -48,14 +48,26 @@ phase_type_to_network <- function(phase_type, t = NULL) {
     print(x)
     if (is.numeric(t)) {
       x <- round(expm(x*t), 3)
+      if (t != 0) {
+        x <- rbind(c(phase_type$init_probs, 1-sum(phase_type$init_probs)), x)
+        x <- cbind(rep(0, nrow(x)), x)
+        colnames(x) <- paste0('V', 0:(nrow(x)-1))
+        rownames(x) <- colnames(x)
+      } else {
+        colnames(x) <- paste0('V', 1:(nrow(x)-1))
+        rownames(x) <- colnames(x)
+        }
+
     } else if (is.null(t)) {
+      x <- rbind(c(phase_type$init_probs, 1-sum(phase_type$init_probs)), x)
+      x <- cbind(rep(0, nrow(x)), x)
+      colnames(x) <- paste0('V', 0:(nrow(x)-1))
+      rownames(x) <- colnames(x)
     } else {
       stop('Please provide a numeric time or NULL')
     }
-    x <- rbind(c(phase_type$init_probs, 1-sum(phase_type$init_probs)), x)
-    x <- cbind(rep(0, nrow(x)), x)
-    colnames(x) <- paste0('V', 0:(nrow(x)-1))
-    rownames(x) <- colnames(x)
+
+
     link_mat <- data.frame(from=rownames(x)[row(x)], to=colnames(x)[col(x)],  weight=c(x))
     link_mat <- link_mat[link_mat$weight != 0,]
 
