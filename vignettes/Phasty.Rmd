@@ -47,7 +47,7 @@ The package ```phasty``` handle and manipulate the continuous and discrete phase
 
 The package is general, but our initial interest in phase-type distributions is from applications in population genetics. We provide a separate vignette where we further demonstrate **phasty** using applications from population genetics.  
 
-# 2. The phase-type class objects
+# 2. The phase-type objects
 
 The functions provided by ```phasty``` require objects of class ```disc_phase_type```, ```cont_phase_type```, ```mult_disc_phase_type``` or ```mult_cont_phase_type```, which can be obtained using the generator functions ```PH()```, ```DPH()```, ```MPH()``` and ```MDPH()```, respectively. 
 
@@ -106,19 +106,19 @@ ph
 ```
 
 
-Given the formulas from **Theorem 3.1.16** and **Corollary 3.1.18** [@Bladt2017 page p.135], the mean of a variable following a continuous phase-type distribution is given by
+The mean of a continuous phase-type distribution is provided in **Theorem 3.1.16** and **Corollary 3.1.18** in [@Bladt2017 page p.135] 
 
 $$
-\mathbb{E} (\tau) = \boldsymbol{\pi U e} = \boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e},
+\mathbb{E} (\tau) = \boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e},
 $$
-and from **Corollary 3.1.18** [@Bladt2017 page p.135], the expectation of $\tau^n$ is given by
+and from **Corollary 3.1.18** [@Bladt2017 page p.135], the higher order moments are given by
 
 $$
 \mathbb{E} (\tau^n) = n!\boldsymbol{\pi} (-\boldsymbol{T})^{-n} \boldsymbol{e},
 \quad n=1,2,\ldots.
 $$
 
-From this formula we find the variance of $\tau$ to be
+From this formula we find the variance 
 
 $$
 \mathbb{V} (\tau) = 
@@ -142,12 +142,12 @@ summary(ph)
 ```
 
 
-**The probability density function** (PDF) of a continuous phase-type distribution is defined in **Theorem 3.1.7** [@Bladt2017 page p.~131]
+**The probability density function** (PDF) of a continuous phase-type distribution is provided in **Theorem 3.1.7** [@Bladt2017 page p.~131]
 
 $$
 f(u) = \boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{t}, \quad u\ge0,
 $$
-where $\boldsymbol{t} = -\boldsymbol{T}\boldsymbol{e}$ is the exit rate of the sub-intensity matrix (the vector of rates from state $i$ to the absorbing state). The **cumulative distribution function** (CDF) is
+where $\boldsymbol{t} = -\boldsymbol{T}\boldsymbol{e}$ is the exit rate vector of the sub-intensity matrix (the vector of rates from state $i$ to the absorbing state). The **cumulative distribution function** (CDF) is
 
 $$ 
 F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
@@ -156,7 +156,7 @@ $$
 We calculate the PDF and the CDF with `dphtype()` and `pphtype()`, respectively,
 
 ```{r plot_cont}
-x <- seq(0, qphtype(0.95, ph), length.out = 100)
+x <- seq(0,8,length.out = 100)
 pdf <- dphtype(x, ph)
 cdf <- pphtype(x, ph)
 
@@ -184,7 +184,11 @@ We can also make random draws from the phase-type distribution using `rphtype()`
 ```{r}
 cat('10 random samples: \n', rphtype(5, ph), '\n', rphtype(5, ph))
 ```
+Here is a histogram of 200 samples from the phase-type distribution:
 
+```{r}
+hist(rphtype(200, ph))
+```
 
 
 ```{r cont_ggplot, echo=FALSE, out.width = '70%'}
@@ -202,7 +206,7 @@ cat('10 random samples: \n', rphtype(5, ph), '\n', rphtype(5, ph))
 
 ## 3.2. The discrete univariate phase-type
 
-Instead of using a Markov Jump Process (also sometimes called a continuous time Markov chain), it is also possible to consider a discrete **Markov chain (MC)**. Let's consider $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\tau \in \mathbb{N}$. Here $\tau$ is the number of state transitions before entering the absorbing state. The sub-intensity matrix $\boldsymbol{T}$ contains the probability of jumping from one state to another. 
+Instead of using a Markov Jump Process (also sometimes called a continuous time Markov chain), it is also possible to consider a discrete **Markov chain (MC)**. Let's consider $\tau \sim DPH(\boldsymbol{\pi},\boldsymbol{T})$. Here $\tau$ is the number of state transitions before entering the absorbing state. The sub-intensity matrix $\boldsymbol{T}$ contains the probabilities of jumping from one state to another. 
 
 Discrete phase-type distributions can be created in `phasty` using the `DPH()` function by specifying a sub-intensity matrix that meets the requirements for a discrete phase-type distribution:
 
@@ -217,7 +221,7 @@ dph
 
 ```
 
-As for the continuous phase-type, it is possible to determine any moment by using the formula in  **Proposition 2.7.iii** [@Navarro2019 page p.12]
+The moments are given by  **Proposition 2.7.iii** [@Navarro2019 page p.12]
 
 $$
 \mathbb{E} (\tau(\tau - 1) \cdots (\tau-(n-1))) = n!\boldsymbol{\pi T}^{n-1} (\boldsymbol{I}-\boldsymbol{T})^{-n} \boldsymbol{e}, \quad n=1,2,\ldots.
@@ -239,22 +243,22 @@ cat('\n', 'Mean: ',mean(dph),'\n')
 cat(' Variance: ',var(dph),'\n \n')
 ```
 
-**Theorem 1.2.58 and 1.2.59** in [@Bladt2017 page p.30] shows that the probability distribution of a discrete phase-type distributed variable is
+**Theorem 1.2.58 and 1.2.59** in [@Bladt2017 page p.30] provides the probability distribution of a discrete phase-type distribution
 
 $$
-f_\tau(n) = \boldsymbol{\pi T}^{n-1}\boldsymbol{t}, \quad n=1,2,\ldots,
+\mathbb{P}(\tau=n) = \boldsymbol{\pi T}^{n-1}\boldsymbol{t}, \quad n=1,2,\ldots,
 $$
 
-and its cumulative distribution function is
+and the cumulative distribution function is
 
 $$
 F_\tau(n) = 1-\boldsymbol{\pi T}^{n}\boldsymbol{e}, \quad n=1,2,\ldots.
 $$
 
-As for the continuous case, it is possible to investigate this distribution by using a similar set of functions:
+As for the continuous case, it is possible to investigate the probability distribution and cumulative distribution by using a similar set of functions:
 
 ```{r plot_disc}
-x <- seq(0, qphtype(0.95, dph), by=1)
+x <- seq(0,10,by=1)
 pdf <- dphtype(x, dph)
 cdf <- pphtype(x, dph)
 {plot(x, cdf, xlab = "Time to absorption", ylab = "PDF and CDF", col = "orange", 
@@ -263,10 +267,21 @@ lines(x, pdf, col = "blue",lwd=2)
 title('Probability and cumulative density functions (PDF and CDF)')
 legend("topleft", bty="n", legend=c('PDF', 'CDF'),
        col=c("orange", "blue"), lty=1, lwd=2)}
+```
 
+Similarly, we have a function for the quantile
+
+```{r plot_disc}
 x <- seq(0.05, 0.95, 0.01)
-{plot(x, qphtype(x, dph), col = "orange", ylab = "Time to absorption", xlab = "Quantile",xlim=c(0,1),ylim=c(0,10))
+{plot(x, qphtype(x, dph), col = "orange", 
+      ylab = "Time to absorption", 
+      xlab = "Quantile",xlim=c(0,1),ylim=c(0,10),type="l")
 title('Quantile function')}
+```
+Finally, here is a histogram of 200 samples from the phase-type distribution:
+
+```{r}
+hist(rphtype(200, dph))
 ```
 
 ```{r disc_ggplot, echo=FALSE, out.width = '70%'}
