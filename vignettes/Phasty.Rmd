@@ -85,6 +85,8 @@ PH(subintensity_matrix)
 ```
 This is the reason we take the subintensity matrix as the first entry in the function.
 
+
+
 # 3. Univariate phase-type distributions
 
 ## 3.1. The continuous univariate phase-type
@@ -105,6 +107,33 @@ ph
 
 ```
 
+
+We can easily plot the phase-type distribution as a network by first converting the phase-type object into a graph, and then plotting it:
+
+```{r}
+
+net <- phase_type_to_network(ph)
+plot(net, edge.curved=.1, edge.label = E(net)$weight,
+       edge.color = ifelse(as_data_frame(net, what="edges")$from == 'V0',
+                         'purple', 'grey'))
+
+```
+
+In the above graph the initial probabilities are represented as purple arrows, while rates are represented by grey arrows. 
+
+In the continuous case, we can also plot the transition probability matrix at time t as a graph:
+
+```{r fig.width=5, fig.height=3}
+
+par(mfrow=c(2,3), mar=c(2,2,2,2))
+for (i in c(0, 1, 3, 5, 10, 20)) {
+  net <- phase_type_to_network(ph, i)
+  plot(net, edge.arrow.size=0.5, edge.curved=.1, edge.label = E(net)$weight, main=paste0('time = ', i),
+       edge.color = ifelse(as_data_frame(net, what="edges")$from == 'V0',
+                         'purple', 'grey'))
+}
+
+```
 
 The mean of a continuous phase-type distribution is provided in **Theorem 3.1.16** and **Corollary 3.1.18** in [@Bladt2017 page p.135] 
 
@@ -227,6 +256,15 @@ dph
 
 ```
 
+We can also plot discrete phase-type functions the same way as continuous ones:
+
+```{r}
+
+net <- phase_type_to_network(dph)
+plot(net, edge.curved=.1, edge.label = E(net)$weight)
+
+```
+
 The moments are given by  **Proposition 2.7.iii** [@Navarro2019 page p.12]
 
 $$
@@ -252,6 +290,8 @@ In ```phasty``` the mean and variance of a discrete phase-type distribution can 
 cat('\n', 'Mean: ',mean(dph),'\n')
 cat(' Variance: ',var(dph),'\n \n')
 ```
+
+
 
 **Theorem 1.2.58 and 1.2.59** in [@Bladt2017 page p.30] provides the probability distribution of a discrete phase-type distribution
 
