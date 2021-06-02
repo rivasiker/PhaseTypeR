@@ -39,8 +39,8 @@ For the reward transformation for continuous phase-type distribution, the
 transformation will be performed as presented in the book of Bladt and
 Nielsen (2017).
 
-For the discrete phase_type distribution is based on the PhD of Navarro and
-the *in prep.* manuscript of Andersen *et al.*
+For the discrete phase_type distribution is based on the PhD of Navarro (2018) and
+Hobolth, Bladt and Andersen (2021).
 
 Every state of the subintensity matrix should have a reward, in the case of
 continuous phase-type, this reward should be a vector with non negative
@@ -103,8 +103,8 @@ reward_phase_type(ph, reward)
 }
 \references{
 Bladt, M., & Nielsen, B. F. (2017). *Matrix-exponential distributions in applied probability* (Vol. 81). New York: Springer.
-Campillo Navarro, A. (2019). *Order statistics and multivariate discrete phase-type distributions*. DTU Compute. DTU Compute PHD-2018, Vol.. 492
-Andersen, L. *et al.* (*in prep.*)
+Campillo Navarro, A. (2018). *Order statistics and multivariate discrete phase-type distributions*. DTU Compute. DTU Compute PHD-2018, Vol.. 492
+Hobolth, A., Bladt, M. & Andersen, L.A. (2021). *Multivariate phase-type theory for the site frequency spectrum*. ArXiv.
 }
 \seealso{
 \code{\link{phase_type}}

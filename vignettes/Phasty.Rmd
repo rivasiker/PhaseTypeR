@@ -153,12 +153,12 @@ $$
 F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 $$
 
-We calculate the PDF and the CDF with `dphtype()` and `pphtype()`, respectively,
+We calculate the PDF and the CDF with `dPH()` and `pPH()`, respectively,
 
 ```{r plot_cont}
 x <- seq(0,8,length.out = 100)
-pdf <- dphtype(x, ph)
-cdf <- pphtype(x, ph)
+pdf <- dPH(x, ph)
+cdf <- pPH(x, ph)
 
 {plot(x, cdf, xlab = "Time to absorption", ylab = "PDF and CDF", col = "orange", 
      type = 'l', lwd=2, ylim=c(0,1))
@@ -169,25 +169,25 @@ legend("topleft", bty="n", legend=c('PDF', 'CDF'),
 ```
 
 
-Additionally, we can compute the quantile function using `qphtype()`:
+Additionally, we can compute the quantile function using `qPH()`:
 
 ```{r}
 x <- seq(0.05, 0.95, 0.01)
-{plot(x, qphtype(x, ph), col = "orange", type="l", lwd=2, xlim=c(0,1),
+{plot(x, qPH(x, ph), col = "orange", type="l", lwd=2, xlim=c(0,1),
      ylab = "Time to absorbtion", xlab = "Quantile")
 title('Quantile function')}
 ```
 
 
-We can also make random draws from the phase-type distribution using `rphtype()`:
+We can also make random draws from the phase-type distribution using `rPH()`:
 
 ```{r}
-cat('10 random samples: \n', rphtype(5, ph), '\n', rphtype(5, ph))
+cat('10 random samples: \n', rPH(5, ph), '\n', rPH(5, ph))
 ```
 Here is a histogram of 200 samples from the phase-type distribution:
 
 ```{r}
-hist(rphtype(200, ph))
+hist(rPH(200, ph))
 ```
 
 
@@ -230,9 +230,13 @@ $$
 This leads to a mean and variance given by
 
 $$
- \mathbb{E} (\tau) = \boldsymbol{\pi}(\boldsymbol{I}-\boldsymbol{T})^{-1}\boldsymbol{e}, \quad \\
+ \mathbb{E} (\tau) = \boldsymbol{\pi}(\boldsymbol{I}-\boldsymbol{T})^{-1}\boldsymbol{e}, \quad 
+$$
+$$
  \mathbb{E} (\tau(\tau-1))=
-   2\boldsymbol{\pi}\boldsymbol{T}(\boldsymbol{I}-\boldsymbol{T})^{-2}\boldsymbol{e}, \quad \\
+   2\boldsymbol{\pi}\boldsymbol{T}(\boldsymbol{I}-\boldsymbol{T})^{-2}\boldsymbol{e}, \quad 
+$$
+$$
  \mathbb{V} (\tau) = \mathbb{E} (\tau(\tau-1)) + \mathbb{E} (\tau) - \mathbb{E} (\tau)^2.
 $$
 
@@ -255,12 +259,12 @@ $$
 F_\tau(n) = 1-\boldsymbol{\pi T}^{n}\boldsymbol{e}, \quad n=1,2,\ldots.
 $$
 
-As for the continuous case, it is possible to investigate the probability distribution and cumulative distribution by using a similar set of functions:
+As for the continuous case, it is possible to investigate the probability distribution and cumulative distribution by using a similar set of functions, namely `dDPH` and `pDPH`:
 
 ```{r plot_disc}
 x <- seq(0,10,by=1)
-pdf <- dphtype(x, dph)
-cdf <- pphtype(x, dph)
+pdf <- dDPH(x, dph)
+cdf <- pDPH(x, dph)
 {plot(x, cdf, xlab = "Time to absorption", ylab = "PDF and CDF", col = "orange", 
      type = 'l', lwd=2, ylim=c(0,1))
 lines(x, pdf, col = "blue",lwd=2)
@@ -269,19 +273,19 @@ legend("topleft", bty="n", legend=c('PDF', 'CDF'),
        col=c("orange", "blue"), lty=1, lwd=2)}
 ```
 
-Similarly, we have a function for the quantile
+Similarly, we have a function for the quantile (`qDPH`)
 
-```{r plot_disc}
+```{r plot_disc_quant}
 x <- seq(0.05, 0.95, 0.01)
-{plot(x, qphtype(x, dph), col = "orange", 
+{plot(x, qDPH(x, dph), col = "orange", 
       ylab = "Time to absorption", 
       xlab = "Quantile",xlim=c(0,1),ylim=c(0,10),type="l")
 title('Quantile function')}
 ```
-Finally, here is a histogram of 200 samples from the phase-type distribution:
+Finally, here is a histogram of 200 samples from the phase-type distribution drawn from `rDPH``:
 
 ```{r}
-hist(rphtype(200, dph))
+hist(rDPH(200, dph))
 ```
 
 ```{r disc_ggplot, echo=FALSE, out.width = '70%'}
@@ -327,9 +331,9 @@ print(rph)
 ```
 
 ```{r}
-x <- seq(0, qphtype(0.95, rph), length.out = 100)
-pdf <- dphtype(x, rph)
-cdf <- pphtype(x, rph)
+x <- seq(0, qPH(0.95, rph), length.out = 100)
+pdf <- dPH(x, rph)
+cdf <- pPH(x, rph)
 
 
 {plot(x, cdf, xlab = "Time to absorption", ylab = "", col = "orange", type = 'l',ylim=c(0,1))
@@ -361,9 +365,9 @@ print(rdph)
 ```
 
 ```{r}
-x <- seq(0, qphtype(0.95, rdph), 1)
-pdf <- dphtype(x, rdph)
-cdf <- pphtype(x, rdph)
+x <- seq(0, qDPH(0.95, rdph), 1)
+pdf <- dDPH(x, rdph)
+cdf <- pDPH(x, rdph)
 {plot(x, cdf, xlab = "Time to absorption", ylab = "PDF and CDF", col = "orange", 
      type = 'l', lwd=2, ylim=c(0,1))
 lines(x, pdf, col = "blue",lwd=2)

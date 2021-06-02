@@ -202,7 +202,8 @@ different usages can be distinguished:</p><ul>
                                <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 <span class='va'>reward_matrix</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fl'>6</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 <span class='va'>ph2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generator_functions.html'>MPH</a></span><span class='op'>(</span><span class='va'>subintensity_matrix</span>, reward_mat <span class='op'>=</span> <span class='va'>reward_matrix</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='input'><span class='co'>## Variance-covariance matrix</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: </span>
+#&gt; <span class='warning'> The initial probability vector is automatically generated.</span></div><div class='input'><span class='co'>## Variance-covariance matrix</span>
 <span class='fu'>var</span><span class='op'>(</span><span class='va'>ph2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;          [,1]     [,2]
 #&gt; [1,] 28.00000 14.05556

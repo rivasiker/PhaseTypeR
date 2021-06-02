@@ -168,7 +168,8 @@ phase-type distributions.</p>
                                <span class='fl'>1.5</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>0</span>,
                                <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 <span class='va'>obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generator_functions.html'>PH</a></span><span class='op'>(</span><span class='va'>subintensity_matrix</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: </span>
+#&gt; <span class='warning'> The initial probability vector is automatically generated.</span></div><div class='input'>
 <span class='fu'>sim_phase_type</span><span class='op'>(</span><span class='va'>obj</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
 #&gt;  [1] 0.26983205 1.73070972 0.08952618 0.06664499 1.51162930 0.15653028
@@ -186,7 +187,8 @@ phase-type distributions.</p>
                                <span class='fl'>0.24</span>, <span class='fl'>0.6</span>, <span class='fl'>0.3</span>,
                                <span class='fl'>0.26</span>, <span class='fl'>0.4</span>, <span class='fl'>0.5</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 <span class='va'>obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generator_functions.html'>DPH</a></span><span class='op'>(</span><span class='va'>subintensity_matrix</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: </span>
+#&gt; <span class='warning'> The initial probability vector is automatically generated.</span></div><div class='input'>
 <span class='fu'>sim_phase_type</span><span class='op'>(</span><span class='va'>obj</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 1 3 1
@@ -203,7 +205,8 @@ phase-type distributions.</p>
                                <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 <span class='va'>reward_matrix</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>0.1</span><span class='op'>)</span>, <span class='fl'>6</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 <span class='va'>obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generator_functions.html'>MPH</a></span><span class='op'>(</span><span class='va'>subintensity_matrix</span>, reward_mat <span class='op'>=</span> <span class='va'>reward_matrix</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='input'><span class='fu'>sim_phase_type</span><span class='op'>(</span><span class='va'>obj</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: </span>
+#&gt; <span class='warning'> The initial probability vector is automatically generated.</span></div><div class='input'><span class='fu'>sim_phase_type</span><span class='op'>(</span><span class='va'>obj</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;           [,1]     [,2]     [,3]      [,4]      [,5]     [,6]      [,7]
 #&gt; [1,] 0.7009471 5.429620 6.503202 0.1901189 0.4775123 17.50123 0.1215498
 #&gt; [2,] 4.0304461 6.897374 6.479396 1.0931837 1.1851910 10.00720 0.6989112
@@ -269,7 +272,8 @@ phase-type distributions.</p>
                                <span class='fl'>0.12</span>, <span class='fl'>0.2</span>, <span class='fl'>0.5</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 <span class='va'>reward_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='fl'>6</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 <span class='fu'><a href='generator_functions.html'>MDPH</a></span><span class='op'>(</span><span class='va'>subintensity_matrix</span>, reward_mat <span class='op'>=</span> <span class='va'>reward_matrix</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: The initial probability vector is automatically generated.</span></div><div class='output co'>#&gt; $subint_mat
+</div><div class='output co'>#&gt; <span class='warning'>Warning: </span>
+#&gt; <span class='warning'> The initial probability vector is automatically generated.</span></div><div class='output co'>#&gt; $subint_mat
 #&gt;      [,1] [,2] [,3]
 #&gt; [1,]  0.4 0.24 0.12
 #&gt; [2,]  0.0 0.40 0.20

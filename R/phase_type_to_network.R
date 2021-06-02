@@ -10,6 +10,8 @@
 #'
 #' @usage phase_type_to_network(phase_type, t = NULL)
 #'
+#' @importFrom igraph graph_from_data_frame
+#'
 #' @export
 
 
