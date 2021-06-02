@@ -36,7 +36,7 @@ check_phase_type <- function(subint_mat, init_probs,
   if (is.null(init_probs)) {
     init_probs <- matrix(c(1, rep(0, nrow(subint_mat) - 1)),
                          1, nrow(subint_mat))
-    warning('The initial probability vector is automatically generated.\n')
+    warning('\n The initial probability vector is automatically generated.\n')
   }
 
   ###### Check if the initial probabilities have the right shape

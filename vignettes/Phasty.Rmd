@@ -1,9 +1,8 @@
 ---
 title: "Phasty v0.9"
-Author: 
+Authors: 
 - Iker Rivas-González
 - Colin Guétemme
-- Lars Nørvang Andersen
 - Asger Hobolth
 output:
   pdf_document:
@@ -44,11 +43,11 @@ Phase-type distributions are a general class of distributions. They have been us
 The basic idea is to consider a Markov jump process (or a Markov chain for discrete time) with $p$ transient states and one absorbing state. The time to absorption is phase-type distributed. The parameters of a phase-type distribution is thus an intensity matrix and the initial probabilities to begin in each state. The matrix form of the phase-type distribution allow great simplification, in particular to find the moments of the time before reaching 
 the absorbing state.
 
-The package ```phasty``` handle and manipulate the continuous and discrete phase-type distributions and their multivariate extensions. 
+The package ```phasty``` handle and manipulate the continuous and discrete phase-type distributions, and their corresponding reward transformations and multivariate extensions. 
 
-The package is not oriented for a specific application, but our initial interest in phase-type distributions is from applications in population genetics. 
+The package is general, but our initial interest in phase-type distributions is from applications in population genetics. We provide a separate vignette where we further demonstrate **phasty** using applications from population genetics.  
 
-# 2. The phase-type S3 class objects
+# 2. The phase-type class objects
 
 The functions provided by ```phasty``` require objects of class ```disc_phase_type```, ```cont_phase_type```, ```mult_disc_phase_type``` or ```mult_cont_phase_type```, which can be obtained using the generator functions ```PH()```, ```DPH()```, ```MPH()``` and ```MDPH()```, respectively. 
 
@@ -67,7 +66,7 @@ ph
 
 Here ```subint_mat``` is the sub-intensity matrix and ```init_probs``` is the vector of initial probabilities. 
 
-An object of one of the phase-type classes always has a sub-intensity matrix, an initial probability vector, a defect (the probability of starting directly in the absorbing state, which can happen when using reward transformations (see Sectio~4)), and the type of class. 
+An object of one of the phase-type classes always has a sub-intensity matrix, an initial probability vector, a defect (the probability of starting directly in the absorbing state, which can happen when using reward transformations (see Section~4)), and the type of class. 
 
 We can also print a summary of the object:
 
@@ -76,7 +75,7 @@ summary(ph)
 ```
 
 
-The ```init_probs``` argument is optional, and in case of not providing it the probability of the first state will be set to 1, that is, $\boldsymbol{\pi} = (1,\, 0,\, 0,\, ...\,,0)$. If this is the case, the generator function will print a warning:
+The ```init_probs``` argument is optional. If not provided, the probability beginning in the first state will be set to 1, that is, $\boldsymbol{\pi} = (1,\, 0,\, 0,\, ...\,,0)$. In this case the generator function will print a warning:
 
 ```{r}
 subintensity_matrix <- matrix(c(-1.5, 0, 0,
@@ -84,13 +83,13 @@ subintensity_matrix <- matrix(c(-1.5, 0, 0,
                               0, 1, -0.5), ncol = 3)
 PH(subintensity_matrix)
 ```
-
+This is the reason we take the subintensity matrix as the first entry in the function.
 
 # 3. Univariate phase-type distributions
 
 ## 3.1. The continuous univariate phase-type
 
-Let $\{X_t\}_{t\ge0}$ be a **Markov jump process** with $p$ transient states and one absorbing state. If $\tau$ is defined as the time when $\{X_t\}_{t\ge0}$ reaches the absorbing state, then $\tau$ follows a continuous phase-type distribution $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$, where $\boldsymbol{T}$ is the sub-intensity matrix of the corresponding Markov jump process, and $\boldsymbol{\pi}$ is the vector of initial probabilities.
+Let $\{X_t\}_{t\ge0}$ be a **Markov jump process** with $p$ transient states and one absorbing state. If $\tau$ is defined as the time when $\{X_t\}_{t\ge0}$ reaches the absorbing state, then $\tau$ follows a continuous phase-type distribution $\tau \sim PH(, \boldsymbol{\pi},\boldsymbol{T})$, where $\boldsymbol{T}$ is the sub-intensity matrix of the corresponding Markov jump process, and $\boldsymbol{\pi}$ is the vector of initial probabilities.
 
 As specified before, a continuous phase-type distribution object can be created in ```phasty``` using the ```PH()``` function:
 
@@ -224,7 +223,7 @@ $$
 \mathbb{E} (\tau(\tau - 1) \cdots (\tau-(n-1))) = n!\boldsymbol{\pi T}^{n-1} (\boldsymbol{I}-\boldsymbol{T})^{-n} \boldsymbol{e}, \quad n=1,2,\ldots.
 $$
 
-This leads to a mean and variance given by:
+This leads to a mean and variance given by
 
 $$
  \mathbb{E} (\tau) = \boldsymbol{\pi}(\boldsymbol{I}-\boldsymbol{T})^{-1}\boldsymbol{e}, \quad \\
