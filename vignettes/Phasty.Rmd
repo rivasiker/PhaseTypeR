@@ -156,24 +156,30 @@ $$
 We calculate the PDF and the CDF with `dPH()` and `pPH()`, respectively,
 
 ```{r plot_cont}
+
 x <- seq(0,8,length.out = 100)
 pdf <- dPH(x, ph)
-cdf <- pPH(x, ph)
 
-{plot(x, cdf, xlab = "Time to absorption", ylab = "PDF and CDF", col = "orange", 
-     type = 'l', lwd=2, ylim=c(0,1))
-lines(x, pdf, col = "blue",lwd=2)
-title('Probability and cumulative density functions (PDF and CDF)')
-legend("topleft", bty="n", legend=c('PDF', 'CDF'),
-       col=c("orange", "blue"), lty=1, lwd=2)}
+{plot(x, pdf, xlab = "Time to absorption", ylab = "PDF", col = "blue", 
+     type = 'l', lwd=2)
+title('Probability density function (PDF)')}
 ```
 
+```{r plot_cont_2}
+x <- seq(0,8,length.out = 100)
+cdf <- pPH(x, ph)
+
+{plot(x, cdf, xlab = "Time to absorption", ylab = "CDF", col = "orange", 
+     type = 'l', lwd=2)
+title('Cumulative density function (CDF)')
+}
+```
 
 Additionally, we can compute the quantile function using `qPH()`:
 
 ```{r}
 x <- seq(0.05, 0.95, 0.01)
-{plot(x, qPH(x, ph), col = "orange", type="l", lwd=2, xlim=c(0,1),
+{plot(x, qPH(x, ph), col = "green", type="l", lwd=2, xlim=c(0,1),
      ylab = "Time to absorbtion", xlab = "Quantile")
 title('Quantile function')}
 ```
@@ -187,7 +193,7 @@ cat('10 random samples: \n', rPH(5, ph), '\n', rPH(5, ph))
 Here is a histogram of 200 samples from the phase-type distribution:
 
 ```{r}
-hist(rPH(200, ph))
+hist(rPH(500, ph), breaks = 10)
 ```
 
 
@@ -264,20 +270,24 @@ As for the continuous case, it is possible to investigate the probability distri
 ```{r plot_disc}
 x <- seq(0,10,by=1)
 pdf <- dDPH(x, dph)
+{plot(x, pdf, xlab = "Time to absorption", ylab = "PDF and CDF", col = "blue", 
+     type = 'l', lwd=2)
+title('Probability function (PDF)')}
+```
+
+```{r plot_disc_2}
+x <- seq(0,10,by=1)
 cdf <- pDPH(x, dph)
-{plot(x, cdf, xlab = "Time to absorption", ylab = "PDF and CDF", col = "orange", 
-     type = 'l', lwd=2, ylim=c(0,1))
-lines(x, pdf, col = "blue",lwd=2)
-title('Probability and cumulative density functions (PDF and CDF)')
-legend("topleft", bty="n", legend=c('PDF', 'CDF'),
-       col=c("orange", "blue"), lty=1, lwd=2)}
+{plot(x, cdf, xlab = "Time to absorption", ylab = "CDF", col = "orange", 
+     type = 'l', lwd=2)
+title('Probability function (CDF)')}
 ```
 
 Similarly, we have a function for the quantile (`qDPH`)
 
 ```{r plot_disc_quant}
 x <- seq(0.05, 0.95, 0.01)
-{plot(x, qDPH(x, dph), col = "orange", 
+{plot(x, qDPH(x, dph), col = "green", 
       ylab = "Time to absorption", 
       xlab = "Quantile",xlim=c(0,1),ylim=c(0,10),type="l")
 title('Quantile function')}
@@ -285,7 +295,7 @@ title('Quantile function')}
 Finally, here is a histogram of 200 samples from the phase-type distribution drawn from `rDPH``:
 
 ```{r}
-hist(rDPH(200, dph))
+hist(rDPH(500, dph), breaks = 10)
 ```
 
 ```{r disc_ggplot, echo=FALSE, out.width = '70%'}
