@@ -357,7 +357,7 @@ A phase-type distributed variable is the sum of the times spent in each state of
 
 ### 4.1 Strictly positive rewards for continuous phase-type distribution
 
-Let $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$ and let $\{X_t\}_{t \ge 0}$ denote the underlying Markov jump process. Furthermore, let the reward vector be $\boldsymbol{r} = (r_1,\ r_2,\ ...\,,\ r_n) \in \mathbb{R}^p_+$.
+Let $\tau \sim PH(\boldsymbol{\pi},\boldsymbol{T})$ and let $\{X_t\}_{t \ge 0}$ denote the underlying Markov jump process. Furthermore, let the reward vector be $\boldsymbol{r} = (r_1,\ r_2,\ ...\,,\ r_p) \in \mathbb{R}^p_+$.
 
 We can then define the new variable
 
@@ -365,15 +365,15 @@ $$
  Y = \int^\tau_0 r(X_t)dt,
 $$
 
-which corresponds to the weighted time before absorption (or the reward earned until absorption). From **Theorem 3.1.33** [@Bladt2017] it follows that this new variable is also continuous phase-type distributed 
+which corresponds to the accumulated reward-weighted time before absorption (or the reward earned before absorption). From **Theorem 3.1.33** [@Bladt2017] it follows that this new variable is also continuous phase-type distributed 
 
 $$
-Y \sim PH(\boldsymbol{T}^\star, \boldsymbol{\pi}^\star).
+Y \sim PH(\boldsymbol{\pi}^\star,\boldsymbol{T}^\star).
 $$
 
-Deriving $\boldsymbol{T}^\star$ and $\boldsymbol{\pi}^\star$ is rather simple if the rewards only contain positive values. In that case the rates are divided by the corresponding rewards ($\boldsymbol{T}^\star$ = $\triangle(\boldsymbol{1/r})\boldsymbol{T}$) and the initial probabilities remain the same ($\boldsymbol{\pi}^\star$ = $\boldsymbol{\pi}$).
+If the rewards are strictly positive we have $\boldsymbol{\pi}^\star$ = $\boldsymbol{\pi}$ and $\boldsymbol{T}^\star$ = $\triangle(\boldsymbol{1/r})\boldsymbol{T}$. 
 
-Taking the previous example and applying a reward vector $\boldsymbol{r} = (1,\ 2,\ 3)$, the continuous phase-type distribution can easily be reward-transformed in `phasty` using `reward_phase_type()`:
+Taking the previous example and applying a reward vector $\boldsymbol{r} = (1,\ 2,\ 3)$, the continuous phase-type distribution is reward-transformed in `phasty` using `reward_phase_type()`:
 
 ```{r reward_disc}
 rph <- reward_phase_type(ph, c(1, 2, 3))
@@ -381,15 +381,14 @@ print(rph)
 ```
 
 ```{r}
-x <- seq(0, qPH(0.95, rph), length.out = 100)
-pdf <- dPH(x, rph)
-cdf <- pPH(x, rph)
+x <- seq( 0 , 20 ,length.out = 100)
+pdf <- dPH(x,ph)
+rwd.trns.pdf <- dPH(x,rph)
 
-
-{plot(x, cdf, xlab = "Time to absorption", ylab = "", col = "orange", type = 'l',ylim=c(0,1))
-lines(x, pdf, col = "blue")
-title('Density and distribution functions')
-legend("topleft", legend=c('PDF', 'CDF'),
+{plot(x, pdf, xlab = "Time to absorption", ylab = "", col = "orange", type = 'l',ylim=c(0,1))
+lines(x, rwd.trns.pdf, col = "blue")
+title('Distribution functions before and after reward transformation')
+legend("topleft", legend=c('Original Phase-type', 'Reward transformed Phase-type'),
        col=c("orange", "blue"), lty=1,bty="n")}
 ```
 
