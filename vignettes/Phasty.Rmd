@@ -376,16 +376,16 @@ If the rewards are strictly positive we have $\boldsymbol{\pi}^\star$ = $\boldsy
 Taking the previous example and applying a reward vector $\boldsymbol{r} = (1,\ 2,\ 3)$, the continuous phase-type distribution is reward-transformed in `phasty` using `reward_phase_type()`:
 
 ```{r reward_disc}
-rph <- reward_phase_type(ph, c(1, 2, 3))
+rwd.ph <- reward_phase_type(ph, c(1, 2, 3))
 print(rph)
 ```
 
 ```{r}
 x <- seq( 0 , 20 ,length.out = 100)
 pdf <- dPH(x,ph)
-rwd.trns.pdf <- dPH(x,rph)
+rwd.pdf <- dPH(x,rwd.ph)
 
-{plot(x, pdf, xlab = "Time to absorption", ylab = "", col = "orange", type = 'l',ylim=c(0,1))
+{plot(x, pdf, xlab = "Time to absorption", ylab = "pdf", col = "orange", type = 'l',ylim=c(0,1))
 lines(x, rwd.trns.pdf, col = "blue")
 title('Distribution functions before and after reward transformation')
 legend("topleft", legend=c('Original Phase-type', 'Reward transformed Phase-type'),
@@ -400,28 +400,28 @@ legend("topleft", legend=c('Original Phase-type', 'Reward transformed Phase-type
 
 In the discrete phase-type distribution, the reward transformation can be achieved using intermediate states as presented by Navarro [-@Navarro2019]. 
 
-Let $\tau \sim DPH(\boldsymbol{T}, \boldsymbol{\pi})$ and let $\{X_n\}_{n \ge 0}$ be the underlying Markov chain, and the reward vector  $\boldsymbol{r} = (r_1,\ r_2,\ ...\,,\ r_p) \in \mathbb{N}$. As for the continuous phase-type:
+Let $\tau \sim DPH(\boldsymbol{\pi},\boldsymbol{T})$ and let $\{X_n\}_{n \ge 0}$ be the underlying Markov chain, and the reward vector  $\boldsymbol{r} = (r_1,\ r_2,\ ...\,,\ r_p) \in \mathbb{N}$. We define the reward-transformed variable by
 
 $$
-Y = \sum_{n=0}^{\tau - 1} r(X_n).
+Y = \sum_{n=1}^{\tau - 1} r(X_n).
 $$
 
-Using the same discrete phase-type distribution as before, we can reward-transform the distribution using $\boldsymbol{r} = (1,\ 2,\ 3)$
+Using the same discrete phase-type distribution as previously, we can reward-transform the distribution using $\boldsymbol{r} = (1,\ 2,\ 3)$
 
 ```{r}
-rdph <- reward_phase_type(dph, c(1, 2, 3))
-print(rdph)
+rwd.dph <- reward_phase_type(dph, c(1, 2, 3))
+print(rwd.dph)
 ```
 
 ```{r}
-x <- seq(0, qDPH(0.95, rdph), 1)
-pdf <- dDPH(x, rdph)
-cdf <- pDPH(x, rdph)
-{plot(x, cdf, xlab = "Time to absorption", ylab = "PDF and CDF", col = "orange", 
+x <- seq(0,20,by=1)
+pdf <- dDPH(x, dph)
+rwd.pdf <- dDPH(x, rwd.dph)
+{plot(x, pdf, xlab = "Time to absorption", ylab = "pdf", col = "orange", 
      type = 'l', lwd=2, ylim=c(0,1))
-lines(x, pdf, col = "blue",lwd=2)
-title('Probability and cumulative density functions (PDF and CDF)')
-legend("topleft", bty="n", legend=c('PDF', 'CDF'),
+lines(x, rwd.pdf, col = "blue",lwd=2)
+title('Distribution functions before and after reward transformation')
+legend("topleft", bty="n", legend=c('Original DPH', 'Reward transformed DPH'),
        col=c("orange", "blue"), lty=1, lwd=2)}
 ```
 
