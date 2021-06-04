@@ -433,6 +433,14 @@ legend("topleft", bty="n", legend=c('Original DPH', 'Reward transformed DPH'),
 
 A non-negative reward transformation of a phase-type distribution is also phase-type distributed (posssibe with a defect). **Theorem 3.1.33** [@Bladt2017 page p.147] gives the non-negative reward-transformed phase-type distribution. 
 
+Here is one example:
+
+```{r}
+reward_phase_type(ph, c(0, 2, 3))
+```
+
+A more detailed example is as follows:
+
 
 ```{r}
 rwd.ph <- reward_phase_type(ph, c(2, 0, 0))
@@ -454,7 +462,7 @@ legend("bottomright", legend=c('Original Phase-type', 'Reward transformed Phase-
 
 ### 4.4. Non-negative integer valued reward transformation for discrete phase-type distribution
 
-Let's apply a reward of $\boldsymbol{r} = (0,\ 2,\ 3)$ to the example discrete phase-type example. We can do it in two separate steps. First, we will remove those states with a null reward:
+Let's apply a reward of $\boldsymbol{r} = (0,\ 2,\ 3)$ to the discrete phase-type example. We can do it in two separate steps. First, we remove those states with a null reward:
 
 ```{r}
 zero_dph <- reward_phase_type(dph, c(0, 1, 1))
@@ -475,38 +483,8 @@ These two steps can be unified into the same line of code by directly specifying
 reward_phase_type(dph, c(0, 2, 3))
 ```
 
-The same function can be used for continuous phase-type distributions:
 
-```{r}
-reward_phase_type(ph, c(0, 2, 3))
-```
-
-
-### 4.5. The variable reward in discrete phase-type
-
-Recently unpusblished results from A. Hobolth et al. leads to think at an expansion of the reward for DPH. At each arrival in a new state the reward of this state is randomly chosen using a vector of probability 
-Applying variable reward in the discrete case is relatively easy because of the construction of the reward transformation in discrete phase-type.
-
-Consider the previous example and we want for state 1 a reward of 2 with probability 0.5 of state and a reward of 1 with probability 0.5, which would lead to
-
-$$
-\boldsymbol{T} = 
-\begin{bmatrix}
-0 & 1 & 0 & 0 \\
-0 & 0 & 0.2 & 0.8 \\
-0.25 & 0.25 & 0.5 & 0 \\
-0 & 0 & 0 & 0.4
-\end{bmatrix}
-$$
-
-$$
-\boldsymbol{\pi} = (0.35,\ 0.35,\ 0.3,\ 0)
-$$
-
-In phasty this can be computed using a matrix of probability rather than a vector. Note that this matrix is not the same as in the ```DPH()``` function, since the ```disc_phase_type``` object stays univariate.
-
-
-# 5. The multivariate phase-type distribution
+# 5. Multivariate phase-type distributions
 
 ## 5.1. The continuous multivariate phase-type
 
