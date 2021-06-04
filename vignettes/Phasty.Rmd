@@ -377,7 +377,7 @@ Taking the previous example and applying a reward vector $\boldsymbol{r} = (1,\ 
 
 ```{r reward_disc}
 rwd.ph <- reward_phase_type(ph, c(1, 2, 3))
-print(rph)
+print(rwd.ph)
 ```
 
 ```{r}
@@ -431,28 +431,26 @@ legend("topleft", bty="n", legend=c('Original DPH', 'Reward transformed DPH'),
 
 ### 4.3. Non-negative reward transformation for continuous phase-type distribution
 
-To perform a reward transformation with one or more rewards of zero, it is necessary to transform the sub-intensity matrix and initial probabilities by removing the zero rewarded states and then apply the positive rewards on the remaining states. 
-
-**Theorem 3.1.33** [@Bladt2017 page p.147] gives the non-negative reward-transformed random variable of a phase-type distribution. 
+A non-negative reward transformation of a phase-type distribution is also phase-type distributed (posssibe with a defect). **Theorem 3.1.33** [@Bladt2017 page p.147] gives the non-negative reward-transformed phase-type distribution. 
 
 
-Define the transition matrix $\boldsymbol{P}$ by 
+```{r}
+rwd.ph <- reward_phase_type(ph, c(2, 0, 0))
+print(rwd.ph)
+```
 
-$$
-\boldsymbol{P} = \boldsymbol{Q}^{++} + \boldsymbol{Q}^{+0} \, (\boldsymbol{I} - \boldsymbol{Q}^{+0})^{-1} \ \boldsymbol{Q}^{0+}
-$$
+```{r reward_disc}
+x <- seq( 0 , 20 ,length.out = 100)
+cdf <- pPH(x,ph)
+rwd.cdf <- pPH(x,rwd.ph)
 
-Where $\boldsymbol{Q}$ is the reorganization of $\boldsymbol{T}$ which gives:
+{plot(x, cdf, xlab = "Time to absorption", ylab = "pdf", col = "orange", type = 'l',ylim=c(0,1))
+lines(x, rwd.cdf, col = "blue")
+title('Cumulative distributions before and after reward transformation')
+legend("bottomright", legend=c('Original Phase-type', 'Reward transformed Phase-type'),
+       col=c("orange", "blue"), lty=1,bty="n")}
+```
 
-$$
-\boldsymbol{Q} =
-\left(\begin{array}{cc} 
-\boldsymbol{Q}^{++} & \boldsymbol{Q}^{+0}\\
-\boldsymbol{Q}^{+0} & \boldsymbol{Q}^{00}
-\end{array}\right).
-$$
-
-The superscripts of the sub-matrices represent whether the states have positive (+) or null (0) rewards. For example, $\boldsymbol{Q}^{0+}$, is the sub-matrix which gathers the transition rates from states with a reward of zero to states with a positive reward. Also from a phase-type perspective, for any $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$ then $\tau \sim PH(\boldsymbol{Q}, \boldsymbol{\rho})$, where $\rho$ represents reordered initial probabilities. 
 
 ### 4.4. Non-negative integer valued reward transformation for discrete phase-type distribution
 
