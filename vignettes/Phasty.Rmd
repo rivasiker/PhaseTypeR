@@ -488,14 +488,14 @@ reward_phase_type(dph, c(0, 2, 3))
 
 ## 5.1. The continuous multivariate phase-type
 
-For further details see **section 8.1** [@Bladt2017 page p.438].
+For further details see **Section 8.1** in [@Bladt2017 page p.438].
 
-Let $\tau \sim PH(\boldsymbol{T}, \boldsymbol{\pi})$ with $\{X_t\}_{t \ge 0}$ the underlying Markov jump process and $\boldsymbol{R}$ a matrix of size $p\times n$, then the variable $\boldsymbol{Y} \sim MPH^*_p(\boldsymbol{T},\  \boldsymbol{\pi},\  \boldsymbol{R})$ is the vector $\boldsymbol{Y} = (Y_1,\  Y_2,\  ...\,,\  Y_n)$ where $Y_i$ will correspond to
+Let $\tau \sim PH_p(\boldsymbol{\pi},\boldsymbol{T})$ with $\{X_t\}_{t \ge 0}$ the underlying Markov jump process. Consider $n$ non-negative reward functions $r_j:\{1,\ldots,p\}\rightarrow \mathbb{R}_+$ and collect them in the matrix $\boldsymbol{R}$ of size $p\times n$ such that column $j$ corresponds to reward function $r_j$, i.e. $r_j(i)=\boldsymbol{R}_{ij}$. Define $Y_j$ by 
 
 $$
-Y_j = \int_0^\tau r_j(X_t)dt
+Y_j = \int_0^\tau r_j(X_t)dt, \; \quad j=1,\ldots,n,
 $$
-i.e. the reward transformation of $\boldsymbol{T}$ and $\boldsymbol{\pi}$ using $r_j$.
+i.e. the reward transformation of $\boldsymbol{T}$ and $\boldsymbol{\pi}$ using $r_j$. We say that the multivariate variable $\boldsymbol{Y} = (Y_1,\  Y_2,\  ...\,,\  Y_n)$ is multivariate phase-type distributed and write $\boldsymbol{Y} \sim MPH^*(\boldsymbol{T},\  \boldsymbol{\pi},\  \boldsymbol{R})$.
 
 Using the ```MPH()``` function with the reward matrix in the ```reward_mat``` parameter
 
