@@ -353,7 +353,7 @@ hist(rDPH(500, dph), breaks = 10)
 
 # 4. Reward transformations
 
-A reward transformation allows to give a non-negative weights to each state. 
+A phase-type distributed variable is the sum of the times spent in each state of the underlying Markov chain before absorption. A reward transformed PH-type distribution is the accumulation of the reward-weighted times spent in each state before absorption.  
 
 ### 4.1 Strictly positive rewards for continuous phase-type distribution
 
