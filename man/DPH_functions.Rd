@@ -6,6 +6,7 @@
 \alias{qDPH}
 \alias{pDPH}
 \alias{rDPH}
+\alias{rFullDPH}
 \title{The Univariate Discrete Phase-Type Distribution}
 \usage{
 dDPH(x, obj)
@@ -15,6 +16,8 @@ qDPH(p, obj)
 pDPH(q, obj)
 
 rDPH(n, obj)
+
+rFullDPH(obj)
 }
 \arguments{
 \item{x, q}{vector of quantiles.}
@@ -58,6 +61,8 @@ tested.
 \item \code{pDPH}: Distribution function for the univariate discrete phase-type distribution.
 
 \item \code{rDPH}: Random number generator for the univariate discrete phase-type distribution.
+
+\item \code{rFullDPH}: Simulation of the full path for the univariate discrete phase-type distribution.
 }}
 
 \examples{
@@ -71,7 +76,9 @@ Y <- DPH(disc_phase_type)
 dDPH(3:4, Y)
 pDPH(5, Y)
 qDPH(0.5, Y)
+set.seed(0)
 rDPH(6, Y)
+rFullDPH(Y)
 
 }
 \seealso{

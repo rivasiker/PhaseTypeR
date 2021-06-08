@@ -6,6 +6,7 @@
 \alias{qPH}
 \alias{pPH}
 \alias{rPH}
+\alias{rFullPH}
 \title{The Univariate Continuous Phase-Type Distribution}
 \usage{
 dPH(x, obj)
@@ -15,6 +16,8 @@ qPH(p, obj)
 pPH(q, obj)
 
 rPH(n, obj)
+
+rFullPH(obj)
 }
 \arguments{
 \item{x, q}{vector of quantiles.}
@@ -58,6 +61,8 @@ tested.
 \item \code{pPH}: Distribution function for the univariate continuous phase-type distribution.
 
 \item \code{rPH}: Random number generator for the univariate continuous phase-type distribution.
+
+\item \code{rFullPH}: Simulation of the full path for the univariate continuous phase-type distribution.
 }}
 
 \examples{
@@ -70,7 +75,9 @@ Y <- PH(cont_phase_type)
 dPH(3:4, Y)
 pPH(1.45, Y)
 qPH(0.5, Y)
+set.seed(0)
 rPH(6, Y)
+rFullPH(Y)
 
 
 }

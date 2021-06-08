@@ -40,7 +40,9 @@
 #' dPH(3:4, Y)
 #' pPH(1.45, Y)
 #' qPH(0.5, Y)
+#' set.seed(0)
 #' rPH(6, Y)
+#' rFullPH(Y)
 #'
 #'
 #' @name PH_functions
@@ -173,6 +175,47 @@ rPH <- function(n, obj){
   } else {
     stop("Please provide an object of class 'cont_phase_type'.")
   }
+}
+
+
+
+#' @describeIn PH_functions
+#'
+#' Simulation of the full path for the univariate continuous phase-type distribution.
+#'
+#'
+#' @import stats
+#'
+#' @export
+
+rFullPH <- function(obj){
+  if (!(class(obj) == 'cont_phase_type')){
+    stop("Please provide an object of class 'cont_phase_type'.")
+  }
+
+  init_probs <- obj$init_probs
+  n <- length(init_probs)
+  subint_mat <- obj$subint_mat
+
+  exit_rate <- -subint_mat %*% matrix(1, n, 1)
+
+  int_mat <- cbind(subint_mat, exit_rate)
+  states <- 1:(n+1)
+  curstate <- sample(1:n, 1, prob = init_probs) #sample initial state
+  states <- curstate
+  times <- NULL
+
+  if(class(obj) == 'cont_phase_type'){
+    while(curstate <= n){
+      curtime <- rexp(1, -subint_mat[curstate, curstate])
+      curstate <- sample((1:(n + 1))[-curstate], 1,
+                         prob = int_mat[curstate, -curstate])
+      times <- c(times, curtime)
+      states <- c(states, curstate)
+    }
+  }
+
+  return(data.frame(time = times, state = states[-length(states)]))
 }
 
 

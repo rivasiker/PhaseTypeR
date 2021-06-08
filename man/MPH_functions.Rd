@@ -65,9 +65,9 @@ tested.
 cont_phase_type <- matrix(c(-3, 0, 1,
                             2, -3, 1,
                             1, 1, -2), ncol = 3)
-R <- matrix(c(0, 1, 1,
-              2, 1, 5,
-              0, 1, 10), ncol = 3)
+R <- matrix(c(0, 1, 1,  2,
+                 2, 1, 5,  2,
+                 0, 1, 10, 2), nrow = 3, ncol=4, byrow=TRUE)
 Y <- MPH(cont_phase_type, reward_mat = R)
 
 dMPH(3:4, Y)

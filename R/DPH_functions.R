@@ -41,7 +41,9 @@
 #' dDPH(3:4, Y)
 #' pDPH(5, Y)
 #' qDPH(0.5, Y)
+#' set.seed(0)
 #' rDPH(6, Y)
+#' rFullDPH(Y)
 #'
 #' @name DPH_functions
 NULL
@@ -177,4 +179,45 @@ rDPH <- function(n, obj){
   }
 }
 
+
+#' @describeIn DPH_functions
+#'
+#' Simulation of the full path for the univariate discrete phase-type distribution.
+#'
+#'
+#' @import stats
+#'
+#' @export
+
+rFullDPH <- function(obj){
+  if (!(class(obj) == 'disc_phase_type')){
+    stop("Please provide an object of class 'disc_phase_type'.")
+  }
+
+  init_probs <- obj$init_probs
+  n <- length(init_probs)
+  subint_mat <- obj$subint_mat
+
+  exit_rate <- 1 - t(t(rowSums(subint_mat)))
+
+  int_mat <- cbind(subint_mat, exit_rate)
+  states <- 1:(n+1)
+  curstate <- sample(1:n, 1, prob = init_probs) #sample initial state
+  states <- curstate
+  times <- NULL
+
+  curtime <- 1
+  while(curstate <= n){
+    curstate <- sample(1:(n+1), 1, prob = int_mat[curstate,])
+    if (curstate == states[length(states)]){
+      curtime <- curtime + 1
+    } else {
+      times <- c(times, curtime)
+      states <- c(states, curstate)
+      curtime <- 1
+    }
+  }
+
+  return(data.frame(time = times, state = states[-length(states)]))
+}
 
