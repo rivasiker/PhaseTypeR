@@ -355,7 +355,7 @@ hist(rDPH(500, dph), breaks = 10)
 
 A phase-type distributed variable is the sum of the times spent in each state of the underlying Markov chain before absorption. A reward transformed PH-type distribution is the accumulation of the reward-weighted times spent in each state before absorption.  
 
-### 4.1 Strictly positive rewards for continuous phase-type distribution
+## 4.1 Strictly positive rewards for continuous phase-type distribution
 
 Let $\tau \sim PH(\boldsymbol{\pi},\boldsymbol{T})$ and let $\{X_t\}_{t \ge 0}$ denote the underlying Markov jump process. Furthermore, let the reward vector be $\boldsymbol{r} = (r_1,\ r_2,\ ...\,,\ r_p) \in \mathbb{R}^p_+$.
 
@@ -386,7 +386,7 @@ pdf <- dPH(x,ph)
 rwd.pdf <- dPH(x,rwd.ph)
 
 {plot(x, pdf, xlab = "Time to absorption", ylab = "pdf", col = "orange", type = 'l',ylim=c(0,1))
-lines(x, rwd.trns.pdf, col = "blue")
+lines(x, rwd.pdf, col = "blue")
 title('Distribution functions before and after reward transformation')
 legend("topleft", legend=c('Original Phase-type', 'Reward transformed Phase-type'),
        col=c("orange", "blue"), lty=1,bty="n")}
@@ -396,7 +396,7 @@ legend("topleft", legend=c('Original Phase-type', 'Reward transformed Phase-type
 # knitr::include_graphics("pic/reward_cont_ggplot.jpg")
 ```
 
-### 4.2. Strictly positive integer-valued rewards for the discrete phase-type distribution
+## 4.2. Strictly positive integer-valued rewards for the discrete phase-type distribution
 
 In the discrete phase-type distribution, the reward transformation can be achieved using intermediate states as presented by Navarro [-@Navarro2019]. 
 
@@ -429,7 +429,7 @@ legend("topleft", bty="n", legend=c('Original DPH', 'Reward transformed DPH'),
 # knitr::include_graphics("pic/reward_disc_ggplot.jpg")
 ```
 
-### 4.3. Non-negative reward transformation for continuous phase-type distribution
+## 4.3. Non-negative reward transformation for continuous phase-type distribution
 
 A non-negative reward transformation of a phase-type distribution is also phase-type distributed (posssibe with a defect). **Theorem 3.1.33** [@Bladt2017 page p.147] gives the non-negative reward-transformed phase-type distribution. 
 
@@ -447,7 +447,7 @@ rwd.ph <- reward_phase_type(ph, c(2, 0, 0))
 print(rwd.ph)
 ```
 
-```{r reward_disc}
+```{r}
 x <- seq( 0 , 20 ,length.out = 100)
 cdf <- pPH(x,ph)
 rwd.cdf <- pPH(x,rwd.ph)
@@ -460,7 +460,7 @@ legend("bottomright", legend=c('Original Phase-type', 'Reward transformed Phase-
 ```
 
 
-### 4.4. Non-negative integer valued reward transformation for discrete phase-type distribution
+## 4.4. Non-negative integer valued reward transformation for discrete phase-type distribution
 
 Let's apply a reward of $\boldsymbol{r} = (0,\ 2,\ 3)$ to the discrete phase-type example. We can do it in two separate steps. First, we remove those states with a null reward:
 
@@ -486,7 +486,7 @@ reward_phase_type(dph, c(0, 2, 3))
 
 # 5. Multivariate phase-type distributions
 
-## 5.1. The continuous multivariate phase-type
+## 5.1. The multivariate continuous phase-type
 
 For further details see **Section 8.1** in [@Bladt2017 page p.438].
 
@@ -512,8 +512,6 @@ The mean of each reward transformed multivariate vector is given by
 ```{r}
 mean(mph)
 ```
-
-### 5.1.1 The variance-covariance of a multivariate phase-type distribution
 
 From **Theorem 8.1.5** [@Bladt2017 page p.440], the bivariate first-order moments of the variables in the $MPH^*$ distribution are given by
 
@@ -560,9 +558,6 @@ The mean of each reward transformed multivariate vector is given by
 mean(mdph)
 ```
 
-
-### 5.2.1 The variance-covariance of a discrete multivariate phase-type distribution
-
 From **Proposition 5.7** [@Navarro2019 page p.85] the bivariate first-order moments of the variables in the $MDPH^*$ distribution are given by
 
 $$
@@ -584,7 +579,9 @@ var(mdph)
 # Additional functions
 
 Comments regarding the last stuff:\\
-I think it is a good idea to have the possibility of a full simulation of the underlying absorbing Markov chain. Perhpas call it rAbsMJP for 'random draw from an absorbing Markov Jump process' in the continuous case and rAbsDMC' for 'random draw from an absorbing discrete Markov chain'. An option in the rPH and rDPH should perhaps be to use this for simulating instead of the current procedure?
+I think it is a good idea to have the possibility of getting the full simulation of the underlying absorbing Markov chain. Perhaps call it rFullPH for in the continuous case and rFullDPH' in the discrete case. 
+
+Change to table.
 
 ## Get one simulation from a phase-type
 
