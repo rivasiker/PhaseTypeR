@@ -160,8 +160,12 @@ rPH <- function(n, obj){
       while (j != (p + 1)) {
         # update by adding from an exponential draw
         n_vec[i] <- n_vec[i] + rexp(1, -int_mat[j,j])
+
         # update to the new state
-        j <- sample((1:(p + 1))[-j], 1, prob = int_mat[j,-j])
+        j <- ifelse(
+          length((1:(p + 1))[-j]) == 1,
+          (1:(p + 1))[-j],
+          sample((1:(p + 1))[-j], 1, prob = int_mat[j,-j]))
       }
     }
     return(n_vec)
