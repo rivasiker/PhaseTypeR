@@ -204,29 +204,33 @@ tested.</p>
 <span class='va'>cont_phase_type</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>1</span>,
                             <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>1</span>,
                             <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-<span class='va'>R</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span>,
-              <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>5</span>,
-              <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>10</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>R</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span>,  <span class='fl'>2</span>,
+                 <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>5</span>,  <span class='fl'>2</span>,
+                 <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>10</span>, <span class='fl'>2</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol<span class='op'>=</span><span class='fl'>4</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='va'>Y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generator_functions.html'>MPH</a></span><span class='op'>(</span><span class='va'>cont_phase_type</span>, reward_mat <span class='op'>=</span> <span class='va'>R</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: </span>
 #&gt; <span class='warning'> The initial probability vector is automatically generated.</span></div><div class='input'>
 <span class='fu'>dMPH</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span>, <span class='va'>Y</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            [,1]       [,2]
-#&gt; [1,] 0.05297984 0.02196437
-#&gt; [2,] 0.08769382 0.06723015
-#&gt; [3,] 0.04609939 0.04122607</div><div class='input'><span class='fu'>pMPH</span><span class='op'>(</span><span class='fl'>1.45</span>, <span class='va'>Y</span><span class='op'>)</span>
+#&gt; [1,] 0.04978707 0.01831564
+#&gt; [2,] 0.08879596 0.04274991
+#&gt; [3,] 0.08694436 0.06568935
+#&gt; [4,] 0.13639222 0.09291062</div><div class='input'><span class='fu'>pMPH</span><span class='op'>(</span><span class='fl'>1.45</span>, <span class='va'>Y</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;           [,1]
-#&gt; [1,] 0.7638435
-#&gt; [2,] 0.3918290
-#&gt; [3,] 0.4957888</div><div class='input'><span class='fu'>qMPH</span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='va'>Y</span><span class='op'>)</span>
+#&gt; [1,] 0.7654297
+#&gt; [2,] 0.6202987
+#&gt; [3,] 0.2238680
+#&gt; [4,] 0.3415354</div><div class='input'><span class='fu'>qMPH</span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='va'>Y</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;           [,1]
-#&gt; [1,] 0.6281644
-#&gt; [2,] 2.1429836
-#&gt; [3,] 1.5119507</div><div class='input'><span class='fu'>rMPH</span><span class='op'>(</span><span class='fl'>6</span>, <span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           [,1]      [,2]      [,3]     [,4]      [,5]       [,6]
-#&gt; [1,] 2.6962556 0.1046639 0.3087221  0.06565  2.031719 0.05733363
-#&gt; [2,] 0.1951797 3.3499807 6.6180290 11.67642  1.214373 2.20146387
-#&gt; [3,] 5.2303984 9.0625726 8.2109701 88.99943 10.795515 1.64820687</div><div class='input'>
+#&gt; [1,] 0.6931545
+#&gt; [2,] 1.0850215
+#&gt; [3,] 4.3387820
+#&gt; [4,] 2.1700430</div><div class='input'><span class='fu'>rMPH</span><span class='op'>(</span><span class='fl'>6</span>, <span class='va'>Y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;            [,1]      [,2]      [,3]     [,4]      [,5]      [,6]
+#&gt; [1,]  0.4508105 2.1002810 1.3664337 0.824683 2.3952692 0.7687702
+#&gt; [2,]  0.4913370 0.4934892 0.4989442 1.643679 0.8364322 3.0821149
+#&gt; [3,] 16.0316888 2.3824020 3.2356199 3.895310 9.3804166 3.8848225
+#&gt; [4,]  6.3383525 1.4363330 3.5830396 3.951306 1.5188263 2.7974890</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

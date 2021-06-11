@@ -226,6 +226,26 @@ hist(rPH(500, ph), breaks = 10)
 ```
 
 
+
+```{r}
+
+set.seed(6)
+tab_FullPH <- rFullPH(ph)
+x <- c(tab_FullPH$time, sum(tab_FullPH$time)/length(tab_FullPH$time))
+x <- cumsum(x)
+y <- c(tab_FullPH$state, 4)
+
+plot(x,y,type="n", xlim=c(0,x[length(x)]))
+segments(c(0,x[-length(x)]),y,x,y)
+points(c(0,x[-length(x)]),y,pch=16)
+points(x[-length(x)],y[-length(x)],pch=1)
+points(x[length(x)],y[length(x)],pch='>')
+
+
+```
+
+
+
 ```{r cont_ggplot, echo=FALSE, out.width = '70%'}
 
 # knitr::include_graphics("pic/cont_ggplot.jpg")
@@ -337,6 +357,8 @@ Finally, here is a histogram of 200 samples from the phase-type distribution dra
 ```{r}
 hist(rDPH(500, dph), breaks = 10)
 ```
+
+
 
 ```{r disc_ggplot, echo=FALSE, out.width = '70%'}
 

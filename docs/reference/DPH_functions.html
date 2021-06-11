@@ -144,7 +144,9 @@
 
 <span class='fu'>pDPH</span><span class='op'>(</span><span class='va'>q</span>, <span class='va'>obj</span><span class='op'>)</span>
 
-<span class='fu'>rDPH</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>obj</span><span class='op'>)</span></pre>
+<span class='fu'>rDPH</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>obj</span><span class='op'>)</span>
+
+<span class='fu'>rFullDPH</span><span class='op'>(</span><span class='va'>obj</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,6 +196,7 @@ tested.</p>
 <li><p><code>qDPH</code>: Quantile function for the univariate discrete phase-type distribution.</p></li>
 <li><p><code>pDPH</code>: Distribution function for the univariate discrete phase-type distribution.</p></li>
 <li><p><code>rDPH</code>: Random number generator for the univariate discrete phase-type distribution.</p></li>
+<li><p><code>rFullDPH</code>: Simulation of the full path for the univariate discrete phase-type distribution.</p></li>
 </ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -211,8 +214,15 @@ tested.</p>
 <span class='fu'>dDPH</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span>, <span class='va'>Y</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 0.1560 0.1394</div><div class='input'><span class='fu'>pDPH</span><span class='op'>(</span><span class='fl'>5</span>, <span class='va'>Y</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 0.54366</div><div class='input'><span class='fu'>qDPH</span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='fu'>rDPH</span><span class='op'>(</span><span class='fl'>6</span>, <span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  7  5  3  1 10  8</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span>
+<span class='fu'>rDPH</span><span class='op'>(</span><span class='fl'>6</span>, <span class='va'>Y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 11 13  8 20  8  9</div><div class='input'><span class='fu'>rFullDPH</span><span class='op'>(</span><span class='va'>Y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   time state
+#&gt; 1    3     1
+#&gt; 2    3     2
+#&gt; 3    1     3
+#&gt; 4    1     2
+#&gt; 5    1     3</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
