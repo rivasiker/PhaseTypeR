@@ -1,5 +1,5 @@
 ---
-title: "Phasty v0.9"
+title: "PhaseTypeR v0.9"
 Authors: 
 - Iker Rivas-González
 - Colin Guétemme
@@ -11,7 +11,7 @@ output:
     fig_caption: yes
     toc: yes
 vignette: |
-  %\VignetteIndexEntry{Phasty} 
+  %\VignetteIndexEntry{PhaseTypeR} 
   %\VignetteEncoding{UTF-8} 
   %\VignetteEngine{knitr::rmarkdown}
 bibliography: for_vignette.bib
@@ -27,11 +27,11 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, setup, include = FALSE}
-library(phasty)
+library(PhaseTypeR)
 ```
 
 # Preface
-Please report any issues on [the git page of the package](https://github.com/rivasiker/phasty).
+Please report any issues on [the git page of the package](https://github.com/rivasiker/PhaseTypeR).
 
 Most background and details can be found in the book by Mogens Bladt and Bo Friis Nielsen [-@Bladt2017]: Matrix-Exponential Distributions in Applied Probability,
 and the PhD dissertation by Campillo Navarro [-@Navarro2019].
@@ -43,13 +43,13 @@ Phase-type distributions are a general class of distributions. They have been us
 The basic idea is to consider a Markov jump process (or a Markov chain for discrete time) with $p$ transient states and one absorbing state. The time to absorption is phase-type distributed. The parameters of a phase-type distribution is thus an intensity matrix and the initial probabilities to begin in each state. The matrix form of the phase-type distribution allow great simplification, in particular to find the moments of the time before reaching 
 the absorbing state.
 
-The package ```phasty``` handle and manipulate the continuous and discrete phase-type distributions, and their corresponding reward transformations and multivariate extensions. 
+The package ```PhaseTypeR``` handle and manipulate the continuous and discrete phase-type distributions, and their corresponding reward transformations and multivariate extensions. 
 
-The package is general, but our initial interest in phase-type distributions is from applications in population genetics. We provide a separate vignette where we further demonstrate **phasty** using applications from population genetics.  
+The package is general, but our initial interest in phase-type distributions is from applications in population genetics. We provide a separate vignette where we further demonstrate **PhaseTypeR** using applications from population genetics.  
 
 # 2. The phase-type objects
 
-The functions provided by ```phasty``` require objects of class ```disc_phase_type```, ```cont_phase_type```, ```mult_disc_phase_type``` or ```mult_cont_phase_type```, which can be obtained using the generator functions ```PH()```, ```DPH()```, ```MPH()``` and ```MDPH()```, respectively. 
+The functions provided by ```PhaseTypeR``` require objects of class ```disc_phase_type```, ```cont_phase_type```, ```mult_disc_phase_type``` or ```mult_cont_phase_type```, which can be obtained using the generator functions ```PH()```, ```DPH()```, ```MPH()``` and ```MDPH()```, respectively. 
 
 Here is an example of a univariate continuous phase-type distribution:
 
@@ -93,7 +93,7 @@ This is the reason we take the subintensity matrix as the first entry in the fun
 
 Let $\{X_t\}_{t\ge0}$ be a **Markov jump process** with $p$ transient states and one absorbing state. If $\tau$ is defined as the time when $\{X_t\}_{t\ge0}$ reaches the absorbing state, then $\tau$ follows a continuous phase-type distribution $\tau \sim PH(, \boldsymbol{\pi},\boldsymbol{T})$, where $\boldsymbol{T}$ is the sub-intensity matrix of the corresponding Markov jump process, and $\boldsymbol{\pi}$ is the vector of initial probabilities.
 
-As specified before, a continuous phase-type distribution object can be created in ```phasty``` using the ```PH()``` function:
+As specified before, a continuous phase-type distribution object can be created in ```PhaseTypeR``` using the ```PH()``` function:
 
 ```{r cont_example}
 subintensity_matrix <- matrix(c(-1.5, 0, 0,
@@ -156,7 +156,7 @@ $$
 -(\boldsymbol{\pi} (-\boldsymbol{T})^{-1} \boldsymbol{e})^2.
 $$
 
-Calculating the mean and variance of a phase-type distributed random variable is straightforward in ```phasty```. We can do so by using the generic functions  ```mean()``` and ```var()``` on a ```cont_phase_type``` object. For example:
+Calculating the mean and variance of a phase-type distributed random variable is straightforward in ```PhaseTypeR```. We can do so by using the generic functions  ```mean()``` and ```var()``` on a ```cont_phase_type``` object. For example:
 
 
 ```{r mean_var_cont, collapse = TRUE}
@@ -263,7 +263,7 @@ points(x[length(x)],y[length(x)],pch='>')
 
 Instead of using a Markov Jump Process (also sometimes called a continuous time Markov chain), it is also possible to consider a discrete **Markov chain (MC)**. Let's consider $\tau \sim DPH(\boldsymbol{\pi},\boldsymbol{T})$. Here $\tau$ is the number of state transitions before entering the absorbing state. The sub-intensity matrix $\boldsymbol{T}$ contains the probabilities of jumping from one state to another. 
 
-Discrete phase-type distributions can be created in `phasty` using the `DPH()` function by specifying a sub-intensity matrix that meets the requirements for a discrete phase-type distribution:
+Discrete phase-type distributions can be created in `PhaseTypeR` using the `DPH()` function by specifying a sub-intensity matrix that meets the requirements for a discrete phase-type distribution:
 
 ```{r disc_example}
 subintensity_matrix <- matrix(c(0, 0.2, 0.8,
@@ -304,7 +304,7 @@ $$
  \mathbb{V} (\tau) = \mathbb{E} (\tau(\tau-1)) + \mathbb{E} (\tau) - \mathbb{E} (\tau)^2.
 $$
 
-In ```phasty``` the mean and variance of a discrete phase-type distribution can be obtained using the generic functions `mean()` and `var()`:
+In ```PhaseTypeR``` the mean and variance of a discrete phase-type distribution can be obtained using the generic functions `mean()` and `var()`:
 
 ```{r mean_var_disc}
 cat('\n', 'Mean: ',mean(dph),'\n')
@@ -395,7 +395,7 @@ $$
 
 If the rewards are strictly positive we have $\boldsymbol{\pi}^\star$ = $\boldsymbol{\pi}$ and $\boldsymbol{T}^\star$ = $\triangle(\boldsymbol{1/r})\boldsymbol{T}$. 
 
-Taking the previous example and applying a reward vector $\boldsymbol{r} = (1,\ 2,\ 3)$, the continuous phase-type distribution is reward-transformed in `phasty` using `reward_phase_type()`:
+Taking the previous example and applying a reward vector $\boldsymbol{r} = (1,\ 2,\ 3)$, the continuous phase-type distribution is reward-transformed in `PhaseTypeR` using `reward_phase_type()`:
 
 ```{r reward_disc}
 rwd.ph <- reward_phase_type(ph, c(1, 2, 3))
@@ -549,7 +549,7 @@ $$
 \mathrm{Cov}(Y_j Y_k) = \mathbb{E}(Y_j Y_k) - \mathbb{E}(Y_j)\mathbb{E}(Y_k)
 $$
 
-The variance-covariance matrix is computed in ```phasty``` using ```var```
+The variance-covariance matrix is computed in ```PhaseTypeR``` using ```var```
 
 ```{r}
 var(mph)
@@ -592,7 +592,7 @@ $$
 \mathrm{Cov}(Y_j Y_k) = \mathbb{E}(Y_j Y_k) - \mathbb{E}(Y_j)\mathbb{E}(Y_k).
 $$
 
-In ```phasty``` the variance-covariance matrix is computed using ```var()```. In this case we get
+In ```PhaseTypeR``` the variance-covariance matrix is computed using ```var()```. In this case we get
 
 ```{r}
 var(mdph)
@@ -607,7 +607,7 @@ Change to table.
 
 ## Get one simulation from a phase-type
 
-To get one simulation of the corresponding MC or MJP from a discrete or continuous phase-type distribution respectively, the function ```sim_phase_type(obj, R = 100)``` can be called. With obj an object of the class from ```phasty``` and R the number of simulation.
+To get one simulation of the corresponding MC or MJP from a discrete or continuous phase-type distribution respectively, the function ```sim_phase_type(obj, R = 100)``` can be called. With obj an object of the class from ```PhaseTypeR``` and R the number of simulation.
 
 The output will be a list with (`[[1]]`) the vector of the number of step (MC) or spending time (MJP) and (`[[2]]`) the vector of corresponding state visited . 
 

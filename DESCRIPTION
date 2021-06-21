@@ -1,4 +1,4 @@
-Package: phasty
+Package: PhaseTypeR
 Type: Package
 Title: General-purpose phase-type functions
 Version: 0.0.0.9000
@@ -9,7 +9,7 @@ Authors@R: c(
     person("Lars Nørvang", "Andersen", email = "larsa@math.au.dk", role = c("aut")))
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-URL: https://rivasiker.github.io/phasty/, https://github.com/rivasiker/phasty
+URL: https://rivasiker.github.io/PhaseTypeR/, https://github.com/rivasiker/PhaseTypeR
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

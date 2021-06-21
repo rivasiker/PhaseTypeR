@@ -1,11 +1,11 @@
 ---
-title: "Using phasty for population genetics"
+title: "Using PhaseTypeR for population genetics"
 author: Iker Rivas-González
 output: 
   html_document:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Using phasty for population genetics}
+  %\VignetteIndexEntry{Using PhaseTypeR for population genetics}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: for_vignette.bib
@@ -14,9 +14,9 @@ link-citations: yes
 
 # 1. Introduction to the package
 
-`phasty` is a flexible and efficient package for using phase-type theory in R. This vignette describes how to use the general-purpose phase-type functions for modelling common statistics in population genomics at the finest level. The formulation of general phase-type theory can be consulted in Bladt and Nielsen's 'Matrix-Exponential Distributions in Applied Probability' [@Bladt2017], and the notation for this vignette is also adopted from this book. On the other hand, the theory behind applying phase-type theory in population genomics is based on Hobolth et al [-@Hobolth2019].
+`PhaseTypeR` is a flexible and efficient package for using phase-type theory in R. This vignette describes how to use the general-purpose phase-type functions for modelling common statistics in population genomics at the finest level. The formulation of general phase-type theory can be consulted in Bladt and Nielsen's 'Matrix-Exponential Distributions in Applied Probability' [@Bladt2017], and the notation for this vignette is also adopted from this book. On the other hand, the theory behind applying phase-type theory in population genomics is based on Hobolth et al [-@Hobolth2019].
 
-Do not hesitate to run `?phasty` for a quick summary of the available general-purpose functions, or to open the help files for the individual functions. 
+Do not hesitate to run `?PhaseTypeR` for a quick summary of the available general-purpose functions, or to open the help files for the individual functions. 
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(phasty)
+library(PhaseTypeR)
 ```
 
 
@@ -46,7 +46,7 @@ Instead, we can think of the sum of exponential distributions as a continuous-ti
 
 The Markov chain can be represented using phase-type theory, where the jump rates are defined with a sub-intensity matrix $T$ and the initial distribution will be defined as a row vector $\pi$. If we define $\tau$ as the smallest time (or length) to reach the absorbing state, then $\tau\sim PH(\pi,T)$. This continuous phase-type distribution has well-documented and easy-to-implement formulas for the expectation, the variance, the survival function, the distribution function and the density function. Moreover, since both $\pi$ and $T$ can easily be speficied, we can represent evolutionary histories that do not follow the standard coalescent model and still use the same phase-type formulas. 
 
-`phasty` contains an efficient implementation of continuous phase-type distributions. This section shows how to create phase-type representations of $T_{MRCA}$ and $T_{Total}$ under the Kingman's coalescent model, and it provides some guidelines for modeling these quantities for other non-standard coalescent models. 
+`PhaseTypeR` contains an efficient implementation of continuous phase-type distributions. This section shows how to create phase-type representations of $T_{MRCA}$ and $T_{Total}$ under the Kingman's coalescent model, and it provides some guidelines for modeling these quantities for other non-standard coalescent models. 
 
 
 
@@ -74,7 +74,7 @@ $$
  \boldsymbol{\pi} = (1,\ 0, \ ...\,,\ 0)
 $$
 
-We can therefore define $T_{MRCA}$ as following a phase-type distribution using `phasty` with the following function
+We can therefore define $T_{MRCA}$ as following a phase-type distribution using `PhaseTypeR` with the following function
 
 ```{r}
 # for any integer n > 2
@@ -95,7 +95,7 @@ init_probs <- matrix(c(1, rep(0,n-2)), 1, n-1)
 
 ```
 
-Now we can use a `cont_phase_type` class of the `phasty` package to generate a phase-type representation of $T_{MRCA}$ by using `PH()`:
+Now we can use a `cont_phase_type` class of the `PhaseTypeR` package to generate a phase-type representation of $T_{MRCA}$ by using `PH()`:
 
 ```{r}
 
@@ -183,7 +183,7 @@ t_total_4
 
 ```
 
-Without further ado, we can use the exact same phase-type formulas (and thus `phasty` functions) for calculating the mean and variance of $T_{Total}$:
+Without further ado, we can use the exact same phase-type formulas (and thus `PhaseTypeR` functions) for calculating the mean and variance of $T_{Total}$:
 
 ```{r}
 
@@ -215,7 +215,7 @@ Which is exactly the same as our previous definition.
 
 ## 2.4. Density, distribution and quantile functions 
 
-`phasty` also includes the density function (`dPH()`), quantile function (`qPH()`), distribution function (`pPH()`) and random draw generator (`rPH()`) for continuous phase-type distributions. We can therefore apply these functions for our phase-type representation of $T_{MRCA}$ and $T_{Total}$. 
+`PhaseTypeR` also includes the density function (`dPH()`), quantile function (`qPH()`), distribution function (`pPH()`) and random draw generator (`rPH()`) for continuous phase-type distributions. We can therefore apply these functions for our phase-type representation of $T_{MRCA}$ and $T_{Total}$. 
 
 For example, the density function:
 
@@ -318,7 +318,7 @@ On the other hand, singletons, doubletons and related variables (referred to as 
 Bear in mind that it is possible for some i-tons to never be observed. This means that the initial probability vector might not sum up to 1, because the variable might directly jump to the absorbing state. The probability that this happens is the so-called defect.
 
 
-Because phase-type theory has well-defined functions for discrete phase-type distributions, the expectation, the variance, the survival function, the distribution function and the density function of all the variables defined above can be computed efficiently. `phasty` contains an efficient implementation of discrete phase-type distributions and all these functions associated to them. 
+Because phase-type theory has well-defined functions for discrete phase-type distributions, the expectation, the variance, the survival function, the distribution function and the density function of all the variables defined above can be computed efficiently. `PhaseTypeR` contains an efficient implementation of discrete phase-type distributions and all these functions associated to them. 
 
 ## 3.2. Total number of segregating sites ($S_{total}$)
 
@@ -333,7 +333,7 @@ init_probs <- t_total_4$init_probs
 disc_subint_mat <- solve(diag(nrow(subint_mat)) - 2/theta * subint_mat)
 ```
 
-And we can now use the `DPH()` function of `phasty` to build a discrete phase-type class `disc_phase_type` for $S_{total}$:
+And we can now use the `DPH()` function of `PhaseTypeR` to build a discrete phase-type class `disc_phase_type` for $S_{total}$:
 
 ```{r}
 
@@ -465,7 +465,7 @@ Note that we need to subtract 1 from the mean to retrieve the true value. This i
 
 ## 3.4. Density, distribution and quantile functions
 
-`phasty` also contains the density function (`dDPH()`), quantile function (`qDPH()`), distribution function (`pDPH()`) and random draw generator (`rDPH()`) for the discrete phase-type distribution. For example, for $S_{total}$ and singletons when $n=4$ and $\theta=3$.
+`PhaseTypeR` also contains the density function (`dDPH()`), quantile function (`qDPH()`), distribution function (`pDPH()`) and random draw generator (`rDPH()`) for the discrete phase-type distribution. For example, for $S_{total}$ and singletons when $n=4$ and $\theta=3$.
 
 
 For example, the density function:

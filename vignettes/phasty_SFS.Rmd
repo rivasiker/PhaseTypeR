@@ -1,5 +1,5 @@
 ---
-title: "Using phasty for the site frequency spectrum"
+title: "Using PhaseTypeR for the site frequency spectrum"
 output:
   html_document:
     self_contained: yes
@@ -7,7 +7,7 @@ output:
       before_body: preamble-mathjax.tex
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Using phasty for the site frequency spectrum}
+  %\VignetteIndexEntry{Using PhaseTypeR for the site frequency spectrum}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: for_vignette.bib
@@ -32,11 +32,11 @@ knitr::opts_chunk$set(
 TODO: Check final references to paper.
 
 In this vignette we check illustrate the results presented in
-Asger [-@asgertemp2020] using the \texttt{phasty}-package.
+Asger [-@asgertemp2020] using the \texttt{PhaseTypeR}-package.
 
 ```{r setup}
 set.seed(0)
-library(phasty)
+library(PhaseTypeR)
 ```
 
 On p. 55 of Durrett [-@durrett2008probability] the numerical values of the covariances between the entries of the site frequency spectrum for $n=8$ are computed and from eqn (eq:covmatdecomp) in Asger [-@asgertemp2020] we know that the off-diagonal entries of the covariance matrix of the site frequency spectrum are proportional to the covariance matrix of the underlying phase-type distribution.
@@ -49,7 +49,7 @@ Covmat <- var(ph_rew_obj) # Compute the covariance matrix
 round(0.25*Covmat,4) 
 ```
 
-In Asger [-@asgertemp2020], the distribution of the site frequency spectrum is characterized as by conditioning on the underlying block counting process. This implies a method for simulating site frequecy spectra by first generating an outcome of the block counting process, and then adding mutations according to a Poisson process. Since the block counting process is a phase-type distribtibution, we can use \texttt{phasty} for the first part.
+In Asger [-@asgertemp2020], the distribution of the site frequency spectrum is characterized as by conditioning on the underlying block counting process. This implies a method for simulating site frequecy spectra by first generating an outcome of the block counting process, and then adding mutations according to a Poisson process. Since the block counting process is a phase-type distribtibution, we can use \texttt{PhaseTypeR} for the first part.
  
 
 ```{r}
