@@ -1,7 +1,7 @@
 context('The multivariate continuous phase-type distribution')
 
 library(testthat)
-library(phasty)
+library(PhaseTypeR)
 
 subintensity_matrix <- matrix(c(-3,  2,  0,
                                  0, -2,  1,

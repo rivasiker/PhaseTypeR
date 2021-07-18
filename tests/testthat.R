@@ -1,4 +1,4 @@
 library(testthat)
-library(phasty)
+library(PhaseTypeR)
 
-test_check("phasty")
+test_check("PhaseTypeR")

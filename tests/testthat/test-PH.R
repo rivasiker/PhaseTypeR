@@ -1,7 +1,7 @@
 context('The continuous phase-type distribution')
 
 library(testthat)
-library(phasty)
+library(PhaseTypeR)
 
 test_that(
   'test of all the error and warnings in the check_phase_type function with PH', {

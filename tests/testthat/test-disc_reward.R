@@ -1,7 +1,7 @@
 context('Discrete reward tranformation')
 
 library(testthat)
-library(phasty)
+library(PhaseTypeR)
 
 
 disc_phase_type <- DPH(subint_mat = matrix(c(0.4, 0, 0,

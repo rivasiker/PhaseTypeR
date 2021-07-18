@@ -1,7 +1,7 @@
 context('Continuous reward tranformation')
 
 library(testthat)
-library(phasty)
+library(PhaseTypeR)
 
 cont_phase_type <- PH(subint_mat = matrix(c(-1.5, 0, 0,
                                                     1.5, -1, 0,

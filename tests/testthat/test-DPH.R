@@ -1,7 +1,7 @@
 context('The discrete phase-type distribution')
 
 library(testthat)
-library(phasty)
+library(PhaseTypeR)
 
 
 test_that(
