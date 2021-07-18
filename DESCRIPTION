@@ -7,8 +7,7 @@ Authors@R: c(
     person("Colin", "Guetemme", email = "colin.guetemme@live.fr", role = c("aut")),
     person("Asger", "Hobolth", email = "asger@math.au.dk", role = c("aut")),
     person("Lars Nørvang", "Andersen", email = "larsa@math.au.dk", role = c("aut")))
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Need to write description of package.
 URL: https://rivasiker.github.io/PhaseTypeR/, https://github.com/rivasiker/PhaseTypeR
 License: GPL-3
 Encoding: UTF-8
