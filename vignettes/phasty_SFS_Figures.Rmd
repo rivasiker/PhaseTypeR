@@ -468,7 +468,7 @@ legend("topright",c("Pairwise","H","L"),lwd=2,
 
 The figure for $n=6$ is created in a similar fashion
 
-```{R}
+```{r}
 n = 6
 theta = 1
 ph_bcp = block_counting_process(n)
