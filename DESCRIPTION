@@ -1,6 +1,6 @@
 Package: PhaseTypeR
 Type: Package
-Title: General-purpose phase-type functions
+Title: General-Purpose Phase-Type Functions
 Version: 0.0.0.9000
 Authors@R: c(
     person("Iker", "Rivas-González", email = "ikerrivas96@gmail.com", role = c("aut", "cre")),
