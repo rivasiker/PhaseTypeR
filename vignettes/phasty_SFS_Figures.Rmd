@@ -469,67 +469,70 @@ legend("topright",c("Pairwise","H","L"),lwd=2,
 The figure for $n=6$ is created in a similar fashion
 
 ```{r}
-n = 6
-theta = 1
-ph_bcp = block_counting_process(n)
 
-subintensity_matrix = ph_bcp$subint_mat
-rew_mat = ph_bcp$reward_mat
+##### THE FOLLOWING CODE DOES NOT RUN FOR R-DEVEL #####
 
-ph = phase_type(subintensity_matrix)
-
-# The reward vector is the rows sums of the state space matrix
-
-ph_rew_obj = reward_phase_type(ph, rowSums(rew_mat))
-bS = ph_rew_obj$subint_mat
-
-bM = solve(diag(dim(bS)[1])-(2/theta)*bS)
-
-baMat = matrix(c(1:(n-1),(1:(n-1))*((n-1):1),(1:(n-1))^2),n-1,n-1,byrow=TRUE)
-
-len = n*(n-1)+1
-probsMat = matrix(0,3,len)
-
-for(i_outer in 1:3) {
-  ba = baMat[i_outer,] #This is the current a-vector
-  DPH_obj = DPHrep(bM,ph_bcp$reward_mat,ba)
-  bMt = DPH_obj[[1]]
-  sizes_of_blocks = DPH_obj[[2]]
-  balpha = rep(0,dim(bMt)[1])
-  balpha[sizes_of_blocks[1]] = 1 
-  bone = matrix(rep(1,dim(bMt)[1]))
-  bmt = bone - bMt%*%bone
-  probs = rep(0,len)
-  for(i in 1:len) {
-    probs[i] = balpha%*%(bMt%^%(i-1))%*%bmt
-  }
-  probsMat[i_outer,] = probs
-}
-
-xs = c(0,(1:(2*(n-1)))/(n-1))
-
-main.txt <- paste("Integer-weighted SFS distributions for n=",n,"and theta=",1)
-
-
-plot(xs,probsMat[1,1:(2*(n-1)+1)],type="l",lty="dashed",pch=19,ylim=c(0,probsMat[1,1]),xlab="Weighted SFS",ylab="Probability",
-     main=main.txt,cex.main=1.2,cex.lab=1.2,las=1,lwd=2)
-points(xs,probsMat[1,1:(2*(n-1)+1)],type="p",pch=19)
-
-xs = c(0,(1:((n*(n-1))))/(n*(n-1)/2))
-points(xs,probsMat[2,],type="l",lty="dotted",lwd=2)
-points(xs,probsMat[2,],type="p",pch=19)
-points(xs,probsMat[3,],type="l",lty="solid",lwd=2)
-points(xs,probsMat[3,],type="p",pch=19)
-
-
-xs = c(0,(1:(2*(n-1)))/(n-1))
-
-abline(v=1,col="gray")
-txt <- paste("mean=theta=",1)
-text(1,probsMat[1,1],txt,pos=2,cex=1.2)
-
-legend("topright",c("Pairwise","H","L"),lwd=2,
-       lty=c("dotted","solid","dashed"),bty="n",cex=1.2)
+# n = 6
+# theta = 1
+# ph_bcp = block_counting_process(n)
+# 
+# subintensity_matrix = ph_bcp$subint_mat
+# rew_mat = ph_bcp$reward_mat
+# 
+# ph = phase_type(subintensity_matrix)
+# 
+# # The reward vector is the rows sums of the state space matrix
+# 
+# ph_rew_obj = reward_phase_type(ph, rowSums(rew_mat))
+# bS = ph_rew_obj$subint_mat
+# 
+# bM = solve(diag(dim(bS)[1])-(2/theta)*bS)
+# 
+# baMat = matrix(c(1:(n-1),(1:(n-1))*((n-1):1),(1:(n-1))^2),n-1,n-1,byrow=TRUE)
+# 
+# len = n*(n-1)+1
+# probsMat = matrix(0,3,len)
+# 
+# for(i_outer in 1:3) {
+#   ba = baMat[i_outer,] #This is the current a-vector
+#   DPH_obj = DPHrep(bM,ph_bcp$reward_mat,ba)
+#   bMt = DPH_obj[[1]]
+#   sizes_of_blocks = DPH_obj[[2]]
+#   balpha = rep(0,dim(bMt)[1])
+#   balpha[sizes_of_blocks[1]] = 1 
+#   bone = matrix(rep(1,dim(bMt)[1]))
+#   bmt = bone - bMt%*%bone
+#   probs = rep(0,len)
+#   for(i in 1:len) {
+#     probs[i] = balpha%*%(bMt%^%(i-1))%*%bmt
+#   }
+#   probsMat[i_outer,] = probs
+# }
+# 
+# xs = c(0,(1:(2*(n-1)))/(n-1))
+# 
+# main.txt <- paste("Integer-weighted SFS distributions for n=",n,"and theta=",1)
+# 
+# 
+# plot(xs,probsMat[1,1:(2*(n-1)+1)],type="l",lty="dashed",pch=19,ylim=c(0,probsMat[1,1]),xlab="Weighted SFS",ylab="Probability",
+#      main=main.txt,cex.main=1.2,cex.lab=1.2,las=1,lwd=2)
+# points(xs,probsMat[1,1:(2*(n-1)+1)],type="p",pch=19)
+# 
+# xs = c(0,(1:((n*(n-1))))/(n*(n-1)/2))
+# points(xs,probsMat[2,],type="l",lty="dotted",lwd=2)
+# points(xs,probsMat[2,],type="p",pch=19)
+# points(xs,probsMat[3,],type="l",lty="solid",lwd=2)
+# points(xs,probsMat[3,],type="p",pch=19)
+# 
+# 
+# xs = c(0,(1:(2*(n-1)))/(n-1))
+# 
+# abline(v=1,col="gray")
+# txt <- paste("mean=theta=",1)
+# text(1,probsMat[1,1],txt,pos=2,cex=1.2)
+# 
+# legend("topright",c("Pairwise","H","L"),lwd=2,
+#        lty=c("dotted","solid","dashed"),bty="n",cex=1.2)
 ```
 
 # Last Figure
