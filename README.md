@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/rivasiker/PhaseTypeR/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/rivasiker/PhaseTypeR/actions/workflows/check-standard.yaml)
-[![Codecov test coverage](https://codecov.io/gh/rivasiker/PhaseTypeR/branch/master/graph/badge.svg)](https://github.com/rivasiker/PhaseTypeR/actions/workflows/test-coverage.yaml)
+[![Codecov test coverage]https://github.com/rivasiker/PhaseTypeR/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/rivasiker/PhaseTypeR/actions/workflows/test-coverage.yaml)
   <!-- badges: end -->
 
 
