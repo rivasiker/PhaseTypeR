@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PhaseTypeR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.0</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -71,7 +71,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/rivasiker/PhaseTypeR/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -85,8 +85,7 @@
 
       
 
-      </header><script src="phasty_SFS_Figures_files/header-attrs-2.5/header-attrs.js"></script><link href="phasty_SFS_Figures_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="phasty_SFS_Figures_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="phasty_SFS_Figures_files/header-attrs-2.9.4/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Using PhaseTypeR for the site frequency spectrum - Figures</h1>
@@ -434,71 +433,70 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}}
 <p><img src="phasty_SFS_Figures_files/figure-html/unnamed-chunk-19-1.png" width="816" style="display: block; margin: auto;"></p>
 <p>The figure for <span class="math inline">\(n=6\)</span> is created in a similar fashion</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">n</span> <span class="op">=</span> <span class="fl">6</span>
-<span class="va">theta</span> <span class="op">=</span> <span class="fl">1</span>
-<span class="va">ph_bcp</span> <span class="op">=</span> <span class="fu"><a href="../reference/block_counting_process.html">block_counting_process</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
-<span class="co">#&gt; Warning in phase_type(subintensity_matrix): The initial probability vector is automatically generated.</span>
-<span class="co">#&gt; Warning in phase_type(subintensity_matrix, reward_mat = rew_mat): The initial probability vector is automatically generated.</span>
+<code class="sourceCode R">
+<span class="co">##### THE FOLLOWING CODE DOES NOT RUN FOR R-DEVEL #####</span>
 
-<span class="va">subintensity_matrix</span> <span class="op">=</span> <span class="va">ph_bcp</span><span class="op">$</span><span class="va">subint_mat</span>
-<span class="va">rew_mat</span> <span class="op">=</span> <span class="va">ph_bcp</span><span class="op">$</span><span class="va">reward_mat</span>
-
-<span class="va">ph</span> <span class="op">=</span> <span class="fu"><a href="../reference/phase_type.html">phase_type</a></span><span class="op">(</span><span class="va">subintensity_matrix</span><span class="op">)</span>
-<span class="co">#&gt; Warning in phase_type(subintensity_matrix): The initial probability vector is automatically generated.</span>
-
-<span class="co"># The reward vector is the rows sums of the state space matrix</span>
-
-<span class="va">ph_rew_obj</span> <span class="op">=</span> <span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">ph</span>, <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">rew_mat</span><span class="op">)</span><span class="op">)</span>
-<span class="va">bS</span> <span class="op">=</span> <span class="va">ph_rew_obj</span><span class="op">$</span><span class="va">subint_mat</span>
-
-<span class="va">bM</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">bS</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">-</span><span class="op">(</span><span class="fl">2</span><span class="op">/</span><span class="va">theta</span><span class="op">)</span><span class="op">*</span><span class="va">bS</span><span class="op">)</span>
-
-<span class="va">baMat</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>,<span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span>,<span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>,<span class="va">n</span><span class="op">-</span><span class="fl">1</span>,<span class="va">n</span><span class="op">-</span><span class="fl">1</span>,byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="va">len</span> <span class="op">=</span> <span class="va">n</span><span class="op">*</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>
-<span class="va">probsMat</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">3</span>,<span class="va">len</span><span class="op">)</span>
-
-<span class="kw">for</span><span class="op">(</span><span class="va">i_outer</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ba</span> <span class="op">=</span> <span class="va">baMat</span><span class="op">[</span><span class="va">i_outer</span>,<span class="op">]</span> <span class="co">#This is the current a-vector</span>
-  <span class="va">DPH_obj</span> <span class="op">=</span> <span class="fu"><a href="../reference/DPHrep.html">DPHrep</a></span><span class="op">(</span><span class="va">bM</span>,<span class="va">ph_bcp</span><span class="op">$</span><span class="va">reward_mat</span>,<span class="va">ba</span><span class="op">)</span>
-  <span class="va">bMt</span> <span class="op">=</span> <span class="va">DPH_obj</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
-  <span class="va">sizes_of_blocks</span> <span class="op">=</span> <span class="va">DPH_obj</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
-  <span class="va">balpha</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">bMt</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-  <span class="va">balpha</span><span class="op">[</span><span class="va">sizes_of_blocks</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fl">1</span> 
-  <span class="va">bone</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">bMt</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">bmt</span> <span class="op">=</span> <span class="va">bone</span> <span class="op">-</span> <span class="va">bMt</span><span class="op">%*%</span><span class="va">bone</span>
-  <span class="va">probs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">len</span><span class="op">)</span>
-  <span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">len</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">probs</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="va">balpha</span><span class="op">%*%</span><span class="op">(</span><span class="va">bMt</span><span class="op">%^%</span><span class="op">(</span><span class="va">i</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">%*%</span><span class="va">bmt</span>
-  <span class="op">}</span>
-  <span class="va">probsMat</span><span class="op">[</span><span class="va">i_outer</span>,<span class="op">]</span> <span class="op">=</span> <span class="va">probs</span>
-<span class="op">}</span>
-
-<span class="va">xs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">main.txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Integer-weighted SFS distributions for n="</span>,<span class="va">n</span>,<span class="st">"and theta="</span>,<span class="fl">1</span><span class="op">)</span>
-
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">xs</span>,<span class="va">probsMat</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span>,type<span class="op">=</span><span class="st">"l"</span>,lty<span class="op">=</span><span class="st">"dashed"</span>,pch<span class="op">=</span><span class="fl">19</span>,ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">probsMat</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>,xlab<span class="op">=</span><span class="st">"Weighted SFS"</span>,ylab<span class="op">=</span><span class="st">"Probability"</span>,
-     main<span class="op">=</span><span class="va">main.txt</span>,cex.main<span class="op">=</span><span class="fl">1.2</span>,cex.lab<span class="op">=</span><span class="fl">1.2</span>,las<span class="op">=</span><span class="fl">1</span>,lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">xs</span>,<span class="va">probsMat</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span>,type<span class="op">=</span><span class="st">"p"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span>
-
-<span class="va">xs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">xs</span>,<span class="va">probsMat</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span>,type<span class="op">=</span><span class="st">"l"</span>,lty<span class="op">=</span><span class="st">"dotted"</span>,lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">xs</span>,<span class="va">probsMat</span><span class="op">[</span><span class="fl">2</span>,<span class="op">]</span>,type<span class="op">=</span><span class="st">"p"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">xs</span>,<span class="va">probsMat</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span>,type<span class="op">=</span><span class="st">"l"</span>,lty<span class="op">=</span><span class="st">"solid"</span>,lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">xs</span>,<span class="va">probsMat</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span>,type<span class="op">=</span><span class="st">"p"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span>
-
-
-<span class="va">xs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v<span class="op">=</span><span class="fl">1</span>,col<span class="op">=</span><span class="st">"gray"</span><span class="op">)</span>
-<span class="va">txt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"mean=theta="</span>,<span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="fl">1</span>,<span class="va">probsMat</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span>,<span class="va">txt</span>,pos<span class="op">=</span><span class="fl">2</span>,cex<span class="op">=</span><span class="fl">1.2</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"topright"</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Pairwise"</span>,<span class="st">"H"</span>,<span class="st">"L"</span><span class="op">)</span>,lwd<span class="op">=</span><span class="fl">2</span>,
-       lty<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dotted"</span>,<span class="st">"solid"</span>,<span class="st">"dashed"</span><span class="op">)</span>,bty<span class="op">=</span><span class="st">"n"</span>,cex<span class="op">=</span><span class="fl">1.2</span><span class="op">)</span></code></pre></div>
-<p><img src="phasty_SFS_Figures_files/figure-html/unnamed-chunk-20-1.png" width="816" style="display: block; margin: auto;"></p>
+<span class="co"># n = 6</span>
+<span class="co"># theta = 1</span>
+<span class="co"># ph_bcp = block_counting_process(n)</span>
+<span class="co"># </span>
+<span class="co"># subintensity_matrix = ph_bcp$subint_mat</span>
+<span class="co"># rew_mat = ph_bcp$reward_mat</span>
+<span class="co"># </span>
+<span class="co"># ph = phase_type(subintensity_matrix)</span>
+<span class="co"># </span>
+<span class="co"># # The reward vector is the rows sums of the state space matrix</span>
+<span class="co"># </span>
+<span class="co"># ph_rew_obj = reward_phase_type(ph, rowSums(rew_mat))</span>
+<span class="co"># bS = ph_rew_obj$subint_mat</span>
+<span class="co"># </span>
+<span class="co"># bM = solve(diag(dim(bS)[1])-(2/theta)*bS)</span>
+<span class="co"># </span>
+<span class="co"># baMat = matrix(c(1:(n-1),(1:(n-1))*((n-1):1),(1:(n-1))^2),n-1,n-1,byrow=TRUE)</span>
+<span class="co"># </span>
+<span class="co"># len = n*(n-1)+1</span>
+<span class="co"># probsMat = matrix(0,3,len)</span>
+<span class="co"># </span>
+<span class="co"># for(i_outer in 1:3) {</span>
+<span class="co">#   ba = baMat[i_outer,] #This is the current a-vector</span>
+<span class="co">#   DPH_obj = DPHrep(bM,ph_bcp$reward_mat,ba)</span>
+<span class="co">#   bMt = DPH_obj[[1]]</span>
+<span class="co">#   sizes_of_blocks = DPH_obj[[2]]</span>
+<span class="co">#   balpha = rep(0,dim(bMt)[1])</span>
+<span class="co">#   balpha[sizes_of_blocks[1]] = 1 </span>
+<span class="co">#   bone = matrix(rep(1,dim(bMt)[1]))</span>
+<span class="co">#   bmt = bone - bMt%*%bone</span>
+<span class="co">#   probs = rep(0,len)</span>
+<span class="co">#   for(i in 1:len) {</span>
+<span class="co">#     probs[i] = balpha%*%(bMt%^%(i-1))%*%bmt</span>
+<span class="co">#   }</span>
+<span class="co">#   probsMat[i_outer,] = probs</span>
+<span class="co"># }</span>
+<span class="co"># </span>
+<span class="co"># xs = c(0,(1:(2*(n-1)))/(n-1))</span>
+<span class="co"># </span>
+<span class="co"># main.txt &lt;- paste("Integer-weighted SFS distributions for n=",n,"and theta=",1)</span>
+<span class="co"># </span>
+<span class="co"># </span>
+<span class="co"># plot(xs,probsMat[1,1:(2*(n-1)+1)],type="l",lty="dashed",pch=19,ylim=c(0,probsMat[1,1]),xlab="Weighted SFS",ylab="Probability",</span>
+<span class="co">#      main=main.txt,cex.main=1.2,cex.lab=1.2,las=1,lwd=2)</span>
+<span class="co"># points(xs,probsMat[1,1:(2*(n-1)+1)],type="p",pch=19)</span>
+<span class="co"># </span>
+<span class="co"># xs = c(0,(1:((n*(n-1))))/(n*(n-1)/2))</span>
+<span class="co"># points(xs,probsMat[2,],type="l",lty="dotted",lwd=2)</span>
+<span class="co"># points(xs,probsMat[2,],type="p",pch=19)</span>
+<span class="co"># points(xs,probsMat[3,],type="l",lty="solid",lwd=2)</span>
+<span class="co"># points(xs,probsMat[3,],type="p",pch=19)</span>
+<span class="co"># </span>
+<span class="co"># </span>
+<span class="co"># xs = c(0,(1:(2*(n-1)))/(n-1))</span>
+<span class="co"># </span>
+<span class="co"># abline(v=1,col="gray")</span>
+<span class="co"># txt &lt;- paste("mean=theta=",1)</span>
+<span class="co"># text(1,probsMat[1,1],txt,pos=2,cex=1.2)</span>
+<span class="co"># </span>
+<span class="co"># legend("topright",c("Pairwise","H","L"),lwd=2,</span>
+<span class="co">#        lty=c("dotted","solid","dashed"),bty="n",cex=1.2)</span></code></pre></div>
 </div>
 </div>
 <div id="last-figure" class="section level1">
