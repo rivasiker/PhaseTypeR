@@ -23,12 +23,43 @@ test_that(
         init_probs = c(1, 0, 0))),
         3)
 
+
+
     expect_equal(mean(MPH(subint_mat = matrix(c(-2, 0, 0,
                                                 1, -1, 0,
                                                 0, 1, -0.5), ncol = 3),
                           reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
                           init_probs = c(1, 0, 0))),
                  c(4.5, 10.5))
+    expect_equal(mean(MPH(subint_mat = matrix(c(-2, 0, 0,
+                                                1, -1, 0,
+                                                0, 1, -0.5), ncol = 3),
+                          reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
+                          init_probs = c(1, 0, 0)),
+                      v = 1),
+                 4.5)
+    expect_equal(mean(MPH(subint_mat = matrix(c(-2, 0, 0,
+                                                1, -1, 0,
+                                                0, 1, -0.5), ncol = 3),
+                          reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
+                          init_probs = c(1, 0, 0)),
+                      v = c(2, 1)),
+                 c(10.5, 4.5))
+    expect_error(mean(MPH(subint_mat = matrix(c(-2, 0, 0,
+                                                1, -1, 0,
+                                                0, 1, -0.5), ncol = 3),
+                          reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
+                          init_probs = c(1, 0, 0)),
+                      v = 'a'),
+                 'integer')
+    expect_error(mean(MPH(subint_mat = matrix(c(-2, 0, 0,
+                                                1, -1, 0,
+                                                0, 1, -0.5), ncol = 3),
+                          reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
+                          init_probs = c(1, 0, 0)),
+                      v = 1.4),
+                 'integer')
+
 
 
     expect_equal(mean(MDPH(subint_mat = matrix(c(0.4, 0.24, 0.12,
@@ -39,6 +70,42 @@ test_that(
                            reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
                           init_probs = c(1, 0, 0))),
                  c(5, 14))
+    expect_equal(mean(MDPH(subint_mat = matrix(c(0.4, 0.24, 0.12,
+                                                 0,   0.4,  0.2,
+                                                 0,   0,    0.5),
+                                               ncol = 3,
+                                               byrow = TRUE),
+                           reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
+                           init_probs = c(1, 0, 0)),
+                      v = 1),
+                 5)
+    expect_equal(mean(MDPH(subint_mat = matrix(c(0.4, 0.24, 0.12,
+                                                 0,   0.4,  0.2,
+                                                 0,   0,    0.5),
+                                               ncol = 3,
+                                               byrow = TRUE),
+                           reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
+                           init_probs = c(1, 0, 0)),
+                      v = c(2, 1)),
+                 c(14, 5))
+    expect_error(mean(MDPH(subint_mat = matrix(c(0.4, 0.24, 0.12,
+                                                 0,   0.4,  0.2,
+                                                 0,   0,    0.5),
+                                               ncol = 3,
+                                               byrow = TRUE),
+                           reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
+                           init_probs = c(1, 0, 0)),
+                      v = 'a'),
+                 'integer')
+    expect_error(mean(MDPH(subint_mat = matrix(c(0.4, 0.24, 0.12,
+                                                 0,   0.4,  0.2,
+                                                 0,   0,    0.5),
+                                               ncol = 3,
+                                               byrow = TRUE),
+                           reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
+                           init_probs = c(1, 0, 0)),
+                      v = 1.4),
+                 'integer')
 
   })
 

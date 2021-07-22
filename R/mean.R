@@ -83,6 +83,11 @@ mean.disc_phase_type <- function(x, ...) {
 
 mean.mult_cont_phase_type <- function(x, v = NULL, ...) {
   if (!is.null(v)) {
+    if (!is.numeric(v)) {
+      stop('Provide an integer or integer vector for v.')
+    } else if (!all(v == floor(v))) {
+      stop('Provide an integer or integer vector for v.')
+    }
     if (length(v) == 1) {
       return(moment_mph(x, v))
     } else {
@@ -101,6 +106,7 @@ mean.mult_cont_phase_type <- function(x, v = NULL, ...) {
   }
 }
 
+
 #' mean method for \code{mult_disc_phase_type}
 #'
 #' @param v NULL, integer or vector.
@@ -109,9 +115,18 @@ mean.mult_cont_phase_type <- function(x, v = NULL, ...) {
 #' @export
 
 mean.mult_disc_phase_type <- function(x, v = NULL, ...){
-  result <- rep(0, ncol(x$reward_mat))
-  for (i in 1:ncol(x$reward_mat)){
-    result[i] <- mean(reward_phase_type(x, x$reward_mat[,i]))
+  if (!is.null(v)) {
+    if (!is.numeric(v)) {
+      stop('Provide an integer or integer vector for v.')
+    } else if (!all(v == floor(v))) {
+      stop('Provide an integer or integer vector for v.')
+    }
+  } else {
+    v <- 1:ncol(x$reward_mat)
+  }
+  result <- rep(0, length(v))
+  for (i in 1:length(v)){
+    result[i] <- mean(reward_phase_type(x, x$reward_mat[,v[i]]))
   }
   return(result)
 }
