@@ -1,6 +1,4 @@
 
-#' @include phase_type.R
-
 #' Mean of Phase-Type Distributions
 #'
 #' Calculates the mean of continuous, discrete and multivariate phase-type

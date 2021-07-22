@@ -1,5 +1,3 @@
-#' @include phase_type.R
-NULL
 
 #' Variance and Covariance of Phase-Type Distributions
 #'

@@ -6,7 +6,7 @@
 \alias{mean.disc_phase_type}
 \alias{mean.mult_cont_phase_type}
 \alias{mean.mult_disc_phase_type}
-\title{mean method for \code{cont_phase_type}}
+\title{Mean of Phase-Type Distributions}
 \usage{
 mean(x, ...)
 
@@ -27,13 +27,24 @@ mean(x, ...)
 \item{v}{NULL, integer or vector.}
 }
 \description{
-mean method for \code{cont_phase_type}
+Calculates the mean of continuous, discrete and multivariate phase-type
+distributions, represented by the \code{cont_phase_type},
+\code{disc_phase_type} and \code{mult_cont_phase_type} classes.
+}
+\details{
+For the univariate case (\code{cont_phase_type} and \code{disc_phase_type}),
+the mean of the distribution is returned.
 
-mean method for \code{disc_phase_type}
-
-mean method for \code{mult_cont_phase_type}
-
-mean method for \code{mult_disc_phase_type}
+In the case of multivariate phase-type distributions three
+different usages can be distinguished:
+\itemize{
+ \item{If \code{v = NULL} (default), the means of all the variables defined by
+ the sub-intensity matrix are returned}
+ \item{If \code{v} is an integer, then the mean of the variable with the specified index in the
+ reward matrix is returned.}
+ \item{If \code{v} is a vector, then the means of the variables defined
+by those indices will be returned.}
+}
 }
 \examples{
 # For univariate continuous phase-type distributions
