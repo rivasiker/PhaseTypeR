@@ -19,8 +19,8 @@ check_phase_type <- function(subint_mat, init_probs,
 
   ###### Check if sub-intensity matrix is a matrix
 
-  if (!is.matrix(subint_mat)) {
-    stop('The subintensity matrix should be a matrix.')
+  if (!(is.matrix(subint_mat) & is.numeric(subint_mat))) {
+    stop('The subintensity matrix should be a numeric matrix.')
   } else {
     subint_mat <- matrix(as.numeric(subint_mat), ncol = ncol(subint_mat))
   }
@@ -41,7 +41,7 @@ check_phase_type <- function(subint_mat, init_probs,
 
   ###### Check if the initial probabilities have the right shape
 
-  if ((is.vector(init_probs) & is.atomic(init_probs)) | is.matrix(init_probs)) {
+  if ((is.vector(init_probs) & is.numeric(init_probs)) | (is.matrix(init_probs) & is.numeric(matrix(init_probs)))) {
     init_probs <- as.numeric(init_probs)
     init_probs <- matrix(init_probs, nrow = 1)
     if (!is.null(round_zero)){
@@ -71,7 +71,7 @@ check_phase_type <- function(subint_mat, init_probs,
     }
 
   } else {
-    stop('The initial probabilities must be a a matrix with one row or a vector.')
+    stop('The initial probabilities must be a matrix with one row or a vector.')
   }
 
   ###### Check if the reward matrix has the right shape

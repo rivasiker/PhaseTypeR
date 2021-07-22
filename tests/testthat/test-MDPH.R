@@ -35,6 +35,20 @@ test_that(
     expect_error(MDPH(reward_mat = reward_matrix, init_probs = c(1, 0, 0)),
                  'valid')
 
+    # [E] subint_mat not a matrix
+    expect_error(MDPH(subint_mat = 'a',
+                     reward_mat = reward_matrix,
+                     init_probs = c(1, 0, 0)),
+                 'should be a numeric matrix')
+
+    # [E] init_probs not a numeric matrix or vector
+    expect_error(MDPH(subint_mat = subintensity_matrix,
+                     init_probs = 'a'),
+                 'must be a matrix')
+    expect_error(MDPH(subint_mat = subintensity_matrix,
+                      init_probs = matrix('a')),
+                 'must be a matrix')
+
     # [E] Negative values in the init
     expect_error(MDPH(subintensity_matrix,
                      c(-1, 2, 0),

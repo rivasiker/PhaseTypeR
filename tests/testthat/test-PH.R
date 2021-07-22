@@ -23,6 +23,26 @@ test_that(
     expect_error(PH(init_probs = c(1, 0, 0)),
                  'valid')
 
+    # [E] subint_mat not a matrix
+    expect_error(PH(subint_mat = 'a',
+                    init_probs = c(1, 0, 0)),
+                 'should be a numeric matrix')
+    expect_error(PH(subint_mat = matrix('a'),
+                    init_probs = c(1, 0, 0)),
+                 'should be a numeric matrix')
+
+    # [E] init_probs not a numeric matrix or vector
+    expect_error(PH(subint_mat = matrix(c(-1.5, 0, 0,
+                                                        1.5, -1, 0,
+                                                        0, 1, -0.5), ncol = 3),
+                     init_probs = 'a'),
+                 'must be a matrix')
+    expect_error(PH(subint_mat = matrix(c(-1.5, 0, 0,
+                                          1.5, -1, 0,
+                                          0, 1, -0.5), ncol = 3),
+                    init_probs = matrix('a')),
+                 'must be a matrix')
+
     # [E] Negative values in the init
     expect_error(PH(subint_mat = matrix(c(-1.5, 0, 0,
                                           1.5, -1, 0,
