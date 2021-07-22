@@ -44,14 +44,17 @@ MDPH <- function(subint_mat = NULL, init_probs = NULL, reward_mat = NULL, round_
 
 
   if (sum(subint_mat < 0) == 0){
-    if (sum(rowSums(subint_mat > 1)) > 0){
+
+    if (sum(subint_mat > 1) > 0){
+      stop('The subintensity matrix should only contain values between 0 and 1.')
+    }
+
+
+    if (sum(rowSums(subint_mat) > 1) > 0){
       stop('The rowsums should be between 0 and 1.')
     }
 
-    if (sum(subint_mat > 1) > 0){
-      stop('The subintensity matrix should only contain values between
-           0 and 1.')
-    }
+
     if (is.matrix(reward_mat)){
       if (sum(trunc(reward_mat)) != sum(reward_mat)){
         stop('The reward matrix should only contains integers.')

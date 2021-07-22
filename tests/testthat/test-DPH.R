@@ -77,7 +77,7 @@ test_that(
 
 
 test_that(
-  'test of all the error and warnings in the PH function', {
+  'test of all the error and warnings in the DPH function', {
 
     # [E] rowsums of over 1
     expect_error(DPH(subint_mat = matrix(c(0.4, 0.24, 0.12,
