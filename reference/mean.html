@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>mean method for cont_phase_type — mean • PhaseTypeR</title>
+<title>Mean of Phase-Type Distributions — mean • PhaseTypeR</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,10 @@
 
 
 
-<meta property="og:title" content="mean method for cont_phase_type — mean" />
-<meta property="og:description" content="mean method for cont_phase_type
-mean method for disc_phase_type
-mean method for mult_cont_phase_type
-mean method for mult_disc_phase_type" />
+<meta property="og:title" content="Mean of Phase-Type Distributions — mean" />
+<meta property="og:description" content="Calculates the mean of continuous, discrete and multivariate phase-type
+distributions, represented by the cont_phase_type,
+disc_phase_type and mult_cont_phase_type classes." />
 
 
 
@@ -132,16 +131,15 @@ mean method for mult_disc_phase_type" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>mean method for <code>cont_phase_type</code></h1>
+    <h1>Mean of Phase-Type Distributions</h1>
     <small class="dont-index">Source: <a href='https://github.com/rivasiker/PhaseTypeR/blob/master/R/mean.R'><code>R/mean.R</code></a></small>
     <div class="hidden name"><code>mean.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>mean method for <code>cont_phase_type</code></p>
-<p>mean method for <code>disc_phase_type</code></p>
-<p>mean method for <code>mult_cont_phase_type</code></p>
-<p>mean method for <code>mult_disc_phase_type</code></p>
+    <p>Calculates the mean of continuous, discrete and multivariate phase-type
+distributions, represented by the <code>cont_phase_type</code>,
+<code>disc_phase_type</code> and <code>mult_cont_phase_type</code> classes.</p>
     </div>
 
     <pre class="usage"><span class='fu'>mean</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -175,6 +173,20 @@ mean method for mult_disc_phase_type" />
       <td><p>NULL, integer or vector.</p></td>
     </tr>
     </table>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>For the univariate case (<code>cont_phase_type</code> and <code>disc_phase_type</code>),
+the mean of the distribution is returned.</p>
+<p>In the case of multivariate phase-type distributions three
+different usages can be distinguished:</p><ul>
+<li><p>If <code>v = NULL</code> (default), the means of all the variables defined by
+ the sub-intensity matrix are returned</p></li>
+<li><p>If <code>v</code> is an integer, then the mean of the variable with the specified index in the
+ reward matrix is returned.</p></li>
+<li><p>If <code>v</code> is a vector, then the means of the variables defined
+by those indices will be returned.</p></li>
+</ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
