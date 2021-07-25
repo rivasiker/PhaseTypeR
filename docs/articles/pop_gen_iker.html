@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PhaseTypeR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -57,12 +57,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/phasty_SFS.html">Using PhaseTypeR for the site frequency spectrum</a>
-    </li>
-    <li>
-      <a href="../articles/phasty_SFS_Figures.html">Using PhaseTypeR for the site frequency spectrum - Figures</a>
-    </li>
-    <li>
       <a href="../articles/pop_gen_iker.html">Using PhaseTypeR for population genetics</a>
     </li>
   </ul>
@@ -85,7 +79,7 @@
 
       
 
-      </header><script src="pop_gen_iker_files/header-attrs-2.9.4/header-attrs.js"></script><div class="row">
+      </header><script src="pop_gen_iker_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Using PhaseTypeR for population genetics</h1>
@@ -294,7 +288,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <code class="sourceCode R">
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">0.1</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_mrca_4</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span>
 <span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_total_4</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">0.5</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">MRCA</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,
@@ -311,7 +305,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <code class="sourceCode R">
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.99</span>,<span class="fl">0.01</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_total_4</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span>
 <span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_mrca_4</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span><span class="op">(</span><span class="st">'Quantile function (n=4)'</span><span class="op">)</span>
@@ -328,7 +322,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <code class="sourceCode R">
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">0.1</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_mrca_4</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_total_4</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span><span class="op">(</span><span class="st">'Probability function (n=4)'</span><span class="op">)</span>
@@ -619,7 +613,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <code class="sourceCode R">
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">dDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s_tot_4_3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span>
 <span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">dDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">0.15</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="st">'S'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="st">'X'</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,
@@ -636,7 +630,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <code class="sourceCode R">
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.99</span>,<span class="fl">0.01</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">qDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s_tot_4_3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span>
 <span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">qDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span><span class="op">(</span><span class="st">'Quantile function (n=4)'</span><span class="op">)</span>
@@ -653,7 +647,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <code class="sourceCode R">
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">15</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">pDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s_tot_4_3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">pDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span><span class="op">(</span><span class="st">'Probability function (n=4)'</span><span class="op">)</span>

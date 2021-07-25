@@ -3,8 +3,6 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   PhaseTypeR: PhaseTypeR.html
-  phasty_SFS: phasty_SFS.html
-  phasty_SFS_Figures: phasty_SFS_Figures.html
   pop_gen_iker: pop_gen_iker.html
-last_built: 2021-07-20T12:45Z
+last_built: 2021-07-25T14:17Z
 

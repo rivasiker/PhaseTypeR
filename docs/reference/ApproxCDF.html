@@ -75,7 +75,7 @@ are used. Note that phi should have a finite first moment." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PhaseTypeR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -100,12 +100,6 @@ are used. Note that phi should have a finite first moment." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/phasty_SFS.html">Using PhaseTypeR for the site frequency spectrum</a>
-    </li>
-    <li>
-      <a href="../articles/phasty_SFS_Figures.html">Using PhaseTypeR for the site frequency spectrum - Figures</a>
-    </li>
     <li>
       <a href="../articles/pop_gen_iker.html">Using PhaseTypeR for population genetics</a>
     </li>
@@ -176,12 +170,12 @@ this will be passed to <code>simple_smoothe</code></p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>phi</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>t</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>
 <span class='va'>appvals</span><span class='op'>=</span><span class='fu'>ApproxCDF</span><span class='op'>(</span><span class='va'>phi</span>,H<span class='op'>=</span><span class='fl'>1000</span>,eta<span class='op'>=</span><span class='fl'>0.5</span>,xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>appvals</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>,<span class='va'>appvals</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>,type<span class='op'>=</span><span class='st'>"l"</span>,lwd<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>appvals</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>,<span class='va'>appvals</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>,type<span class='op'>=</span><span class='st'>"l"</span>,lwd<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>appvals</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>,<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>pnorm</a></span><span class='op'>(</span><span class='va'>appvals</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>,type<span class='op'>=</span><span class='st'>"l"</span>,col<span class='op'>=</span><span class='st'>"red"</span><span class='op'>)</span>
 </div><div class='img'><img src='ApproxCDF-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='va'>phi</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Bessel.html'>besselK</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>)</span>
 <span class='va'>appvals</span><span class='op'>=</span><span class='fu'>ApproxCDF</span><span class='op'>(</span><span class='va'>phi</span>,H<span class='op'>=</span><span class='fl'>10000</span>,eta<span class='op'>=</span><span class='fl'>0.1</span>,xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>appvals</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>,<span class='va'>appvals</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>,type<span class='op'>=</span><span class='st'>"l"</span>,lwd<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>appvals</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>,<span class='va'>appvals</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>,type<span class='op'>=</span><span class='st'>"l"</span>,lwd<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>appvals</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>,<span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>pt</a></span><span class='op'>(</span><span class='va'>appvals</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>,df<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>,type<span class='op'>=</span><span class='st'>"l"</span>,col<span class='op'>=</span><span class='st'>"red"</span><span class='op'>)</span>
 </div><div class='img'><img src='ApproxCDF-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
