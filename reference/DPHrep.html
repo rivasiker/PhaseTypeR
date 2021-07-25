@@ -99,12 +99,6 @@ The construction is described in Section 7.1 of Hobolth (2020)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/phasty_SFS.html">Using PhaseTypeR for the site frequency spectrum</a>
-    </li>
-    <li>
-      <a href="../articles/phasty_SFS_Figures.html">Using PhaseTypeR for the site frequency spectrum - Figures</a>
-    </li>
-    <li>
       <a href="../articles/pop_gen_iker.html">Using PhaseTypeR for population genetics</a>
     </li>
   </ul>
@@ -171,7 +165,7 @@ sizes_of_blocks: The sizes of the constructed blocks.</p>
 <span class='va'>ph_bcp</span> <span class='op'>=</span> <span class='fu'><a href='block_counting_process.html'>block_counting_process</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>
 <span class='va'>subintensity_matrix</span> <span class='op'>=</span> <span class='va'>ph_bcp</span><span class='op'>$</span><span class='va'>subint_mat</span>
 <span class='va'>bA</span> <span class='op'>=</span> <span class='va'>ph_bcp</span><span class='op'>$</span><span class='va'>reward_mat</span>
-<span class='va'>ph</span> <span class='op'>=</span> <span class='fu'><a href='phase_type.html'>phase_type</a></span><span class='op'>(</span><span class='va'>subintensity_matrix</span><span class='op'>)</span>
+<span class='va'>ph</span> <span class='op'>=</span> <span class='fu'><a href='generator_functions.html'>PH</a></span><span class='op'>(</span><span class='va'>subintensity_matrix</span><span class='op'>)</span>
 <span class='va'>ph_rew_obj</span> <span class='op'>=</span> <span class='fu'><a href='reward_phase_type.html'>reward_phase_type</a></span><span class='op'>(</span><span class='va'>ph</span>, <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='va'>rew_mat</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>bS</span> <span class='op'>=</span> <span class='va'>ph_rew_obj</span><span class='op'>$</span><span class='va'>subint_mat</span>
 <span class='va'>bM</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/solve.html'>solve</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>bS</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span><span class='op'>-</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>/</span><span class='va'>theta</span><span class='op'>)</span><span class='op'>*</span><span class='va'>bS</span><span class='op'>)</span>
