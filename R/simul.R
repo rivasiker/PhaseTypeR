@@ -77,7 +77,11 @@ sim_phase_type <- function(obj, R = 100){
     reward_mat <- obj$reward_mat
     p <- ncol(reward_mat)
     out <- matrix(0, n, R)
-    core_ph <- phase_type(subint_mat, init_probs)
+    if ((class(obj) == 'mult_cont_phase_type')){
+      core_ph <- PH(subint_mat, init_probs)
+    } else if (class(obj) == 'mult_disc_phase_type') {
+      core_ph <- DPH(subint_mat, init_probs)
+    }
     for(i in 1:R) {
       smph <- sim_phase_type(core_ph); #Simulate a single path
       pointwiserewards <- matrix(0, n, length(smph[[1]])) # a vector to hold the rewards obtained for each state (no reward is obtained in the aborbing state so length is that of the inter-jump-times)
@@ -158,7 +162,7 @@ sim_rew_phase_type <- function(R, obj, reward_mat = NULL) {
   subint_mat <- obj$subint_mat
   if (class(obj) == 'mult_cont_phase_type') {
     reward_mat <- obj$reward_mat
-    ph_obj <- phase_type(obj$subint_mat, obj$init_probs)
+    ph_obj <- PH(obj$subint_mat, obj$init_probs)
   }
   if (class(obj) == 'cont_phase_type') {
     if (is.null(reward_mat)) {stop("Please provide a reward matrix")}

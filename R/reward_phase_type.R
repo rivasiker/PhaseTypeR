@@ -55,7 +55,7 @@
 #' Campillo Navarro, A. (2018). *Order statistics and multivariate discrete phase-type distributions*. DTU Compute. DTU Compute PHD-2018, Vol.. 492
 #' Hobolth, A., Bladt, M. & Andersen, L.A. (2021). *Multivariate phase-type theory for the site frequency spectrum*. ArXiv.
 #'
-#' @seealso \code{\link{phase_type}}
+#' @seealso \code{\link{PH}}, \code{\link{DPH}}
 #'
 #' @examples
 #' ##===========================##

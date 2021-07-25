@@ -107,7 +107,7 @@ Campillo Navarro, A. (2018). *Order statistics and multivariate discrete phase-t
 Hobolth, A., Bladt, M. & Andersen, L.A. (2021). *Multivariate phase-type theory for the site frequency spectrum*. ArXiv.
 }
 \seealso{
-\code{\link{phase_type}}
+\code{\link{PH}}, \code{\link{DPH}}
 }
 \author{
 C. Guetemme, A. Hobolth
