@@ -1,6 +1,7 @@
 context('The continuous phase-type distribution')
 
 library(testthat)
+local_edition(3)
 library(PhaseTypeR)
 
 test_that(
@@ -33,8 +34,8 @@ test_that(
 
     # [E] init_probs not a numeric matrix or vector
     expect_error(PH(subint_mat = matrix(c(-1.5, 0, 0,
-                                                        1.5, -1, 0,
-                                                        0, 1, -0.5), ncol = 3),
+                                          1.5, -1, 0,
+                                          0, 1, -0.5), ncol = 3),
                      init_probs = 'a'),
                  'must be a matrix')
     expect_error(PH(subint_mat = matrix(c(-1.5, 0, 0,
@@ -101,3 +102,24 @@ test_that(
 
   }
 )
+
+
+
+subintensity_matrix <- matrix(c(-3,  2,  0,
+                                0, -2,  1,
+                                0,  0, -1),
+                              nrow = 3,
+                              byrow = TRUE)
+initial_probabilities = c(1, 0, 0)
+cont_phase_type <- PH(subintensity_matrix, initial_probabilities)
+
+
+test_that(
+  'test all outputs of the phase-type functions', {
+
+    expect_snapshot_value(dPH(0:20, cont_phase_type), style = 'serialize')
+    expect_snapshot_value(pPH(0:15, cont_phase_type), style = 'serialize')
+    expect_snapshot_value(qPH(seq(0, 1, length.out = 20), cont_phase_type), style = 'serialize')
+
+
+  })
