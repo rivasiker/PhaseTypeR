@@ -22,25 +22,3 @@ Suggests:
     coala, 
     partitions
 VignetteBuilder: knitr
-Collate: 
-    'ApproximateCharFun.R'
-    'BlockCountingProcess.R'
-    'DPH.R'
-    'DPH_construction.R'
-    'DPH_functions.R'
-    'MDPH.R'
-    'MDPH_functions.R'
-    'MPH.R'
-    'MPH_functions.R'
-    'PH.R'
-    'PH_functions.R'
-    'check_phase_type.R'
-    'convph.R'
-    'generator_functions.R'
-    'mean.R'
-    'phase_type.R'
-    'phase_type_to_network.R'
-    'reward_phase_type.R'
-    'simul.R'
-    'summary.R'
-    'var.R'
