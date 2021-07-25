@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Moments of the multivariate continuous phase-type distribution — moment_mph • PhaseTypeR</title>
+<title>Moments of the univariate continuous phase-type distribution — moment_ph • PhaseTypeR</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Moments of the multivariate continuous phase-type distribution — moment_mph" />
-<meta property="og:description" content="This function calculates the moments for the multivariate phase-type
+<meta property="og:title" content="Moments of the univariate continuous phase-type distribution — moment_ph" />
+<meta property="og:description" content="This function calculates the moments for the phase-type
 distributions." />
 
 
@@ -130,17 +130,17 @@ distributions." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Moments of the multivariate continuous phase-type distribution</h1>
+    <h1>Moments of the univariate continuous phase-type distribution</h1>
     <small class="dont-index">Source: <a href='https://github.com/rivasiker/PhaseTypeR/blob/master/R/moments.R'><code>R/moments.R</code></a></small>
-    <div class="hidden name"><code>moment_mph.Rd</code></div>
+    <div class="hidden name"><code>moment_ph.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function calculates the moments for the multivariate phase-type
+    <p>This function calculates the moments for the phase-type
 distributions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>moment_mph</span><span class='op'>(</span><span class='va'>obj</span>, <span class='va'>v</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>moment_ph</span><span class='op'>(</span><span class='va'>obj</span>, <span class='va'>m</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,16 +150,15 @@ distributions.</p>
       <td><p>a mult_cont_phase_type.</p></td>
     </tr>
     <tr>
-      <th>v</th>
-      <td><p>a vector or an integer.</p></td>
+      <th>m</th>
+      <td><p>an integer.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The variables for which the moments are calculated can be specified in
-the <code>v</code> vector as indices in the reward matrix of the
-<code>mult_cont_phase_type</code> object.</p>
+    <p>The order of the moment can be specified by <code>m</code> for a
+<code>cont_phase_type</code> object.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
