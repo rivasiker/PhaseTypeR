@@ -105,21 +105,4 @@ test_that(
 
 
 
-subintensity_matrix <- matrix(c(-3,  2,  0,
-                                0, -2,  1,
-                                0,  0, -1),
-                              nrow = 3,
-                              byrow = TRUE)
-initial_probabilities = c(1, 0, 0)
-cont_phase_type <- PH(subintensity_matrix, initial_probabilities)
 
-
-test_that(
-  'test all outputs of the phase-type functions', {
-
-    expect_snapshot_value(dPH(0:20, cont_phase_type), style = 'serialize')
-    expect_snapshot_value(pPH(0:15, cont_phase_type), style = 'serialize')
-    expect_snapshot_value(qPH(seq(0, 1, length.out = 20), cont_phase_type), style = 'serialize')
-
-
-  })
