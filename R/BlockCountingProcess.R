@@ -94,7 +94,7 @@ block_counting_process <- function(n){
   # absorbing state.
   rew_mat = RMASS$StSpM[1:(m-1),1:(n-1)]
 
-  ph_obj=phase_type(subintensity_matrix)
-  ph_rew_obj=phase_type(subintensity_matrix, reward_mat = rew_mat)
+  ph_obj=PH(subintensity_matrix)
+  ph_rew_obj=MPH(subintensity_matrix, reward_mat = rew_mat)
   return(ph_rew_obj)
 }
