@@ -244,17 +244,7 @@ points(x[length(x)],y[length(x)],pch='>')
 
 
 
-```{r cont_ggplot, echo=FALSE, out.width = '70%'}
 
-# knitr::include_graphics("pic/cont_ggplot.jpg")
-
-```
-
-```{r cont_quantile_ggplot, echo=FALSE, out.width = '70%'}
-
-# knitr::include_graphics("pic/cont_quantile_ggplot.jpg")
-
-```
 
 
 ## 3.2. The discrete univariate phase-type
@@ -358,18 +348,7 @@ hist(rDPH(500, dph), breaks = 10)
 
 
 
-```{r disc_ggplot, echo=FALSE, out.width = '70%'}
 
-# The following plots have been designed using ggplot2
-# knitr::include_graphics("pic/disc_ggplot.jpg")
-
-```
-
-```{r disc_quantile_ggplot, echo=FALSE, out.width = '70%'}
-
-# knitr::include_graphics("pic/disc_quantile_ggplot.jpg")
-
-```
 
 # 4. Reward transformations
 
@@ -412,9 +391,7 @@ legend("topleft", legend=c('Original Phase-type', 'Reward transformed Phase-type
        col=c("orange", "blue"), lty=1,bty="n")}
 ```
 
-```{r reward_cont_ggplot, echo=FALSE, out.width = '70%'}
-# knitr::include_graphics("pic/reward_cont_ggplot.jpg")
-```
+
 
 ## 4.2. Strictly positive integer-valued rewards for the discrete phase-type distribution
 
@@ -445,9 +422,7 @@ legend("topleft", bty="n", legend=c('Original DPH', 'Reward transformed DPH'),
        col=c("orange", "blue"), lty=1, lwd=2)}
 ```
 
-```{r reward_disc_ggplot, echo=FALSE, out.width = '70%'}
-# knitr::include_graphics("pic/reward_disc_ggplot.jpg")
-```
+
 
 ## 4.3. Non-negative reward transformation for continuous phase-type distribution
 
