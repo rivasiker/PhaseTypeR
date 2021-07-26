@@ -141,20 +141,22 @@ pDPH <- function(q, obj){
 
 rDPH <- function(n, obj){
 
-  if (length(n) > 1){
-    n <- length(n)
-  }
-
-  # get the sub-intensity matrix
-  subint_mat <- obj$subint_mat
-  # get initial probabilities for p+1 states
-  init_probs <- c(obj$init_probs, obj$defect)
-  # number of states
-  p <- nrow(subint_mat)
-  # create vector of zeroes
-  n_vec <- numeric(n)
-
   if (class(obj) == 'disc_phase_type') {
+
+    if (length(n) > 1){
+      n <- length(n)
+    }
+
+    # get the sub-intensity matrix
+    subint_mat <- obj$subint_mat
+    # get initial probabilities for p+1 states
+    init_probs <- c(obj$init_probs, obj$defect)
+    # number of states
+    p <- nrow(subint_mat)
+    # create vector of zeroes
+    n_vec <- numeric(n)
+
+
 
     # define the intensity matrix by adding the p+1 state column
     int_mat <- cbind(subint_mat, 1 - rowSums(subint_mat))
