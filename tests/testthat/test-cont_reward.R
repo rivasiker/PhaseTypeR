@@ -49,6 +49,13 @@ test_that(
                                    reward = c(1, 2, 3)),
                                    'should be of class')
 
+    # [E] All zero rewards
+    expect_error(reward_phase_type(cont_phase_type,
+                                   reward = c(0, 0, 0)),
+                 'rewards are positive')
+
+
+
 
   })
 
@@ -56,6 +63,8 @@ test_that(
 test_that(
   'test that the function runs properly', {
     expect_snapshot(reward_phase_type(cont_phase_type, reward = c(1, 0, 2)))
+    expect_snapshot(reward_phase_type(cont_phase_type, reward = c(1, 3, 2)))
+    expect_snapshot(reward_phase_type(cont_phase_type, reward = c(1, 0, 0)))
   }
 )
 

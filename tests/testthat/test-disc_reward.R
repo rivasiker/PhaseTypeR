@@ -68,6 +68,7 @@ test_that(
 test_that(
   'test that the function runs properly', {
     expect_snapshot(reward_phase_type(disc_phase_type, reward = c(1, 0, 2)))
+    expect_snapshot(reward_phase_type(disc_phase_type, reward = matrix(c(1, 0, 2), nrow = 1)))
     expect_snapshot(reward_phase_type(disc_phase_type,
                                       reward = matrix(c(0.1, 0.2, 0.3, 0.9, 0.8, 0.7), nrow = 3)))
   }

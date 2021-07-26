@@ -297,8 +297,6 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
       } else {
         stop('The rewards should be a vector.')
       }
-    } else if (!is.vector(reward)) {
-      stop('The rewards should be a vector.')
     }
 
     if (length(reward) != n) {
@@ -346,7 +344,7 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
       P <- Q
 
     } else {
-      stop('None of the reward are positive.')
+      stop('None of the rewards are positive.')
     }
 
     # vec_e is a vector of 1 of the same size that P
