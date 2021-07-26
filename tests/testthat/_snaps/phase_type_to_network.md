@@ -23,6 +23,19 @@
       V3 .     .     0.223 0.777
       V4 .     .     .     1.000
 
+---
+
+    Code
+      phase_type_to_network(cont_phase_type, 0)[1:5]
+    Output
+      5 x 5 sparse Matrix of class "dgCMatrix"
+         V0 V1 V2 V3 V4
+      V0  .  1  .  .  .
+      V1  .  1  .  .  .
+      V2  .  .  1  .  .
+      V3  .  .  .  1  .
+      V4  .  .  .  .  1
+
 # networks in the discrete phase-type distribution
 
     Code

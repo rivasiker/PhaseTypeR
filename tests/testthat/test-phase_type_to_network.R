@@ -13,6 +13,7 @@ test_that(
   'networks in the continuous phase-type distribution', {
     expect_snapshot(phase_type_to_network(cont_phase_type)[1:5])
     expect_snapshot(phase_type_to_network(cont_phase_type, 3)[1:4])
+    expect_snapshot(phase_type_to_network(cont_phase_type, 0)[1:5])
     expect_error(phase_type_to_network(cont_phase_type, 'a'),
                  'time or NULL')
   }
