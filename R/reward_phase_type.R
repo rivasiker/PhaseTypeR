@@ -138,7 +138,7 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
         }
 
         if (! all(reward >= 0) || ! all(reward <= 1)){
-          stop('The reward matrix should only contains probabilities')
+          stop('The reward matrix should only contain probabilities')
         }
 
         for (i in which(reward[, 1] > 0 & reward[, 1] < 1)){
