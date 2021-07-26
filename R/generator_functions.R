@@ -39,7 +39,7 @@
 #'   sub-intensity matrix.
 #'   It could be useful in the scenarios where there is a reward transformation
 #'   leading to values with many decimals and potentially computational
-#'   approximation and potentially to positive row sums in continuous phase-type.s
+#'   approximation and potentially to positive row sums in continuous phase-type.
 #'
 #' @name generator_functions
 #' @order 1
