@@ -20,6 +20,34 @@ devtools::install_github("rivasiker/PhaseTypeR")
 
 ``` r
 library(PhaseTypeR)
+
+subintensity_matrix <- matrix(c(-1.5,  0,  0,
+                                 1.5, -1,  0,
+                                   0,  1, -0.5), ncol = 3)
+initial_probabilities <- c(0.9, 0.1, 0)
+
+ph <- PH(subintensity_matrix, initial_probabilities)
+
+summary(ph)
+```
+
+```
+Subintensity matrix:
+     [,1] [,2] [,3]
+[1,] -1.5  1.5  0.0
+[2,]  0.0 -1.0  1.0
+[3,]  0.0  0.0 -0.5
+
+Initial probabilities:
+     [,1] [,2] [,3]
+[1,]  0.9  0.1    0
+
+Defect:
+[1] 0
+
+Mean: 3.6
+
+Variance: 5.44
 ```
 
 ## Learn more
