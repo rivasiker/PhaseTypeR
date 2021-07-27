@@ -49,7 +49,7 @@ decimal from which we should truncate the positive values of the
 sub-intensity matrix.
 It could be useful in the scenarios where there is a reward transformation
 leading to values with many decimals and potentially computational
-approximation and potentially to positive row sums in continuous phase-type.s}
+approximation and potentially to positive row sums in continuous phase-type.}
 
 \item{reward_mat}{a matrix \code{NULL}(default) where each row is a reward
 vector, and each column corresponds to a state. It should have the same
