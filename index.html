@@ -86,7 +86,7 @@
 <a href="#phasetyper-general-purpose-phase-type-functions" class="anchor"></a>PhaseTypeR: general-purpose phase-type functions</h1></div>
 <!-- badges: start -->
 
-<p>This package implements core functions from phase-type theory. The package contains general functions, so it is useful for a wide-ranging variety of contexts.</p>
+<p>This package implements core functions from phase-type theory. Its general functions are useful for a wide-ranging variety of contexts. <code>PhaseTypeR</code> can be used to model continuous and discrete phase-type distributions, both univariate and multivariate. The package includes functions for outputting the mean and (co)variance of phase-type distributions; their density, probability and quantile functions; functions for random draws; functions for reward-transformation; and functions for plotting thee distributions as networks.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -102,7 +102,7 @@
 
 <span class="va">subintensity_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,
                                  <span class="fl">1.5</span>, <span class="op">-</span><span class="fl">1</span>,  <span class="fl">0</span>,
-                                   <span class="fl">0</span>,  <span class="fl">1</span>, <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+                                  <span class="fl">0</span>,   <span class="fl">1</span>, <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="va">initial_probabilities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span>
 
 <span class="va">ph</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subintensity_matrix</span>, <span class="va">initial_probabilities</span><span class="op">)</span>
@@ -124,11 +124,19 @@ Defect:
 Mean: 3.6
 
 Variance: 5.44</code></pre>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span></code></pre></div>
+<pre><code>[1] 0.1506327 0.2216989 0.1991321 0.1482987 0.1009037</code></pre>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span></code></pre></div>
+<pre><code>[1] 0.07030638 0.26728005 0.48232823 0.65658059 0.78032198</code></pre>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">ph</span><span class="op">)</span></code></pre></div>
+<pre><code>[1] 1.921862 3.089664 4.716588</code></pre>
 </div>
 <div id="learn-more" class="section level2">
 <h2 class="hasAnchor">
 <a href="#learn-more" class="anchor"></a>Learn more</h2>
-<p>patchwork can do so much more. Check out the guides for learning everything there is to know about all the different features:</p>
 <p>You can check out the full functionality of <code>PhaseTypeR</code> and its application to population genetics in the following guides:</p>
 <ul>
 <li><a href="https://rivasiker.github.io/PhaseTypeR/articles/PhaseTypeR.html">Getting Started</a></li>
