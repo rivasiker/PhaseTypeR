@@ -313,8 +313,8 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">'10 random samples: \n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>, <span class="st">'\n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 10 random samples: </span>
-<span class="co">#&gt;  5.348814 3.714414 0.9541007 1.477645 4.834398 </span>
-<span class="co">#&gt;  2.074303 6.874084 4.496795 0.8272003 4.07152</span></code></pre></div>
+<span class="co">#&gt;  3.291226 3.713384 4.582584 7.687443 4.315184 </span>
+<span class="co">#&gt;  3.935499 0.8579272 1.124476 3.738549 4.729949</span></code></pre></div>
 <p>Here is a histogram of 200 samples from the phase-type distribution:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">500</span>, <span class="va">ph</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
@@ -748,8 +748,6 @@ Y_j = \sum_{m=0}^{\tau-1} r_j(X_m), \quad j=1,\ldots,n.
 <div id="additional-functions" class="section level1">
 <h1 class="hasAnchor">
 <a href="#additional-functions" class="anchor"></a>Additional functions</h1>
-<p>Comments regarding the last stuff:\ I think it is a good idea to have the possibility of getting the full simulation of the underlying absorbing Markov chain. Perhaps call it rFullPH for in the continuous case and rFullDPH’ in the discrete case.</p>
-<p>Change to table.</p>
 <div id="get-one-simulation-from-a-phase-type" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-one-simulation-from-a-phase-type" class="anchor"></a>Get one simulation from a phase-type</h2>
