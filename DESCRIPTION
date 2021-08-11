@@ -17,8 +17,5 @@ Depends: expm, methods, igraph
 Suggests: 
     testthat,
     knitr,
-    rmarkdown,
-    covr,
-    coala, 
-    partitions
+    rmarkdown
 VignetteBuilder: knitr
