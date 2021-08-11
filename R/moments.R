@@ -71,10 +71,4 @@ moment_mph <- function(obj, v) {
   sum(apply(X, 1, moment_row, obj = obj))
 }
 
-# require the partitions::parts() function (or write it again)
-moment_mdph <- function(obj, v){
-  Pv <- partitions::parts(v)
-  udrj <- list()
-  for (s in 1:v){
-  }
-}
+
