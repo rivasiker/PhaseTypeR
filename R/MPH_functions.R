@@ -44,6 +44,7 @@
 #' pMPH(1.45, Y)
 #' qMPH(0.5, Y)
 #' rMPH(6, Y)
+#' rFullMPH(Y)
 #'
 #' @name MPH_functions
 NULL
@@ -153,5 +154,47 @@ rMPH <- function(n, obj){
     stop("Please provide an object of class 'mult_cont_phase_type'.")
   }
 }
+
+
+#' @describeIn MPH_functions
+#'
+#' Simulation of the full path for the multivariate continuous phase-type distribution.
+#'
+#'
+#' @import stats
+#'
+#' @export
+
+
+
+rFullMPH <- function(obj){
+  if (!(class(obj) == 'mult_cont_phase_type')){
+    stop("Please provide an object of class 'mult_cont_phase_type'.")
+  }
+
+  init_probs <- obj$init_probs
+  n <- length(init_probs)
+  subint_mat <- obj$subint_mat
+  reward_mat <- obj$reward_mat
+  p <- ncol(reward_mat)
+  out <- matrix(0, n)
+
+  smph <- rFullPH(PH(subint_mat, init_probs))
+
+  out <- matrix(0, nrow(smph), p)
+
+  for(j in 1:nrow(smph)) {
+    out[j,] <- smph$time[j]*reward_mat[smph$state[j], ]
+  }
+  #calculate the rewards times the time spent in each state using point-wise multiplication
+  out <- as.data.frame(out)
+  colnames(out) <- paste0('time_', 1:p)
+  out$state <- smph$state
+
+  return(out)
+
+}
+
+
 
 

@@ -6,6 +6,7 @@
 \alias{qMPH}
 \alias{pMPH}
 \alias{rMPH}
+\alias{rFullMPH}
 \title{The Multivariate Continuous Phase-Type Distribution}
 \usage{
 dMPH(x, obj)
@@ -15,6 +16,8 @@ qMPH(p, obj)
 pMPH(q, obj)
 
 rMPH(n, obj)
+
+rFullMPH(obj)
 }
 \arguments{
 \item{x, q}{vector of quantiles.}
@@ -58,6 +61,8 @@ tested.
 \item \code{pMPH}: Distribution function for the multivariate continuous phase-type distribution.
 
 \item \code{rMPH}: Random number generator for the multivariate continuous phase-type distribution.
+
+\item \code{rFullMPH}: Simulation of the full path for the multivariate continuous phase-type distribution.
 }}
 
 \examples{
@@ -74,6 +79,7 @@ dMPH(3:4, Y)
 pMPH(1.45, Y)
 qMPH(0.5, Y)
 rMPH(6, Y)
+rFullMPH(Y)
 
 }
 \seealso{

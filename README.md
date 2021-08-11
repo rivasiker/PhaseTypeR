@@ -18,7 +18,7 @@ devtools::install_github("rivasiker/PhaseTypeR")
 
 ## Basic example
 
-
+This is a basic example for the univariate continuous phase-type distribution.
 
 ``` r
 library(PhaseTypeR)

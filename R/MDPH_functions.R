@@ -37,13 +37,15 @@
 #'                             0, 0.7, 0.2), ncol = 3)
 #' R <- matrix(c(0, 1, 1,
 #'               2, 1, 5,
-#'               0, 1, 10), ncol = 3)
+#'               0, 1, 10,
+#'               1, 2, 3), nrow = 3)
 #' Y <- MDPH(disc_phase_type, reward_mat = R)
 #'
 #' dMDPH(3:4, Y)
 #' pMDPH(1.45, Y)
 #' qMDPH(0.5, Y)
 #' rMDPH(6, Y)
+#' rFullMDPH(Y)
 #'
 #' @name MDPH_functions
 NULL
@@ -156,5 +158,41 @@ rMDPH <- function(n, obj){
   }
 }
 
+#' @describeIn MDPH_functions
+#'
+#' Simulation of the full path for the multivariate discrete phase-type distribution.
+#'
+#'
+#' @import stats
+#'
+#' @export
 
 
+
+rFullMDPH <- function(obj){
+  if (!(class(obj) == 'mult_disc_phase_type')){
+    stop("Please provide an object of class 'mult_disc_phase_type'.")
+  }
+
+  init_probs <- obj$init_probs
+  n <- length(init_probs)
+  subint_mat <- obj$subint_mat
+  reward_mat <- obj$reward_mat
+  p <- ncol(reward_mat)
+  out <- matrix(0, n)
+
+  smph <- rFullDPH(DPH(subint_mat, init_probs))
+
+  out <- matrix(0, nrow(smph), p)
+
+  for(j in 1:nrow(smph)) {
+    out[j,] <- smph$time[j]*reward_mat[smph$state[j], ]
+  }
+  #calculate the rewards times the time spent in each state using point-wise multiplication
+  out <- as.data.frame(out)
+  colnames(out) <- paste0('time_', 1:p)
+  out$state <- smph$state
+
+  return(out)
+
+}

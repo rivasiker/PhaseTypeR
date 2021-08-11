@@ -6,6 +6,7 @@
 \alias{qMDPH}
 \alias{pMDPH}
 \alias{rMDPH}
+\alias{rFullMDPH}
 \title{The Multivariate Discrete Phase-Type Distribution}
 \usage{
 dMDPH(x, obj)
@@ -15,6 +16,8 @@ qMDPH(p, obj)
 pMDPH(q, obj)
 
 rMDPH(n, obj)
+
+rFullMDPH(obj)
 }
 \arguments{
 \item{x, q}{vector of quantiles.}
@@ -58,6 +61,8 @@ tested.
 \item \code{pMDPH}: Distribution function for the multivariate discrete phase-type distribution.
 
 \item \code{rMDPH}: Random number generator for the multivariate discrete phase-type distribution.
+
+\item \code{rFullMDPH}: Simulation of the full path for the multivariate discrete phase-type distribution.
 }}
 
 \examples{
@@ -67,13 +72,15 @@ disc_phase_type <- matrix(c(0.4, 0, 0.2,
                             0, 0.7, 0.2), ncol = 3)
 R <- matrix(c(0, 1, 1,
               2, 1, 5,
-              0, 1, 10), ncol = 3)
+              0, 1, 10,
+              1, 2, 3), nrow = 3)
 Y <- MDPH(disc_phase_type, reward_mat = R)
 
 dMDPH(3:4, Y)
 pMDPH(1.45, Y)
 qMDPH(0.5, Y)
 rMDPH(6, Y)
+rFullMDPH(Y)
 
 }
 \seealso{
