@@ -580,27 +580,18 @@ Change to table.
 
 ## Get one simulation from a phase-type
 
-To get one simulation of the corresponding MC or MJP from a discrete or continuous phase-type distribution respectively, the function ```sim_phase_type(obj, R = 100)``` can be called. With obj an object of the class from ```PhaseTypeR``` and R the number of simulation.
-
-The output will be a list with (`[[1]]`) the vector of the number of step (MC) or spending time (MJP) and (`[[2]]`) the vector of corresponding state visited . 
 
 ```{r}
 set.seed(42)
-sim_phase_type(ph)
+rFullPH(ph)
 set.seed(42)
-sim_phase_type(dph)
+rFullDPH(dph)
+set.seed(42)
+rFullMPH(mph)
+set.seed(42)
+rFullMDPH(mdph)
 ```
 
-
-TODO CODE CORRECTIONS NOT MC NOW
-For a reward transform MC we advise to use the ```sim_rew_phase_type()``` function, because the reward transformation add intermediate states which will be count in the simulation as separate state. Note that this function can also be use for ```cont_phase_type``` object but the ouput will be the same as using ```sim_phase_type()``` with a pretransformed MJP.
-
-```{r}
-set.seed(42)
-#sim_rew_phase_type(1, ph, c(1,2,3))
-set.seed(42)
-#sim_rew_phase_type(1, dph, c(1,2,3))
-```
 
 # References
 
