@@ -44,6 +44,8 @@
 #'
 #' @rdname mean
 #'
+#' @import methods
+#'
 #' @export
 
 

@@ -45,6 +45,8 @@
 #'
 #' @rdname var
 #'
+#' @import methods
+#'
 #' @export
 
 var <- function(obj, ...) {
