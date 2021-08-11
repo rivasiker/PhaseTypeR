@@ -573,10 +573,6 @@ var(mdph)
 
 # Additional functions
 
-Comments regarding the last stuff:\\
-I think it is a good idea to have the possibility of getting the full simulation of the underlying absorbing Markov chain. Perhaps call it rFullPH for in the continuous case and rFullDPH' in the discrete case. 
-
-Change to table.
 
 ## Get one simulation from a phase-type
 
