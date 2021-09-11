@@ -215,8 +215,7 @@
 <span class="co">#&gt; [1] "cont_phase_type"</span></code></pre></div>
 <p>We can easily plot the phase-type distribution as a network by first converting the phase-type object into a graph, and then plotting it:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">net</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phase_type_to_network.html">phase_type_to_network</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">net</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phase_type_to_network.html">phase_type_to_network</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">net</span>, edge.curved<span class="op">=</span><span class="fl">.1</span>, edge.label <span class="op">=</span> <span class="fu">E</span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span>,
        edge.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu">as_data_frame</span><span class="op">(</span><span class="va">net</span>, what<span class="op">=</span><span class="st">"edges"</span><span class="op">)</span><span class="op">$</span><span class="va">from</span> <span class="op">==</span> <span class="st">'V0'</span>,
                          <span class="st">'purple'</span>, <span class="st">'grey'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -224,8 +223,7 @@
 <p>In the above graph the initial probabilities are represented as purple arrows, while rates are represented by grey arrows.</p>
 <p>In the continuous case, we can also plot the transition probability matrix at time t as a graph:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">net</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phase_type_to_network.html">phase_type_to_network</a></span><span class="op">(</span><span class="va">ph</span>, <span class="va">i</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">net</span>, edge.arrow.size<span class="op">=</span><span class="fl">0.5</span>, edge.curved<span class="op">=</span><span class="fl">.1</span>, edge.label <span class="op">=</span> <span class="fu">E</span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span>, main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'time = '</span>, <span class="va">i</span><span class="op">)</span>,
@@ -285,8 +283,7 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 \]</span></p>
 <p>We calculate the PDF and the CDF with <code><a href="../reference/PH_functions.html">dPH()</a></code> and <code><a href="../reference/PH_functions.html">pPH()</a></code>, respectively,</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">8</span>,length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">8</span>,length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
 <span class="va">pdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">ph</span><span class="op">)</span>
 
 <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">pdf</span>, xlab <span class="op">=</span> <span class="st">"Time to absorption"</span>, ylab <span class="op">=</span> <span class="st">"PDF"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, 
@@ -313,15 +310,14 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">'10 random samples: \n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>, <span class="st">'\n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 10 random samples: </span>
-<span class="co">#&gt;  3.291226 3.713384 4.582584 7.687443 4.315184 </span>
-<span class="co">#&gt;  3.935499 0.8579272 1.124476 3.738549 4.729949</span></code></pre></div>
+<span class="co">#&gt;  5.838498 5.309619 5.648312 3.61133 1.892388 </span>
+<span class="co">#&gt;  1.685776 8.061203 0.7791341 6.155382 1.083448</span></code></pre></div>
 <p>Here is a histogram of 200 samples from the phase-type distribution:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">500</span>, <span class="va">ph</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
 <p><img src="PhaseTypeR_files/figure-html/unnamed-chunk-9-1.png" width="700" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>
 <span class="va">tab_FullPH</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">rFullPH</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">tab_FullPH</span><span class="op">$</span><span class="va">time</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">tab_FullPH</span><span class="op">$</span><span class="va">time</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">tab_FullPH</span><span class="op">$</span><span class="va">time</span><span class="op">)</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
@@ -364,8 +360,7 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 <span class="co">#&gt; [1] "disc_phase_type"</span></code></pre></div>
 <p>We can also plot discrete phase-type functions the same way as continuous ones:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">net</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phase_type_to_network.html">phase_type_to_network</a></span><span class="op">(</span><span class="va">dph</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">net</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phase_type_to_network.html">phase_type_to_network</a></span><span class="op">(</span><span class="va">dph</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">net</span>, edge.curved<span class="op">=</span><span class="fl">.1</span>, edge.label <span class="op">=</span> <span class="fu">E</span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span></code></pre></div>
 <p><img src="PhaseTypeR_files/figure-html/unnamed-chunk-11-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>The moments are given by <strong>Proposition 2.7.iii</strong> <span class="citation">(Navarro <a href="#ref-Navarro2019" role="doc-biblioref">2019</a>, p.12)</span></p>
