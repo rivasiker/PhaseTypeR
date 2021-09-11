@@ -9,6 +9,7 @@ Authors@R: c(
     person("Lars Nørvang", "Andersen", email = "larsa@math.au.dk", role = c("aut")))
 Description: Need to write description of package.
 URL: https://rivasiker.github.io/PhaseTypeR/, https://github.com/rivasiker/PhaseTypeR
+BugReports: https://github.com/rivasiker/PhaseTypeR/issues
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

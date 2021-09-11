@@ -79,7 +79,7 @@
 
       
 
-      </header><script src="PhaseTypeR_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><script src="PhaseTypeR_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>PhaseTypeR v0.9</h1>
@@ -313,8 +313,8 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">'10 random samples: \n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>, <span class="st">'\n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 10 random samples: </span>
-<span class="co">#&gt;  6.22971 4.093904 2.645004 5.56098 5.081042 </span>
-<span class="co">#&gt;  2.688444 4.08852 4.713065 3.842651 5.945272</span></code></pre></div>
+<span class="co">#&gt;  3.961616 4.90329 1.927717 0.4845624 4.055514 </span>
+<span class="co">#&gt;  2.64353 1.724527 0.7014055 1.395971 1.758299</span></code></pre></div>
 <p>Here is a histogram of 200 samples from the phase-type distribution:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">500</span>, <span class="va">ph</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
@@ -748,34 +748,36 @@ Y_j = \sum_{m=0}^{\tau-1} r_j(X_m), \quad j=1,\ldots,n.
 <div id="additional-functions" class="section level1">
 <h1 class="hasAnchor">
 <a href="#additional-functions" class="anchor"></a>Additional functions</h1>
-<p>Comments regarding the last stuff:\ I think it is a good idea to have the possibility of getting the full simulation of the underlying absorbing Markov chain. Perhaps call it rFullPH for in the continuous case and rFullDPH’ in the discrete case.</p>
-<p>Change to table.</p>
 <div id="get-one-simulation-from-a-phase-type" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-one-simulation-from-a-phase-type" class="anchor"></a>Get one simulation from a phase-type</h2>
-<p>To get one simulation of the corresponding MC or MJP from a discrete or continuous phase-type distribution respectively, the function <code><a href="../reference/sim_phase_type.html">sim_phase_type(obj, R = 100)</a></code> can be called. With obj an object of the class from <code>PhaseTypeR</code> and R the number of simulation.</p>
-<p>The output will be a list with (<code>[[1]]</code>) the vector of the number of step (MC) or spending time (MJP) and (<code>[[2]]</code>) the vector of corresponding state visited .</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>
-<span class="fu"><a href="../reference/sim_phase_type.html">sim_phase_type</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] 0.1983368 0.0763838</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; [1] 2 3</span>
+<span class="fu"><a href="../reference/PH_functions.html">rFullPH</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
+<span class="co">#&gt;        time state</span>
+<span class="co">#&gt; 1 0.1983368     2</span>
+<span class="co">#&gt; 2 0.0763838     3</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>
-<span class="fu"><a href="../reference/sim_phase_type.html">sim_phase_type</a></span><span class="op">(</span><span class="va">dph</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] 2 1 4 1 2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; [1] 2 1 2 1 3</span></code></pre></div>
-<p>TODO CODE CORRECTIONS NOT MC NOW For a reward transform MC we advise to use the <code><a href="../reference/sim_rew_phase_type.html">sim_rew_phase_type()</a></code> function, because the reward transformation add intermediate states which will be count in the simulation as separate state. Note that this function can also be use for <code>cont_phase_type</code> object but the ouput will be the same as using <code><a href="../reference/sim_phase_type.html">sim_phase_type()</a></code> with a pretransformed MJP.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>
-<span class="co">#sim_rew_phase_type(1, ph, c(1,2,3))</span>
+<span class="fu"><a href="../reference/DPH_functions.html">rFullDPH</a></span><span class="op">(</span><span class="va">dph</span><span class="op">)</span>
+<span class="co">#&gt;   time state</span>
+<span class="co">#&gt; 1    2     2</span>
+<span class="co">#&gt; 2    1     1</span>
+<span class="co">#&gt; 3    4     2</span>
+<span class="co">#&gt; 4    1     1</span>
+<span class="co">#&gt; 5    2     3</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>
-<span class="co">#sim_rew_phase_type(1, dph, c(1,2,3))</span></code></pre></div>
+<span class="fu"><a href="../reference/MPH_functions.html">rFullMPH</a></span><span class="op">(</span><span class="va">mph</span><span class="op">)</span>
+<span class="co">#&gt;      time_1    time_2    time_3    time_4 state</span>
+<span class="co">#&gt; 1 0.3966736 0.1983368 0.9916841 0.3966736     2</span>
+<span class="co">#&gt; 2 0.0000000 0.0763838 0.7638380 0.1527676     3</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>
+<span class="fu"><a href="../reference/MDPH_functions.html">rFullMDPH</a></span><span class="op">(</span><span class="va">mdph</span><span class="op">)</span>
+<span class="co">#&gt;   time_1 time_2 time_3 time_4 state</span>
+<span class="co">#&gt; 1      4      2     10      4     2</span>
+<span class="co">#&gt; 2      0      1      1      2     1</span>
+<span class="co">#&gt; 3      8      4     20      8     2</span>
+<span class="co">#&gt; 4      0      1      1      2     1</span>
+<span class="co">#&gt; 5      0      2     20      4     3</span></code></pre></div>
 </div>
 </div>
 <div id="references" class="section level1 unnumbered">
