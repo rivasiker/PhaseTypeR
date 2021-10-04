@@ -7,13 +7,14 @@ Authors@R: c(
     person("Colin", "Guetemme", email = "colin.guetemme@live.fr", role = c("aut")),
     person("Asger", "Hobolth", email = "asger@math.au.dk", role = c("aut")),
     person("Lars Nørvang", "Andersen", email = "larsa@math.au.dk", role = c("aut")))
+Maintainer: Iker Rivas-González <ikerrivas96@gmail.com>
 Description: Need to write description of package.
 URL: https://rivasiker.github.io/PhaseTypeR/, https://github.com/rivasiker/PhaseTypeR
 BugReports: https://github.com/rivasiker/PhaseTypeR/issues
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1.9001
+RoxygenNote: 7.1.1
 Depends: expm, methods, igraph
 Suggests: 
     testthat,
