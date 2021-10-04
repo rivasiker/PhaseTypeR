@@ -57,6 +57,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/phasetypeR_SFS.html">Using phasty for the site frequency spectrum - Figures</a>
+    </li>
+    <li>
       <a href="../articles/pop_gen_iker.html">Using PhaseTypeR for population genetics</a>
     </li>
   </ul>
@@ -79,7 +82,7 @@
 
       
 
-      </header><script src="pop_gen_iker_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
+      </header><script src="pop_gen_iker_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Using PhaseTypeR for population genetics</h1>
@@ -145,14 +148,12 @@
 <span class="op">}</span></code></pre></div>
 <p>For a sample size of <span class="math inline">\(n=4\)</span>, the sub-intensity matrix can be generated using the function above, and the initial probabilities can be defined as a vector of length <span class="math inline">\(n-1\)</span>, starting with one and the rest entries filled with zeros:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">4</span>
+<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">4</span>
 <span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="fu">subint_mat_t_mrca</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
 <span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">n</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span>, <span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p>Now we can use a <code>cont_phase_type</code> class of the <code>PhaseTypeR</code> package to generate a phase-type representation of <span class="math inline">\(T_{MRCA}\)</span> by using <code><a href="../reference/generator_functions.html">PH()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">t_mrca_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">t_mrca_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span>
 
 <span class="va">t_mrca_4</span>
 <span class="co">#&gt; $subint_mat</span>
@@ -172,13 +173,11 @@
 <span class="co">#&gt; [1] "cont_phase_type"</span></code></pre></div>
 <p>There are a number of methods associated with the class <code>cont_phase_type</code>. For example, the mean for <span class="math inline">\(T_{MRCA}\)</span> can be computed using:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">t_mrca_4</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">t_mrca_4</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1.5</span></code></pre></div>
 <p>While the variance can be calculated using:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">t_mrca_4</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">t_mrca_4</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1.138889</span></code></pre></div>
 </div>
 <div id="total-tree-lenght-t_total-and-the-reward-transformation" class="section level2">
@@ -202,8 +201,7 @@
  \boldsymbol{\pi} = (1,\ 0, \ ...\,,\ 0)
 \]</span></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">subint_mat_t_total</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span>
+<code class="sourceCode R"><span class="va">subint_mat_t_total</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">subint_mat</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="va">n</span><span class="op">-</span><span class="fl">1</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">subint_mat</span><span class="op">[</span><span class="va">i</span>, <span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="op">-</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="va">i</span><span class="op">)</span>
@@ -215,14 +213,12 @@
 <span class="op">}</span></code></pre></div>
 <p>For a sample size of <span class="math inline">\(n=4\)</span>, the sub-intensity matrix and the initial probabilities can be defined as:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">4</span>
+<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">4</span>
 <span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="fu">subint_mat_t_total</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
 <span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">n</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span>, <span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p><span class="math inline">\(T_{Total}\)</span> can also be represented using the <code>cont_phase_type</code> class:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">t_total_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">t_total_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span>
 
 <span class="va">t_total_4</span>
 <span class="co">#&gt; $subint_mat</span>
@@ -242,8 +238,7 @@
 <span class="co">#&gt; [1] "cont_phase_type"</span></code></pre></div>
 <p>Without further ado, we can use the exact same phase-type formulas (and thus <code>PhaseTypeR</code> functions) for calculating the mean and variance of <span class="math inline">\(T_{Total}\)</span>:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">t_total_4</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">t_total_4</span><span class="op">)</span>
 <span class="co">#&gt; [1] 3.666667</span>
 <span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">t_total_4</span><span class="op">)</span>
 <span class="co">#&gt; [1] 5.444444</span></code></pre></div>
@@ -285,8 +280,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">t_total_4</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.1408529 0.2204939 0.2019975</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">0.1</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">0.1</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_mrca_4</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span>
 <span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_total_4</span><span class="op">)</span>
@@ -302,8 +296,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="fu"><a href="../reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">t_total_4</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1.988284 4.784137</span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.99</span>,<span class="fl">0.01</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.99</span>,<span class="fl">0.01</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_total_4</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span>
 <span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_mrca_4</span><span class="op">)</span>
@@ -319,8 +312,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="fu"><a href="../reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">t_total_4</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.001622363 0.030579354</span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">0.1</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">0.1</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_mrca_4</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_total_4</span><span class="op">)</span>
@@ -377,8 +369,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="va">disc_subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">subint_mat</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span><span class="op">/</span><span class="va">theta</span> <span class="op">*</span> <span class="va">subint_mat</span><span class="op">)</span></code></pre></div>
 <p>And we can now use the <code><a href="../reference/generator_functions.html">DPH()</a></code> function of <code>PhaseTypeR</code> to build a discrete phase-type class <code>disc_phase_type</code> for <span class="math inline">\(S_{total}\)</span>:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">s_tot_4_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">DPH</a></span><span class="op">(</span><span class="va">disc_subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">s_tot_4_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">DPH</a></span><span class="op">(</span><span class="va">disc_subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span>
 <span class="va">s_tot_4_3</span>
 <span class="co">#&gt; $subint_mat</span>
 <span class="co">#&gt;      [,1] [,2] [,3]</span>
@@ -588,8 +579,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="co">#&gt; [1] "disc_phase_type"</span></code></pre></div>
 <p>And, of course, we can compute the mean and variance for all these quantities:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi1_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>; <span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi2_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>; <span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi3_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi1_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>; <span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi2_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>; <span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi3_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>
 <span class="co">#&gt; [1] 3</span>
 <span class="co">#&gt; [1] 1.5</span>
 <span class="co">#&gt; [1] 1</span>
@@ -610,8 +600,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="fu"><a href="../reference/DPH_functions.html">dDPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.1500 0.1900 0.1765</span></code></pre></div>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">dDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s_tot_4_3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span>
 <span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">dDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
@@ -627,8 +616,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="fu"><a href="../reference/DPH_functions.html">qDPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
 <span class="co">#&gt; [1] 2 5</span></code></pre></div>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.99</span>,<span class="fl">0.01</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.99</span>,<span class="fl">0.01</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">qDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s_tot_4_3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span>
 <span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">qDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
@@ -644,8 +632,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="fu"><a href="../reference/DPH_functions.html">pDPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0 0</span></code></pre></div>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">15</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">15</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">pDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s_tot_4_3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">pDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
@@ -687,26 +674,22 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <p>Each <span class="math inline">\(Y_i\)</span> can be represented using a univariate phase-type distribution. However, instead of defining each <span class="math inline">\(Y_i\)</span> individually, we can build a multivariate phase-type representation of the coalescent process, such that <span class="math inline">\(Y\sim MPH^*(\alpha, S, R)\)</span>, where <span class="math inline">\(\alpha\)</span> is the initial probability vector, <span class="math inline">\(S\)</span> is the sub-intensity matrix for the coalescent process and <span class="math inline">\(R\)</span> is the reward vector where each of the columns summarizes how the subintensity matrix should be transformed to obtain a phase-type representation of <span class="math inline">\(Y_i\)</span>.</p>
 <p>For example, when <span class="math inline">\(n=4\)</span>, the sub-intensity matrix for Kingman’s coalescent is:</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">subint_itons_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6</span>,  <span class="fl">6</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,
+<code class="sourceCode R"><span class="va">subint_itons_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6</span>,  <span class="fl">6</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,
                             <span class="fl">0</span>, <span class="op">-</span><span class="fl">3</span>,  <span class="fl">2</span>,  <span class="fl">1</span>,
                             <span class="fl">0</span>,  <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>,  <span class="fl">0</span>,
                             <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 <p>On the other hand, we need to define a reward matrix:</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">reward_mat_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">0</span>, <span class="fl">0</span>,
+<code class="sourceCode R"><span class="va">reward_mat_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">0</span>, <span class="fl">0</span>,
                          <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span>,
                          <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>,
                          <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 <p>We can define a continuous phase-type representation of <span class="math inline">\(Y_i\)</span> with the <code>MPH</code> generator function, which will yield an object of class <code>mult_cont_phase_type</code>:</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">Y_i_phase_type</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">MPH</a></span><span class="op">(</span>subint_mat <span class="op">=</span> <span class="va">subint_itons_4</span>, 
+<code class="sourceCode R"><span class="va">Y_i_phase_type</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">MPH</a></span><span class="op">(</span>subint_mat <span class="op">=</span> <span class="va">subint_itons_4</span>, 
                       reward_mat <span class="op">=</span> <span class="va">reward_mat_4</span><span class="op">)</span>
 <span class="co">#&gt; Warning in check_phase_type(subint_mat, init_probs, reward_mat, round_zero): </span>
 <span class="co">#&gt;  The initial probability vector is automatically generated.</span>
-
 <span class="va">Y_i_phase_type</span>
 <span class="co">#&gt; $subint_mat</span>
 <span class="co">#&gt;      [,1] [,2] [,3] [,4]</span>
@@ -733,13 +716,11 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="co">#&gt; [1] "mult_cont_phase_type"</span></code></pre></div>
 <p>We can compute the mean of each of the i-tons all together:</p>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span><span class="op">)</span>
 <span class="co">#&gt; [1] 2.0000000 1.0000000 0.6666667</span></code></pre></div>
 <p>or separately:</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span>, <span class="fl">1</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span>, <span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt; [1] 2</span>
 <span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span>, <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1</span>
@@ -747,8 +728,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="co">#&gt; [1] 0.6666667</span></code></pre></div>
 <p>We can also calculate the variance-covariance matrix:</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span><span class="op">)</span>
 <span class="co">#&gt;            [,1]       [,2]       [,3]</span>
 <span class="co">#&gt; [1,]  1.7777778 -0.2222222  0.8888889</span>
 <span class="co">#&gt; [2,] -0.2222222  2.3333333 -0.4444444</span>
