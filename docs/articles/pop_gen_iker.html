@@ -402,7 +402,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <p>And we can also define a continuous phase-type representation of this process:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">kingman_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subint_itons_4</span><span class="op">)</span>
-<span class="co">#&gt; Warning in check_phase_type(subint_mat, init_probs, reward_mat = NULL, round_zero): </span>
+<span class="co">#&gt; Warning in check_phase_type(subint_mat, init_probs): </span>
 <span class="co">#&gt;  The initial probability vector is automatically generated.</span>
 <span class="va">kingman_4</span>
 <span class="co">#&gt; $subint_mat</span>
@@ -688,7 +688,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Y_i_phase_type</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">MPH</a></span><span class="op">(</span>subint_mat <span class="op">=</span> <span class="va">subint_itons_4</span>, 
                       reward_mat <span class="op">=</span> <span class="va">reward_mat_4</span><span class="op">)</span>
-<span class="co">#&gt; Warning in check_phase_type(subint_mat, init_probs, reward_mat, round_zero): </span>
+<span class="co">#&gt; Warning in check_phase_type(subint_mat, init_probs): </span>
 <span class="co">#&gt;  The initial probability vector is automatically generated.</span>
 <span class="va">Y_i_phase_type</span>
 <span class="co">#&gt; $subint_mat</span>
