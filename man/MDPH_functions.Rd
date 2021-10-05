@@ -32,7 +32,8 @@ the number required.}
 \value{
 \code{dMDPH} gives the density, \code{pMDPH} gives the
 distribution function, \code{qMDPH} gives the quantile function,
-and \code{rMDPH} generates random deviates.
+and \code{rMDPH} generates random deviates. \code{rFullMDPH} returns
+the full path of a random draw from the distribution.
 
 The length of the result is determined by \code{n} for \code{rMDPH},
 and is the maximum of the lengths of the numerical arguments for the other

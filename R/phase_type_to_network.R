@@ -1,7 +1,8 @@
 
 #' Phase-type distribution to network
 #'
-#' phase_type_to_network
+#' This function converts a phase-type distribution into an
+#' igraph graph object.
 #'
 #'
 #' @param phase_type an object of class \code{disc_phase_type} or
@@ -9,6 +10,8 @@
 #' @param t NULL or numeric. Sampling time for the continuous phase-type distribution.
 #'
 #' @usage phase_type_to_network(phase_type, t = NULL)
+#'
+#' @return An igraph graph object of the phase-type distribution.
 #'
 #' @importFrom igraph graph_from_data_frame
 #'
@@ -89,9 +92,8 @@ phase_type_to_network <- function(phase_type, t = NULL) {
                            weight=c(x))
     link_mat <- link_mat[link_mat$weight != 0,]
 
-
-
-
+  } else {
+    stop('Please provide a cont_phase_type or a disc_phase_type object.')
   }
 
 

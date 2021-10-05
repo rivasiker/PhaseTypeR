@@ -42,7 +42,6 @@
 #' that we attribute to this state a reward j corresponds to the value of the
 #' matrix in row i and column j+1.
 #'
-#' @author C. Guetemme, A. Hobolth
 #'
 #' @references
 #' Bladt, M., & Nielsen, B. F. (2017). *Matrix-exponential distributions in applied probability* (Vol. 81). New York: Springer.

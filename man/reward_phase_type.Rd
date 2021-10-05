@@ -102,6 +102,3 @@ Hobolth, A., Bladt, M. & Andersen, L.A. (2021). *Multivariate phase-type theory 
 \seealso{
 \code{\link{PH}}, \code{\link{DPH}}
 }
-\author{
-C. Guetemme, A. Hobolth
-}

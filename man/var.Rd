@@ -26,6 +26,10 @@ var(obj, ...)
 
 \item{v}{NULL, integer or vector of length 2.}
 }
+\value{
+The value returned is either the variance (for univariate
+distributions) or the variance-covariance matrix (for multvariate distributions).
+}
 \description{
 Calculates the variance of continuous, discrete and multivariate phase-type
 distributions, represented by the \code{cont_phase_type},

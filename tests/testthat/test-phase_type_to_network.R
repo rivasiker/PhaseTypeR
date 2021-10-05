@@ -34,3 +34,9 @@ test_that(
                    'Argument t not used')
   }
 )
+
+test_that(
+  'there is an error when not using the right phase-type object', {
+    expect_error(phase_type_to_network('a'), 'Please provide a ')
+  }
+)

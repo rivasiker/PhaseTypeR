@@ -12,6 +12,10 @@ phase_type_to_network(phase_type, t = NULL)
 
 \item{t}{NULL or numeric. Sampling time for the continuous phase-type distribution.}
 }
+\value{
+An igraph graph object of the phase-type distribution.
+}
 \description{
-phase_type_to_network
+This function converts a phase-type distribution into an
+igraph graph object.
 }

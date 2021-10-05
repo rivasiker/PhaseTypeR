@@ -26,6 +26,11 @@ mean(x, ...)
 
 \item{v}{NULL, integer or vector.}
 }
+\value{
+This function returns a single value for the mean of univariate phase-type
+distributions, or a vector of means for each reward-transformed distribution
+of the multivariate phaset-type distributions.
+}
 \description{
 Calculates the mean of continuous, discrete and multivariate phase-type
 distributions, represented by the \code{cont_phase_type},

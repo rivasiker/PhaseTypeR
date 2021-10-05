@@ -18,7 +18,8 @@
 #'
 #' @return \code{dDPH} gives the density, \code{pDPH} gives the
 #' distribution function, \code{qDPH} gives the quantile function,
-#' and \code{rDPH} generates random deviates.
+#' and \code{rDPH} generates random deviates. \code{rFullDPH} returns
+#' the full path of a random draw from the distribution.
 #'
 #' The length of the result is determined by \code{n} for \code{rDPH},
 #' and is the maximum of the lengths of the numerical arguments for the other

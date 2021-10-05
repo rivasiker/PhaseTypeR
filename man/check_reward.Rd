@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_phase_type.R
 \name{check_reward}
 \alias{check_reward}
-\title{Checking the basic phase-type assumptions}
+\title{Checking reward matrix}
 \usage{
 check_reward(reward_mat, init_probs)
 }

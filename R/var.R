@@ -21,9 +21,13 @@
 #'  returned.}
 #' }
 #'
+#'
 #' @param obj a \code{cont_phase_type}, \code{disc_phase_type},
 #'  \code{mult_cont_phase_type} or \code{mult_disc_phase_type} object
 #' @param ... other arguments passed to methods
+#'
+#' @return The value returned is either the variance (for univariate
+#' distributions) or the variance-covariance matrix (for multvariate distributions).
 #'
 #' @examples
 #' # For univariate continuous phase-type distributions
