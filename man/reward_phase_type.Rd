@@ -4,7 +4,7 @@
 \alias{reward_phase_type}
 \title{Transformation of Phase-Type Distributions via Rewards}
 \usage{
-reward_phase_type(phase_type, reward, round_zero = NULL)
+reward_phase_type(phase_type, reward)
 }
 \arguments{
 \item{phase_type}{an object of class \code{cont_phase_type} or
@@ -17,13 +17,6 @@ For \code{disc_phase_type} object, it could also be a matrix with as many
 rows as states and as many columns as the maximum values of reward plus one.
 Also in this case, each cell of the matrix should be probabilities and the
 sum of the rows should sum up to one.}
-
-\item{round_zero}{is a positive integer or \code{NULL}, if it is a positive
-integer, all the values in the subintensity matrix and initial probabilities
-will be truncate at the corresponding decimal. It can be useful if
-the computational approximation of some values leads the row
-sums of the subintensity  matrix to be higher than 1 or smaller than 0 for
-discrete cases, or higher than 0 for continuous cases.}
 }
 \value{
 An object of class \code{disc_phase_type} or \code{cont_phase_type}.

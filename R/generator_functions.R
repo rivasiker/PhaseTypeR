@@ -34,12 +34,6 @@
 #' @param reward_mat a matrix \code{NULL}(default) where each row is a reward
 #'   vector, and each column corresponds to a state. It should have the same
 #'   number of columns as the length of the initial probabilities.
-#' @param round_zero an integer or \code{NULL}(default), which gives the
-#'   decimal from which we should truncate the positive values of the
-#'   sub-intensity matrix.
-#'   It could be useful in the scenarios where there is a reward transformation
-#'   leading to values with many decimals and potentially computational
-#'   approximation and potentially to positive row sums in continuous phase-type.
 #'
 #' @name generator_functions
 #' @order 1

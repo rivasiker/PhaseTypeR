@@ -6,7 +6,7 @@
 #' @title Multivariate discrete phase-type distribution
 #'
 #' @usage MDPH(subint_mat = NULL, init_probs = NULL,
-#'      reward_mat = NULL, round_zero = NULL)
+#'      reward_mat = NULL)
 #'
 #' @examples
 #'
@@ -28,10 +28,9 @@
 #' @export
 
 
-MDPH <- function(subint_mat = NULL, init_probs = NULL, reward_mat = NULL, round_zero = NULL) {
+MDPH <- function(subint_mat = NULL, init_probs = NULL, reward_mat = NULL) {
 
-  lst_check <- check_phase_type(subint_mat, init_probs,
-                                reward_mat = NULL, round_zero)
+  lst_check <- check_phase_type(subint_mat, init_probs)
 
   subint_mat <- lst_check$subint_mat
   init_probs <- lst_check$init_probs

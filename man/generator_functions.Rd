@@ -13,15 +13,15 @@
 \alias{summary.mult_disc_phase_type}
 \title{The phase-type distribution}
 \usage{
-PH(subint_mat = NULL, init_probs = NULL, round_zero = NULL)
+PH(subint_mat = NULL, init_probs = NULL)
 
-DPH(subint_mat = NULL, init_probs = NULL, round_zero = NULL)
+DPH(subint_mat = NULL, init_probs = NULL)
 
 MPH(subint_mat = NULL, init_probs = NULL,
-    reward_mat = NULL, round_zero = NULL)
+    reward_mat = NULL)
 
 MDPH(subint_mat = NULL, init_probs = NULL,
-     reward_mat = NULL, round_zero = NULL)
+     reward_mat = NULL)
 
 \method{summary}{cont_phase_type}(object, ...)
 
@@ -43,13 +43,6 @@ values between 0 and 1.}
 \item{init_probs}{a vector, a one-row matrix or \code{NULL} which gives the
 probabilities to start in each state. If \code{init_probs} is \code{NULL},
 the probability to start on the first state will be 1 and 0 otherwise.}
-
-\item{round_zero}{an integer or \code{NULL}(default), which gives the
-decimal from which we should truncate the positive values of the
-sub-intensity matrix.
-It could be useful in the scenarios where there is a reward transformation
-leading to values with many decimals and potentially computational
-approximation and potentially to positive row sums in continuous phase-type.}
 
 \item{reward_mat}{a matrix \code{NULL}(default) where each row is a reward
 vector, and each column corresponds to a state. It should have the same

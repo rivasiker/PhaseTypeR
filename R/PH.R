@@ -4,7 +4,7 @@
 #'
 #' @title Continuous phase-type distribution
 #'
-#' @usage PH(subint_mat = NULL, init_probs = NULL, round_zero = NULL)
+#' @usage PH(subint_mat = NULL, init_probs = NULL)
 #'
 #' @examples
 #'
@@ -33,11 +33,10 @@
 
 
 
-PH <- function(subint_mat = NULL, init_probs = NULL, round_zero = NULL) {
+PH <- function(subint_mat = NULL, init_probs = NULL) {
 
 
-  lst_check <- check_phase_type(subint_mat, init_probs,
-                                reward_mat = NULL, round_zero)
+  lst_check <- check_phase_type(subint_mat, init_probs)
 
   subint_mat <- lst_check$subint_mat
   init_probs <- lst_check$init_probs

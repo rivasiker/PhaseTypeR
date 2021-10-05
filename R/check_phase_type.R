@@ -1,11 +1,19 @@
 
+#' Checking the basic phase-type assumptions
+#'
+#' This function checks whether all the elements for
+#' building a phase-type object have the right shape.
+#'
+#' @param subint_mat Sub-intensity rate matrix.
+#' @param init_probs Initial probability vector.
+#'
+#' @return A list with the elements of a phase-type distribution.
+#'
+#' @keywords internal
 
 
 
-
-
-check_phase_type <- function(subint_mat, init_probs,
-                             reward_mat, round_zero) {
+check_phase_type <- function(subint_mat, init_probs) {
 
   #############
   # Check the conditions necessary for every phase-type distribution
@@ -44,17 +52,6 @@ check_phase_type <- function(subint_mat, init_probs,
   if ((is.vector(init_probs) & is.numeric(init_probs)) | (is.matrix(init_probs) & is.numeric(matrix(init_probs)))) {
     init_probs <- as.numeric(init_probs)
     init_probs <- matrix(init_probs, nrow = 1)
-    if (!is.null(round_zero)){
-      if (round(round_zero) == round_zero) { # avoid positive value due to
-        #approximation
-        init_probs[init_probs > 0] <- trunc(init_probs[init_probs > 0] *
-                                              10^round_zero) / 10^round_zero
-        subint_mat[subint_mat > 0] <- trunc(subint_mat[subint_mat > 0] *
-                                              10^round_zero) / 10^round_zero
-        print(trunc(subint_mat[subint_mat > 0],
-                    round_zero))
-      }
-    }
 
     if (nrow(subint_mat) != length(init_probs)) {
       stop('The length of the initial probability vector does not match the size of the subintensity matrix.')
@@ -74,8 +71,6 @@ check_phase_type <- function(subint_mat, init_probs,
     stop('The initial probabilities must be a matrix with one row or a vector.')
   }
 
-  ###### Check if the reward matrix has the right shape
-
 
   list(subint_mat = subint_mat,
        init_probs = init_probs)
@@ -83,7 +78,17 @@ check_phase_type <- function(subint_mat, init_probs,
 
 }
 
-
+#' Checking reward matrix
+#'
+#' This function checks whether the shape of the reward
+#' matrix is correct.
+#'
+#' @param init_probs Initial probability vector.
+#' @param reward_mat Reward matrix
+#'
+#' @return NULL
+#'
+#' @keywords internal
 
 check_reward <- function(reward_mat, init_probs) {
 
@@ -98,6 +103,8 @@ check_reward <- function(reward_mat, init_probs) {
   } else {
     stop('Please provide a reward matrix.')
   }
+
+  NULL
 
 }
 

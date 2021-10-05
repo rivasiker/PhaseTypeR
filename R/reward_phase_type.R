@@ -3,7 +3,7 @@
 #' Transform a variable following a phase-type distribution according to a
 #' non-negative reward vector.
 #'
-#' @usage reward_phase_type(phase_type, reward, round_zero = NULL)
+#' @usage reward_phase_type(phase_type, reward)
 #'
 #' @param phase_type an object of class \code{cont_phase_type} or
 #'  \code{disc_phase_type}.
@@ -16,12 +16,6 @@
 #' Also in this case, each cell of the matrix should be probabilities and the
 #' sum of the rows should sum up to one.
 #'
-#' @param round_zero  is a positive integer or \code{NULL}, if it is a positive
-#' integer, all the values in the subintensity matrix and initial probabilities
-#' will be truncate at the corresponding decimal. It can be useful if
-#' the computational approximation of some values leads the row
-#' sums of the subintensity  matrix to be higher than 1 or smaller than 0 for
-#' discrete cases, or higher than 0 for continuous cases.
 #'
 #' @return
 #' An object of class \code{disc_phase_type} or \code{cont_phase_type}.
@@ -105,7 +99,7 @@
 #'
 #' @export
 
-reward_phase_type <- function(phase_type, reward, round_zero = NULL){
+reward_phase_type <- function(phase_type, reward){
 
   if (!is.numeric(reward)) {
     stop('Please provide a valid reward vector.')
@@ -274,7 +268,7 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
       subint_mat <- T_tilde$pp
       init_probs <- init_probs_p
     }
-    ph <- DPH(subint_mat, init_probs, round_zero = round_zero)
+    ph <- DPH(subint_mat, init_probs)
     return(ph)
 
     ##=======================##
@@ -373,7 +367,7 @@ reward_phase_type <- function(phase_type, reward, round_zero = NULL){
     # Calculate the rate of leaving each state
     subint_mat <- mat_T - diag_mat
     # Get a cont_phase_type object
-    ph <- PH(subint_mat, init_probs, round_zero = round_zero)
+    ph <- PH(subint_mat, init_probs)
     return(ph)
   } else {
     stop("The object provided should be of class 'disc_phase_type' or ",
