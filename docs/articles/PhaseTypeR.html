@@ -104,7 +104,7 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>1. Introduction</h1>
-<p>Phase-type distributions are a general class of distributions. They have been used extensively in fields like insurance mathematics, queyeing theory and population genetics.</p>
+<p>Phase-type distributions are a general class of distributions. They have been used extensively in fields like insurance mathematics, queuing theory and population genetics.</p>
 <p>The basic idea is to consider a Markov jump process (or a Markov chain for discrete time) with <span class="math inline">\(p\)</span> transient states and one absorbing state. The time to absorption is phase-type distributed. The parameters of a phase-type distribution is thus an intensity matrix and the initial probabilities to begin in each state. The matrix form of the phase-type distribution allow great simplification, in particular to find the moments of the time before reaching the absorbing state.</p>
 <p>The package <code>PhaseTypeR</code> handle and manipulate the continuous and discrete phase-type distributions, and their corresponding reward transformations and multivariate extensions.</p>
 <p>The package is general, but our initial interest in phase-type distributions is from applications in population genetics. We provide a separate vignette where we further demonstrate <strong>PhaseTypeR</strong> using applications from population genetics.</p>
@@ -223,7 +223,7 @@
        edge.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu">as_data_frame</span><span class="op">(</span><span class="va">net</span>, what<span class="op">=</span><span class="st">"edges"</span><span class="op">)</span><span class="op">$</span><span class="va">from</span> <span class="op">==</span> <span class="st">'V0'</span>,
                          <span class="st">'purple'</span>, <span class="st">'grey'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="PhaseTypeR_files/figure-html/unnamed-chunk-4-1.png" width="700" style="display: block; margin: auto;"></p>
-<p>In the above graph the initial probabilities are represented as purple arrows, while rates are represented by grey arrows.</p>
+<p>In the above graph the initial probabilities are represented as purple arrows, while rates are represented by gray arrows.</p>
 <p>In the continuous case, we can also plot the transition probability matrix at time t as a graph:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
@@ -257,7 +257,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">' Variance: '</span>,<span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>,<span class="st">'\n \n'</span><span class="op">)</span>
 <span class="co">#&gt;  Variance:  5.44 </span>
 <span class="co">#&gt; </span></code></pre></div>
-<p>These two quantitites are also printed when using the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function:</p>
+<p>These two quantities are also printed when using the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
 <span class="co">#&gt; </span>
@@ -313,8 +313,8 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">'10 random samples: \n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>, <span class="st">'\n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 10 random samples: </span>
-<span class="co">#&gt;  0.6998548 2.776003 3.4986 4.089187 2.767217 </span>
-<span class="co">#&gt;  4.42009 8.173732 1.480604 3.909279 3.136299</span></code></pre></div>
+<span class="co">#&gt;  2.203212 4.110185 1.164431 4.416509 3.886309 </span>
+<span class="co">#&gt;  2.418604 1.883925 2.674754 7.965989 3.035696</span></code></pre></div>
 <p>Here is a histogram of 200 samples from the phase-type distribution:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">500</span>, <span class="va">ph</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
@@ -516,7 +516,7 @@ Y = \sum_{n=1}^{\tau - 1} r(X_n).
 <div id="non-negative-reward-transformation-for-continuous-phase-type-distribution" class="section level2">
 <h2 class="hasAnchor">
 <a href="#non-negative-reward-transformation-for-continuous-phase-type-distribution" class="anchor"></a>4.3. Non-negative reward transformation for continuous phase-type distribution</h2>
-<p>A non-negative reward transformation of a phase-type distribution is also phase-type distributed (posssibe with a defect). <strong>Theorem 3.1.33</strong> <span class="citation">(<a href="#ref-Bladt2017" role="doc-biblioref">Bladt and Nielsen 2017, 81:p.147</a>)</span> gives the non-negative reward-transformed phase-type distribution.</p>
+<p>A non-negative reward transformation of a phase-type distribution is also phase-type distributed (possibly with a defect). <strong>Theorem 3.1.33</strong> <span class="citation">(<a href="#ref-Bladt2017" role="doc-biblioref">Bladt and Nielsen 2017, 81:p.147</a>)</span> gives the non-negative reward-transformed phase-type distribution.</p>
 <p>Here is one example:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">ph</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>

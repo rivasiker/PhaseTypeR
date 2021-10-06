@@ -30,14 +30,13 @@
 #' For the discrete phase_type distribution is based on the PhD of Navarro (2018) and
 #' Hobolth, Bladt and Andersen (2021).
 #'
-#' Every state of the sub-intensity matrix should have a reward, in the case of
-#' continuous phase-type, this reward should be a vector with non negative
-#' values of a size equal to the number of states.
-#'
-#' For the discrete phase-type, the reward could be also a vector but containing
-#' only non-negatives integer.
-#' Also it can be me a matrix, in that case the matrix should have as many rows
-#' as the number of states, and the column 1 to j+1 corresponds to reward of
+#' Every state of the sub-intensity matrix should have a reward, and in the case of
+#' both the continuous and the discrete phase-type distributions,
+#' this reward should be a vector with non-negative
+#' values of size equal to the number of states.
+#' Additionally, for discrete phase-type distributions, the reward can also be
+#' a matrix of probabilities, in which case the matrix should have as many rows
+#' as the number of states, and the column 1 to j+1 corresponds a reward from
 #' 0 to j. Each cell corresponding that entering in the state i, the probability
 #' that we attribute to this state a reward j corresponds to the value of the
 #' matrix in row i and column j+1.
