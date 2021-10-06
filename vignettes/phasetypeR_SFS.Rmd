@@ -752,7 +752,7 @@ bS <- ph_rew_obj$subint_mat
 
 bM <- solve(diag(dim(bS)[1])-(2/theta)*bS)
 
-baMat <- matrix(c(1:(n-1),(1:(n-1))*((n-1):1),(1:(n-1))^2),n-1,n-1,byrow=TRUE)
+baMat <- matrix(c(1:(n-1),(1:(n-1))*((n-1):1),(1:(n-1))^2),n-3,n-1,byrow=TRUE)
 
 len <- n*(n-1)+1
 probsMat <- matrix(0,3,len)
