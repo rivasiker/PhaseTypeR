@@ -1,0 +1,74 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/"
+)
+```
+
+# PhaseTypeR: general-purpose phase-type functions
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/rivasiker/PhaseTypeR/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/rivasiker/PhaseTypeR/actions/workflows/check-standard.yaml)
+[![Codecov test coverage](https://codecov.io/gh/rivasiker/PhaseTypeR/branch/master/graph/badge.svg)](https://codecov.io/gh/rivasiker/PhaseTypeR?branch=master)
+  <!-- badges: end -->
+
+
+This package implements core functions from phase-type theory. Its general functions are useful for a wide-ranging variety of contexts. `PhaseTypeR` can be used to model continuous and discrete phase-type distributions, both univariate and multivariate. The package includes functions for outputting the mean and (co)variance of phase-type distributions; their density, probability and quantile functions; functions for random draws; functions for reward-transformation; and functions for plotting thee distributions as networks. 
+
+## Installation
+
+If you install devtools in your R environment with `install.packages("devtools")`, the development version of the package can be installed with the following command:
+
+``` r
+devtools::install_github("rivasiker/PhaseTypeR")
+```
+
+## Basic example
+
+This is a basic example for the univariate continuous phase-type distribution.
+
+```{r warning=FALSE, message=FALSE}
+library(PhaseTypeR)
+
+subintensity_matrix <- matrix(c(-1.5,  0,  0,
+                                 1.5, -1,  0,
+                                  0,   1, -0.5), ncol = 3)
+initial_probabilities <- c(0.9, 0.1, 0)
+
+ph <- PH(subintensity_matrix, initial_probabilities)
+
+summary(ph)
+```
+
+
+```{r}
+dPH(1:5, ph)
+```
+
+
+```{r}
+pPH(1:5, ph)
+```
+
+
+```{r}
+qPH(c(0.25, 0.5, 0.75), ph)
+```
+
+
+## Learn more
+
+You can check out the full functionality of `PhaseTypeR` and its application to 
+population genetics in the following guides:
+
+  - [Getting Started](https://rivasiker.github.io/PhaseTypeR/articles/PhaseTypeR.html)
+  - [Using PhaseTypeR for population genetics](https://rivasiker.github.io/PhaseTypeR/articles/a2_pop_gen_iker.html)
+  - [Using PhaseTypeR for the site frequency spectrum](https://rivasiker.github.io/PhaseTypeR/articles/a3_phasetypeR_SFS.html)
+  
