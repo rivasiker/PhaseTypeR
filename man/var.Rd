@@ -28,7 +28,7 @@ var(obj, ...)
 }
 \value{
 The value returned is either the variance (for univariate
-distributions) or the variance-covariance matrix (for multvariate distributions).
+distributions) or the variance-covariance matrix (for multivariate distributions).
 }
 \description{
 Calculates the variance of continuous, discrete and multivariate phase-type

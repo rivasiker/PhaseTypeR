@@ -14,7 +14,7 @@ link-citations: yes
 
 # 1. Introduction to the package
 
-`PhaseTypeR` is a flexible and efficient package for using phase-type theory in R. This vignette describes how to use the general-purpose phase-type functions for modelling common statistics in population genomics at the finest level. The formulation of general phase-type theory can be consulted in Bladt and Nielsen's 'Matrix-Exponential Distributions in Applied Probability' [@Bladt2017], and the notation for this vignette is also adopted from this book. On the other hand, the theory behind applying phase-type theory in population genomics is based on Hobolth et al. [-@Hobolth2019].
+`PhaseTypeR` is a flexible and efficient package for using phase-type theory in R. This vignette describes how to use the general-purpose phase-type functions for modeling common statistics in population genomics at the finest level. The formulation of general phase-type theory can be consulted in Bladt and Nielsen's 'Matrix-Exponential Distributions in Applied Probability' [@Bladt2017], and the notation for this vignette is also adopted from this book. On the other hand, the theory behind applying phase-type theory in population genomics is based on Hobolth et al. [-@Hobolth2019].
 
 Do not hesitate to run `?PhaseTypeR` for a quick summary of the available general-purpose functions, or to open the help files for the individual functions. 
 
@@ -44,7 +44,7 @@ The mean and variance of these two quantities can be derived relatively easily. 
 
 Instead, we can think of the sum of exponential distributions as a continuous-time Markov chain, where coalescent events are represented as Markov jumps with rate $T_i$ for $T_{MRCA}$ and $iT_i$ for $T_{Total}$. The Markov chain will end with an absorbing state, which in both cases will be the MRCA. 
 
-The Markov chain can be represented using phase-type theory, where the jump rates are defined with a sub-intensity matrix $T$ and the initial distribution will be defined as a row vector $\pi$. If we define $\tau$ as the smallest time (or length) to reach the absorbing state, then $\tau\sim PH(\pi,T)$. This continuous phase-type distribution has well-documented and easy-to-implement formulas for the expectation, the variance, the survival function, the distribution function and the density function. Moreover, since both $\pi$ and $T$ can easily be speficied, we can represent evolutionary histories that do not follow the standard coalescent model and still use the same phase-type formulas. 
+The Markov chain can be represented using phase-type theory, where the jump rates are defined with a sub-intensity matrix $T$ and the initial distribution will be defined as a row vector $\pi$. If we define $\tau$ as the smallest time (or length) to reach the absorbing state, then $\tau\sim PH(\pi,T)$. This continuous phase-type distribution has well-documented and easy-to-implement formulas for the expectation, the variance, the survival function, the distribution function and the density function. Moreover, since both $\pi$ and $T$ can easily be specified, we can represent evolutionary histories that do not follow the standard coalescent model and still use the same phase-type formulas. 
 
 `PhaseTypeR` contains an efficient implementation of continuous phase-type distributions. This section shows how to create phase-type representations of $T_{MRCA}$ and $T_{Total}$ under the Kingman's coalescent model, and it provides some guidelines for modeling these quantities for other non-standard coalescent models. 
 
@@ -122,7 +122,7 @@ var(t_mrca_4)
 ```
 
 
-## 2.3. Total tree lenght ($T_{Total}$) and the reward-transformation
+## 2.3. Total tree length ($T_{Total}$) and the reward-transformation
 
 In a similar way to $T_{MRCA}$, the total tree length or $T_{Total}$ can also be represented using phase-type theory [@Hobolth2019].
 
@@ -311,7 +311,7 @@ Some quantities in population genomics are discrete, such as the total number of
 
 Luckily, all these quantities can be represented using discrete phase-type theory. Similar to the continuous phase-type distribution being a generalization of exponentially distributed variables, the discrete phase-type distribution can be seen as a generalization of various geometric distributions. Each state in the discrete phase-type distribution will represent a stochastic process, such that the time until absorption of a random variable ($\tau$) follows an absorbing Markov chain. In this case we say that $\tau+1\sim DPH(\pi, T)$, where $T$ is the sub-intensity matrix that gathers the transition rates and $\pi$ is the vector of initial probabilities.
 
-The discrete phase-type representation of $S_{total}$ can be built from the continuous phase-type representation of the total branch length. Folllowing **theorem 3.5** in Hobolth et al. [-@Hobolth2019], the total branch length can be discretized if the mutation parameter $\theta$ is supplied. 
+The discrete phase-type representation of $S_{total}$ can be built from the continuous phase-type representation of the total branch length. Following **theorem 3.5** in Hobolth et al. [-@Hobolth2019], the total branch length can be discretized if the mutation parameter $\theta$ is supplied. 
 
 On the other hand, singletons, doubletons and related variables (referred to as i-tons or $\xi_i$ throughout this vignette), require a more elaborate formulation. The idea behind consists in first building a continuous phase-type representation of the coalescent process, where the sub-intensity matrix will contain the rates of transition between all the possible branch types of all possible genealogies. Among all these branches, only a certain number will give rise to i-tons. We can calculate which branches these are, together with the weights associated to each of them. Using this information, we can reward-transform the continuous phase-type representation of the coalescent process, so it only represents those branches that give rise to a certain i-ton. Afterwards, we can discretize this representation using **theorem 3.5** in Hobolth et. al [-@Hobolth2019] and the mutation parameter $\theta$. 
 

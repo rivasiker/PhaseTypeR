@@ -27,7 +27,7 @@
 #' @param ... other arguments passed to methods
 #'
 #' @return The value returned is either the variance (for univariate
-#' distributions) or the variance-covariance matrix (for multvariate distributions).
+#' distributions) or the variance-covariance matrix (for multivariate distributions).
 #'
 #' @examples
 #' # For univariate continuous phase-type distributions

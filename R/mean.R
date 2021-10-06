@@ -25,7 +25,7 @@
 #'
 #' @return This function returns a single value for the mean of univariate phase-type
 #' distributions, or a vector of means for each reward-transformed distribution
-#' of the multivariate phaset-type distributions.
+#' of the multivariate phase-type distributions.
 #'
 #' @examples
 #' # For univariate continuous phase-type distributions

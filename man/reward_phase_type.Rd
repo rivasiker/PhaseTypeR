@@ -35,7 +35,7 @@ Nielsen (2017).
 For the discrete phase_type distribution is based on the PhD of Navarro (2018) and
 Hobolth, Bladt and Andersen (2021).
 
-Every state of the subintensity matrix should have a reward, in the case of
+Every state of the sub-intensity matrix should have a reward, in the case of
 continuous phase-type, this reward should be a vector with non negative
 values of a size equal to the number of states.
 

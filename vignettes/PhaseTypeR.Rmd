@@ -36,7 +36,7 @@ and the PhD dissertation by Campillo Navarro [-@Navarro2019].
 
 # 1. Introduction
 
-Phase-type distributions are a general class of distributions. They have been used extensively in fields like insurance mathematics, queyeing theory and population genetics.
+Phase-type distributions are a general class of distributions. They have been used extensively in fields like insurance mathematics, queuing theory and population genetics.
 
 The basic idea is to consider a Markov jump process (or a Markov chain for discrete time) with $p$ transient states and one absorbing state. The time to absorption is phase-type distributed. The parameters of a phase-type distribution is thus an intensity matrix and the initial probabilities to begin in each state. The matrix form of the phase-type distribution allow great simplification, in particular to find the moments of the time before reaching 
 the absorbing state.
@@ -117,7 +117,7 @@ plot(net, edge.curved=.1, edge.label = E(net)$weight,
 
 ```
 
-In the above graph the initial probabilities are represented as purple arrows, while rates are represented by grey arrows. 
+In the above graph the initial probabilities are represented as purple arrows, while rates are represented by gray arrows. 
 
 In the continuous case, we can also plot the transition probability matrix at time t as a graph:
 
@@ -162,7 +162,7 @@ cat('\n', 'Mean: ',mean(ph),'\n')
 cat(' Variance: ',var(ph),'\n \n')
 ```
 
-These two quantitites are also printed when using the `summary()` function:
+These two quantities are also printed when using the `summary()` function:
 
 ```{r}
 summary(ph)
@@ -426,7 +426,7 @@ legend("topright", bty="n", legend=c('Original DPH', 'Reward transformed DPH'),
 
 ## 4.3. Non-negative reward transformation for continuous phase-type distribution
 
-A non-negative reward transformation of a phase-type distribution is also phase-type distributed (posssibe with a defect). **Theorem 3.1.33** [@Bladt2017 page p.147] gives the non-negative reward-transformed phase-type distribution. 
+A non-negative reward transformation of a phase-type distribution is also phase-type distributed (possibly with a defect). **Theorem 3.1.33** [@Bladt2017 page p.147] gives the non-negative reward-transformed phase-type distribution. 
 
 Here is one example:
 

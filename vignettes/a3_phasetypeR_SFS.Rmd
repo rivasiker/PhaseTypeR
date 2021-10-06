@@ -304,7 +304,7 @@ library(PhaseTypeR)
 
 ## Figure 1
 
-Consider first, the left figure of Figure 1. This figure displays the coefficients of the site frequency spectrum for different unbiased estimators of the mutation rate $\theta$. The coefficients of the  H, L, Wattersons, pairwise and singleton estimators are given Section 1.1 of Hobolth [-@asgertemp2020]. The coefficients of the BLUE estimator are given by
+Consider first, the left figure of Figure 1. This figure displays the coefficients of the site frequency spectrum for different unbiased estimators of the mutation rate $\theta$. The coefficients of the  H, L,  Watterson's, pairwise and singleton estimators are given Section 1.1 of Hobolth [-@asgertemp2020]. The coefficients of the BLUE estimator are given by
 \begin{eqnarray}
   \hat{\bc}=
   \frac{\bLambda^{-1}\bv}{\bv^{\ast}\;\bLambda^{-1}\bv}.
@@ -345,7 +345,7 @@ for(i in 1:length(thetaVec)) {
   coef_matrix[i,]=solve(bLambda)%*%bv/c(bv%*%solve(bLambda)%*%bv)
 }
 
-## Wattersons estimator
+##  Watterson's estimator
 xWatt <- rep(1,length(bv))/sum(bv)
 ##-------------------------------------------------------------
 ## Singleton estimator
@@ -447,7 +447,7 @@ which is implemented below:
 bc = (2*((1:(n-1))*( (n-1):1))/(n*(n-1)) - 1/sum(1/(1:(n-1))))
 ```
 
-For numeric reasons, we scale the coefficients by 1000 and rescale later
+For numeric reasons, we scale the coefficients by 1000 and re-scale later
 
 ```{r}
 res <- 1000
@@ -481,7 +481,7 @@ beone <- matrix(0,1,dim(bT)[1]);beone[1]=1 #(1,0,...,0)
 phi <- function(t) (exp(-1i*themean*t))*beone%*%solve(bS+lambda*diag(c(bA%*%(exp(1i*t)^bc))) )%*%bT%*%be
 ```
 
-Finally, we approximate the CDF and rescale
+Finally, we approximate the CDF and re-scale
 
 ```{r,include=FALSE}
 par(cex.axis=2, cex.lab=1.5, cex.main=1.5, cex.sub=1.3)
@@ -843,7 +843,7 @@ bc2 <- (1/res)*bc
 xvals2 <- (1/res)*xvals
 themean2 <- (1/res)*themean
 
-#Compute point probabilities of Wattersons Theta for theta = 10
+#Compute point probabilities of Watterson's Theta for theta = 10
 
 ph <- PH(ph_bcp$subint_mat)
 watter <- reward_phase_type(ph, rowSums(ph_bcp$reward_mat))
@@ -852,7 +852,7 @@ lambda <- 5
 bM <- solve( diag(dim(watter$subint_mat)[1])-(1/lambda)*watter$subint_mat)
 bm <- rowSums(diag(dim(bM)[1]) - bM)
 
-a1 <- 1/sum(1/1:(n-1)) #"normalizing" constant, in Wattersons theta
+a1 <- 1/sum(1/1:(n-1)) #"normalizing" constant, in Watterson's theta
 len <- 250 #number of points to include
 
 out <- rep(0,len) 
@@ -860,7 +860,7 @@ for(i in 0:(len-1)) {
     out[i+1] <- ph$init_probs%*%(bM%^%i)%*%bm
 }
 
-wxt <- -10+a1*(0:(len-1)) # Possible values for Wattersons Theta
+wxt <- -10+a1*(0:(len-1)) # Possible values for  Watterson's Theta
 
 # Pairwise estimator for theta = 10
 

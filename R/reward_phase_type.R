@@ -30,7 +30,7 @@
 #' For the discrete phase_type distribution is based on the PhD of Navarro (2018) and
 #' Hobolth, Bladt and Andersen (2021).
 #'
-#' Every state of the subintensity matrix should have a reward, in the case of
+#' Every state of the sub-intensity matrix should have a reward, in the case of
 #' continuous phase-type, this reward should be a vector with non negative
 #' values of a size equal to the number of states.
 #'
@@ -223,7 +223,7 @@ reward_phase_type <- function(phase_type, reward){
       # T++, T+0, T0+ and T00 (respectively each loop iteration)
       combn <- as.matrix(expand.grid(i[[1]],i[[2]]))
 
-      # initialisation of the submatrix
+      # initialization of the sub-matrix
       T_tilde[[count]] <- matrix(0, ncol = sum(size[i[[1]]]),
                                  nrow = sum(size[i[[2]]]))
 
@@ -302,7 +302,7 @@ reward_phase_type <- function(phase_type, reward){
     }
 
 
-    # Section to get the embended matrix of T (the subintensity matrix)
+    # Section to get the embedded matrix of T (the sub-intensity matrix)
     Q <- subint_mat * 0
     for (i in 1:n) {
       for (j in 1:n) {
@@ -319,7 +319,7 @@ reward_phase_type <- function(phase_type, reward){
 
     if ((length(z) > 0) && (length(p) > 0)){
 
-      # Block partionning of Q, with the submatrix Qpz corresponds to the
+      # Block partionning of Q, with the sub-matrix Qpz corresponds to the
       # matrix with the transition from the states with positive rewards
       # to the states with zero reward (p = positive and z = zero)
       Qpp <- matrix(Q[p,p], nrow = length(p))
@@ -344,10 +344,10 @@ reward_phase_type <- function(phase_type, reward){
     vec_e <- rep(1,nrow(P))
     # small_p is the exit rate of P
     small_p <- as.vector(vec_e - P %*% vec_e)
-    # ti is the exit rate of the new subintensity matrix (rewarded)
+    # ti is the exit rate of the new sub-intensity matrix (rewarded)
     ti <- -(small_p * diag(subint_mat)[p] / reward[p])
 
-    # Initialisation of the new subintensity matrix (rewarded)
+    # initialization of the new sub-intensity matrix (rewarded)
     mat_T <- P * 0
     for (i in 1:nrow(P)){
       for (j in 1:ncol(P)){
