@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   PhaseTypeR: PhaseTypeR.html
-  phasetypeR_SFS: phasetypeR_SFS.html
-  pop_gen_iker: pop_gen_iker.html
-last_built: 2021-10-06T08:34Z
+  a2_pop_gen_iker: a2_pop_gen_iker.html
+  a3_phasetypeR_SFS: a3_phasetypeR_SFS.html
+last_built: 2021-10-06T09:44Z
 
