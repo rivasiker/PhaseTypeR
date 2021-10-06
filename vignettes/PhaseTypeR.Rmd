@@ -1,11 +1,11 @@
 ---
-title: "PhaseTypeR v0.9"
+title: "PhaseTypeR"
 Authors: 
 - Iker Rivas-González
 - Colin Guétemme
 - Asger Hobolth
 output:
-  html_document:
+  html_vignette:
     fig_caption: yes
     toc: yes
 vignette: |
@@ -384,10 +384,10 @@ x <- seq( 0 , 20 ,length.out = 100)
 pdf <- dPH(x,ph)
 rwd.pdf <- dPH(x,rwd.ph)
 
-{plot(x, pdf, xlab = "Time to absorption", ylab = "pdf", col = "orange", type = 'l',ylim=c(0,1))
+{plot(x, pdf, xlab = "Time to absorption", ylab = "pdf", col = "orange", type = 'l')
 lines(x, rwd.pdf, col = "blue")
 title('Distribution functions before and after reward transformation')
-legend("topleft", legend=c('Original Phase-type', 'Reward transformed Phase-type'),
+legend("topright", legend=c('Original Phase-type', 'Reward transformed Phase-type'),
        col=c("orange", "blue"), lty=1,bty="n")}
 ```
 
@@ -415,10 +415,10 @@ x <- seq(0,20,by=1)
 pdf <- dDPH(x, dph)
 rwd.pdf <- dDPH(x, rwd.dph)
 {plot(x, pdf, xlab = "Time to absorption", ylab = "pdf", col = "orange", 
-     type = 'l', lwd=2, ylim=c(0,1))
+     type = 'l', lwd=2)
 lines(x, rwd.pdf, col = "blue",lwd=2)
 title('Distribution functions before and after reward transformation')
-legend("topleft", bty="n", legend=c('Original DPH', 'Reward transformed DPH'),
+legend("topright", bty="n", legend=c('Original DPH', 'Reward transformed DPH'),
        col=c("orange", "blue"), lty=1, lwd=2)}
 ```
 

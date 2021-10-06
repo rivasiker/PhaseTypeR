@@ -1,7 +1,7 @@
 ---
-title: "Using phasty for the site frequency spectrum - Figures"
+title: "Using PhaseTypeR for the site frequency spectrum"
 output: 
-  html_document:
+  html_vignette:
     toc: true
 header-includes:
   \newcommand\e{\mathrm{e}}
@@ -25,9 +25,8 @@ header-includes:
   \newcommand{\Exp}{\mbox{Exp}}
   \newcommand{\diag}{\mbox{diag}}
   \newcommand{\Prob}{\mbox{Prob}}
-  
 vignette: >
-  %\VignetteIndexEntry{Using phasty for the site frequency spectrum}
+  %\VignetteIndexEntry{Using PhaseTypeR for the site frequency spectrum}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: for_vignette.bib
@@ -35,7 +34,9 @@ link-citations: yes
 ---
 
 ```{r Auxillary functions,  echo=FALSE}
-# Here we provide som auxillary functions which are needed below.
+
+
+# Here we provide some auxillary functions which are needed below.
 
 
 #'Numerical Approximation of characteristic function
@@ -287,17 +288,17 @@ block_counting_process <- function(n){
   return(ph_rew_obj)
 }
 
-
-
 ```
 
-In this vignette, we recreate the figures from the paper.
-For reproducibility of the simulations below, we first fix the seed of the random generator. We then load the \texttt{PhaseTypeR} package and auxiliary functions, which we will need below.
+In this vignette, we recreate the figures from the paper by Asger Hobolth, Mogens Bladt and Lars Nørvang Andersen entitled "Multivariate phase-type theory for the site frequency spectrum" (https://arxiv.org/abs/2101.04941). This vignette is only intended to illustrate how to reproduce the figures of the article. If you are looking for a more in-depth explanation on how to use the \texttt{PhaseTypeR} package for population genetics, please visit [this vignette](a2_pop_gen_iker.html) instead.
+
+For reproducibility of the simulations below, we first fix the seed of the random generator. We then load the \texttt{PhaseTypeR} package and auxiliary functions, which we will need below. The auxiliary functions are included at [the end of this vignette](#aux), and they can be copy-pasted into a source file if needed. 
 
 
 ```{r setup,  message=FALSE, warning=FALSE}
 set.seed(0)
 library(PhaseTypeR)
+# source('auxiliary_functions.R')
 ```
 
 
@@ -408,7 +409,7 @@ indx <- c(4,5,2,3,1,6)
 legend("topleft",txtVec[indx],lty=ltyVec[indx],lwd=2,bty="n",cex=1.2)
 ```
 
-## Simulation and characteristic function - Figure 2
+## Figure 2
 
 Here, we numerically invert the characteristic function of the numerator of Tajima's $D$ and compare to simulated values. First, we obtain the rate-matrix and state space for the block counting process. First, we simulate using Theorem 3.1 in Asger [-@asgertemp2020], from which it follows that the site frequency spectrum can be simulated by first sampling a random variate from the appropriate block counting process, and letting the entries of this variate be the rates of independent Poisson random variables. First, we obtain the block counting process for $n=4$
 
@@ -893,3 +894,289 @@ legend("bottomright",c("BLUE","Watterson","Pairwise"),
        col=c("black","blue","red"),bty="n",cex=1.6,lwd=2)
 ```
 
+## Auxiliary functions {#aux}
+
+```{r Aux_1}
+
+#'Numerical Approximation of characteristic function
+#'
+#'\code{ApproxCDF} approximates the cdf F when given a characteristic function phi of a centered random variable, using the formula found in Waller (1995) with
+#'original reference to Bohman (1974). The procedure can be numerically unstable in the tails of the distribution, so
+#'only the center of the approximation is returned. Some simplifying approximations explained in "Numerical inversion of Laplace transform and characteristic function"
+#'are used. Note that phi should have a finite first moment.
+#'
+#'@param phi the characteristic function to be inverted
+#'@param H A total of 2H+1 values of F are approximated. By default H of these values are returned unless an interval is provided.
+#'@param eta A scaling paramter. By default equidistant points in the interval (-2*phi/eta,2*phi/(eta)) are approximated.
+#'@param xlim (optional) limits on the x-axis
+#'@param smoothe (optional) Should smoothing be used? If TRUE default weights of the function \code{simple_smoothe} are used. If an object of length > 1 is provided,
+#'this will be passed to \code{simple_smoothe}
+#'
+#'@examples
+#'phi <- function(t) exp(-t^2/2)
+#'appvals=ApproxCDF(phi,H=1000,eta=0.5,xlim=c(-3,3))
+#'plot(appvals[[1]],appvals[[2]],type="l",lwd=2)
+#'lines(appvals[[1]],pnorm(appvals[[1]]),type="l",col="red")
+#'
+#'phi <- function(t) sqrt(2)*abs(t)*besselK(sqrt(2)*abs(t),1)
+#'appvals=ApproxCDF(phi,H=10000,eta=0.1,xlim=c(-3,3))
+#'plot(appvals[[1]],appvals[[2]],type="l",lwd=2)
+#'lines(appvals[[1]],pt(appvals[[1]],df=2),type="l",col="red")
+#'
+#'@export
+
+
+ApproxCDF = function(phi,H=2000,eta=0.5,xlim=NULL,smoothe=FALSE) {
+  z_vals = rep(0,H)
+  co = 1
+  for(n in 1:(H-1))  {
+    z_vals[co+1]= phi(eta*n)/(pi*1i*(n)) #start at index 2 - the first value of z is 0
+    co = co + 1
+  }
+
+  yvals_pos=0.5+(1:H)/H-Re(fft(z_vals,inverse=FALSE))
+  yvals_neg=0.5-(1:H)/H-Re(fft(z_vals,inverse=TRUE))
+  xvals_pos = 2*pi*(1:H)/(eta*H)
+  xvals_neg = -xvals_pos
+  xvals_neg = rev(xvals_neg)
+  yvals_neg = rev(yvals_neg)
+  xvals = c(xvals_neg,xvals_pos)
+  yvals = c(yvals_neg,yvals_pos)
+
+  if(!is.null(xlim)) {
+    indexes = intersect(which(xvals>xlim[1]),which(xvals<xlim[2]))
+  }
+  else {
+    indexes = (1:(H+1))+floor( (H-1)/2)
+  }
+
+  xvals = xvals[indexes]
+  yvals = yvals[indexes]
+  if(smoothe) {
+    if(length(smoothe)>1) {
+      yvals = simple_smoothe(yvals,smoothe)
+    }
+    else {
+      yvals = simple_smoothe(yvals)
+    }
+  }
+  return(list(xvals,yvals))
+}
+
+```
+
+```{r Aux_2}
+
+#' Simple smoothing
+#'
+#' \code{simple_smoothe} computes a simple moving weighted average of a input vector \code{x}. The weight vector must have an odd number of entries, and defaults to
+#' \code{c(0.1,0.20,0.4,0.20,0.1)}
+#'
+#' @param x input to be smoothed
+#' @param svec smoothing vector
+#'
+#'@examples
+#'smoothed_yvals = simple_smoothe(yvals)
+#'smoothed_yvals = simple_smoothe(yvals,c(0.2,0.6,0.2))
+#'
+#'@export
+
+
+simple_smoothe <- function(x,svec= c(0.1,0.20,0.4,0.20,0.1)) {
+  if ((length(svec) %% 2)  == 0) {stop("Please provide an odd number of smoothing weigths")}
+  out = x
+  offset = floor(length(svec)/2)
+  for(i in (1+offset):(length(x)-offset)) {
+    out[i] = sum(x[(i-offset):(i+offset)]*svec)
+  }
+  return(out)
+}
+
+```
+
+
+```{r Aux_3}
+
+#' Construction of DPH-representation
+#'
+#'
+#' \code{DPHrep} computes the representation of of a integer-linear-combination of the Site Frequency as a discrete phase-type distribution.
+#' The construction is described in Section 7.1 of Hobolth (2020).
+#'
+#' @param bM Subtransition probabilities un the underlying discrete Markov chain (cf. Figure 6).
+#' @param bA Statespace of the underlying block-counting process
+#' @param ba Vector of integer coeffcients
+#'
+#' @return List consisting of
+#' bMt: The constructed matrix subtransition probabilities.
+#' sizes_of_blocks: The sizes of the constructed blocks.
+#'
+#' @examples
+#' ba = c(1,2,3)
+#' ph_bcp = block_counting_process(4)
+#' subintensity_matrix = ph_bcp$subint_mat
+#' bA = ph_bcp$reward_mat
+#' ph = PH(subintensity_matrix)
+#' ph_rew_obj = reward_phase_type(ph, rowSums(rew_mat))
+#' bS = ph_rew_obj$subint_mat
+#' bM = solve(diag(dim(bS)[1])-(2/theta)*bS)
+#' DPHrep(ba,bM)
+#'
+#'
+#' @export
+
+
+DPHrep <- function(bM,bA,ba) {
+  m = nrow(bA) #this is p in the paper
+  sizes_of_blocks = rep(0,m) #obtain the sizes of the blocks using formula XX
+  for(i in 1:m) {
+    sizes_of_blocks[i]=max(ba*(bA[i,] > 0))
+  }
+
+  bMt = matrix(0,sum(sizes_of_blocks),sum(sizes_of_blocks)) #bold-Mtilde
+  for(i in 1:m) {
+    for(j in 1:m) {
+      if(i <= j) { #off-diagonal blocks
+        bmvec = rep(0,sizes_of_blocks[j])
+        # The bottom row is calculated using formula DD
+        for(k in 1:sizes_of_blocks[j]) {
+          bmvec[sizes_of_blocks[j]-k+1]=sum(bA[j,]*(ba == k))
+        }
+        bmvec = bM[i,j]*bmvec/sum(bmvec)
+        cur_i = sum(sizes_of_blocks[1:i])
+        if(j == 1) {
+          cur_j = 1
+        }
+        else {
+          cur_j = sum(sizes_of_blocks[1:(j-1)]) + 1
+        }
+        bMt[cur_i,cur_j:(cur_j+sizes_of_blocks[j]-1)] = bmvec
+      }
+      # The diagonal-blocks are treated as a separate case
+      if((i == j) && sizes_of_blocks[i] > 1) {
+        size_of_current_block = sizes_of_blocks[i]
+        cur_i = sum(sizes_of_blocks[1:i]) - size_of_current_block + 1
+        cur_j = sum(sizes_of_blocks[1:j]) - size_of_current_block + 2
+        bMt[cur_i:(cur_i + size_of_current_block - 2),cur_j:(cur_j +   size_of_current_block - 2)] = diag(size_of_current_block-1) #add identity-matrix of appropriate size
+      }
+    }
+  }
+  return(list(bMt,sizes_of_blocks))
+}
+
+
+```
+
+```{r Aux_4}
+
+#' Rate matrix and state space of the block counting process
+#'
+#'
+#' \code{RateMatAndStateSpace} finds the state space and corresponding rate matrix
+#' for the block counting process for a number of samples n in the
+#' standard coalescent.
+#'
+#' @param n Number of samples
+#'
+#' @return List consisting of
+#' RateM: Rate matrix
+#' StSpM: Matrix with rows corresponding to the states
+#'        A state is a n-dimensional row vector (a1,...,an).
+#'        For example the beginning state is (n,0,...,0),
+#'        the next state is (n-2,1,0,...,0),
+#'        and the ending state is (0,...,0,1)
+#'
+#' @examples
+#' RateMAndStateSpace(8)
+#'
+#'
+#'
+#' @export
+
+
+RateMAndStateSpace <- function(n){
+  ##----------------------------------------------------
+  ## State space
+  ##----------------------------------------------------
+  ## Size of the state space (number of states)
+  nSt <- partitions::P(n)
+  ## Definition of the state space
+  StSpM <- matrix(ncol=n,nrow=nSt)
+  ## Set of partitions of [n]
+  x <- partitions::parts(n)
+  ## Rewriting the partitions as (a1,...,an)
+  for (i in 1:nSt) {
+    st <- x[,i]
+    StSpM[i,] <- tabulate(x[,i],nbins=n)
+  }
+  ## Reordering
+  StSpM <- StSpM[order(rowSums(StSpM),decreasing=TRUE),]
+  ## Because of this ordering we can't 'go back', i.e.
+  ## below the diagonal the entries are always zero
+  ##----------------------------------------------------
+  ## Intensity matrix
+  ##----------------------------------------------------
+  RateM <- matrix(0,ncol=nSt,nrow=nSt)
+  ## Following Algorithm 4.2
+  for (i in 1:(nSt-1)){
+    for (j in (i+1):nSt){
+      # cat(i," state i",StSpM[i,])
+      # cat(" ",j," state j",StSpM[j,])
+      cvec <- StSpM[i,]-StSpM[j,]
+      # cat(" cvec",cvec)
+      ## Two branches are merged, i.e. removed from state i
+      check1 <- sum(cvec[cvec>0])==2
+      # cat(" check1",check1)
+      ## One new branch is created, i.e. added in state from j
+      check2 <- sum(cvec[cvec<0])==-1
+      # cat(" check2",check2)
+      if (check1 & check2){
+        ## Size(s) of the block(s) and the corresponding rates
+        tmp <- StSpM[i,which(cvec>0)]
+        RateM[i,j] <- ifelse(length(tmp)==1,tmp*(tmp-1)/2,prod(tmp))
+      }
+    }
+  }
+  ## Diagonal part of the rate matrix
+  for (i in 1:nSt){
+    RateM[i,i] <- -sum(RateM[i,])
+  }
+  return(list(RateM=RateM,StSpM=StSpM))
+}
+
+```
+
+
+
+
+```{r Aux_5}
+
+#' \code{block_counting_process} return a the block counting process for a given sample size
+#' as a \code{mult_cont_phase_type} object.
+#'
+#' @param n Number of samples
+#'
+#' @return ph_rew_ob
+#' A \code{mult_cont_phase_type} representation of the block counting process of size n
+#'
+#' @examples
+#' block_counting_process(8)
+#'
+#' @export
+
+
+block_counting_process <- function(n){
+
+  RMASS = RateMAndStateSpace(n)
+  m = dim(RMASS$RateM)[1] #(m should be equal to partitions::P(n))
+  # Obtain subintensity matrix
+  ph = PH(RMASS$RateM[1:(m-1),1:(m-1)])
+
+  # The reward matrix is the state space matrix of the block counting process, except the row & column related to the absorbing state.
+  rew_mat = RMASS$StSpM[1:(m-1),1:(n-1)]
+
+  ph_rew_obj = MPH(ph$subint_mat, ph$init_probs, reward_mat = rew_mat)
+  return(ph_rew_obj)
+}
+
+```
