@@ -1,23 +1,30 @@
-Package: PhaseTypeR
 Type: Package
+Package: PhaseTypeR
 Title: General-Purpose Phase-Type Functions
 Version: 0.1.0
 Authors@R: c(
-    person("Iker", "Rivas-González", email = "ikerrivas96@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0515-0628")),
-    person("Colin", "Guetemme", email = "colin.guetemme@live.fr", role = c("aut")),
-    person("Asger", "Hobolth", email = "asger@math.au.dk", role = c("aut")),
-    person("Lars Nørvang", "Andersen", email = "larsa@math.au.dk", role = c("aut")))
+    person("Iker", "Rivas-González", , "ikerrivas96@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-0515-0628")),
+    person("Colin", "Guetemme", , "colin.guetemme@live.fr", role = "aut"),
+    person("Asger", "Hobolth", , "asger@math.au.dk", role = "aut"),
+    person("Lars Nørvang", "Andersen", , "larsa@math.au.dk", role = "aut")
+  )
 Maintainer: Iker Rivas-González <ikerrivas96@gmail.com>
 Description: Need to write description of package.
-URL: https://rivasiker.github.io/PhaseTypeR/, https://github.com/rivasiker/PhaseTypeR
-BugReports: https://github.com/rivasiker/PhaseTypeR/issues
 License: GPL-3
+URL: https://rivasiker.github.io/PhaseTypeR/,
+    https://github.com/rivasiker/PhaseTypeR
+BugReports: https://github.com/rivasiker/PhaseTypeR/issues
+Depends: 
+    expm,
+    igraph,
+    methods
+Suggests: 
+    knitr,
+    partitions,
+    rmarkdown,
+    testthat
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
 RoxygenNote: 7.1.2
-Depends: expm, methods, igraph
-Suggests: 
-    testthat,
-    knitr,
-    rmarkdown,
-    partitions
-VignetteBuilder: knitr
