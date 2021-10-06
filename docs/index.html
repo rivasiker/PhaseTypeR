@@ -111,32 +111,33 @@
 
 <span class="va">ph</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subintensity_matrix</span>, <span class="va">initial_probabilities</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span></code></pre></div>
-<pre><code>Subintensity matrix:
-     [,1] [,2] [,3]
-[1,] -1.5  1.5  0.0
-[2,]  0.0 -1.0  1.0
-[3,]  0.0  0.0 -0.5
-
-Initial probabilities:
-     [,1] [,2] [,3]
-[1,]  0.9  0.1    0
-
-Defect:
-[1] 0
-
-Mean: 3.6
-
-Variance: 5.44</code></pre>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Subintensity matrix:</span>
+<span class="co">#&gt;      [,1] [,2] [,3]</span>
+<span class="co">#&gt; [1,] -1.5  1.5  0.0</span>
+<span class="co">#&gt; [2,]  0.0 -1.0  1.0</span>
+<span class="co">#&gt; [3,]  0.0  0.0 -0.5</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Initial probabilities:</span>
+<span class="co">#&gt;      [,1] [,2] [,3]</span>
+<span class="co">#&gt; [1,]  0.9  0.1    0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Defect:</span>
+<span class="co">#&gt; [1] 0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Mean: 3.6</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Variance: 5.44</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.1506327 0.2216989 0.1991321 0.1482987 0.1009037</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span></code></pre></div>
-<pre><code>[1] 0.1506327 0.2216989 0.1991321 0.1482987 0.1009037</code></pre>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span></code></pre></div>
-<pre><code>[1] 0.07030638 0.26728005 0.48232823 0.65658059 0.78032198</code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">ph</span><span class="op">)</span></code></pre></div>
-<pre><code>[1] 1.921862 3.089664 4.716588</code></pre>
+<code class="sourceCode R"><span class="fu"><a href="reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.07030638 0.26728005 0.48232823 0.65658059 0.78032198</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">ph</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1.921862 3.089664 4.716588</span></code></pre></div>
 </div>
 <div id="learn-more" class="section level2">
 <h2 class="hasAnchor">
@@ -144,7 +145,8 @@ Variance: 5.44</code></pre>
 <p>You can check out the full functionality of <code>PhaseTypeR</code> and its application to population genetics in the following guides:</p>
 <ul>
 <li><a href="https://rivasiker.github.io/PhaseTypeR/articles/PhaseTypeR.html">Getting Started</a></li>
-<li><a href="https://rivasiker.github.io/PhaseTypeR/articles/pop_gen_iker.html">Using PhaseTypeR for population genetics</a></li>
+<li><a href="https://rivasiker.github.io/PhaseTypeR/articles/a2_pop_gen_iker.html">Using PhaseTypeR for population genetics</a></li>
+<li><a href="https://rivasiker.github.io/PhaseTypeR/articles/a3_phasetypeR_SFS.html">Using PhaseTypeR for the site frequency spectrum</a></li>
 </ul>
 </div>
 </div>
