@@ -137,7 +137,7 @@ non-negative reward vector." />
 non-negative reward vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>reward_phase_type</span><span class='op'>(</span><span class='va'>phase_type</span>, <span class='va'>reward</span>, round_zero <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>reward_phase_type</span><span class='op'>(</span><span class='va'>phase_type</span>, <span class='va'>reward</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,15 +156,6 @@ For <code>disc_phase_type</code> object, it could also be a matrix with as many
 rows as states and as many columns as the maximum values of reward plus one.
 Also in this case, each cell of the matrix should be probabilities and the
 sum of the rows should sum up to one.</p></td>
-    </tr>
-    <tr>
-      <th>round_zero</th>
-      <td><p>is a positive integer or <code>NULL</code>, if it is a positive
-integer, all the values in the subintensity matrix and initial probabilities
-will be truncate at the corresponding decimal. It can be useful if
-the computational approximation of some values leads the row
-sums of the subintensity  matrix to be higher than 1 or smaller than 0 for
-discrete cases, or higher than 0 for continuous cases.</p></td>
     </tr>
     </table>
 
@@ -198,9 +189,6 @@ Hobolth, A., Bladt, M. &amp; Andersen, L.A. (2021). *Multivariate phase-type the
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='generator_functions.html'>PH</a></code>, <code><a href='generator_functions.html'>DPH</a></code></p></div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>C. Guetemme, A. Hobolth</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>##===========================##</span>

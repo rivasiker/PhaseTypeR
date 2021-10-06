@@ -165,7 +165,7 @@
                               <span class="fl">1.5</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>,
                               <span class="fl">0</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="../reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subintensity_matrix</span><span class="op">)</span>
-<span class="co">#&gt; Warning in check_phase_type(subint_mat, init_probs, reward_mat = NULL, round_zero): </span>
+<span class="co">#&gt; Warning in check_phase_type(subint_mat, init_probs): </span>
 <span class="co">#&gt;  The initial probability vector is automatically generated.</span>
 <span class="co">#&gt; $subint_mat</span>
 <span class="co">#&gt;      [,1] [,2] [,3]</span>
@@ -316,8 +316,8 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">'10 random samples: \n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>, <span class="st">'\n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 10 random samples: </span>
-<span class="co">#&gt;  2.432949 1.645761 7.564953 1.821143 3.27791 </span>
-<span class="co">#&gt;  6.721461 1.302488 1.971151 2.853613 1.223525</span></code></pre></div>
+<span class="co">#&gt;  2.257985 2.990096 4.250179 5.027004 3.885113 </span>
+<span class="co">#&gt;  3.217792 2.302307 1.771327 3.02804 6.132272</span></code></pre></div>
 <p>Here is a histogram of 200 samples from the phase-type distribution:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">500</span>, <span class="va">ph</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>

@@ -139,15 +139,15 @@ different phase-type distributions." />
 different phase-type distributions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>PH</span><span class='op'>(</span>subint_mat <span class='op'>=</span> <span class='cn'>NULL</span>, init_probs <span class='op'>=</span> <span class='cn'>NULL</span>, round_zero <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>PH</span><span class='op'>(</span>subint_mat <span class='op'>=</span> <span class='cn'>NULL</span>, init_probs <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>DPH</span><span class='op'>(</span>subint_mat <span class='op'>=</span> <span class='cn'>NULL</span>, init_probs <span class='op'>=</span> <span class='cn'>NULL</span>, round_zero <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+<span class='fu'>DPH</span><span class='op'>(</span>subint_mat <span class='op'>=</span> <span class='cn'>NULL</span>, init_probs <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='fu'>MPH</span><span class='op'>(</span>subint_mat <span class='op'>=</span> <span class='cn'>NULL</span>, init_probs <span class='op'>=</span> <span class='cn'>NULL</span>,
-    reward_mat <span class='op'>=</span> <span class='cn'>NULL</span>, round_zero <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+    reward_mat <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='fu'>MDPH</span><span class='op'>(</span>subint_mat <span class='op'>=</span> <span class='cn'>NULL</span>, init_probs <span class='op'>=</span> <span class='cn'>NULL</span>,
-     reward_mat <span class='op'>=</span> <span class='cn'>NULL</span>, round_zero <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+     reward_mat <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='co'># S3 method for cont_phase_type</span>
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -179,15 +179,6 @@ values between 0 and 1.</p></td>
       <td><p>a vector, a one-row matrix or <code>NULL</code> which gives the
 probabilities to start in each state. If <code>init_probs</code> is <code>NULL</code>,
 the probability to start on the first state will be 1 and 0 otherwise.</p></td>
-    </tr>
-    <tr>
-      <th>round_zero</th>
-      <td><p>an integer or <code>NULL</code>(default), which gives the
-decimal from which we should truncate the positive values of the
-sub-intensity matrix.
-It could be useful in the scenarios where there is a reward transformation
-leading to values with many decimals and potentially computational
-approximation and potentially to positive row sums in continuous phase-type.</p></td>
     </tr>
     <tr>
       <th>reward_mat</th>

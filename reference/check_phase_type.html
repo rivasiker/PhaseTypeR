@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Phase-type distribution to network — phase_type_to_network • PhaseTypeR</title>
+<title>Checking the basic phase-type assumptions — check_phase_type • PhaseTypeR</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="Phase-type distribution to network — phase_type_to_network" />
-<meta property="og:description" content="This function converts a phase-type distribution into an
-igraph graph object." />
+<meta property="og:title" content="Checking the basic phase-type assumptions — check_phase_type" />
+<meta property="og:description" content="This function checks whether all the elements for
+building a phase-type object have the right shape." />
 
 
 
@@ -127,35 +127,34 @@ igraph graph object." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Phase-type distribution to network</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rivasiker/PhaseTypeR/blob/master/R/phase_type_to_network.R'><code>R/phase_type_to_network.R</code></a></small>
-    <div class="hidden name"><code>phase_type_to_network.Rd</code></div>
+    <h1>Checking the basic phase-type assumptions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rivasiker/PhaseTypeR/blob/master/R/check_phase_type.R'><code>R/check_phase_type.R</code></a></small>
+    <div class="hidden name"><code>check_phase_type.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function converts a phase-type distribution into an
-igraph graph object.</p>
+    <p>This function checks whether all the elements for
+building a phase-type object have the right shape.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>phase_type_to_network</span><span class='op'>(</span><span class='va'>phase_type</span>, t <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>check_phase_type</span><span class='op'>(</span><span class='va'>subint_mat</span>, <span class='va'>init_probs</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>phase_type</th>
-      <td><p>an object of class <code>disc_phase_type</code> or
-<code>cont_phase_type</code></p></td>
+      <th>subint_mat</th>
+      <td><p>Sub-intensity rate matrix.</p></td>
     </tr>
     <tr>
-      <th>t</th>
-      <td><p>NULL or numeric. Sampling time for the continuous phase-type distribution.</p></td>
+      <th>init_probs</th>
+      <td><p>Initial probability vector.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An igraph graph object of the phase-type distribution.</p>
+    <p>A list with the elements of a phase-type distribution.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
