@@ -571,7 +571,7 @@ In ```PhaseTypeR``` the variance-covariance matrix is computed using ```var()```
 var(mdph)
 ```
 
-# Full simulation from a phase-type distribution
+# 6. Full simulation from a phase-type distribution
 
 It can be useful to have information about the full sample path for the underlying Markov chain. Such information is also available in our package. 
 
