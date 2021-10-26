@@ -316,8 +316,8 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">'10 random samples: \n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>, <span class="st">'\n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 10 random samples: </span>
-<span class="co">#&gt;  4.516516 1.759885 7.479083 3.14209 2.182303 </span>
-<span class="co">#&gt;  1.019499 2.865505 3.706718 1.562115 3.97887</span></code></pre></div>
+<span class="co">#&gt;  1.480224 3.001636 3.874898 6.025472 2.446183 </span>
+<span class="co">#&gt;  5.288265 1.329041 2.858483 2.361711 2.917677</span></code></pre></div>
 <p>Here is a histogram of 200 samples from the phase-type distribution:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">500</span>, <span class="va">ph</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
@@ -695,10 +695,10 @@ Y_j = \int_0^\tau r_j(X_t)dt, \; \quad j=1,\ldots,n.
 <div id="the-discrete-multivariate-phase-type" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-discrete-multivariate-phase-type" class="anchor"></a>5.2 The discrete multivariate phase-type</h2>
-<p>The discrete multivariate phase-type (MDPH) distribution is constructed similar to the continuous multivariate phase-type distribution, but in discrete time. Details are available in <strong>Section 5.2</strong> <span class="citation">(Navarro <a href="#ref-Navarro2019" role="doc-biblioref">2019</a>, p.79)</span>. We write <span class="math inline">\(\boldsymbol{Y} = (Y_1,\  Y_2,\  ...\,,\  Y_n)\)</span> for the MDPH-distributed vector where <span class="math inline">\(Y_i\)</span> corresponds to</p>
+<p>The discrete multivariate phase-type (MDPH) distribution is constructed similar to the continuous multivariate phase-type distribution, but in discrete time. Details are available in <strong>Section 5.2</strong> <span class="citation">(Navarro <a href="#ref-Navarro2019" role="doc-biblioref">2019</a>, p.79)</span>. Let <span class="math inline">\(\tau \sim {\rm DPH}(\pi,T)\)</span> and let <span class="math inline">\(\{X_m\}\)</span> be the underlying Markov chain. We write <span class="math inline">\(\boldsymbol{Y} = (Y_1,\  Y_2,\  ...\,,\  Y_n)\)</span> for the MDPH-distributed vector where <span class="math inline">\(Y_j\)</span> corresponds to</p>
 <p><span class="math display">\[
 Y_j = \sum_{m=0}^{\tau-1} r_j(X_m), \quad j=1,\ldots,n.
-\]</span> Using the <code><a href="../reference/generator_functions.html">MDPH()</a></code> function with the reward matrix in the <code>reward_mat</code> parameter</p>
+\]</span> Using the <code><a href="../reference/generator_functions.html">MDPH()</a></code> function with the reward matrix in the <code>reward_mat</code> parameter we get</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Rmat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,  <span class="fl">2</span>,
                  <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">5</span>,  <span class="fl">2</span>,
