@@ -316,8 +316,8 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">'10 random samples: \n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>, <span class="st">'\n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 10 random samples: </span>
-<span class="co">#&gt;  6.06533 4.392877 3.373325 11.76711 3.990082 </span>
-<span class="co">#&gt;  1.761981 0.2564329 2.053757 2.353936 6.793446</span></code></pre></div>
+<span class="co">#&gt;  7.402484 2.889153 0.4300392 4.041247 2.16502 </span>
+<span class="co">#&gt;  12.19048 8.538019 3.791585 4.821603 8.364333</span></code></pre></div>
 <p>Here is a histogram of 200 samples from the phase-type distribution:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">500</span>, <span class="va">ph</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
@@ -750,7 +750,7 @@ Y_j = \sum_{m=0}^{\tau-1} r_j(X_m), \quad j=1,\ldots,n.
 </div>
 <div id="full-simulation-from-a-phase-type-distribution" class="section level1">
 <h1 class="hasAnchor">
-<a href="#full-simulation-from-a-phase-type-distribution" class="anchor"></a>Full simulation from a phase-type distribution</h1>
+<a href="#full-simulation-from-a-phase-type-distribution" class="anchor"></a>6. Full simulation from a phase-type distribution</h1>
 <p>It can be useful to have information about the full sample path for the underlying Markov chain. Such information is also available in our package.</p>
 <div id="get-one-simulation-from-a-phase-type" class="section level2">
 <h2 class="hasAnchor">
