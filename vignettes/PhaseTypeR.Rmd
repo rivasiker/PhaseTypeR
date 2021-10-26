@@ -532,12 +532,12 @@ var(mph)
 
 ## 5.2 The discrete multivariate phase-type
 
-The discrete multivariate phase-type (MDPH) distribution is constructed similar to the continuous multivariate phase-type distribution, but in discrete time. Details are available in **Section 5.2** [@Navarro2019 page p.79]. We write  $\boldsymbol{Y} = (Y_1,\  Y_2,\  ...\,,\  Y_n)$ for the MDPH-distributed vector where $Y_i$ corresponds to
+The discrete multivariate phase-type (MDPH) distribution is constructed similar to the continuous multivariate phase-type distribution, but in discrete time. Details are available in **Section 5.2** [@Navarro2019 page p.79]. Let $\tau \sim {\rm DPH}(\pi,T)$ and let $\{X_m\}$ be the underlying Markov chain. We write  $\boldsymbol{Y} = (Y_1,\  Y_2,\  ...\,,\  Y_n)$ for the MDPH-distributed vector where $Y_j$ corresponds to
 
 $$
 Y_j = \sum_{m=0}^{\tau-1} r_j(X_m), \quad j=1,\ldots,n.
 $$
-Using the ```MDPH()``` function with the reward matrix in the ```reward_mat``` parameter
+Using the ```MDPH()``` function with the reward matrix in the ```reward_mat``` parameter we get
 
 ```{r}
 Rmat <- matrix(c(0, 1, 1,  2,
