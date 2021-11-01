@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/rivasiker/PhaseTypeR/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/rivasiker/PhaseTypeR/actions/workflows/check-standard.yaml)
 [![Codecov test coverage](https://codecov.io/gh/rivasiker/PhaseTypeR/branch/master/graph/badge.svg)](https://codecov.io/gh/rivasiker/PhaseTypeR?branch=master)
-  <!-- badges: end -->
+<!-- badges: end -->
 
 
 This package implements core functions from phase-type theory. Its general functions are useful for a wide-ranging variety of contexts. `PhaseTypeR` can be used to model continuous and discrete phase-type distributions, both univariate and multivariate. The package includes functions for outputting the mean and (co)variance of phase-type distributions; their density, probability and quantile functions; functions for random draws; functions for reward-transformation; and functions for plotting thee distributions as networks. 
