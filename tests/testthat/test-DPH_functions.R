@@ -21,6 +21,7 @@ test_that(
     expect_snapshot_value(qDPH(seq(0, 1, length.out = 20), disc_phase_type), style = 'serialize')
     expect_error(qDPH(seq(0, 1, length.out = 20), 'a'), "of class 'disc_")
     expect_length(rDPH(10, disc_phase_type), 10)
+    expect_length(rDPH(1:10, disc_phase_type), 10)
     expect_type(rDPH(10, disc_phase_type), "double")
     expect_error(rDPH(3, 'a'), "of class 'disc_")
     expect_type(rFullDPH(disc_phase_type), 'list')

@@ -24,6 +24,7 @@ test_that(
     expect_snapshot_value(qMDPH(seq(0.2, 0.9, length.out = 10), Y), style = 'serialize')
     expect_error(qMDPH(seq(0, 1, length.out = 20), 'a'), "of class 'mult_")
     expect_length(rMDPH(6, Y), ncol(R)*6)
+    expect_length(rMDPH(1:6, Y), ncol(R)*6)
     expect_type(rMDPH(6, Y), "double")
     expect_error(rMDPH(3, 'a'), "of class 'mult_")
     expect_type(rFullMDPH(Y), 'list')

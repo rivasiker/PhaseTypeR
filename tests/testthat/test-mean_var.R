@@ -208,6 +208,8 @@ test_that(
                      v = c(1, 2, 1)),
                  'right indices')
 
+    expect_equal(var(c(1, 2, 3, 4, 5)), 2.5)
+
 
   })
 

@@ -234,7 +234,7 @@ reward_phase_type <- function(phase_type, reward){
 
     if (is.matrix(reward)){
       if (nrow(reward) == 1){
-        reward <- vector(reward)
+        reward <- as.vector(reward)
       } else {
         stop('The rewards should be a vector.')
       }

@@ -23,6 +23,7 @@ test_that(
     expect_snapshot_value(qMPH(seq(0.1, 0.9, length.out = 20), Y), style = 'serialize')
     expect_error(qMPH(seq(0, 1, length.out = 20), 'a'), "of class 'mult_")
     expect_length(rMPH(6, Y), 24)
+    expect_length(rMPH(1:6, Y), 24)
     expect_type(rMPH(6, Y), "double")
     expect_error(rMPH(3, 'a'), "of class 'mult_")
     expect_type(rFullMPH(Y), 'list')

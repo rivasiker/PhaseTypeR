@@ -23,6 +23,7 @@ test_that(
     expect_snapshot_value(qPH(seq(0, 1, length.out = 20), cont_phase_type), style = 'serialize')
     expect_error(qPH(seq(0, 1, length.out = 20), 'a'), "of class 'cont_")
     expect_length(rPH(10, cont_phase_type), 10)
+    expect_length(rPH(1:10, cont_phase_type), 10)
     expect_type(rPH(10, cont_phase_type), "double")
     expect_error(rPH(3, 'a'), "of class 'cont_")
     expect_type(rFullPH(cont_phase_type), 'list')
