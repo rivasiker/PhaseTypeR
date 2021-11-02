@@ -27,7 +27,7 @@ test_that(
     expect_type(rMDPH(6, Y), "double")
     expect_error(rMDPH(3, 'a'), "of class 'mult_")
     expect_type(rFullMDPH(Y), 'list')
-    expect_length(rFullMDPH(Y), ncol(R)+1)
+    expect_length(rFullMDPH(Y), ncol(R)+2)
     expect_error(rFullMDPH('a'), "of class 'mult_")
 
 

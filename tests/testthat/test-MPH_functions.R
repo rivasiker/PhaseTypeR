@@ -26,7 +26,7 @@ test_that(
     expect_type(rMPH(6, Y), "double")
     expect_error(rMPH(3, 'a'), "of class 'mult_")
     expect_type(rFullMPH(Y), 'list')
-    expect_length(rFullMPH(Y), ncol(R)+1)
+    expect_length(rFullMPH(Y), ncol(R)+2)
     expect_error(rFullMPH('a'), "of class 'mult_")
 
 

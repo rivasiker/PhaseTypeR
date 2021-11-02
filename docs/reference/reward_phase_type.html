@@ -174,13 +174,7 @@ Hobolth, Bladt and Andersen (2021).</p>
 <p>Every state of the sub-intensity matrix should have a reward, and in the case of
 both the continuous and the discrete phase-type distributions,
 this reward should be a vector with non-negative
-values of size equal to the number of states.
-Additionally, for discrete phase-type distributions, the reward can also be
-a matrix of probabilities, in which case the matrix should have as many rows
-as the number of states, and the column 1 to j+1 corresponds a reward from
-0 to j. Each cell corresponding that entering in the state i, the probability
-that we attribute to this state a reward j corresponds to the value of the
-matrix in row i and column j+1.</p>
+values of size equal to the number of states.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Bladt, M., &amp; Nielsen, B. F. (2017). *Matrix-exponential distributions in applied probability* (Vol. 81). New York: Springer.
@@ -244,40 +238,6 @@ Hobolth, A., Bladt, M. &amp; Andersen, L.A. (2021). *Multivariate phase-type the
 #&gt; 
 #&gt; $defect
 #&gt; [1] 0.06666667
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "disc_phase_type"</div><div class='input'>
-<span class='co'>#---</span>
-
-<span class='va'>subint_mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.4</span>, <span class='fl'>0</span>, <span class='fl'>0.5</span>,
-                      <span class='fl'>0.2</span>, <span class='fl'>0.24</span>, <span class='fl'>0</span>,
-                      <span class='fl'>0.4</span>, <span class='fl'>0.6</span>, <span class='fl'>0.2</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-<span class='va'>init_probs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.9</span>, <span class='fl'>0.1</span>, <span class='fl'>0</span><span class='op'>)</span>
-
-<span class='va'>ph</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generator_functions.html'>DPH</a></span><span class='op'>(</span><span class='va'>subint_mat</span>, <span class='va'>init_probs</span><span class='op'>)</span>
-
-<span class='va'>reward</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.2</span>, <span class='fl'>1</span>,
-                   <span class='fl'>0.5</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
-                   <span class='fl'>0.5</span>, <span class='fl'>0.6</span>, <span class='fl'>0</span>,
-                   <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>,
-                   <span class='fl'>0</span>, <span class='fl'>0.2</span>, <span class='fl'>0</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
-
-<span class='fu'>reward_phase_type</span><span class='op'>(</span><span class='va'>ph</span>, <span class='va'>reward</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $subint_mat
-#&gt;           [,1]      [,2]       [,3] [,4]      [,5] [,6]
-#&gt; [1,] 0.0000000 1.0000000 0.00000000    0 0.0000000    0
-#&gt; [2,] 0.3328782 0.3328782 0.04201681    0 0.1260504    0
-#&gt; [3,] 0.0000000 0.0000000 0.00000000    1 0.0000000    0
-#&gt; [4,] 0.0000000 0.0000000 0.00000000    0 1.0000000    0
-#&gt; [5,] 0.0000000 0.0000000 0.00000000    0 0.0000000    1
-#&gt; [6,] 0.1969538 0.1969538 0.05042017    0 0.1512605    0
-#&gt; 
-#&gt; $init_probs
-#&gt;           [,1]        [,2]      [,3] [,4]       [,5] [,6]
-#&gt; [1,] 0.9039391 0.003939076 0.0810084    0 0.00302521    0
-#&gt; 
-#&gt; $defect
-#&gt; [1] 0.008088235
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "disc_phase_type"</div><div class='input'>

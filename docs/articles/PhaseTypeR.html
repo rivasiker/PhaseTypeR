@@ -218,7 +218,8 @@
 <span class="co">#&gt; [1] "cont_phase_type"</span></code></pre></div>
 <p>We can easily plot the phase-type distribution as a network by first converting the phase-type object into a graph, and then plotting it:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">net</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phase_type_to_network.html">phase_type_to_network</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
+<code class="sourceCode R">
+<span class="va">net</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phase_type_to_network.html">phase_type_to_network</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">net</span>, edge.curved<span class="op">=</span><span class="fl">.1</span>, edge.label <span class="op">=</span> <span class="fu">E</span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span>,
        edge.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu">as_data_frame</span><span class="op">(</span><span class="va">net</span>, what<span class="op">=</span><span class="st">"edges"</span><span class="op">)</span><span class="op">$</span><span class="va">from</span> <span class="op">==</span> <span class="st">'V0'</span>,
                          <span class="st">'purple'</span>, <span class="st">'grey'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -226,7 +227,8 @@
 <p>In the above graph the initial probabilities are represented as purple arrows, while rates are represented by gray arrows.</p>
 <p>In the continuous case, we can also plot the transition probability matrix at time t as a graph:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R">
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">net</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phase_type_to_network.html">phase_type_to_network</a></span><span class="op">(</span><span class="va">ph</span>, <span class="va">i</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">net</span>, edge.arrow.size<span class="op">=</span><span class="fl">0.5</span>, edge.curved<span class="op">=</span><span class="fl">.1</span>, edge.label <span class="op">=</span> <span class="fu">E</span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span>, main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'time = '</span>, <span class="va">i</span><span class="op">)</span>,
@@ -286,7 +288,8 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 \]</span></p>
 <p>We calculate the PDF and the CDF with <code><a href="../reference/PH_functions.html">dPH()</a></code> and <code><a href="../reference/PH_functions.html">pPH()</a></code>, respectively,</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">8</span>,length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
+<code class="sourceCode R">
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">8</span>,length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
 <span class="va">pdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">ph</span><span class="op">)</span>
 
 <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">pdf</span>, xlab <span class="op">=</span> <span class="st">"Time to absorption"</span>, ylab <span class="op">=</span> <span class="st">"PDF"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, 
@@ -313,14 +316,15 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">'10 random samples: \n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>, <span class="st">'\n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 10 random samples: </span>
-<span class="co">#&gt;  2.395526 6.587484 1.952161 2.579689 3.207957 </span>
-<span class="co">#&gt;  2.241304 3.051553 1.432231 4.469847 1.175998</span></code></pre></div>
+<span class="co">#&gt;  1.731628 1.255957 1.503973 1.688714 3.48241 </span>
+<span class="co">#&gt;  1.372614 2.567399 2.258032 3.600242 4.410269</span></code></pre></div>
 <p>Here is a histogram of 200 samples from the phase-type distribution:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">500</span>, <span class="va">ph</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
 <p><img src="PhaseTypeR_files/figure-html/unnamed-chunk-9-1.png" width="700" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>
+<code class="sourceCode R">
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>
 <span class="va">tab_FullPH</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">rFullPH</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">tab_FullPH</span><span class="op">$</span><span class="va">time</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">tab_FullPH</span><span class="op">$</span><span class="va">time</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">tab_FullPH</span><span class="op">$</span><span class="va">time</span><span class="op">)</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
@@ -363,7 +367,8 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 <span class="co">#&gt; [1] "disc_phase_type"</span></code></pre></div>
 <p>We can also plot discrete phase-type functions the same way as continuous ones:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">net</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phase_type_to_network.html">phase_type_to_network</a></span><span class="op">(</span><span class="va">dph</span><span class="op">)</span>
+<code class="sourceCode R">
+<span class="va">net</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phase_type_to_network.html">phase_type_to_network</a></span><span class="op">(</span><span class="va">dph</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">net</span>, edge.curved<span class="op">=</span><span class="fl">.1</span>, edge.label <span class="op">=</span> <span class="fu">E</span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span></code></pre></div>
 <p><img src="PhaseTypeR_files/figure-html/unnamed-chunk-11-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>The moments are given by <strong>Proposition 2.7.iii</strong> <span class="citation">(<a href="#ref-Navarro2019" role="doc-biblioref">Navarro 2019, p.12</a>)</span></p>
@@ -690,10 +695,10 @@ Y_j = \int_0^\tau r_j(X_t)dt, \; \quad j=1,\ldots,n.
 <div id="the-discrete-multivariate-phase-type" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-discrete-multivariate-phase-type" class="anchor"></a>5.2 The discrete multivariate phase-type</h2>
-<p>The discrete multivariate phase-type (MDPH) distribution is constructed similar to the continuous multivariate phase-type distribution, but in discrete time. Details are available in <strong>Section 5.2</strong> <span class="citation">(<a href="#ref-Navarro2019" role="doc-biblioref">Navarro 2019, p.79</a>)</span>. We write <span class="math inline">\(\boldsymbol{Y} = (Y_1,\  Y_2,\  ...\,,\  Y_n)\)</span> for the MDPH-distributed vector where <span class="math inline">\(Y_i\)</span> corresponds to</p>
+<p>The discrete multivariate phase-type (MDPH) distribution is constructed similar to the continuous multivariate phase-type distribution, but in discrete time. Details are available in <strong>Section 5.2</strong> <span class="citation">(<a href="#ref-Navarro2019" role="doc-biblioref">Navarro 2019, p.79</a>)</span>. Let <span class="math inline">\(\tau \sim {\rm DPH}(\pi,T)\)</span> and let <span class="math inline">\(\{X_m\}\)</span> be the underlying Markov chain. We write <span class="math inline">\(\boldsymbol{Y} = (Y_1,\  Y_2,\  ...\,,\  Y_n)\)</span> for the MDPH-distributed vector where <span class="math inline">\(Y_j\)</span> corresponds to</p>
 <p><span class="math display">\[
 Y_j = \sum_{m=0}^{\tau-1} r_j(X_m), \quad j=1,\ldots,n.
-\]</span> Using the <code><a href="../reference/generator_functions.html">MDPH()</a></code> function with the reward matrix in the <code>reward_mat</code> parameter</p>
+\]</span> Using the <code><a href="../reference/generator_functions.html">MDPH()</a></code> function with the reward matrix in the <code>reward_mat</code> parameter we get</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Rmat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>,  <span class="fl">2</span>,
                  <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">5</span>,  <span class="fl">2</span>,
@@ -743,39 +748,40 @@ Y_j = \sum_{m=0}^{\tau-1} r_j(X_m), \quad j=1,\ldots,n.
 <span class="co">#&gt; [4,]  50.60667  76.26167  438.4750 152.52333</span></code></pre></div>
 </div>
 </div>
-<div id="additional-functions" class="section level1">
+<div id="full-simulation-from-a-phase-type-distribution" class="section level1">
 <h1 class="hasAnchor">
-<a href="#additional-functions" class="anchor"></a>Additional functions</h1>
+<a href="#full-simulation-from-a-phase-type-distribution" class="anchor"></a>6. Full simulation from a phase-type distribution</h1>
+<p>It can be useful to have information about the full sample path for the underlying Markov chain. Such information is also available in our package.</p>
 <div id="get-one-simulation-from-a-phase-type" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-one-simulation-from-a-phase-type" class="anchor"></a>Get one simulation from a phase-type</h2>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>
 <span class="fu"><a href="../reference/PH_functions.html">rFullPH</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
-<span class="co">#&gt;        time state</span>
-<span class="co">#&gt; 1 0.1983368     2</span>
-<span class="co">#&gt; 2 0.0763838     3</span>
+<span class="co">#&gt;   state      time</span>
+<span class="co">#&gt; 1     2 0.1983368</span>
+<span class="co">#&gt; 2     3 0.0763838</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>
 <span class="fu"><a href="../reference/DPH_functions.html">rFullDPH</a></span><span class="op">(</span><span class="va">dph</span><span class="op">)</span>
-<span class="co">#&gt;   time state</span>
-<span class="co">#&gt; 1    2     2</span>
-<span class="co">#&gt; 2    1     1</span>
-<span class="co">#&gt; 3    4     2</span>
-<span class="co">#&gt; 4    1     1</span>
-<span class="co">#&gt; 5    2     3</span>
+<span class="co">#&gt;   state time</span>
+<span class="co">#&gt; 1     2    2</span>
+<span class="co">#&gt; 2     1    1</span>
+<span class="co">#&gt; 3     2    4</span>
+<span class="co">#&gt; 4     1    1</span>
+<span class="co">#&gt; 5     3    2</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>
 <span class="fu"><a href="../reference/MPH_functions.html">rFullMPH</a></span><span class="op">(</span><span class="va">mph</span><span class="op">)</span>
-<span class="co">#&gt;      time_1    time_2    time_3    time_4 state</span>
-<span class="co">#&gt; 1 0.3966736 0.1983368 0.9916841 0.3966736     2</span>
-<span class="co">#&gt; 2 0.0000000 0.0763838 0.7638380 0.1527676     3</span>
+<span class="co">#&gt;   state      time  reward_1  reward_2  reward_3  reward_4</span>
+<span class="co">#&gt; 1     2 0.1983368 0.3966736 0.1983368 0.9916841 0.3966736</span>
+<span class="co">#&gt; 2     3 0.0763838 0.0000000 0.0763838 0.7638380 0.1527676</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>
 <span class="fu"><a href="../reference/MDPH_functions.html">rFullMDPH</a></span><span class="op">(</span><span class="va">mdph</span><span class="op">)</span>
-<span class="co">#&gt;   time_1 time_2 time_3 time_4 state</span>
-<span class="co">#&gt; 1      4      2     10      4     2</span>
-<span class="co">#&gt; 2      0      1      1      2     1</span>
-<span class="co">#&gt; 3      8      4     20      8     2</span>
-<span class="co">#&gt; 4      0      1      1      2     1</span>
-<span class="co">#&gt; 5      0      2     20      4     3</span></code></pre></div>
+<span class="co">#&gt;   state time reward_1 reward_2 reward_3 reward_4</span>
+<span class="co">#&gt; 1     2    2        4        2       10        4</span>
+<span class="co">#&gt; 2     1    1        0        1        1        2</span>
+<span class="co">#&gt; 3     2    4        8        4       20        8</span>
+<span class="co">#&gt; 4     1    1        0        1        1        2</span>
+<span class="co">#&gt; 5     3    2        0        2       20        4</span></code></pre></div>
 </div>
 </div>
 <div id="references" class="section level1 unnumbered">
