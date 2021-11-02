@@ -56,7 +56,7 @@ MDPH <- function(subint_mat = NULL, init_probs = NULL, reward_mat = NULL) {
 
     if (is.matrix(reward_mat)){
       if (sum(trunc(reward_mat)) != sum(reward_mat)){
-        stop('The reward matrix should only contains integers.')
+        stop('The reward matrix should only contain integers.')
       }
       value <- list(subint_mat = subint_mat,
                     init_probs = init_probs,

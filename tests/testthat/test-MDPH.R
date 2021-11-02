@@ -153,6 +153,12 @@ test_that(
                      reward_mat = reward_matrix),
                  'non-negative')
 
+    # [E] Negative values
+    expect_error(MDPH(subint_mat = subintensity_matrix,
+                      init_probs = c(1, 0, 0),
+                      reward_mat = matrix(c(sample(seq(0, 10), 5), 0.5), nrow = 3, ncol = 2)),
+                 'should only contain integer')
+
   }
 )
 
