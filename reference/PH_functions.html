@@ -201,30 +201,36 @@ tested.</p>
     <div class='dont-index'><p><a href='https://rdrr.io/r/stats/Distributions.html'>Distributions</a> for other standard distributions.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>cont_phase_type</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>1</span>,
-                            <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>1</span>,
-                            <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-<span class='va'>Y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generator_functions.html'>PH</a></span><span class='op'>(</span><span class='va'>cont_phase_type</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: </span>
-#&gt; <span class='warning'> The initial probability vector is automatically generated.</span></div><div class='input'>
-<span class='fu'>dPH</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span>, <span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.08879596 0.04274991</div><div class='input'><span class='fu'>pPH</span><span class='op'>(</span><span class='fl'>1.45</span>, <span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.6202987</div><div class='input'><span class='fu'>qPH</span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 1.085021</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span>
-<span class='fu'>rPH</span><span class='op'>(</span><span class='fl'>6</span>, <span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 2.1235576 1.7917798 2.2700540 0.5667907 1.2148449 1.5659480</div><div class='input'><span class='fu'>rFullPH</span><span class='op'>(</span><span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         time state
-#&gt; 1 0.10042767     1
-#&gt; 2 0.33151860     2
-#&gt; 3 1.00391620     3
-#&gt; 4 0.72625752     1
-#&gt; 5 0.09485884     2
-#&gt; 6 0.27891468     3
-#&gt; 7 0.32579860     1
-#&gt; 8 0.10314929     2</div><div class='input'>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>cont_phase_type</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>1</span>,</span>
+<span class='r-in'>                            <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>1</span>,</span>
+<span class='r-in'>                            <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>Y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generator_functions.html'>PH</a></span><span class='op'>(</span><span class='va'>cont_phase_type</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span>  The initial probability vector is automatically generated.</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>dPH</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span>, <span class='va'>Y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.08879596 0.04274991</span>
+<span class='r-in'><span class='fu'>pPH</span><span class='op'>(</span><span class='fl'>1.45</span>, <span class='va'>Y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.6202987</span>
+<span class='r-in'><span class='fu'>qPH</span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='va'>Y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1.085021</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>rPH</span><span class='op'>(</span><span class='fl'>6</span>, <span class='va'>Y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2.1235576 1.7917798 2.2700540 0.5667907 1.2148449 1.5659480</span>
+<span class='r-in'><span class='fu'>rFullPH</span><span class='op'>(</span><span class='va'>Y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   state       time</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1     1 0.10042767</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     2 0.33151860</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3     3 1.00391620</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4     1 0.72625752</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5     2 0.09485884</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6     3 0.27891468</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7     1 0.32579860</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8     2 0.10314929</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

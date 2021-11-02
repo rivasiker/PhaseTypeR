@@ -201,43 +201,49 @@ tested.</p>
     <div class='dont-index'><p><a href='https://rdrr.io/r/stats/Distributions.html'>Distributions</a> for other standard distributions.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>cont_phase_type</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>1</span>,
-                            <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>1</span>,
-                            <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-<span class='va'>R</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span>,  <span class='fl'>2</span>,
-                 <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>5</span>,  <span class='fl'>2</span>,
-                 <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>10</span>, <span class='fl'>2</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol<span class='op'>=</span><span class='fl'>4</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='va'>Y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generator_functions.html'>MPH</a></span><span class='op'>(</span><span class='va'>cont_phase_type</span>, reward_mat <span class='op'>=</span> <span class='va'>R</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: </span>
-#&gt; <span class='warning'> The initial probability vector is automatically generated.</span></div><div class='input'>
-<span class='fu'>dMPH</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span>, <span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;            [,1]       [,2]
-#&gt; [1,] 0.04978707 0.01831564
-#&gt; [2,] 0.08879596 0.04274991
-#&gt; [3,] 0.08694436 0.06568935
-#&gt; [4,] 0.13639222 0.09291062</div><div class='input'><span class='fu'>pMPH</span><span class='op'>(</span><span class='fl'>1.45</span>, <span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           [,1]
-#&gt; [1,] 0.7654297
-#&gt; [2,] 0.6202987
-#&gt; [3,] 0.2238680
-#&gt; [4,] 0.3415354</div><div class='input'><span class='fu'>qMPH</span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           [,1]
-#&gt; [1,] 0.6931545
-#&gt; [2,] 1.0850215
-#&gt; [3,] 4.3387820
-#&gt; [4,] 2.1700430</div><div class='input'><span class='fu'>rMPH</span><span class='op'>(</span><span class='fl'>6</span>, <span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           [,1]      [,2]      [,3]        [,4]      [,5]      [,6]
-#&gt; [1,] 2.1279845 1.5157751 0.3156561  0.04501985 6.4191873 1.6909782
-#&gt; [2,] 0.2185985 0.4969989 2.1483953  1.44114625 0.7718868 0.7594132
-#&gt; [3,] 2.7862917 5.2341151 2.3427340 14.07400143 6.8471196 1.4093316
-#&gt; [4,] 7.2556290 0.7600015 0.3512190  1.35886126 1.8445677 5.8881335</div><div class='input'><span class='fu'>rFullMPH</span><span class='op'>(</span><span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      time_1     time_2     time_3    time_4 state
-#&gt; 1 0.0000000 0.75707302 0.75707302 1.5141460     1
-#&gt; 2 0.0000000 0.76829630 7.68296303 1.5365926     3
-#&gt; 3 0.0000000 0.06482699 0.06482699 0.1296540     1
-#&gt; 4 0.8250305 0.41251524 2.06257619 0.8250305     2</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>cont_phase_type</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>1</span>,</span>
+<span class='r-in'>                            <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>1</span>,</span>
+<span class='r-in'>                            <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>R</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span>,  <span class='fl'>2</span>,</span>
+<span class='r-in'>                 <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>5</span>,  <span class='fl'>2</span>,</span>
+<span class='r-in'>                 <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>10</span>, <span class='fl'>2</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol<span class='op'>=</span><span class='fl'>4</span>, byrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>Y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generator_functions.html'>MPH</a></span><span class='op'>(</span><span class='va'>cont_phase_type</span>, reward_mat <span class='op'>=</span> <span class='va'>R</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span>  The initial probability vector is automatically generated.</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>dMPH</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span>, <span class='va'>Y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            [,1]       [,2]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 0.04978707 0.01831564</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 0.08879596 0.04274991</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0.08694436 0.06568935</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 0.13639222 0.09291062</span>
+<span class='r-in'><span class='fu'>pMPH</span><span class='op'>(</span><span class='fl'>1.45</span>, <span class='va'>Y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           [,1]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 0.7654297</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 0.6202987</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0.2238680</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 0.3415354</span>
+<span class='r-in'><span class='fu'>qMPH</span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='va'>Y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           [,1]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 0.6931545</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 1.0850215</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 4.3387820</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 2.1700430</span>
+<span class='r-in'><span class='fu'>rMPH</span><span class='op'>(</span><span class='fl'>6</span>, <span class='va'>Y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           [,1]      [,2]      [,3]        [,4]      [,5]      [,6]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 2.1279845 1.5157751 0.3156561  0.04501985 6.4191873 1.6909782</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 0.2185985 0.4969989 2.1483953  1.44114625 0.7718868 0.7594132</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 2.7862917 5.2341151 2.3427340 14.07400143 6.8471196 1.4093316</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 7.2556290 0.7600015 0.3512190  1.35886126 1.8445677 5.8881335</span>
+<span class='r-in'><span class='fu'>rFullMPH</span><span class='op'>(</span><span class='va'>Y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   state       time  reward_1   reward_2   reward_3  reward_4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1     1 0.75707302 0.0000000 0.75707302 0.75707302 1.5141460</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     3 0.76829630 0.0000000 0.76829630 7.68296303 1.5365926</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3     1 0.06482699 0.0000000 0.06482699 0.06482699 0.1296540</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4     2 0.41251524 0.8250305 0.41251524 2.06257619 0.8250305</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
