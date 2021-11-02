@@ -34,12 +34,6 @@
 #' both the continuous and the discrete phase-type distributions,
 #' this reward should be a vector with non-negative
 #' values of size equal to the number of states.
-#' Additionally, for discrete phase-type distributions, the reward can also be
-#' a matrix of probabilities, in which case the matrix should have as many rows
-#' as the number of states, and the column 1 to j+1 corresponds a reward from
-#' 0 to j. Each cell corresponding that entering in the state i, the probability
-#' that we attribute to this state a reward j corresponds to the value of the
-#' matrix in row i and column j+1.
 #'
 #'
 #' @references
@@ -77,23 +71,6 @@
 #'
 #' reward_phase_type(ph, reward)
 #'
-#' #---
-#'
-#' subint_mat <- matrix(c(0.4, 0, 0.5,
-#'                       0.2, 0.24, 0,
-#'                       0.4, 0.6, 0.2), ncol = 3)
-#' init_probs <- c(0.9, 0.1, 0)
-#'
-#' ph <- DPH(subint_mat, init_probs)
-#'
-#' reward <- matrix(c(0, 0.2, 1,
-#'                    0.5, 0, 0,
-#'                    0.5, 0.6, 0,
-#'                    0, 0, 0,
-#'                    0, 0.2, 0), ncol = 5)
-#'
-#' reward_phase_type(ph, reward)
-#'
 #'
 #' @export
 
@@ -121,38 +98,10 @@ reward_phase_type <- function(phase_type, reward){
     if (is.matrix(reward)) {
       if (nrow(reward) == 1){
         reward  <- as.vector(reward)
-      } else if (nrow(reward) != n){
-        stop('Wrong dimensions, Rewards should be a vector or a matrix of',
-             'n rows')
       } else {
-        if (! all(rowSums(reward) == 1)){
-          stop('The row sums for the reward matrix should be equal to 1')
-        }
-
-        if (! all(reward >= 0) || ! all(reward <= 1)){
-          stop('The reward matrix should only contain probabilities')
-        }
-
-        for (i in which(reward[, 1] > 0 & reward[, 1] < 1)){
-
-          new_subint_mat <- subint_mat
-          new_subint_mat[, i] <- new_subint_mat[, i] * sum(reward[i, -1])
-          new_subint_mat <- cbind(new_subint_mat, subint_mat[,i] * reward[i, 1])
-          subint_mat <- rbind(new_subint_mat, new_subint_mat[i,])
-
-          reward <- rbind(reward, c(reward[i, 1], rep(0, ncol(reward) - 1)))
-          reward[i, 1] <- 0
-
-          init_probs <- c(init_probs, init_probs[i] * reward[nrow(reward), 1])
-          init_probs[i] <- init_probs[i] * (1 - reward[nrow(reward), 1])
-        }
-
-        reward <- reward / rowSums(reward)
-        n <- length(init_probs)
-        reward_mat <- col(reward) - 1
-        reward_max <- apply(reward_mat * as.numeric(reward > 0), 1, max)
+        stop('The reward vector should be a vector or a ',
+             'matrix with 1 row.')
       }
-
     }
     if (is.vector(reward)) {
       if (length(reward) != n){

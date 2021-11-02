@@ -39,12 +39,6 @@ Every state of the sub-intensity matrix should have a reward, and in the case of
 both the continuous and the discrete phase-type distributions,
 this reward should be a vector with non-negative
 values of size equal to the number of states.
-Additionally, for discrete phase-type distributions, the reward can also be
-a matrix of probabilities, in which case the matrix should have as many rows
-as the number of states, and the column 1 to j+1 corresponds a reward from
-0 to j. Each cell corresponding that entering in the state i, the probability
-that we attribute to this state a reward j corresponds to the value of the
-matrix in row i and column j+1.
 }
 \examples{
 ##===========================##
@@ -71,23 +65,6 @@ init_probs <- c(0.9, 0.1, 0)
 ph <- DPH(subint_mat, init_probs)
 
 reward <- c(1, 0, 4)
-
-reward_phase_type(ph, reward)
-
-#---
-
-subint_mat <- matrix(c(0.4, 0, 0.5,
-                      0.2, 0.24, 0,
-                      0.4, 0.6, 0.2), ncol = 3)
-init_probs <- c(0.9, 0.1, 0)
-
-ph <- DPH(subint_mat, init_probs)
-
-reward <- matrix(c(0, 0.2, 1,
-                   0.5, 0, 0,
-                   0.5, 0.6, 0,
-                   0, 0, 0,
-                   0, 0.2, 0), ncol = 5)
 
 reward_phase_type(ph, reward)
 
