@@ -221,6 +221,6 @@ rFullDPH <- function(obj){
     }
   }
 
-  return(data.frame(time = times, state = states[-length(states)]))
+  return(data.frame(state = states[-length(states)], time = times))
 }
 

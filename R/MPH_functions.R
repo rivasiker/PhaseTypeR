@@ -189,8 +189,11 @@ rFullMPH <- function(obj){
   }
   #calculate the rewards times the time spent in each state using point-wise multiplication
   out <- as.data.frame(out)
-  colnames(out) <- paste0('time_', 1:p)
+  colnames(out) <- paste0('reward_', 1:p)
   out$state <- smph$state
+  out$time <- smph$time
+
+  out <- out[, c(p+1, p+2, 1:p)]
 
   return(out)
 
