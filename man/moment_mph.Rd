@@ -11,6 +11,9 @@ moment_mph(obj, v)
 
 \item{v}{a vector or an integer.}
 }
+\value{
+A number representing the moment of a multivariate continuous phase-type distribution.
+}
 \description{
 This function calculates the moments for the multivariate phase-type
 distributions.
@@ -20,3 +23,4 @@ The variables for which the moments are calculated can be specified in
 the \code{v} vector as indices in the reward matrix of the
 \code{mult_cont_phase_type} object.
 }
+\keyword{internal}

@@ -15,7 +15,7 @@
 #' @usage moment_ph(obj, m)
 #'
 #'
-#' @export
+#' @keywords internal
 
 
 moment_ph <- function(obj, m) {
@@ -26,18 +26,19 @@ moment_ph <- function(obj, m) {
 }
 
 
-
-moment_individual <- function(element, obj){
-  solve(-obj$subint_mat) %*% diag(obj$reward_mat[,element])
-}
-
-moment_row <- function(row, obj) {
-  total <- diag(1, nrow(obj$subint_mat), ncol(obj$subint_mat))
-  for (individual in lapply(row, moment_individual, obj = obj)) {
-    total <- total %*% individual
-  }
-  sum(obj$init_probs %*% total)
-}
+#' Permutations
+#'
+#' This function calculates all possible permutations given a
+#' numeric vector.
+#'
+#'
+#' @param v a numeric vector.
+#'
+#' @usage perm(v)
+#'
+#' @return A matrix with all possible permutations.
+#'
+#' @keywords internal
 
 perm <- function(v) {
   n <- length(v)
@@ -63,9 +64,25 @@ perm <- function(v) {
 #'
 #' @usage moment_mph(obj, v)
 #'
-#' @export
+#' @return A number representing the moment of a multivariate continuous phase-type distribution.
+#'
+#' @keywords internal
 
 moment_mph <- function(obj, v) {
+
+  moment_row <- function(row, obj) {
+
+    moment_individual <- function(element, obj){
+      solve(-obj$subint_mat) %*% diag(obj$reward_mat[,element])
+    }
+
+    total <- diag(1, nrow(obj$subint_mat), ncol(obj$subint_mat))
+    for (individual in lapply(row, moment_individual, obj = obj)) {
+      total <- total %*% individual
+    }
+    sum(obj$init_probs %*% total)
+  }
+
   v <- matrix(v)
   X <- perm(v)
   sum(apply(X, 1, moment_row, obj = obj))

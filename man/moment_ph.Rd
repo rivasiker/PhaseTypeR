@@ -19,3 +19,4 @@ distributions.
 The order of the moment can be specified by \code{m} for a
 \code{cont_phase_type} object.
 }
+\keyword{internal}
