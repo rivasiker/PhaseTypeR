@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Moments of the multivariate continuous phase-type distribution — moment_mph • PhaseTypeR</title>
+<title>Permutations — perm • PhaseTypeR</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="Moments of the multivariate continuous phase-type distribution — moment_mph" />
-<meta property="og:description" content="This function calculates the moments for the multivariate phase-type
-distributions." />
+<meta property="og:title" content="Permutations — perm" />
+<meta property="og:description" content="This function calculates all possible permutations given a
+numeric vector." />
 
 
 
@@ -127,39 +127,30 @@ distributions." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Moments of the multivariate continuous phase-type distribution</h1>
+    <h1>Permutations</h1>
     <small class="dont-index">Source: <a href='https://github.com/rivasiker/PhaseTypeR/blob/master/R/moments.R'><code>R/moments.R</code></a></small>
-    <div class="hidden name"><code>moment_mph.Rd</code></div>
+    <div class="hidden name"><code>perm.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function calculates the moments for the multivariate phase-type
-distributions.</p>
+    <p>This function calculates all possible permutations given a
+numeric vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>moment_mph</span><span class='op'>(</span><span class='va'>obj</span>, <span class='va'>v</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>perm</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>obj</th>
-      <td><p>a mult_cont_phase_type.</p></td>
-    </tr>
-    <tr>
       <th>v</th>
-      <td><p>a vector or an integer.</p></td>
+      <td><p>a numeric vector.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A number representing the moment of a multivariate continuous phase-type distribution.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The variables for which the moments are calculated can be specified in
-the <code>v</code> vector as indices in the reward matrix of the
-<code>mult_cont_phase_type</code> object.</p>
+    <p>A matrix with all possible permutations.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

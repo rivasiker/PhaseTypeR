@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Moments of the multivariate continuous phase-type distribution — moment_mph • PhaseTypeR</title>
+<title>Pretty summary of the mult_dist_phase_type class. — summary.mult_disc_phase_type • PhaseTypeR</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Moments of the multivariate continuous phase-type distribution — moment_mph" />
-<meta property="og:description" content="This function calculates the moments for the multivariate phase-type
-distributions." />
+<meta property="og:title" content="Pretty summary of the mult_dist_phase_type class. — summary.mult_disc_phase_type" />
+<meta property="og:description" content="Pretty summary of the mult_dist_phase_type class." />
 
 
 
@@ -127,40 +126,84 @@ distributions." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Moments of the multivariate continuous phase-type distribution</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rivasiker/PhaseTypeR/blob/master/R/moments.R'><code>R/moments.R</code></a></small>
-    <div class="hidden name"><code>moment_mph.Rd</code></div>
+    <h1>Pretty summary of the <code>mult_dist_phase_type</code> class.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rivasiker/PhaseTypeR/blob/master/R/summary.R'><code>R/summary.R</code></a></small>
+    <div class="hidden name"><code>summary.mult_disc_phase_type.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function calculates the moments for the multivariate phase-type
-distributions.</p>
+    <p>Pretty summary of the <code>mult_dist_phase_type</code> class.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>moment_mph</span><span class='op'>(</span><span class='va'>obj</span>, <span class='va'>v</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='co'># S3 method for mult_disc_phase_type</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>obj</th>
-      <td><p>a mult_cont_phase_type.</p></td>
+      <th>object</th>
+      <td><p>a mult_dist_phase_type object</p></td>
     </tr>
     <tr>
-      <th>v</th>
-      <td><p>a vector or an integer.</p></td>
+      <th>...</th>
+      <td><p>other arguments passed to methods</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A number representing the moment of a multivariate continuous phase-type distribution.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>This function prints a nicely-formatted summary of
+a <code>mult_dist_phase_type</code> object. The summary includes the
+sub-intensity matrix, the initial probabilities, the defect,
+the reward matrix,
+the mean and the (co)variance of the phase-type object.</p>
 
-    <p>The variables for which the moments are calculated can be specified in
-the <code>v</code> vector as indices in the reward matrix of the
-<code>mult_cont_phase_type</code> object.</p>
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='va'>subint</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.4</span>, <span class='fl'>0</span>, <span class='fl'>0.2</span>,
+                   <span class='fl'>0.5</span>, <span class='fl'>0.3</span>, <span class='fl'>0.2</span>,
+                   <span class='fl'>0</span>, <span class='fl'>0.7</span>, <span class='fl'>0.2</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>R</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span>,
+              <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>5</span>,
+              <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>10</span>,
+              <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>mdph</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generator_functions.html'>MDPH</a></span><span class='op'>(</span><span class='va'>subint</span>, reward_mat <span class='op'>=</span> <span class='va'>R</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: </span>
+#&gt; <span class='warning'> The initial probability vector is automatically generated.</span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mdph</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
+#&gt; Subintensity matrix:
+#&gt;      [,1] [,2] [,3]
+#&gt; [1,]  0.4  0.5  0.0
+#&gt; [2,]  0.0  0.3  0.7
+#&gt; [3,]  0.2  0.2  0.2
+#&gt; 
+#&gt; Reward matrix:
+#&gt;      [,1] [,2] [,3] [,4]
+#&gt; [1,]    0    2    0    1
+#&gt; [2,]    1    1    1    2
+#&gt; [3,]    1    5   10    3
+#&gt; 
+#&gt; Initial probabilities:
+#&gt;      [,1] [,2] [,3]
+#&gt; [1,]    1    0    0
+#&gt; 
+#&gt; Defect:
+#&gt; [1] 0
+#&gt; 
+#&gt; Means:
+#&gt; [1]  4.287546 16.428571 21.595238 12.472527
+#&gt; 
+#&gt; Variance-covariance matrix:
+#&gt;           [,1]     [,2]      [,3]     [,4]
+#&gt; [1,]  48.12221 181.5964  248.5871 140.7076
+#&gt; [2,] 181.59643 705.8399  951.8838 539.7271
+#&gt; [3,] 248.58713 951.8838 1311.7739 730.6907
+#&gt; [4,] 140.70764 539.7271  730.6907 415.3713
+#&gt; 
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -150,20 +150,14 @@ non-negative reward vector.</p>
     <tr>
       <th>reward</th>
       <td><p>a vector of the same length as the number of
-states. The vector should contains non negative values and only integer for
-discrete phase-type class.
-For <code>disc_phase_type</code> object, it could also be a matrix with as many
-rows as states and as many columns as the maximum values of reward plus one.
-Also in this case, each cell of the matrix should be probabilities and the
-sum of the rows should sum up to one.</p></td>
+states. The vector should contain non-negative values. Rewards for the
+discrete phase-type distribution can only be integers.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class <code>disc_phase_type</code> or <code>cont_phase_type</code>.
-Be aware that if the input is a multivariate phase_type the output will be
-univariate.</p>
+    <p>An object of class <code>disc_phase_type</code> or <code>cont_phase_type</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For the reward transformation for continuous phase-type distribution, the
@@ -171,15 +165,11 @@ transformation will be performed as presented in the book of Bladt and
 Nielsen (2017).</p>
 <p>For the discrete phase_type distribution is based on the PhD of Navarro (2018) and
 Hobolth, Bladt and Andersen (2021).</p>
-<p>Every state of the sub-intensity matrix should have a reward, and in the case of
-both the continuous and the discrete phase-type distributions,
-this reward should be a vector with non-negative
-values of size equal to the number of states.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Bladt, M., &amp; Nielsen, B. F. (2017). *Matrix-exponential distributions in applied probability* (Vol. 81). New York: Springer.
-Campillo Navarro, A. (2018). *Order statistics and multivariate discrete phase-type distributions*. DTU Compute. DTU Compute PHD-2018, Vol.. 492
-Hobolth, A., Bladt, M. &amp; Andersen, L.A. (2021). *Multivariate phase-type theory for the site frequency spectrum*. ArXiv.</p>
+    <p>Bladt, M., &amp; Nielsen, B. F. (2017). *Matrix-exponential distributions in applied probability* (Vol. 81). New York: Springer.</p>
+<p>Campillo Navarro, A. (2018). *Order statistics and multivariate discrete phase-type distributions*. DTU Compute. DTU Compute PHD-2018, Vol.. 492</p>
+<p>Hobolth, A., Bladt, M. &amp; Andersen, L.A. (2021). *Multivariate phase-type theory for the site frequency spectrum*. ArXiv.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='generator_functions.html'>PH</a></code>, <code><a href='generator_functions.html'>DPH</a></code></p></div>
