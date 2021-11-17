@@ -9,18 +9,11 @@
 #'  \code{disc_phase_type}.
 #'
 #' @param reward a vector of the same length as the number of
-#' states. The vector should contains non negative values and only integer for
-#' discrete phase-type class.
-#' For \code{disc_phase_type} object, it could also be a matrix with as many
-#' rows as states and as many columns as the maximum values of reward plus one.
-#' Also in this case, each cell of the matrix should be probabilities and the
-#' sum of the rows should sum up to one.
-#'
+#' states. The vector should contain non-negative values. Rewards for the
+#' discrete phase-type distribution can only be integers.
 #'
 #' @return
 #' An object of class \code{disc_phase_type} or \code{cont_phase_type}.
-#' Be aware that if the input is a multivariate phase_type the output will be
-#' univariate.
 #'
 #' @details
 #' For the reward transformation for continuous phase-type distribution, the
@@ -30,15 +23,13 @@
 #' For the discrete phase_type distribution is based on the PhD of Navarro (2018) and
 #' Hobolth, Bladt and Andersen (2021).
 #'
-#' Every state of the sub-intensity matrix should have a reward, and in the case of
-#' both the continuous and the discrete phase-type distributions,
-#' this reward should be a vector with non-negative
-#' values of size equal to the number of states.
 #'
 #'
 #' @references
 #' Bladt, M., & Nielsen, B. F. (2017). *Matrix-exponential distributions in applied probability* (Vol. 81). New York: Springer.
+#'
 #' Campillo Navarro, A. (2018). *Order statistics and multivariate discrete phase-type distributions*. DTU Compute. DTU Compute PHD-2018, Vol.. 492
+#'
 #' Hobolth, A., Bladt, M. & Andersen, L.A. (2021). *Multivariate phase-type theory for the site frequency spectrum*. ArXiv.
 #'
 #' @seealso \code{\link{PH}}, \code{\link{DPH}}
@@ -87,8 +78,7 @@ reward_phase_type <- function(phase_type, reward){
   # If discrete will apply the reward transformation
   # found in the PhD of Navarro (2018) Section 5.2.12 page 74-78.
 
-  if (class(phase_type) == 'disc_phase_type' ||
-      class(phase_type) == 'mult_disc_phase_type'){
+  if (class(phase_type) == 'disc_phase_type'){
 
     init_probs <- phase_type$init_probs
     subint_mat <- phase_type$subint_mat
@@ -224,8 +214,7 @@ reward_phase_type <- function(phase_type, reward){
 
     # If continuous, will apply the transformation of
     # Bladt and Nielsen 2017.
-  } else if (class(phase_type) == 'cont_phase_type' ||
-             class(phase_type) == 'mult_cont_phase_type') {
+  } else if (class(phase_type) == 'cont_phase_type') {
 
     init_probs <- phase_type$init_probs
     subint_mat <- phase_type$subint_mat
@@ -318,6 +307,6 @@ reward_phase_type <- function(phase_type, reward){
     return(ph)
   } else {
     stop("The object provided should be of class 'disc_phase_type' or ",
-         'cont_phase_type.')
+         "'cont_phase_type'.")
   }
 }

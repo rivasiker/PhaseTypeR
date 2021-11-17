@@ -11,17 +11,11 @@ reward_phase_type(phase_type, reward)
 \code{disc_phase_type}.}
 
 \item{reward}{a vector of the same length as the number of
-states. The vector should contains non negative values and only integer for
-discrete phase-type class.
-For \code{disc_phase_type} object, it could also be a matrix with as many
-rows as states and as many columns as the maximum values of reward plus one.
-Also in this case, each cell of the matrix should be probabilities and the
-sum of the rows should sum up to one.}
+states. The vector should contain non-negative values. Rewards for the
+discrete phase-type distribution can only be integers.}
 }
 \value{
 An object of class \code{disc_phase_type} or \code{cont_phase_type}.
-Be aware that if the input is a multivariate phase_type the output will be
-univariate.
 }
 \description{
 Transform a variable following a phase-type distribution according to a
@@ -34,11 +28,6 @@ Nielsen (2017).
 
 For the discrete phase_type distribution is based on the PhD of Navarro (2018) and
 Hobolth, Bladt and Andersen (2021).
-
-Every state of the sub-intensity matrix should have a reward, and in the case of
-both the continuous and the discrete phase-type distributions,
-this reward should be a vector with non-negative
-values of size equal to the number of states.
 }
 \examples{
 ##===========================##
@@ -72,7 +61,9 @@ reward_phase_type(ph, reward)
 }
 \references{
 Bladt, M., & Nielsen, B. F. (2017). *Matrix-exponential distributions in applied probability* (Vol. 81). New York: Springer.
+
 Campillo Navarro, A. (2018). *Order statistics and multivariate discrete phase-type distributions*. DTU Compute. DTU Compute PHD-2018, Vol.. 492
+
 Hobolth, A., Bladt, M. & Andersen, L.A. (2021). *Multivariate phase-type theory for the site frequency spectrum*. ArXiv.
 }
 \seealso{

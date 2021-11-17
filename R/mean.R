@@ -128,9 +128,10 @@ mean.mult_disc_phase_type <- function(x, v = NULL, ...){
   } else {
     v <- 1:ncol(x$reward_mat)
   }
+  x2 <- DPH(x$subint_mat, x$init_probs)
   result <- rep(0, length(v))
   for (i in 1:length(v)){
-    result[i] <- mean(reward_phase_type(x, x$reward_mat[,v[i]]))
+    result[i] <- mean(reward_phase_type(x2, x$reward_mat[,v[i]]))
   }
   return(result)
 }

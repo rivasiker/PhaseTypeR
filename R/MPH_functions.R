@@ -60,11 +60,13 @@ NULL
 
 dMPH <- function(x, obj){
 
+
   if (class(obj) == 'mult_cont_phase_type') {
+    x2 <- PH(obj$subint_mat, obj$init_probs)
     reward <- obj$reward
     n_mat <- matrix(0, nrow = ncol(reward), ncol = length(x))
     for (i in 1:ncol(reward)){
-      n_mat[i,] <- dPH(x,reward_phase_type(obj, reward[,i]))
+      n_mat[i,] <- dPH(x,reward_phase_type(x2, reward[,i]))
     }
     return(n_mat)
   } else {
@@ -84,10 +86,11 @@ dMPH <- function(x, obj){
 qMPH <- function(p, obj){
 
   if (class(obj) == 'mult_cont_phase_type') {
+    x2 <- PH(obj$subint_mat, obj$init_probs)
     reward <- obj$reward
     n_mat <- matrix(0, nrow = ncol(reward), ncol = length(p))
     for (i in 1:ncol(reward)){
-      n_mat[i,] <- qPH(p,reward_phase_type(obj, reward[,i]))
+      n_mat[i,] <- qPH(p,reward_phase_type(x2, reward[,i]))
     }
     return(n_mat)
   } else {
@@ -107,10 +110,11 @@ qMPH <- function(p, obj){
 pMPH <- function(q, obj){
 
   if (class(obj) == 'mult_cont_phase_type') {
+    x2 <- PH(obj$subint_mat, obj$init_probs)
     reward <- obj$reward
     n_mat <- matrix(0, nrow = ncol(reward), ncol = length(q))
     for (i in 1:ncol(reward)){
-      n_mat[i,] <- pPH(q,reward_phase_type(obj, reward[,i]))
+      n_mat[i,] <- pPH(q,reward_phase_type(x2, reward[,i]))
     }
     return(n_mat)
   } else {
@@ -130,6 +134,7 @@ pMPH <- function(q, obj){
 rMPH <- function(n, obj){
 
   if (class(obj) == 'mult_cont_phase_type') {
+    x2 <- PH(obj$subint_mat, obj$init_probs)
 
     if (length(n) > 1){
       n <- length(n)
@@ -148,7 +153,7 @@ rMPH <- function(n, obj){
     reward <- obj$reward
     n_mat <- matrix(0, nrow = ncol(reward), ncol = n)
     for (i in 1:ncol(reward)){
-      n_mat[i,] <- rPH(n,reward_phase_type(obj, reward[,i]))
+      n_mat[i,] <- rPH(n,reward_phase_type(x2, reward[,i]))
     }
     return(n_mat)
   } else {

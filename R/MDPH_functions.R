@@ -64,10 +64,11 @@ NULL
 dMDPH <- function(x, obj){
 
   if (class(obj) == 'mult_disc_phase_type') {
+    x2 <- DPH(obj$subint_mat, obj$init_probs)
     reward <- obj$reward
     n_mat <- matrix(0, nrow = ncol(reward), ncol = length(x))
     for (i in 1:ncol(reward)){
-      n_mat[i,] <- dDPH(x,reward_phase_type(obj, reward[,i]))
+      n_mat[i,] <- dDPH(x,reward_phase_type(x2, reward[,i]))
     }
     return(n_mat)
   } else {
@@ -86,10 +87,11 @@ dMDPH <- function(x, obj){
 qMDPH <- function(p, obj){
 
   if (class(obj) == 'mult_disc_phase_type') {
+    x2 <- DPH(obj$subint_mat, obj$init_probs)
     reward <- obj$reward
     n_mat <- matrix(0, nrow = ncol(reward), ncol = length(p))
     for (i in 1:ncol(reward)){
-      n_mat[i,] <- qDPH(p,reward_phase_type(obj, reward[,i]))
+      n_mat[i,] <- qDPH(p,reward_phase_type(x2, reward[,i]))
     }
     return(n_mat)
   } else {
@@ -110,10 +112,11 @@ qMDPH <- function(p, obj){
 pMDPH <- function(q, obj){
 
   if (class(obj) == 'mult_disc_phase_type') {
+    x2 <- DPH(obj$subint_mat, obj$init_probs)
     reward <- obj$reward
     n_mat <- matrix(0, nrow = ncol(reward), ncol = length(q))
     for (i in 1:ncol(reward)){
-      n_mat[i,] <- pDPH(q,reward_phase_type(obj, reward[,i]))
+      n_mat[i,] <- pDPH(q,reward_phase_type(x2, reward[,i]))
     }
     return(n_mat)
   } else {
@@ -134,6 +137,8 @@ rMDPH <- function(n, obj){
 
   if (class(obj) == 'mult_disc_phase_type') {
 
+    x2 <- DPH(obj$subint_mat, obj$init_probs)
+
     if (length(n) > 1){
       n <- length(n)
     }
@@ -151,7 +156,7 @@ rMDPH <- function(n, obj){
     reward <- obj$reward
     n_mat <- matrix(0, nrow = ncol(reward), ncol = n)
     for (i in 1:ncol(reward)){
-      n_mat[i,] <- rDPH(n,reward_phase_type(obj, reward[,i]))
+      n_mat[i,] <- rDPH(n,reward_phase_type(x2, reward[,i]))
     }
     return(n_mat)
   } else {
@@ -174,7 +179,6 @@ rFullMDPH <- function(obj){
   if (!(class(obj) == 'mult_disc_phase_type')){
     stop("Please provide an object of class 'mult_disc_phase_type'.")
   }
-
   init_probs <- obj$init_probs
   n <- length(init_probs)
   subint_mat <- obj$subint_mat
