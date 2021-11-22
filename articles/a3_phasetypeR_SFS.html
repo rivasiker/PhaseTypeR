@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PhaseTypeR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -208,7 +208,7 @@
 <span class="co"># create rate-matrix and state space for block counting process</span>
 <span class="va">ph_bcp</span> <span class="op">&lt;-</span> <span class="fu">block_counting_process</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
 
-<span class="co"># Obtain subintensity matrix</span>
+<span class="co"># Obtain sub-intensity matrix</span>
 <span class="va">subintensity_matrix</span> <span class="op">&lt;-</span> <span class="va">ph_bcp</span><span class="op">$</span><span class="va">subint_mat</span>
 <span class="va">rew_mat</span> <span class="op">&lt;-</span> <span class="va">ph_bcp</span><span class="op">$</span><span class="va">reward_mat</span></code></pre></div>
 <p>Next, we simulate random site frequency spectra.</p>
@@ -240,7 +240,7 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
   \mbox{Exp}[z^{c_1 \xi_1} z^{c_2 \xi_2} \dots z^{c_{n-1} \xi_{n-1}}] =
   \mathbf{e}_1^\ast \left( \lambda \Delta[\mathbf{A}(z^\mathbf{c}- \mathbf{e})] +\mathbf{T}\right)^{-1} \mathbf{T}\mathbf{e}
   =   \mathbf{e}_1^\ast \left( \mathbf{S}+ \lambda \Delta[\mathbf{A}(z^\mathbf{c}] \right)^{-1} \mathbf{T}\mathbf{e}
-\end{align*}\]</span> where <span class="math inline">\(\mathbf{T},\mathbf{A}\)</span> being respectively the subintensity matrix and reward matrix of the block counting process, <span class="math inline">\(\mathbf{e}= (1,1,\dots,1)^\ast\)</span> and <span class="math inline">\(\mathbf{S}= \mathbf{T}- \lambda \Delta \mathbf{A}\mathbf{e}\)</span>.</p>
+\end{align*}\]</span> where <span class="math inline">\(\mathbf{T},\mathbf{A}\)</span> being respectively the sub-intensity matrix and reward matrix of the block counting process, <span class="math inline">\(\mathbf{e}= (1,1,\dots,1)^\ast\)</span> and <span class="math inline">\(\mathbf{S}= \mathbf{T}- \lambda \Delta \mathbf{A}\mathbf{e}\)</span>.</p>
 <p>The next snippet implements the <span class="math inline">\(\phi\)</span>-function</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">themean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">ph_bcp</span><span class="op">)</span><span class="op">*</span><span class="va">bc</span><span class="op">)</span> <span class="co">#the mean of the linear combination (should be 0)</span>
@@ -283,7 +283,7 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
 <div id="figure-5" class="section level2">
 <h2 class="hasAnchor">
 <a href="#figure-5" class="anchor"></a>Figure 5</h2>
-<p>In this section we recreate the bottom two sub-figures of Figure 4, and first we consider the bottom left figure, which displays the CDFs of the <span class="math inline">\(i\)</span>-ton branch-length for <span class="math inline">\(i = 1,2,3,4\)</span>. As described in Section 3, these branch-lengths all have (possibly defective) <span class="math inline">\(PH\)</span> distributions, whose sub-intensity matrix (and possible defect) can be calculated from the subintensity matrix and state-space of the block-counting process, so we first compute these two objects:</p>
+<p>In this section we recreate the bottom two sub-figures of Figure 4, and first we consider the bottom left figure, which displays the CDFs of the <span class="math inline">\(i\)</span>-ton branch-length for <span class="math inline">\(i = 1,2,3,4\)</span>. As described in Section 3, these branch-lengths all have (possibly defective) <span class="math inline">\(PH\)</span> distributions, whose sub-intensity matrix (and possible defect) can be calculated from the sub-intensity matrix and state-space of the block-counting process, so we first compute these two objects:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">5</span>
 
