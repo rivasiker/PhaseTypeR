@@ -79,7 +79,7 @@ dPH(1:5, ph)
 #> [1] 0.1506327 0.2216989 0.1991321 0.1482987 0.1009037
 ```
 
-Cummulative density function:
+Cumulative density function:
 
 ``` r
 pPH(1:5, ph)

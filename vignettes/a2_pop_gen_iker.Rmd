@@ -199,9 +199,9 @@ $$
 T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 $$
 
-Indeed the core of the subintensity matrix for $T_{MRCA}$ and $T_{Total}$ is the same. But when $T_{MRCA}$ measure the time to reach the MRCA, so the length of one branch, $T_{Total}$ will measure the length of all branches. This leads to proceed to a reward transformation of the original subintensity matrix.
+Indeed the core of the sub-intensity matrix for $T_{MRCA}$ and $T_{Total}$ is the same. But when $T_{MRCA}$ measure the time to reach the MRCA, so the length of one branch, $T_{Total}$ will measure the length of all branches. This leads to proceed to a reward transformation of the original sub-intensity matrix.
 
-The reward-transformation is a way to give more weights to some states than other. So the first state of the subintensity matrix should have a rate of $n$, because before any coalescent event there are $n$ lineages, then the second state a rate of $n-1$ and so on.
+The reward-transformation is a way to give more weights to some states than other. So the first state of the sub-intensity matrix should have a rate of $n$, because before any coalescent event there are $n$ lineages, then the second state a rate of $n-1$ and so on.
 
 Therefore, $T_{total}$ can be represented as a reward-transformed $T_{MRCA}$, where the reward vector is $[n, n-1, ..., 2]$:
 
@@ -565,7 +565,7 @@ $$
 \mathop{\mathbb{E}}\left[ \frac{\theta}{2}Y_i \right]=\frac{\theta}{2}\mathop{\mathbb{E}}[Y_i]
 $$
 
-Each $Y_i$ can be represented using a univariate phase-type distribution. However, instead of defining each $Y_i$ individually, we can build a multivariate phase-type representation of the coalescent process, such that $Y\sim MPH^*(\alpha, S, R)$, where $\alpha$ is the initial probability vector, $S$ is the sub-intensity matrix for the coalescent process and $R$ is the reward vector where each of the columns summarizes how the subintensity matrix should be transformed to obtain a phase-type representation of $Y_i$.
+Each $Y_i$ can be represented using a univariate phase-type distribution. However, instead of defining each $Y_i$ individually, we can build a multivariate phase-type representation of the coalescent process, such that $Y\sim MPH^*(\alpha, S, R)$, where $\alpha$ is the initial probability vector, $S$ is the sub-intensity matrix for the coalescent process and $R$ is the reward vector where each of the columns summarizes how the sub-intensity matrix should be transformed to obtain a phase-type representation of $Y_i$.
 
 For example, when $n=4$, the sub-intensity matrix for Kingman's coalescent is:
 

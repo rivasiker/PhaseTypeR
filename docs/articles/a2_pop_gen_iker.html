@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PhaseTypeR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -254,8 +254,8 @@
 <p><span class="math display">\[
 T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 \]</span></p>
-<p>Indeed the core of the subintensity matrix for <span class="math inline">\(T_{MRCA}\)</span> and <span class="math inline">\(T_{Total}\)</span> is the same. But when <span class="math inline">\(T_{MRCA}\)</span> measure the time to reach the MRCA, so the length of one branch, <span class="math inline">\(T_{Total}\)</span> will measure the length of all branches. This leads to proceed to a reward transformation of the original subintensity matrix.</p>
-<p>The reward-transformation is a way to give more weights to some states than other. So the first state of the subintensity matrix should have a rate of <span class="math inline">\(n\)</span>, because before any coalescent event there are <span class="math inline">\(n\)</span> lineages, then the second state a rate of <span class="math inline">\(n-1\)</span> and so on.</p>
+<p>Indeed the core of the sub-intensity matrix for <span class="math inline">\(T_{MRCA}\)</span> and <span class="math inline">\(T_{Total}\)</span> is the same. But when <span class="math inline">\(T_{MRCA}\)</span> measure the time to reach the MRCA, so the length of one branch, <span class="math inline">\(T_{Total}\)</span> will measure the length of all branches. This leads to proceed to a reward transformation of the original sub-intensity matrix.</p>
+<p>The reward-transformation is a way to give more weights to some states than other. So the first state of the sub-intensity matrix should have a rate of <span class="math inline">\(n\)</span>, because before any coalescent event there are <span class="math inline">\(n\)</span> lineages, then the second state a rate of <span class="math inline">\(n-1\)</span> and so on.</p>
 <p>Therefore, <span class="math inline">\(T_{total}\)</span> can be represented as a reward-transformed <span class="math inline">\(T_{MRCA}\)</span>, where the reward vector is <span class="math inline">\([n, n-1, ..., 2]\)</span>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">t_total_4_bis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">t_mrca_4</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
@@ -687,7 +687,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 \mathop{\mathbb{E}}[\xi_i]=\mathop{\mathbb{E}}[\mathop{\mathbb{E}}(\xi_i|Y_i)]=
 \mathop{\mathbb{E}}\left[ \frac{\theta}{2}Y_i \right]=\frac{\theta}{2}\mathop{\mathbb{E}}[Y_i]
 \]</span></p>
-<p>Each <span class="math inline">\(Y_i\)</span> can be represented using a univariate phase-type distribution. However, instead of defining each <span class="math inline">\(Y_i\)</span> individually, we can build a multivariate phase-type representation of the coalescent process, such that <span class="math inline">\(Y\sim MPH^*(\alpha, S, R)\)</span>, where <span class="math inline">\(\alpha\)</span> is the initial probability vector, <span class="math inline">\(S\)</span> is the sub-intensity matrix for the coalescent process and <span class="math inline">\(R\)</span> is the reward vector where each of the columns summarizes how the subintensity matrix should be transformed to obtain a phase-type representation of <span class="math inline">\(Y_i\)</span>.</p>
+<p>Each <span class="math inline">\(Y_i\)</span> can be represented using a univariate phase-type distribution. However, instead of defining each <span class="math inline">\(Y_i\)</span> individually, we can build a multivariate phase-type representation of the coalescent process, such that <span class="math inline">\(Y\sim MPH^*(\alpha, S, R)\)</span>, where <span class="math inline">\(\alpha\)</span> is the initial probability vector, <span class="math inline">\(S\)</span> is the sub-intensity matrix for the coalescent process and <span class="math inline">\(R\)</span> is the reward vector where each of the columns summarizes how the sub-intensity matrix should be transformed to obtain a phase-type representation of <span class="math inline">\(Y_i\)</span>.</p>
 <p>For example, when <span class="math inline">\(n=4\)</span>, the sub-intensity matrix for Kingman’s coalescent is:</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R">

@@ -97,5 +97,5 @@ phase_type_to_network <- function(phase_type, t = NULL) {
   }
 
 
-  graph_from_data_frame(d=link_mat, vertices=id_mat, directed=T)
+  graph_from_data_frame(d=link_mat, vertices=id_mat, directed=TRUE)
 }

@@ -418,7 +418,7 @@ n <- 4
 # create rate-matrix and state space for block counting process
 ph_bcp <- block_counting_process(n)
 
-# Obtain subintensity matrix
+# Obtain sub-intensity matrix
 subintensity_matrix <- ph_bcp$subint_mat
 rew_mat <- ph_bcp$reward_mat
 ```
@@ -467,7 +467,7 @@ where
   \be_1^\ast \left( \lambda \Delta[\bA (z^\bc - \be)] +\bT \right)^{-1} \bT \be
   =   \be_1^\ast \left( \bS + \lambda \Delta[\bA (z^\bc] \right)^{-1} \bT \be
 \end{align*}
-where $\bT,\bA$ being respectively the subintensity matrix and reward matrix of the block counting process, $\be = (1,1,\dots,1)^\ast$ and $\bS = \bT - \lambda \Delta \bA \be$.
+where $\bT,\bA$ being respectively the sub-intensity matrix and reward matrix of the block counting process, $\be = (1,1,\dots,1)^\ast$ and $\bS = \bT - \lambda \Delta \bA \be$.
 
 The next snippet implements the $\phi$-function
 
@@ -522,7 +522,7 @@ n <- 8
 # create rate-matrix and state space for block counting process
 ph_bcp <- block_counting_process(n)
 
-# Obtain subintensity matrix
+# Obtain sub-intensity matrix
 subintensity_matrix <- ph_bcp$subint_mat
 rew_mat <- ph_bcp$reward_mat
 
@@ -579,7 +579,7 @@ points(xvals2[max(which(0.975>yvals))],-0.035,pch=17)
 
 ## Figure 5
 
-In this section we recreate the bottom two sub-figures of Figure 4, and first we consider the bottom left figure, which displays the CDFs of the $i$-ton branch-length for $i = 1,2,3,4$. As described in Section 3, these branch-lengths all have (possibly defective) $PH$ distributions, whose sub-intensity matrix (and possible defect) can be calculated from the subintensity matrix and state-space of the block-counting process, so we first compute these two objects:
+In this section we recreate the bottom two sub-figures of Figure 4, and first we consider the bottom left figure, which displays the CDFs of the $i$-ton branch-length for $i = 1,2,3,4$. As described in Section 3, these branch-lengths all have (possibly defective) $PH$ distributions, whose sub-intensity matrix (and possible defect) can be calculated from the sub-intensity matrix and state-space of the block-counting process, so we first compute these two objects:
 
 ```{r, warning=FALSE}
 n <- 5

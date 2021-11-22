@@ -62,7 +62,7 @@ Density function:
 dPH(1:5, ph)
 ```
 
-Cummulative density function:
+Cumulative density function:
 
 ```{r}
 pPH(1:5, ph)
