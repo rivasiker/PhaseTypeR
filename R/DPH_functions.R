@@ -1,18 +1,14 @@
 #' The Univariate Discrete Phase-Type Distribution
 #'
+#' Density, distribution function, quantile function and random generation
+#' for the univariate discrete phase-type distribution.
+#'
 #' @param x,q vector of quantiles.
 #' @param p vector of probabilities.
 #' @param obj an object of class \code{disc_phase_type}.
 #' @param n number of observations. If length(n) > 1, the length is taken to be
 #'  the number required.
 #'
-#' @details
-#' If the object provided is multivariate, each row of the result will
-#' corresponds to each univariate reward transformation.
-#' For \code{dDPH}, \code{qDPH} and \code{pDPH}, the inputs \code{x},
-#' \code{p} and \code{q} can be matrices where in row i the i_th reward
-#' transformation and in col j the j_th value of \code{x}, \code{p} or \code{q}
-#' tested.
 #'
 #' @import expm
 #'

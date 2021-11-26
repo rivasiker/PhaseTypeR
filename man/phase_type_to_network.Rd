@@ -19,3 +19,13 @@ An igraph graph object of the phase-type distribution.
 This function converts a phase-type distribution into an
 igraph graph object.
 }
+\examples{
+
+cont_phase_type <- matrix(c(-3, 0, 1,
+                            2, -3, 1,
+                            1, 1, -2), ncol = 3)
+Y <- PH(cont_phase_type)
+Y_network <- phase_type_to_network(Y)
+plot(Y_network)
+
+}

@@ -43,15 +43,8 @@ The numerical arguments other than \code{n} are recycled to the length of the
 result. Only the first elements of the logical arguments are used.
 }
 \description{
-The Univariate Continuous Phase-Type Distribution
-}
-\details{
-If the object provided is multivariate, each row of the result will
-corresponds to each univariate reward transformation.
-For \code{dPH}, \code{qPH} and \code{pPH}, the inputs \code{x},
-\code{p} and \code{q} can be matrices where in row i the i_th reward
-transformation and in col j the j_th value of \code{x}, \code{p} or \code{q}
-tested.
+Density, distribution function, quantile function and random generation
+for the univariate continuous phase-type distribution.
 }
 \section{Functions}{
 \itemize{

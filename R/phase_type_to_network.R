@@ -13,6 +13,15 @@
 #'
 #' @return An igraph graph object of the phase-type distribution.
 #'
+#' @examples
+#'
+#' cont_phase_type <- matrix(c(-3, 0, 1,
+#'                             2, -3, 1,
+#'                             1, 1, -2), ncol = 3)
+#' Y <- PH(cont_phase_type)
+#' Y_network <- phase_type_to_network(Y)
+#' plot(Y_network)
+#'
 #' @importFrom igraph graph_from_data_frame
 #'
 #' @export

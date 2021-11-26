@@ -35,6 +35,13 @@ distribution function, \code{qMPH} gives the quantile function,
 and \code{rMPH} generates random deviates. \code{rFullMPH} returns
 the full path of a random draw from the distribution.
 
+Each row of the result of For \code{dMPH}, \code{pMPH}, \code{qMPH}, and
+\code{rMPH} corresponds to each univariate reward transformation.
+For \code{dMDPH}, \code{qMDPH} and \code{pMDPH}, the inputs \code{x},
+\code{p} and \code{q} can be matrices where in row i the i_th reward
+transformation and in col j the j_th value of \code{x}, \code{p} or \code{q}
+tested.
+
 The length of the result is determined by \code{n} for \code{rMPH},
 and is the maximum of the lengths of the numerical arguments for the other
 functions.
@@ -43,15 +50,8 @@ The numerical arguments other than \code{n} are recycled to the length of the
 result. Only the first elements of the logical arguments are used.
 }
 \description{
-The Multivariate Continuous Phase-Type Distribution
-}
-\details{
-If the object provided is multivariate, each row of the result will
-corresponds to each univariate reward transformation.
-For \code{dMPH}, \code{qMPH} and \code{pMPH}, the inputs \code{x},
-\code{p} and \code{q} can be matrices where in row i the i_th reward
-transformation and in col j the j_th value of \code{x}, \code{p} or \code{q}
-tested.
+Density, distribution function, quantile function and random generation
+for the multivariate continuous phase-type distribution.
 }
 \section{Functions}{
 \itemize{
@@ -79,6 +79,7 @@ Y <- MPH(cont_phase_type, reward_mat = R)
 dMPH(3:4, Y)
 pMPH(1.45, Y)
 qMPH(0.5, Y)
+set.seed(0)
 rMPH(6, Y)
 rFullMPH(Y)
 

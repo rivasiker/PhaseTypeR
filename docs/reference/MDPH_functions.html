@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="The Multivariate Discrete Phase-Type Distribution — MDPH_functions" />
-<meta property="og:description" content="The Multivariate Discrete Phase-Type Distribution" />
+<meta property="og:description" content="Density, distribution function, quantile function and random generation
+for the multivariate discrete phase-type distribution." />
 
 
 
@@ -132,7 +133,8 @@
     </div>
 
     <div class="ref-description">
-    <p>The Multivariate Discrete Phase-Type Distribution</p>
+    <p>Density, distribution function, quantile function and random generation
+for the multivariate discrete phase-type distribution.</p>
     </div>
 
     <pre class="usage"><span class='fu'>dMDPH</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>obj</span><span class='op'>)</span>
@@ -173,19 +175,17 @@ the number required.</p></td>
 distribution function, <code>qMDPH</code> gives the quantile function,
 and <code>rMDPH</code> generates random deviates. <code>rFullMDPH</code> returns
 the full path of a random draw from the distribution.</p>
+<p>Each row of the result of For <code>dMDPH</code>, <code>pMDPH</code>, <code>qMDPH</code>, and
+<code>rMDPH</code> corresponds to each univariate reward transformation.
+For <code>dMDPH</code>, <code>qMDPH</code> and <code>pMDPH</code>, the inputs <code>x</code>,
+<code>p</code> and <code>q</code> can be matrices where in row i the i_th reward
+transformation and in col j the j_th value of <code>x</code>, <code>p</code> or <code>q</code>
+tested.</p>
 <p>The length of the result is determined by <code>n</code> for <code>rMDPH</code>,
 and is the maximum of the lengths of the numerical arguments for the other
 functions.</p>
 <p>The numerical arguments other than <code>n</code> are recycled to the length of the
 result. Only the first elements of the logical arguments are used.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>If the object provided is multivariate, each row of the result will
-corresponds to each univariate reward transformation.
-For <code>dMDPH</code>, <code>qMDPH</code> and <code>pMDPH</code>, the inputs <code>x</code>,
-<code>p</code> and <code>q</code> can be matrices where in row i the i_th reward
-transformation and in col j the j_th value of <code>x</code>, <code>p</code> or <code>q</code>
-tested.</p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
@@ -227,15 +227,16 @@ tested.</p>
 #&gt; [1,]    3
 #&gt; [2,]   13
 #&gt; [3,]   13
-#&gt; [4,]   10</div><div class='input'><span class='fu'>rMDPH</span><span class='op'>(</span><span class='fl'>6</span>, <span class='va'>Y</span><span class='op'>)</span>
+#&gt; [4,]   10</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span>
+<span class='fu'>rMDPH</span><span class='op'>(</span><span class='fl'>6</span>, <span class='va'>Y</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6]
-#&gt; [1,]    4    2    5    4    0    2
-#&gt; [2,]   20   15   15   21    6   19
-#&gt; [3,]   12   22   11   33   23   32
-#&gt; [4,]   15    8   12   13   17   22</div><div class='input'><span class='fu'>rFullMDPH</span><span class='op'>(</span><span class='va'>Y</span><span class='op'>)</span>
+#&gt; [1,]    0    9   14    2    0    4
+#&gt; [2,]   26   21   19   24   15   15
+#&gt; [3,]   32    0   68   12   11   21
+#&gt; [4,]   24    6    6   14    8   12</div><div class='input'><span class='fu'>rFullMDPH</span><span class='op'>(</span><span class='va'>Y</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   state time reward_1 reward_2 reward_3 reward_4
-#&gt; 1     1    3        0        6        0        3
-#&gt; 2     2    1        1        1        1        2
+#&gt; 1     1    2        0        4        0        2
+#&gt; 2     2    2        2        2        2        4
 #&gt; 3     3    1        1        5       10        3</div><div class='input'>
 </div></pre>
   </div>
