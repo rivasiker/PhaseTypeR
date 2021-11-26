@@ -157,6 +157,19 @@ igraph graph object.</p>
 
     <p>An igraph graph object of the phase-type distribution.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>cont_phase_type</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>1</span>,</span>
+<span class='r-in'>                            <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>1</span>,</span>
+<span class='r-in'>                            <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>Y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='generator_functions.html'>PH</a></span><span class='op'>(</span><span class='va'>cont_phase_type</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span>  The initial probability vector is automatically generated.</span>
+<span class='r-in'><span class='va'>Y_network</span> <span class='op'>&lt;-</span> <span class='fu'>phase_type_to_network</span><span class='op'>(</span><span class='va'>Y</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>Y_network</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='phase_type_to_network-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

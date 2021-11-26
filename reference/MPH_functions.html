@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="The Multivariate Continuous Phase-Type Distribution — MPH_functions" />
-<meta property="og:description" content="The Multivariate Continuous Phase-Type Distribution" />
+<meta property="og:description" content="Density, distribution function, quantile function and random generation
+for the multivariate continuous phase-type distribution." />
 
 
 
@@ -132,7 +133,8 @@
     </div>
 
     <div class="ref-description">
-    <p>The Multivariate Continuous Phase-Type Distribution</p>
+    <p>Density, distribution function, quantile function and random generation
+for the multivariate continuous phase-type distribution.</p>
     </div>
 
     <pre class="usage"><span class='fu'>dMPH</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>obj</span><span class='op'>)</span>
@@ -173,19 +175,17 @@ the number required.</p></td>
 distribution function, <code>qMPH</code> gives the quantile function,
 and <code>rMPH</code> generates random deviates. <code>rFullMPH</code> returns
 the full path of a random draw from the distribution.</p>
+<p>Each row of the result of For <code>dMPH</code>, <code>pMPH</code>, <code>qMPH</code>, and
+<code>rMPH</code> corresponds to each univariate reward transformation.
+For <code>dMDPH</code>, <code>qMDPH</code> and <code>pMDPH</code>, the inputs <code>x</code>,
+<code>p</code> and <code>q</code> can be matrices where in row i the i_th reward
+transformation and in col j the j_th value of <code>x</code>, <code>p</code> or <code>q</code>
+tested.</p>
 <p>The length of the result is determined by <code>n</code> for <code>rMPH</code>,
 and is the maximum of the lengths of the numerical arguments for the other
 functions.</p>
 <p>The numerical arguments other than <code>n</code> are recycled to the length of the
 result. Only the first elements of the logical arguments are used.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>If the object provided is multivariate, each row of the result will
-corresponds to each univariate reward transformation.
-For <code>dMPH</code>, <code>qMPH</code> and <code>pMPH</code>, the inputs <code>x</code>,
-<code>p</code> and <code>q</code> can be matrices where in row i the i_th reward
-transformation and in col j the j_th value of <code>x</code>, <code>p</code> or <code>q</code>
-tested.</p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
@@ -230,18 +230,18 @@ tested.</p>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 1.0850215</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 4.3387820</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 2.1700430</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'>rMPH</span><span class='op'>(</span><span class='fl'>6</span>, <span class='va'>Y</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>           [,1]      [,2]      [,3]        [,4]      [,5]      [,6]</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 2.1279845 1.5157751 0.3156561  0.04501985 6.4191873 1.6909782</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 0.2185985 0.4969989 2.1483953  1.44114625 0.7718868 0.7594132</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 2.7862917 5.2341151 2.3427340 14.07400143 6.8471196 1.4093316</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 7.2556290 0.7600015 0.3512190  1.35886126 1.8445677 5.8881335</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           [,1]       [,2]      [,3]      [,4]      [,5]      [,6]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 0.7551818  0.1457067 1.9997498 0.4360686 2.0340910 0.3740457</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 1.2346425  1.0012151 0.6616294 0.7350846 0.5667907 1.2148449</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 8.0114387 16.6284262 8.9418594 5.4812071 3.9179274 0.7160464</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 5.0815599  2.7447191 3.1889157 2.7062132 0.8113041 1.3580180</span>
 <span class='r-in'><span class='fu'>rFullMPH</span><span class='op'>(</span><span class='va'>Y</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   state       time  reward_1   reward_2   reward_3  reward_4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1     1 0.75707302 0.0000000 0.75707302 0.75707302 1.5141460</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     3 0.76829630 0.0000000 0.76829630 7.68296303 1.5365926</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 3     1 0.06482699 0.0000000 0.06482699 0.06482699 0.1296540</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 4     2 0.41251524 0.8250305 0.41251524 2.06257619 0.8250305</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   state       time   reward_1   reward_2   reward_3   reward_4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1     1 0.32166731 0.00000000 0.32166731 0.32166731 0.64333461</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     3 0.38159000 0.00000000 0.38159000 3.81590005 0.76318001</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3     2 0.01119789 0.02239578 0.01119789 0.05598945 0.02239578</span>
 <span class='r-in'></span>
 </pre>
   </div>
