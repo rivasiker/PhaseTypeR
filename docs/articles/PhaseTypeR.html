@@ -316,8 +316,8 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">'10 random samples: \n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>, <span class="st">'\n'</span>, <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 10 random samples: </span>
-<span class="co">#&gt;  2.607134 3.781561 3.937234 2.564619 7.058359 </span>
-<span class="co">#&gt;  3.817241 2.214004 7.371382 1.090855 1.47858</span></code></pre></div>
+<span class="co">#&gt;  3.388891 1.508042 1.190046 5.293063 1.1726 </span>
+<span class="co">#&gt;  0.7313901 4.533261 2.853104 1.738968 2.802428</span></code></pre></div>
 <p>Here is a histogram of 200 samples from the phase-type distribution:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">500</span>, <span class="va">ph</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
@@ -371,7 +371,7 @@ F(u) = 1-\boldsymbol{\pi}e^{\boldsymbol{T}u}\boldsymbol{e}, \quad u\ge0.
 <span class="va">net</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/phase_type_to_network.html">phase_type_to_network</a></span><span class="op">(</span><span class="va">dph</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">net</span>, edge.curved<span class="op">=</span><span class="fl">.1</span>, edge.label <span class="op">=</span> <span class="fu">E</span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span></code></pre></div>
 <p><img src="PhaseTypeR_files/figure-html/unnamed-chunk-11-1.png" width="700" style="display: block; margin: auto;"></p>
-<p>The moments are given by <strong>Proposition 2.7.iii</strong> <span class="citation">(<a href="#ref-Navarro2019" role="doc-biblioref">Navarro 2019, p.12</a>)</span></p>
+<p>The moments are given by <strong>Proposition 2.7.iii</strong> <span class="citation">(<a href="#ref-Navarro2019" role="doc-biblioref">Campillo Navarro 2019, p.12</a>)</span></p>
 <p><span class="math display">\[
 \mathbb{E} (\tau(\tau - 1) \cdots (\tau-(n-1))) = n!\boldsymbol{\pi T}^{n-1} (\boldsymbol{I}-\boldsymbol{T})^{-n} \boldsymbol{e}, \quad n=1,2,\ldots.
 \]</span></p>
@@ -695,7 +695,7 @@ Y_j = \int_0^\tau r_j(X_t)dt, \; \quad j=1,\ldots,n.
 <div id="the-discrete-multivariate-phase-type" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-discrete-multivariate-phase-type" class="anchor"></a>5.2 The discrete multivariate phase-type</h2>
-<p>The discrete multivariate phase-type (MDPH) distribution is constructed similar to the continuous multivariate phase-type distribution, but in discrete time. Details are available in <strong>Section 5.2</strong> <span class="citation">(<a href="#ref-Navarro2019" role="doc-biblioref">Navarro 2019, p.79</a>)</span>. Let <span class="math inline">\(\tau \sim {\rm DPH}(\pi,T)\)</span> and let <span class="math inline">\(\{X_m\}\)</span> be the underlying Markov chain. We write <span class="math inline">\(\boldsymbol{Y} = (Y_1,\  Y_2,\  ...\,,\  Y_n)\)</span> for the MDPH-distributed vector where <span class="math inline">\(Y_j\)</span> corresponds to</p>
+<p>The discrete multivariate phase-type (MDPH) distribution is constructed similar to the continuous multivariate phase-type distribution, but in discrete time. Details are available in <strong>Section 5.2</strong> <span class="citation">(<a href="#ref-Navarro2019" role="doc-biblioref">Campillo Navarro 2019, p.79</a>)</span>. Let <span class="math inline">\(\tau \sim {\rm DPH}(\pi,T)\)</span> and let <span class="math inline">\(\{X_m\}\)</span> be the underlying Markov chain. We write <span class="math inline">\(\boldsymbol{Y} = (Y_1,\  Y_2,\  ...\,,\  Y_n)\)</span> for the MDPH-distributed vector where <span class="math inline">\(Y_j\)</span> corresponds to</p>
 <p><span class="math display">\[
 Y_j = \sum_{m=0}^{\tau-1} r_j(X_m), \quad j=1,\ldots,n.
 \]</span> Using the <code><a href="../reference/generator_functions.html">MDPH()</a></code> function with the reward matrix in the <code>reward_mat</code> parameter we get</p>
@@ -730,7 +730,7 @@ Y_j = \sum_{m=0}^{\tau-1} r_j(X_m), \quad j=1,\ldots,n.
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">mdph</span><span class="op">)</span>
 <span class="co">#&gt; [1]  2.760000  4.016667 23.416667  8.033333</span></code></pre></div>
-<p>From <strong>Proposition 5.7</strong> <span class="citation">(<a href="#ref-Navarro2019" role="doc-biblioref">Navarro 2019, p.85</a>)</span> the bivariate first-order moments of the variables in the <span class="math inline">\(MDPH^*\)</span> distribution are given by</p>
+<p>From <strong>Proposition 5.7</strong> <span class="citation">(<a href="#ref-Navarro2019" role="doc-biblioref">Campillo Navarro 2019, p.85</a>)</span> the bivariate first-order moments of the variables in the <span class="math inline">\(MDPH^*\)</span> distribution are given by</p>
 <p><span class="math display">\[
 \mathbb{E}(Y_j Y_k) = \boldsymbol{\pi} \left\{\boldsymbol{U\Delta}(\boldsymbol{r}_j)\boldsymbol{U\Delta}(\boldsymbol{r}_k) + \boldsymbol{U\Delta}(\boldsymbol{r}_k)\boldsymbol{U\Delta}(\boldsymbol{r}_j) - \boldsymbol{U\Delta}(\boldsymbol{r}_j)\boldsymbol{\Delta}(\boldsymbol{r}_k)\right\}\boldsymbol{e},
 \]</span></p>
@@ -792,7 +792,7 @@ Y_j = \sum_{m=0}^{\tau-1} r_j(X_m), \quad j=1,\ldots,n.
 Bladt, Mogens, and Bo Friis Nielsen. 2017. <em><span class="nocase">Matrix-Exponential Distributions in Applied Probability</span></em>. Vol. 81. <a href="https://doi.org/10.1007/978-1-4939-7049-0">https://doi.org/10.1007/978-1-4939-7049-0</a>.
 </div>
 <div id="ref-Navarro2019" class="csl-entry">
-Navarro, Campillo. 2019. <span>“<span class="nocase">Order Statistics and Multivariate discrete phase-type distributions</span>.”</span> PhD thesis. <a href="https://orbit.dtu.dk/en/publications/order-statistics-and-multivariate-discrete-phase-type-distributio">https://orbit.dtu.dk/en/publications/order-statistics-and-multivariate-discrete-phase-type-distributio</a>.
+Campillo Navarro, Azucena. 2019. <span>“Order Statistics and Multivariate Discrete Phase-Type Distributions.”</span> DTU Compute PHD-2018. PhD thesis, DTU Compute.
 </div>
 </div>
 </div>

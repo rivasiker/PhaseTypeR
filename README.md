@@ -7,7 +7,7 @@
 
 [![R-CMD-check](https://github.com/rivasiker/PhaseTypeR/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/rivasiker/PhaseTypeR/actions/workflows/check-standard.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/rivasiker/PhaseTypeR/branch/master/graph/badge.svg)](https://codecov.io/gh/rivasiker/PhaseTypeR?branch=master)
+coverage](https://codecov.io/gh/rivasiker/PhaseTypeR/branch/master/graph/badge.svg)](https://app.codecov.io/gh/rivasiker/PhaseTypeR?branch=master)
 <!-- badges: end -->
 
 This package implements core functions from phase-type theory. Its
