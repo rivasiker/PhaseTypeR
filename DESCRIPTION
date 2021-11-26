@@ -10,13 +10,14 @@ Authors@R: c(
     person("Lars Nørvang", "Andersen", , "larsa@math.au.dk", role = "aut")
   )
 Maintainer: Iker Rivas-González <ikerrivas96@gmail.com>
-Description: General implementation of core function from phase-type theory. 
-    PhaseTypeR can be used to model continuous and discrete phase-type 
-    distributions, both univariate and multivariate. The package includes 
-    functions for outputting the mean and (co)variance of phase-type 
-    distributions; their density, probability and quantile functions; 
-    functions for random draws; functions for reward-transformation; 
-    and functions for plotting the distributions as networks.
+Description: General implementation of core function from phase-type
+    theory. PhaseTypeR can be used to model continuous and discrete
+    phase-type distributions, both univariate and multivariate. The
+    package includes functions for outputting the mean and (co)variance of
+    phase-type distributions; their density, probability and quantile
+    functions; functions for random draws; functions for
+    reward-transformation; and functions for plotting the distributions as
+    networks.
 License: GPL-3
 URL: https://rivasiker.github.io/PhaseTypeR/,
     https://github.com/rivasiker/PhaseTypeR
