@@ -10,7 +10,7 @@ Authors@R: c(
     person("Lars Nørvang", "Andersen", , "larsa@math.au.dk", role = "aut")
   )
 Maintainer: Iker Rivas-González <ikerrivas96@gmail.com>
-Description: General implementarion of core function from phase-type theory. 
+Description: General implementation of core function from phase-type theory. 
     PhaseTypeR can be used to model continuous and discrete phase-type 
     distributions, both univariate and multivariate. The package includes 
     functions for outputting the mean and (co)variance of phase-type 
