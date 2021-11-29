@@ -483,11 +483,6 @@ phi <- function(t) (exp(-1i*themean*t))*beone%*%solve(bS+lambda*diag(c(bA%*%(exp
 
 Finally, we approximate the CDF and re-scale
 
-```{r,include=FALSE}
-oldpar <- par()[c('cex.axis', 'cex.lab', 'cex.main', 'cex.sub')]
-par(cex.axis=2, cex.lab=1.5, cex.main=1.5, cex.sub=1.3)
-``` 
-
 ```{r, warning=FALSE}
 appvals <- ApproxCDF(phi,H = 1e5,eta=0.0001,xlim=c(-0.5*res,1.5*res),smoothe=TRUE)
 
@@ -513,8 +508,6 @@ segments(xvals2[min(which(0.975<yvals))], -1, x1 = xvals2[max(which(0.975>yvals)
 segments(xvals2[min(which(0.025<yvals))], 0, x1 = xvals2[max(which(0.975>yvals))], y1 = 0,lwd = 3)
 points(xvals2[min(which(0.025<yvals))],-0.035,pch=17)
 points(xvals2[max(which(0.975>yvals))],-0.035,pch=17)
-
-par(oldpar)
 ```
 
 Next, we run the above code with $n=8$.
