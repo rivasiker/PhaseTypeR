@@ -279,9 +279,9 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
 <span class="fu"><a href="https://rdrr.io/r/graphics/segments.html">segments</a></span><span class="op">(</span><span class="va">xvals2</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fl">0.025</span><span class="op">&lt;</span><span class="va">yvals</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>, <span class="fl">0</span>, x1 <span class="op">=</span> <span class="va">xvals2</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fl">0.975</span><span class="op">&gt;</span><span class="va">yvals</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>, y1 <span class="op">=</span> <span class="fl">0</span>,lwd <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">xvals2</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fl">0.025</span><span class="op">&lt;</span><span class="va">yvals</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>,<span class="op">-</span><span class="fl">0.035</span>,pch<span class="op">=</span><span class="fl">17</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">xvals2</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fl">0.975</span><span class="op">&gt;</span><span class="va">yvals</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>,<span class="op">-</span><span class="fl">0.035</span>,pch<span class="op">=</span><span class="fl">17</span><span class="op">)</span></code></pre></div>
-<p><img src="a3_phasetypeR_SFS_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<p><img src="a3_phasetypeR_SFS_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>Next, we run the above code with <span class="math inline">\(n=8\)</span>.</p>
-<p><img src="a3_phasetypeR_SFS_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<p><img src="a3_phasetypeR_SFS_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 </div>
 <div id="figure-5" class="section level2">
 <h2 class="hasAnchor">
@@ -330,7 +330,7 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"bottomright"</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"singleton"</span>,<span class="st">"doubleton"</span>,<span class="st">"tripleton"</span>,<span class="st">"quardrupleton"</span><span class="op">)</span>,
        lty<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,bty<span class="op">=</span><span class="st">"n"</span>,cex<span class="op">=</span><span class="fl">1.6</span>,lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p><img src="a3_phasetypeR_SFS_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
+<p><img src="a3_phasetypeR_SFS_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
 <p>The the bottom right plot of Figure 4, we find the point probabilities of <span class="math inline">\(i\)</span> mutations <span class="math inline">\(i=1,\dots,4\)</span> corresponding to phase-type distributions of the bottom left figure. These are easily computed using Theorem 2.3 which in this case has the interpretation, that adding mutations to branches whose length is <span class="math inline">\(PH\)</span>-distributed, gives a <span class="math inline">\(DPH\)</span> distribution, whose sub-transition matrix is given by</p>
 <p><span class="math display">\[\begin{equation}
    \mathbf{M}=\Big(\mathbf{I}-\frac{2}{\theta} \mathbf{S}\Big)^{-1}.  \tag{$\spadesuit$}
@@ -354,7 +354,7 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
 <span class="op">}</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"topright"</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"singleton"</span>,<span class="st">"doubleton"</span>,<span class="st">"tripleton"</span>,<span class="st">"quardrupleton"</span><span class="op">)</span>,
        lty<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,bty<span class="op">=</span><span class="st">"n"</span>,cex<span class="op">=</span><span class="fl">1.5</span>,lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p><img src="a3_phasetypeR_SFS_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
+<p><img src="a3_phasetypeR_SFS_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 </div>
 <div id="figure-7" class="section level2">
 <h2 class="hasAnchor">
@@ -424,7 +424,7 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"topright"</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Pairwise"</span>,<span class="st">"H"</span>,<span class="st">"L"</span><span class="op">)</span>,lwd<span class="op">=</span><span class="fl">2</span>,
        lty<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dotted"</span>,<span class="st">"solid"</span>,<span class="st">"dashed"</span><span class="op">)</span>,bty<span class="op">=</span><span class="st">"n"</span>,cex<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span></code></pre></div>
-<p><img src="a3_phasetypeR_SFS_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
+<p><img src="a3_phasetypeR_SFS_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
 <p>The figure for <span class="math inline">\(n=6\)</span> is created in a similar fashion</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">6</span>
@@ -487,7 +487,7 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"topright"</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Pairwise"</span>,<span class="st">"H"</span>,<span class="st">"L"</span><span class="op">)</span>,lwd<span class="op">=</span><span class="fl">2</span>,
        lty<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dotted"</span>,<span class="st">"solid"</span>,<span class="st">"dashed"</span><span class="op">)</span>,bty<span class="op">=</span><span class="st">"n"</span>,cex<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span></code></pre></div>
-<p><img src="a3_phasetypeR_SFS_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
+<p><img src="a3_phasetypeR_SFS_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 </div>
 <div id="figure-8" class="section level2">
 <h2 class="hasAnchor">
@@ -581,7 +581,7 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/stepfun.html">stepfun</a></span><span class="op">(</span><span class="va">wxt</span>,<span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">out</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,col<span class="op">=</span><span class="st">"blue"</span>,do.points<span class="op">=</span><span class="cn">FALSE</span>,lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"bottomright"</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"BLUE"</span>,<span class="st">"Watterson"</span>,<span class="st">"Pairwise"</span><span class="op">)</span>,
        col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"black"</span>,<span class="st">"blue"</span>,<span class="st">"red"</span><span class="op">)</span>,bty<span class="op">=</span><span class="st">"n"</span>,cex<span class="op">=</span><span class="fl">1.6</span>,lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p><img src="a3_phasetypeR_SFS_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
+<p><img src="a3_phasetypeR_SFS_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
 </div>
 <div id="aux" class="section level2">
 <h2 class="hasAnchor">
