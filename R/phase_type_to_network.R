@@ -20,6 +20,7 @@
 #'                             1, 1, -2), ncol = 3)
 #' Y <- PH(cont_phase_type)
 #' Y_network <- phase_type_to_network(Y)
+#' set.seed(28)
 #' plot(Y_network)
 #'
 #' @importFrom igraph graph_from_data_frame

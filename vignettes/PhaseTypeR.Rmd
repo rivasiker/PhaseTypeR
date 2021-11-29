@@ -111,6 +111,7 @@ We can easily plot the phase-type distribution as a network by first converting 
 ```{r}
 
 net <- phase_type_to_network(ph)
+set.seed(8)
 plot(net, edge.curved=.1, edge.label = E(net)$weight,
        edge.color = ifelse(as_data_frame(net, what="edges")$from == 'V0',
                          'purple', 'grey'))
@@ -127,6 +128,7 @@ oldpar <- par()[c('mfrow', 'mar')]
 
 ```{r fig.width=5, fig.height=3}
 par(mfrow=c(2,3), mar=c(2,2,2,2))
+set.seed(6)
 for (i in c(0, 1, 3, 5, 10, 20)) {
   net <- phase_type_to_network(ph, i)
   plot(net, edge.arrow.size=0.5, edge.curved=.1, edge.label = E(net)$weight, main=paste0('time = ', i),
@@ -276,6 +278,7 @@ We can also plot discrete phase-type functions the same way as continuous ones:
 ```{r}
 
 net <- phase_type_to_network(dph)
+set.seed(8)
 plot(net, edge.curved=.1, edge.label = E(net)$weight)
 
 ```
