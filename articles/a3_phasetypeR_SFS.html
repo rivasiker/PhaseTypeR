@@ -498,12 +498,18 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
 <span class="va">lambda</span> <span class="op">&lt;-</span> <span class="fl">5</span>
 <span class="va">ph_bcp</span> <span class="op">&lt;-</span> <span class="fu">block_counting_process</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
 
+
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>
 <span class="va">ph_mv_sim_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MPH_functions.html">rMPH</a></span><span class="op">(</span><span class="va">R</span>,<span class="va">ph_bcp</span><span class="op">)</span>
 
+
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">19</span><span class="op">)</span>
 <span class="va">ph_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">ph_mv_sim_obj</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">ph_mv_sim_obj</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
 <span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">R</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">ph_counts</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span>,<span class="va">lambda</span><span class="op">*</span><span class="va">ph_mv_sim_obj</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span><span class="op">)</span>
 <span class="op">}</span>
+
+
 
 <span class="va">subintensity_matrix</span> <span class="op">&lt;-</span> <span class="va">ph_bcp</span><span class="op">$</span><span class="va">subint_mat</span>
 
@@ -522,6 +528,8 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
 
 <span class="va">phi</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1i</span><span class="op">*</span><span class="va">themean</span><span class="op">*</span><span class="va">t</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="va">beone</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span><span class="fu"><a href="https://rdrr.io/r/base/solve.html">solve</a></span><span class="op">(</span><span class="va">bS</span><span class="op">+</span><span class="va">lambda</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">bA</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">1i</span><span class="op">*</span><span class="va">t</span><span class="op">)</span><span class="op">^</span><span class="va">bc</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span><span class="va">bT</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span><span class="va">be</span>
 
+
+
 <span class="co">#Invert numerically</span>
 <span class="va">appvals</span> <span class="op">&lt;-</span> <span class="fu">ApproxCDF</span><span class="op">(</span><span class="va">phi</span>,H <span class="op">=</span> <span class="fl">1e5</span>,eta<span class="op">=</span><span class="fl">0.0001</span>,xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span><span class="op">*</span><span class="va">res</span>,<span class="fl">10</span><span class="op">*</span><span class="va">res</span><span class="op">)</span>,smoothe<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 
@@ -531,6 +539,8 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
 <span class="va">bc2</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="va">res</span><span class="op">)</span><span class="op">*</span><span class="va">bc</span>
 <span class="va">xvals2</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="va">res</span><span class="op">)</span><span class="op">*</span><span class="va">xvals</span>
 <span class="va">themean2</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="va">res</span><span class="op">)</span><span class="op">*</span><span class="va">themean</span>
+
+
 
 <span class="co">#Compute point probabilities of Watterson's Theta for theta = 10</span>
 
@@ -551,6 +561,8 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
 
 <span class="va">wxt</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">10</span><span class="op">+</span><span class="va">a1</span><span class="op">*</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="op">(</span><span class="va">len</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># Possible values for  Watterson's Theta</span>
 
+
+
 <span class="co"># Pairwise estimator for theta = 10</span>
 
 <span class="va">ba</span> <span class="op">&lt;-</span> <span class="op">(</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">)</span><span class="op">*</span><span class="op">(</span> <span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">:</span><span class="fl">1</span> <span class="op">)</span> <span class="co">#Coefficients of pair-wise estimator</span>
@@ -564,6 +576,7 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
 <span class="va">bmt</span> <span class="op">&lt;-</span> <span class="va">be</span> <span class="op">-</span> <span class="va">bMt</span><span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span><span class="va">be</span>
 
 <span class="va">len</span> <span class="op">=</span> <span class="fl">1e3</span>
+
 
 <span class="co"># Running bMt - the bMt is pretty large, computing its matrix-powers in the naive way as above is time-consuming.</span>
 <span class="va">probs2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">len</span><span class="op">)</span>
