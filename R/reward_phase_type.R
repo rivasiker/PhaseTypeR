@@ -251,6 +251,7 @@ reward_phase_type <- function(phase_type, reward){
       }
     }
 
+
     p <- which(reward > 0)
     z <- which(reward == 0)
 
