@@ -52,5 +52,4 @@ Done.
 
 0 errors | 0 warnings | 1 note
 
-* Possibly misspelled words in DESCRIPTION: Bladt (21:5) Campillo (21:59)
-* This is a new release.
+* Days since last update: 3
