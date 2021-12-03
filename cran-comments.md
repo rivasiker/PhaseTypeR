@@ -1,5 +1,13 @@
 ## Notes
 
+### Third submission
+
+> tests on x86_64 Linux with R-devel configured using --disable-long-double
+Error: processing vignette 'a3_phasetypeR_SFS.Rmd' failed with diagnostics:
+negative probability
+
+Tolerance added for numeric tests. Version number changed accordingly.
+
 ### Second submission
 
 > If there are references describing the methods in your package, please 
