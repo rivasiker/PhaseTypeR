@@ -50,7 +50,7 @@ PH <- function(subint_mat = NULL, init_probs = NULL) {
 
     # check if any rowsums are positive
 
-    if (any(rowSums(subint_mat)>1e-14)){
+    if (any((rowSums(subint_mat)-.Machine$double.eps^0.25)>1e-14)){
       stop('The row sums of the subintensity matrix should be non-positive.')
     } else {
       value <- list(subint_mat = subint_mat,

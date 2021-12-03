@@ -44,14 +44,13 @@ DPH <- function(subint_mat = NULL, init_probs = NULL) {
   # Check the conditions necessary for discrete phase-type distribution
   #############
 
+  if (sum((subint_mat+.Machine$double.eps^0.25) < 0) == 0){
 
-  if (sum(subint_mat < 0) == 0){
-
-    if (sum(subint_mat > 1) > 0){
+    if (sum((subint_mat-.Machine$double.eps^0.25) > 1) > 0){
       stop('The subintensity matrix should only contain values between 0 and 1.')
     }
 
-    if (sum(rowSums(subint_mat) > 1) > 0){
+    if (sum((rowSums(subint_mat)-.Machine$double.eps^0.25) > 1) > 0){
       stop('The rowsums should be between 0 and 1.')
     }
 

@@ -99,11 +99,11 @@ reward_phase_type <- function(phase_type, reward){
              'same size that the inital probabilities).')
       }
 
-      if (sum(reward < 0) != 0){
+      if (sum((reward+.Machine$double.eps^0.25) < 0) != 0){
         stop('The reward vector should only contain non-negative values.')
       }
 
-      if (sum(reward) != sum(round(reward))){
+      if (sum(reward) != sum(trunc(reward))){
         stop('The reward vector should only contain integers.')
       }
 
@@ -234,7 +234,7 @@ reward_phase_type <- function(phase_type, reward){
            'same size that the inital probabilities).')
     }
 
-    if (sum(reward < 0) != 0) {
+    if (sum((reward+.Machine$double.eps^0.25) < 0) != 0) {
       stop('The reward vector should only contain non-negative values.')
     }
 

@@ -57,13 +57,13 @@ check_phase_type <- function(subint_mat, init_probs) {
       stop('The length of the initial probability vector does not match the size of the subintensity matrix.')
     }
 
-    if (sum(init_probs) == 0){
+    if (isTRUE(all.equal(0, sum(init_probs), tolerance = .Machine$double.eps^0.25))){
       warning('The sum of the inital probability is equal to 0 with a defect of 1.')
     }
 
-    if (sum(init_probs) < 0 || sum(init_probs) > 1){
+    if ((sum(init_probs)+.Machine$double.eps^0.25) < 0 || (sum(init_probs)-.Machine$double.eps^0.25) > 1){
       stop('The sum of the initial probabilities should be between 0 and 1')
-    } else if (sum(init_probs < 0) != 0 || sum(init_probs > 1) != 0) {
+    } else if (sum((init_probs+.Machine$double.eps^0.25) < 0) != 0 || sum((init_probs-.Machine$double.eps^0.25) > 1) != 0) {
       stop('Each initial probability should be between 0 and 1.')
     }
 
@@ -93,7 +93,7 @@ check_phase_type <- function(subint_mat, init_probs) {
 check_reward <- function(reward_mat, init_probs) {
 
   if (is.matrix(reward_mat)){
-    if (sum(reward_mat < 0) > 0){
+    if (sum((reward_mat+.Machine$double.eps^0.25) < 0) > 0){
       stop('The reward matrix should only contains non-negative values.')
     }
 
