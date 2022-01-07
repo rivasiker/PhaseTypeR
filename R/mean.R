@@ -74,7 +74,7 @@ mean.cont_phase_type <- function(x, ...) {
 mean.disc_phase_type <- function(x, ...) {
   mean <- sum(x$init_probs %*% solve(diag(nrow = nrow(x$subint_mat))
                                      - x$subint_mat))
-  mean <- as.numeric(mean + x$defect)
+  mean <- as.numeric(mean)
   return(mean)
 }
 
