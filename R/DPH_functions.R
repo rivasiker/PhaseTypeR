@@ -94,7 +94,9 @@ qDPH <- function(p, obj){
   inv <- function(y) uniroot(function(q) pDPH(q, obj)-y, c(0,400))$root[1]
   if (class(obj) == 'disc_phase_type') {
     for (i in p) {
-      vec <- c(vec, round(inv(i)))
+      if (i > (1-sum(obj$init_probs))){
+        vec <- c(vec, round(inv(i)))
+      } else {vec <- c(vec, 0)}
     }
   } else {
     stop("Please provide an object of class 'disc_phase_type'.")
