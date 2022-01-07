@@ -26,6 +26,12 @@ This package implements core functions from phase-type theory. Its general funct
 
 ## Installation
 
+You can install `PhaseTypeR` from CRAN via:
+
+``` r
+install.packages("PhaseTypeR")
+```
+
 If you install devtools in your R environment with `install.packages("devtools")`, the development version of the package can be installed with the following command:
 
 ``` r

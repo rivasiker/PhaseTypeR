@@ -23,6 +23,12 @@ functions for plotting the distributions as networks.
 
 ## Installation
 
+You can install `PhaseTypeR` from CRAN via:
+
+``` r
+install.packages("PhaseTypeR")
+```
+
 If you install devtools in your R environment with
 `install.packages("devtools")`, the development version of the package
 can be installed with the following command:
