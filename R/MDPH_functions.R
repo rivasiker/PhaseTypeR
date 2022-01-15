@@ -137,30 +137,17 @@ pMDPH <- function(q, obj){
 #'
 #' @export
 
+
 rMDPH <- function(n, obj){
 
   if (class(obj) == 'mult_disc_phase_type') {
 
-    x2 <- DPH(obj$subint_mat, obj$init_probs)
-
     if (length(n) > 1){
       n <- length(n)
     }
-
-    # get the sub-intensity matrix
-    subint_mat <- obj$subint_mat
-    # get initial probabilities for p+1 states
-    init_probs <- c(obj$init_probs, obj$defect)
-    # number of states
-    p <- nrow(subint_mat)
-    # create vector of zeroes
-    n_vec <- numeric(n)
-
-
-    reward <- obj$reward
-    n_mat <- matrix(0, nrow = ncol(reward), ncol = n)
-    for (i in 1:ncol(reward)){
-      n_mat[i,] <- rDPH(n,reward_phase_type(x2, reward[,i]))
+    n_mat <- matrix(0, ncol = ncol(obj$reward_mat), nrow = n)
+    for (i in 1:n){
+      n_mat[i,] <- colSums(rFullMDPH(obj))[3:(ncol(obj$reward_mat)+2)]
     }
     return(n_mat)
   } else {
