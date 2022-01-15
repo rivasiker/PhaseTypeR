@@ -213,7 +213,7 @@
 <p>Next, we simulate random site frequency spectra.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">R</span> <span class="op">&lt;-</span> <span class="fl">1e4</span>
-<span class="va">ph_mv_sim_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MPH_functions.html">rMPH</a></span><span class="op">(</span><span class="va">R</span>,<span class="va">ph_bcp</span><span class="op">)</span>
+<span class="va">ph_mv_sim_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="../reference/MPH_functions.html">rMPH</a></span><span class="op">(</span><span class="va">R</span>,<span class="va">ph_bcp</span><span class="op">)</span><span class="op">)</span>
 <span class="va">lambda</span> <span class="op">&lt;-</span> <span class="fl">0.5</span> <span class="co">#lambda = theta/2</span>
 <span class="va">ph_counts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ph_mv_sim_obj</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ph_mv_sim_obj</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
 <span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">R</span><span class="op">)</span> <span class="op">{</span>
@@ -496,7 +496,7 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
 
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>
-<span class="va">ph_mv_sim_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MPH_functions.html">rMPH</a></span><span class="op">(</span><span class="va">R</span>,<span class="va">ph_bcp</span><span class="op">)</span>
+<span class="va">ph_mv_sim_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="../reference/MPH_functions.html">rMPH</a></span><span class="op">(</span><span class="va">R</span>,<span class="va">ph_bcp</span><span class="op">)</span><span class="op">)</span>
 
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">19</span><span class="op">)</span>
