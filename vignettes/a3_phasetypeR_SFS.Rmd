@@ -427,7 +427,7 @@ Next, we simulate random site frequency spectra.
 
 ```{r, warning=FALSE}
 R <- 1e4
-ph_mv_sim_obj <- rMPH(R,ph_bcp)
+ph_mv_sim_obj <- t(rMPH(R,ph_bcp))
 lambda <- 0.5 #lambda = theta/2
 ph_counts = matrix(0,dim(ph_mv_sim_obj)[2],dim(ph_mv_sim_obj)[1])
 for(i in 1:R) {
@@ -525,7 +525,7 @@ rew_mat <- ph_bcp$reward_mat
 be <- matrix(1,dim(bT)[1],1) 
 alpha <- matrix(0,1,dim(bT)[1]);alpha[1]=1 
 
-ph_mv_sim_obj <- rMPH(R,ph_bcp)
+ph_mv_sim_obj <- t(rMPH(R,ph_bcp))
 rew_dim <- dim(ph_mv_sim_obj)[1]
 
 ph_counts <- matrix(0,dim(ph_mv_sim_obj)[2],dim(ph_mv_sim_obj)[1])
@@ -807,7 +807,7 @@ ph_bcp <- block_counting_process(n)
 
 
 set.seed(0)
-ph_mv_sim_obj <- rMPH(R,ph_bcp)
+ph_mv_sim_obj <- t(rMPH(R,ph_bcp))
 
 
 set.seed(19)

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PhaseTypeR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
       </span>
     </div>
 
@@ -105,7 +105,8 @@
 <p><code>PhaseTypeR</code> is a flexible and efficient package for using phase-type theory in R. This vignette describes how to use the general-purpose phase-type functions for modeling common statistics in population genomics at the finest level. The formulation of general phase-type theory can be consulted in Bladt and Nielsen’s ‘Matrix-Exponential Distributions in Applied Probability’ <span class="citation">(<a href="#ref-Bladt2017" role="doc-biblioref">Bladt and Nielsen 2017</a>)</span>, and the notation for this vignette is also adopted from this book. On the other hand, the theory behind applying phase-type theory in population genomics is based on Hobolth et al. <span class="citation">(<a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span>.</p>
 <p>Do not hesitate to run <code>?PhaseTypeR</code> for a quick summary of the available general-purpose functions, or to open the help files for the individual functions.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rivasiker.github.io/PhaseTypeR/">PhaseTypeR</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rivasiker.github.io/PhaseTypeR/">PhaseTypeR</a></span><span class="op">)</span>
+<span class="co">#&gt; Warning: package 'igraph' was built under R version 4.1.2</span></code></pre></div>
 </div>
 <div id="the-univariate-continuous-phase-type-distribution-t_mrca-and-t_total" class="section level1">
 <h1 class="hasAnchor">
@@ -598,11 +599,11 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi1_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>; <span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi2_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>; <span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi3_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>
 <span class="co">#&gt; [1] 3</span>
 <span class="co">#&gt; [1] 1.5</span>
-<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; [1] 0.6666667</span>
 <span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">xi1_4_3</span><span class="op">)</span>;  <span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">xi2_4_3</span><span class="op">)</span>;  <span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">xi3_4_3</span><span class="op">)</span>
 <span class="co">#&gt; [1] 7</span>
 <span class="co">#&gt; [1] 6.75</span>
-<span class="co">#&gt; [1] 3</span></code></pre></div>
+<span class="co">#&gt; [1] 3.888889</span></code></pre></div>
 <p>Note that we need to subtract 1 from the mean to retrieve the true value. This is because of the way discrete phase-type distributions are defined (see <span class="citation">(<a href="#ref-Bladt2017" role="doc-biblioref">Bladt and Nielsen 2017</a>)</span> and <span class="citation">(<a href="#ref-Hobolth2019" role="doc-biblioref">Hobolth, Siri-Jégousse, and Bladt 2019</a>)</span> for details).</p>
 </div>
 <div id="density-distribution-and-quantile-functions-1" class="section level2">

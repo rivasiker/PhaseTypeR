@@ -73,7 +73,7 @@ for the multivariate continuous phase-type distribution." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PhaseTypeR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
       </span>
     </div>
 
@@ -231,15 +231,22 @@ result. Only the first elements of the logical arguments are used.</p>
 #&gt; [3,] 4.3387820
 #&gt; [4,] 2.1700430</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span>
 <span class='fu'>rMPH</span><span class='op'>(</span><span class='fl'>6</span>, <span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           [,1]       [,2]      [,3]      [,4]      [,5]      [,6]
-#&gt; [1,] 0.7551818  0.1457067 1.9997498 0.4360686 2.0340910 0.3740457
-#&gt; [2,] 1.2346425  1.0012151 0.6616294 0.7350846 0.5667907 1.2148449
-#&gt; [3,] 8.0114387 16.6284262 8.9418594 5.4812071 3.9179274 0.7160464
-#&gt; [4,] 5.0815599  2.7447191 3.1889157 2.7062132 0.8113041 1.3580180</div><div class='input'><span class='fu'>rFullMPH</span><span class='op'>(</span><span class='va'>Y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   state       time   reward_1   reward_2   reward_3   reward_4
-#&gt; 1     1 0.32166731 0.00000000 0.32166731 0.32166731 0.64333461
-#&gt; 2     3 0.38159000 0.00000000 0.38159000 3.81590005 0.76318001
-#&gt; 3     2 0.01119789 0.02239578 0.01119789 0.05598945 0.02239578</div><div class='input'>
+</div><div class='output co'>#&gt;           [,1]      [,2]      [,3]     [,4]
+#&gt; [1,] 1.4531985 2.1235576 14.028829 4.247115
+#&gt; [2,] 0.8250690 1.7917798  7.746472 3.583560
+#&gt; [3,] 1.3303570 2.2700540 16.048413 4.540108
+#&gt; [4,] 0.6388227 0.5667907  1.844436 1.133581
+#&gt; [5,] 0.6818173 1.2148449  6.482502 2.429690
+#&gt; [6,] 0.8615078 1.5659480  8.011439 3.131896</div><div class='input'><span class='fu'>rFullMPH</span><span class='op'>(</span><span class='va'>Y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   state       time  reward_1   reward_2   reward_3  reward_4
+#&gt; 1     1 0.10042767 0.0000000 0.10042767  0.1004277 0.2008553
+#&gt; 2     2 0.33151860 0.6630372 0.33151860  1.6575930 0.6630372
+#&gt; 3     3 1.00391620 0.0000000 1.00391620 10.0391620 2.0078324
+#&gt; 4     1 0.72625752 0.0000000 0.72625752  0.7262575 1.4525150
+#&gt; 5     2 0.09485884 0.1897177 0.09485884  0.4742942 0.1897177
+#&gt; 6     3 0.27891468 0.0000000 0.27891468  2.7891468 0.5578294
+#&gt; 7     1 0.32579860 0.0000000 0.32579860  0.3257986 0.6515972
+#&gt; 8     2 0.10314929 0.2062986 0.10314929  0.5157464 0.2062986</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
