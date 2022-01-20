@@ -95,20 +95,20 @@
 
     
     
-<div class="section level1">
-<h1 id="introduction-to-the-package">1. Introduction to the package<a class="anchor" aria-label="anchor" href="#introduction-to-the-package"></a>
-</h1>
+<div class="section level2">
+<h2 id="introduction-to-the-package">1. Introduction to the package<a class="anchor" aria-label="anchor" href="#introduction-to-the-package"></a>
+</h2>
 <p><code>PhaseTypeR</code> is a flexible and efficient package for using phase-type theory in R. This vignette describes how to use the general-purpose phase-type functions for modeling common statistics in population genomics at the finest level. The formulation of general phase-type theory can be consulted in Bladt and Nielsen’s ‘Matrix-Exponential Distributions in Applied Probability’ <span class="citation">(Bladt and Nielsen <a href="#ref-Bladt2017" role="doc-biblioref">2017</a>)</span>, and the notation for this vignette is also adopted from this book. On the other hand, the theory behind applying phase-type theory in population genomics is based on Hobolth et al. <span class="citation">(<a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span>.</p>
 <p>Do not hesitate to run <code>?PhaseTypeR</code> for a quick summary of the available general-purpose functions, or to open the help files for the individual functions.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rivasiker.github.io/PhaseTypeR/" class="external-link">PhaseTypeR</a></span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level1">
-<h1 id="the-univariate-continuous-phase-type-distribution-t_mrca-and-t_total">2. The Univariate Continuous Phase-Type Distribution: <span class="math inline">\(T_{MRCA}\)</span> and <span class="math inline">\(T_{Total}\)</span><a class="anchor" aria-label="anchor" href="#the-univariate-continuous-phase-type-distribution-t_mrca-and-t_total"></a>
-</h1>
 <div class="section level2">
-<h2 id="theoretical-background">2.1. Theoretical background<a class="anchor" aria-label="anchor" href="#theoretical-background"></a>
+<h2 id="the-univariate-continuous-phase-type-distribution-t_mrca-and-t_total">2. The Univariate Continuous Phase-Type Distribution: <span class="math inline">\(T_{MRCA}\)</span> and <span class="math inline">\(T_{Total}\)</span><a class="anchor" aria-label="anchor" href="#the-univariate-continuous-phase-type-distribution-t_mrca-and-t_total"></a>
 </h2>
+<div class="section level3">
+<h3 id="theoretical-background">2.1. Theoretical background<a class="anchor" aria-label="anchor" href="#theoretical-background"></a>
+</h3>
 <p>In an evolutionary tree the time until two sequences coalesce <span class="math inline">\(T_i\)</span> can be measured in number of generations <span class="math inline">\(R_i\)</span> divided by the population size <span class="math inline">\(N\)</span>, this is, <span class="math inline">\(T_i=R_i/N\)</span>. <span class="math inline">\(T_i\)</span> can easily be proven to approximate to an exponential distribution with rate <span class="math inline">\(\binom{i}{2}\)</span> <span class="citation">(Kingman <a href="#ref-Kingman1982" role="doc-biblioref">1982</a>)</span>.</p>
 <p>In order to understand the evolutionary history of sequences two additional quantities can be defined –namely the time until the most recent common ancestor <span class="math inline">\(T_{MRCA}\)</span> and the total tree length <span class="math inline">\(T_{Total}\)</span>. <span class="math inline">\(T_{MRCA}\)</span> will simply be the sum of all times until two sequences coalesce, in other words <span class="math inline">\(T_{MRCA}=T_n+T_{n-1}+...+T_2\)</span>, where <span class="math inline">\(T_i\sim\text{exp}(\binom{i}{2})\)</span>. <span class="math inline">\(T_{Total}\)</span>, on the other hand, takes into account the length of all possible branches, so <span class="math inline">\(T_{Total}=nT_n+(n-1)T_{n-1}+...+2T_2\)</span> and, thus, <span class="math inline">\(iT_i\sim \text{exp}(\frac{i-1}{2})\)</span>.</p>
 <p>The mean and variance of these two quantities can be derived relatively easily. Defining their distribution, however, is more challenging since both <span class="math inline">\(T_{MRCA}\)</span> and <span class="math inline">\(T_{Total}\)</span> are sums of independent exponentially distributed variables with different rates. Their distribution can be computed as a series of convolutions, but their formulation, application and interpretation might be challenging for the average population geneticist.</p>
@@ -116,9 +116,9 @@
 <p>The Markov chain can be represented using phase-type theory, where the jump rates are defined with a sub-intensity matrix <span class="math inline">\(T\)</span> and the initial distribution will be defined as a row vector <span class="math inline">\(\pi\)</span>. If we define <span class="math inline">\(\tau\)</span> as the smallest time (or length) to reach the absorbing state, then <span class="math inline">\(\tau\sim PH(\pi,T)\)</span>. This continuous phase-type distribution has well-documented and easy-to-implement formulas for the expectation, the variance, the survival function, the distribution function and the density function. Moreover, since both <span class="math inline">\(\pi\)</span> and <span class="math inline">\(T\)</span> can easily be specified, we can represent evolutionary histories that do not follow the standard coalescent model and still use the same phase-type formulas.</p>
 <p><code>PhaseTypeR</code> contains an efficient implementation of continuous phase-type distributions. This section shows how to create phase-type representations of <span class="math inline">\(T_{MRCA}\)</span> and <span class="math inline">\(T_{Total}\)</span> under the Kingman’s coalescent model, and it provides some guidelines for modeling these quantities for other non-standard coalescent models.</p>
 </div>
-<div class="section level2">
-<h2 id="time-until-the-most-recent-common-ancestor-t_mrca">2.2. Time until the most recent common ancestor (<span class="math inline">\(T_{MRCA}\)</span>)<a class="anchor" aria-label="anchor" href="#time-until-the-most-recent-common-ancestor-t_mrca"></a>
-</h2>
+<div class="section level3">
+<h3 id="time-until-the-most-recent-common-ancestor-t_mrca">2.2. Time until the most recent common ancestor (<span class="math inline">\(T_{MRCA}\)</span>)<a class="anchor" aria-label="anchor" href="#time-until-the-most-recent-common-ancestor-t_mrca"></a>
+</h3>
 <p>Following Hobolth et al. <span class="citation">(<a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span>, we can build a phase-type representation of <span class="math inline">\(T_{MRCA}\)</span> by defining the sub-intensity matrix, which each row and column will represent the states of the coalescent process.</p>
 <p>For example, for Kingman’s coalescent the sub-intensity matrix can be defined as:</p>
 <p><span class="math display">\[
@@ -182,9 +182,9 @@
 <span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">t_mrca_4</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1.138889</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="total-tree-length-t_total-and-the-reward-transformation">2.3. Total tree length (<span class="math inline">\(T_{Total}\)</span>) and the reward-transformation<a class="anchor" aria-label="anchor" href="#total-tree-length-t_total-and-the-reward-transformation"></a>
-</h2>
+<div class="section level3">
+<h3 id="total-tree-length-t_total-and-the-reward-transformation">2.3. Total tree length (<span class="math inline">\(T_{Total}\)</span>) and the reward-transformation<a class="anchor" aria-label="anchor" href="#total-tree-length-t_total-and-the-reward-transformation"></a>
+</h3>
 <p>In a similar way to <span class="math inline">\(T_{MRCA}\)</span>, the total tree length or <span class="math inline">\(T_{Total}\)</span> can also be represented using phase-type theory <span class="citation">(Hobolth, Siri-Jégousse, and Bladt <a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span>.</p>
 <p>For Kingman’s coalescent the sub-intensity matrix can be defined as:</p>
 <p><span class="math display">\[
@@ -275,9 +275,9 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="co">#&gt; [1] "cont_phase_type"</span></code></pre></div>
 <p>Which is exactly the same as our previous definition.</p>
 </div>
-<div class="section level2">
-<h2 id="density-distribution-and-quantile-functions">2.4. Density, distribution and quantile functions<a class="anchor" aria-label="anchor" href="#density-distribution-and-quantile-functions"></a>
-</h2>
+<div class="section level3">
+<h3 id="density-distribution-and-quantile-functions">2.4. Density, distribution and quantile functions<a class="anchor" aria-label="anchor" href="#density-distribution-and-quantile-functions"></a>
+</h3>
 <p><code>PhaseTypeR</code> also includes the density function (<code><a href="../reference/PH_functions.html">dPH()</a></code>), quantile function (<code><a href="../reference/PH_functions.html">qPH()</a></code>), distribution function (<code><a href="../reference/PH_functions.html">pPH()</a></code>) and random draw generator (<code><a href="../reference/PH_functions.html">rPH()</a></code>) for continuous phase-type distributions. We can therefore apply these functions for our phase-type representation of <span class="math inline">\(T_{MRCA}\)</span> and <span class="math inline">\(T_{Total}\)</span>.</p>
 <p>For example, the density function:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -351,12 +351,12 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <p><img src="a2_pop_gen_iker_files/figure-html/unnamed-chunk-19-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 </div>
-<div class="section level1">
-<h1 id="the-univariate-discrete-phase-type-distribution-s_total-xi_i-and-xi_k">3. The Univariate Discrete Phase-Type Distribution: <span class="math inline">\(S_{total}\)</span>, <span class="math inline">\(\xi_i\)</span> and <span class="math inline">\(\xi_{k+}\)</span><a class="anchor" aria-label="anchor" href="#the-univariate-discrete-phase-type-distribution-s_total-xi_i-and-xi_k"></a>
-</h1>
 <div class="section level2">
-<h2 id="theoretical-background-1">3.1. Theoretical background<a class="anchor" aria-label="anchor" href="#theoretical-background-1"></a>
+<h2 id="the-univariate-discrete-phase-type-distribution-s_total-xi_i-and-xi_k">3. The Univariate Discrete Phase-Type Distribution: <span class="math inline">\(S_{total}\)</span>, <span class="math inline">\(\xi_i\)</span> and <span class="math inline">\(\xi_{k+}\)</span><a class="anchor" aria-label="anchor" href="#the-univariate-discrete-phase-type-distribution-s_total-xi_i-and-xi_k"></a>
 </h2>
+<div class="section level3">
+<h3 id="theoretical-background-1">3.1. Theoretical background<a class="anchor" aria-label="anchor" href="#theoretical-background-1"></a>
+</h3>
 <p>Some quantities in population genomics are discrete, such as the total number of segregating sites <span class="math inline">\(S_{total}\)</span> or other statistics related to the site-frequency spectrum (singletons, doubletons, tail statistic, etc.). Representing the site-frequency spectrum, or SFS, can be challenging if the sample size is large, if the data does not follow Kingman’s coalescence or if we are trying to estimate the mutation parameter <span class="math inline">\(\theta\)</span> using non-standard estimators.</p>
 <p>Luckily, all these quantities can be represented using discrete phase-type theory. Similar to the continuous phase-type distribution being a generalization of exponentially distributed variables, the discrete phase-type distribution can be seen as a generalization of various geometric distributions. Each state in the discrete phase-type distribution will represent a stochastic process, such that the time until absorption of a random variable (<span class="math inline">\(\tau\)</span>) follows an absorbing Markov chain. In this case we say that <span class="math inline">\(\tau+1\sim DPH(\pi, T)\)</span>, where <span class="math inline">\(T\)</span> is the sub-intensity matrix that gathers the transition rates and <span class="math inline">\(\pi\)</span> is the vector of initial probabilities.</p>
 <p>The discrete phase-type representation of <span class="math inline">\(S_{total}\)</span> can be built from the continuous phase-type representation of the total branch length. Following <strong>theorem 3.5</strong> in Hobolth et al. <span class="citation">(<a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span>, the total branch length can be discretized if the mutation parameter <span class="math inline">\(\theta\)</span> is supplied.</p>
@@ -364,9 +364,9 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <p>Bear in mind that it is possible for some i-tons to never be observed. This means that the initial probability vector might not sum up to 1, because the variable might directly jump to the absorbing state. The probability that this happens is the so-called defect.</p>
 <p>Because phase-type theory has well-defined functions for discrete phase-type distributions, the expectation, the variance, the survival function, the distribution function and the density function of all the variables defined above can be computed efficiently. <code>PhaseTypeR</code> contains an efficient implementation of discrete phase-type distributions and all these functions associated to them.</p>
 </div>
-<div class="section level2">
-<h2 id="total-number-of-segregating-sites-s_total">3.2. Total number of segregating sites (<span class="math inline">\(S_{total}\)</span>)<a class="anchor" aria-label="anchor" href="#total-number-of-segregating-sites-s_total"></a>
-</h2>
+<div class="section level3">
+<h3 id="total-number-of-segregating-sites-s_total">3.2. Total number of segregating sites (<span class="math inline">\(S_{total}\)</span>)<a class="anchor" aria-label="anchor" href="#total-number-of-segregating-sites-s_total"></a>
+</h3>
 <p>As explained above, we can use our previous definition of <span class="math inline">\(T_{total}\)</span> and use <strong>theorem 3.5</strong> in Hobolth et. al <span class="citation">(<a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span> for a given theta to discretize the phase-type distribution into the sub-intensity matrix for <span class="math inline">\(S_{total}\)</span>:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fl">3</span>
@@ -486,9 +486,9 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="co">#&gt; [1] 17.75</span></code></pre></div>
 <p>Because we do not care about the nature of each of the mutations (this is, we do not care whether segregating sites are singletons, doubletons or etc.), this way of defining <span class="math inline">\(S_{total}\)</span> is more inefficient than the one on top. However, this second definition will be helpful for getting phase-type representations of i-tons (<span class="math inline">\(\xi_i\)</span>).</p>
 </div>
-<div class="section level2">
-<h2 id="i-tons-xi_i">3.3. i-tons (<span class="math inline">\(\xi_i\)</span>)<a class="anchor" aria-label="anchor" href="#i-tons-xi_i"></a>
-</h2>
+<div class="section level3">
+<h3 id="i-tons-xi_i">3.3. i-tons (<span class="math inline">\(\xi_i\)</span>)<a class="anchor" aria-label="anchor" href="#i-tons-xi_i"></a>
+</h3>
 <p>The i-tons <span class="math inline">\(\xi_i\)</span> can also be represented using a discrete phase-type distribution. We will use the same definition of Kingman’s coalescent process, but this time we need to the reward-transform the continuous phase-type distribution with a vector corresponding only to the branches that give rise to a certain <span class="math inline">\(\xi_i\)</span>.</p>
 <p>For example, the reward matrix for singletons and the subsequent continuous phase-type representation of the branches that give rise to singletons when <span class="math inline">\(n=4\)</span> (see Hobolth et al. <span class="citation">(<a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span> for further details):</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
@@ -599,9 +599,9 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="co">#&gt; [1] 3.888889</span></code></pre></div>
 <p>Note that we need to subtract 1 from the mean to retrieve the true value. This is because of the way discrete phase-type distributions are defined (see <span class="citation">(Bladt and Nielsen <a href="#ref-Bladt2017" role="doc-biblioref">2017</a>)</span> and <span class="citation">(Hobolth, Siri-Jégousse, and Bladt <a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span> for details).</p>
 </div>
-<div class="section level2">
-<h2 id="density-distribution-and-quantile-functions-1">3.4. Density, distribution and quantile functions<a class="anchor" aria-label="anchor" href="#density-distribution-and-quantile-functions-1"></a>
-</h2>
+<div class="section level3">
+<h3 id="density-distribution-and-quantile-functions-1">3.4. Density, distribution and quantile functions<a class="anchor" aria-label="anchor" href="#density-distribution-and-quantile-functions-1"></a>
+</h3>
 <p><code>PhaseTypeR</code> also contains the density function (<code><a href="../reference/DPH_functions.html">dDPH()</a></code>), quantile function (<code><a href="../reference/DPH_functions.html">qDPH()</a></code>), distribution function (<code><a href="../reference/DPH_functions.html">pDPH()</a></code>) and random draw generator (<code><a href="../reference/DPH_functions.html">rDPH()</a></code>) for the discrete phase-type distribution. For example, for <span class="math inline">\(S_{total}\)</span> and singletons when <span class="math inline">\(n=4\)</span> and <span class="math inline">\(\theta=3\)</span>.</p>
 <p>For example, the density function:</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
@@ -675,9 +675,9 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <p><img src="a2_pop_gen_iker_files/figure-html/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 </div>
-<div class="section level1">
-<h1 id="the-multivariate-continuous-phase-type-distribution-y_i">4. The Multivariate Continuous Phase-Type Distribution: <span class="math inline">\(Y_i\)</span><a class="anchor" aria-label="anchor" href="#the-multivariate-continuous-phase-type-distribution-y_i"></a>
-</h1>
+<div class="section level2">
+<h2 id="the-multivariate-continuous-phase-type-distribution-y_i">4. The Multivariate Continuous Phase-Type Distribution: <span class="math inline">\(Y_i\)</span><a class="anchor" aria-label="anchor" href="#the-multivariate-continuous-phase-type-distribution-y_i"></a>
+</h2>
 <p>If the evolutionary tree is given, then each element of the site frequency spectrum (singletons, doubletons, etc) can be defined as mutations sprinkled over the tree following a Poisson distribution with rate <span class="math inline">\(\theta/2\)</span>. The mean of each <span class="math inline">\(\xi_i\)</span> will be directly proportional to the mean of the total branch length that gives rise to each i-ton, or <span class="math inline">\(Y_i\)</span>:</p>
 <p><span class="math display">\[
 \mathop{\mathbb{E}}[\xi_i]=\mathop{\mathbb{E}}[\mathop{\mathbb{E}}(\xi_i|Y_i)]=
@@ -754,9 +754,9 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <span class="co">#&gt; [3,]  0.8888889 -0.4444444  0.8888889</span></code></pre></div>
 <p>where the diagonal corresponds to the variance and the rest of the elements to the covariances.</p>
 </div>
-<div class="section level1 unnumbered">
-<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h1>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references">
 <div id="ref-Bladt2017">
 <p>Bladt, Mogens, and Bo Friis Nielsen. 2017. <em>Matrix-Exponential Distributions in Applied Probability</em>. Vol. 81. <a href="https://doi.org/10.1007/978-1-4939-7049-0" class="external-link">https://doi.org/10.1007/978-1-4939-7049-0</a>.</p>
@@ -788,7 +788,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
