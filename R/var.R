@@ -128,7 +128,7 @@ var.mult_disc_phase_type <- function(obj, v = NULL, ...){
       for (j in 1:ncol(cov_mat)) {
         cov_mat[i, j] <- init %*% (U %*% diag(r[,i]) %*% U %*% diag(r[,j]) +
                                      U %*% diag(r[,j]) %*% U %*% diag(r[,i]) -
-                                     U %*% diag(r[,i]) %*% diag(r[,j]) +
+                                     U %*% diag(r[,i]) %*% diag(r[,j]) -
                                      U %*% diag(r[,i]) %*% e %*% init %*% U %*%
                                      diag(r[,j])) %*% e
       }
@@ -142,7 +142,7 @@ var.mult_disc_phase_type <- function(obj, v = NULL, ...){
   }
   var <- init %*% (U %*% diag(r[,v[1]]) %*% U %*% diag(r[,v[2]]) +
                      U %*% diag(r[,v[2]]) %*% U %*% diag(r[,v[1]]) -
-                     U %*% diag(r[,v[1]]) %*% diag(r[,v[2]]) +
+                     U %*% diag(r[,v[1]]) %*% diag(r[,v[2]]) -
                      U %*% diag(r[,v[1]]) %*% e %*% init %*% U %*%
                      diag(r[,v[2]])) %*% e
   var = as.numeric(var)

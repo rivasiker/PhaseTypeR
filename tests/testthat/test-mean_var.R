@@ -1,6 +1,7 @@
 context('Calculating the mean and the (co)variance')
 
 library(testthat)
+local_edition(3)
 library(PhaseTypeR)
 
 
@@ -152,6 +153,49 @@ test_that(
                      v = c(1, 2)),
                  76)
 
+    expect_equal(
+      diag(
+          var(
+            MPH(
+              subint_mat =
+                matrix(
+                  c(-2, 0, 0,
+                    1, -1, 0,
+                    0, 1, -0.5),
+                  ncol = 3),
+              reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
+              init_probs = c(1, 0, 0)),
+          )
+        ),
+      c(
+        var(
+          reward_phase_type(
+            PH(
+              subint_mat =
+                matrix(
+                  c(-2, 0, 0,
+                    1, -1, 0,
+                    0, 1, -0.5),
+                  ncol = 3),
+              init_probs = c(1, 0, 0)),
+            c(1, 2, 3)
+          )
+        ),
+        var(
+          reward_phase_type(
+            PH(
+              subint_mat =
+                matrix(
+                  c(-2, 0, 0,
+                    1, -1, 0,
+                    0, 1, -0.5),
+                  ncol = 3),
+              init_probs = c(1, 0, 0)),
+            c(4, 5, 6)
+          )
+        )
+      ))
+
     expect_error(var(MPH(subint_mat = matrix(c(-2, 0, 0,
                                                1, -1, 0,
                                                0, 1, -0.5), ncol = 3),
@@ -160,43 +204,75 @@ test_that(
                      v = c(1, 2, 1)),
                  'right indices')
 
-    expect_equal(var(MDPH(subint_mat = matrix(c(0.4, 0.24, 0.12,
-                                                 0,   0.4,  0.2,
-                                                 0,   0,    0.5),
-                                               ncol = 3,
-                                               byrow = TRUE),
-                           reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
-                           init_probs = c(1, 0, 0))),
-                 matrix(c(626/9, 1652/9, 1652/9, 4442/9), nrow = 2))
+    expect_snapshot(var(MDPH(subint_mat = matrix(c(0.4, 0.24, 0.12,
+                                                   0,   0.4,  0.2,
+                                                   0,   0,    0.5),
+                                                 ncol = 3,
+                                                 byrow = TRUE),
+                             reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
+                             init_probs = c(1, 0, 0))))
 
-    expect_equal(var(MDPH(subint_mat = matrix(c(0.4, 0.24, 0.12,
-                                                0,   0.4,  0.2,
-                                                0,   0,    0.5),
-                                              ncol = 3,
-                                              byrow = TRUE),
-                          reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
-                          init_probs = c(1, 0, 0))),
-                 matrix(c(626/9, 1652/9, 1652/9, 4442/9), nrow = 2))
+    expect_snapshot(var(MDPH(subint_mat = matrix(c(0.4, 0.24, 0.12,
+                                                   0,   0.4,  0.2,
+                                                   0,   0,    0.5),
+                                                 ncol = 3,
+                                                 byrow = TRUE),
+                             reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
+                             init_probs = c(1, 0, 0)),
+                        v = 2))
 
-    expect_equal(var(MDPH(subint_mat = matrix(c(0.4, 0.24, 0.12,
-                                                0,   0.4,  0.2,
-                                                0,   0,    0.5),
-                                              ncol = 3,
-                                              byrow = TRUE),
-                          reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
-                          init_probs = c(1, 0, 0)),
-                     v = 2),
-                 4442/9)
+    expect_snapshot(var(MDPH(subint_mat = matrix(c(0.4, 0.24, 0.12,
+                                                   0,   0.4,  0.2,
+                                                   0,   0,    0.5),
+                                                 ncol = 3,
+                                                 byrow = TRUE),
+                             reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
+                             init_probs = c(1, 0, 0)),
+                        v = c(1,2)))
 
-    expect_equal(var(MDPH(subint_mat = matrix(c(0.4, 0.24, 0.12,
-                                                0,   0.4,  0.2,
-                                                0,   0,    0.5),
-                                              ncol = 3,
-                                              byrow = TRUE),
-                          reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
-                          init_probs = c(1, 0, 0)),
-                     v = c(1, 2)),
-                 1652/9)
+    expect_equal(
+      diag(
+        var(
+          MDPH(
+            subint_mat =
+              matrix(
+                c(0.4, 0.24, 0.12,
+                  0,   0.4,  0.2,
+                  0,   0,    0.5),
+                ncol = 3, byrow = TRUE),
+            reward_mat = matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2),
+            init_probs = c(1, 0, 0)))
+        ),
+      c(
+        var(
+          reward_phase_type(
+            DPH(
+              subint_mat =
+                matrix(
+                  c(0.4, 0.24, 0.12,
+                    0,   0.4,  0.2,
+                    0,   0,    0.5),
+                  ncol = 3, byrow = TRUE),
+              init_probs = c(1, 0, 0)),
+            c(1, 2, 3)
+            )
+          ),
+        var(
+          reward_phase_type(
+            DPH(
+              subint_mat =
+                matrix(
+                  c(0.4, 0.24, 0.12,
+                    0,   0.4,  0.2,
+                    0,   0,    0.5),
+                  ncol = 3, byrow = TRUE),
+              init_probs = c(1, 0, 0)),
+            c(4, 5, 6)
+          )
+        )
+      )
+      )
+
 
     expect_error(var(MDPH(subint_mat = matrix(c(0.4, 0.24, 0.12,
                                                 0,   0.4,  0.2,
