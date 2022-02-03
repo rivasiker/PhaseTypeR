@@ -5,9 +5,9 @@ Version: 1.0.2
 Authors@R: c(
     person("Iker", "Rivas-González", , "ikerrivas96@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0515-0628")),
-    person("Colin", "Guetemme", , "colin.guetemme@live.fr", role = "aut"),
     person("Asger", "Hobolth", , "asger@math.au.dk", role = "aut"),
-    person("Lars Nørvang", "Andersen", , "larsa@math.au.dk", role = "aut")
+    person("Lars Nørvang", "Andersen", , "larsa@math.au.dk", role = "aut"),
+    person("Colin", "Guetemme", , "colin.guetemme@live.fr", role = "aut")
   )
 Maintainer: Iker Rivas-González <ikerrivas96@gmail.com>
 Description: General implementation of core function from phase-type
