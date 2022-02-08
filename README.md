@@ -7,6 +7,7 @@
 
 [![R-CMD-check](https://github.com/rivasiker/PhaseTypeR/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/rivasiker/PhaseTypeR/actions/workflows/check-standard.yaml)
 [![CRAN](https://www.r-pkg.org/badges/version/PhaseTypeR)](https://cran.r-project.org/web/packages/PhaseTypeR/index.html)
+[![devel Version](https://img.shields.io/badge/devel-1.0.2-brightgreen.svg)](https://github.com/rivasiker/PhaseTypeR)
 [![downloads](https://cranlogs.r-pkg.org/badges/grand-total/PhaseTypeR)](https://cran.r-project.org/web/packages/PhaseTypeR/index.html)
 [![Codecov test
 coverage](https://codecov.io/gh/rivasiker/PhaseTypeR/branch/master/graph/badge.svg)](https://app.codecov.io/gh/rivasiker/PhaseTypeR?branch=master)
