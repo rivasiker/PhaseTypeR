@@ -1,5 +1,9 @@
 ## Notes
 
+### Fourth submission
+
+Correction of minor bugs, described in NEWS.md. Version number updated. 
+
 ### Third submission
 
 > tests on x86_64 Linux with R-devel configured using --disable-long-double
@@ -46,7 +50,7 @@ Done.
 * R-hub builder (Ubuntu Linux): release
 * R-hub builder (Windows): devel
 * win-builder: devel
-* local R installation (macOS): R 4.1.1
+* local R installation (macOS): R 4.1.2
 
 ## R CMD check results
 
