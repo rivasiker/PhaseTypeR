@@ -43,7 +43,7 @@ Done.
 
 ## Test environments
 
-* GitHub Actions (ubuntu-20.04): release, devel
+* GitHub Actions (ubuntu-latest): release, devel, oldrel-1
 * GitHub Actions (macOS-latest): release
 * GitHub Actions (windows-latest): release
 * R-hub builder (Fedora Linux): devel
@@ -54,6 +54,4 @@ Done.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
-* Days since last update: 3
+0 errors | 0 warnings | 0 notes
