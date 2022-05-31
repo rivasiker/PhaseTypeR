@@ -209,7 +209,8 @@ rFullDPH <- function(obj){
 
   curtime <- 1
   while(curstate <= n){
-    curstate <- sample(1:(n+1), 1, prob = int_mat[curstate,])
+    curstate <- sample(1:(n+1), 1,
+                       prob = ifelse(int_mat[curstate,]<0, 0, int_mat[curstate,]))
     if (curstate == states[length(states)]){
       curtime <- curtime + 1
     } else {
