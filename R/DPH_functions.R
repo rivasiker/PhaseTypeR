@@ -156,9 +156,9 @@ rDPH <- function(n, obj){
     n_vec <- numeric(n)
 
 
-
+    rsum <- rowSums(subint_mat)
     # define the intensity matrix by adding the p+1 state column
-    int_mat <- cbind(subint_mat, 1 - rowSums(subint_mat))
+    int_mat <- cbind(subint_mat, 1 - ifelse(rsum < 0, 0, rsum))
 
     # for each n
     for (i in 1:n) {
