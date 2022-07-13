@@ -101,7 +101,7 @@
 <p><code>PhaseTypeR</code> is a flexible and efficient package for using phase-type theory in R. This vignette describes how to use the general-purpose phase-type functions for modeling common statistics in population genomics at the finest level. The formulation of general phase-type theory can be consulted in Bladt and Nielsen’s ‘Matrix-Exponential Distributions in Applied Probability’ <span class="citation">(Bladt and Nielsen <a href="#ref-Bladt2017" role="doc-biblioref">2017</a>)</span>, and the notation for this vignette is also adopted from this book. On the other hand, the theory behind applying phase-type theory in population genomics is based on Hobolth et al. <span class="citation">(<a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span>.</p>
 <p>Do not hesitate to run <code>?PhaseTypeR</code> for a quick summary of the available general-purpose functions, or to open the help files for the individual functions.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rivasiker.github.io/PhaseTypeR/" class="external-link">PhaseTypeR</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rivasiker.github.io/PhaseTypeR/" class="external-link">PhaseTypeR</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="the-univariate-continuous-phase-type-distribution-t_mrca-and-t_total">2. The Univariate Continuous Phase-Type Distribution: <span class="math inline">\(T_{MRCA}\)</span> and <span class="math inline">\(T_{Total}\)</span><a class="anchor" aria-label="anchor" href="#the-univariate-continuous-phase-type-distribution-t_mrca-and-t_total"></a>
@@ -138,49 +138,49 @@
 \]</span></p>
 <p>We can therefore define <span class="math inline">\(T_{MRCA}\)</span> as following a phase-type distribution using <code>PhaseTypeR</code> with the following function</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># for any integer n &gt; 2</span>
-<span class="va">subint_mat_t_mrca</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Special.html" class="external-link">choose</a></span><span class="op">(</span><span class="va">n</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">subint_mat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">subint_mat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="va">subint_mat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="op">-</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">subint_mat</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># for any integer n &gt; 2</span></span>
+<span><span class="va">subint_mat_t_mrca</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Special.html" class="external-link">choose</a></span><span class="op">(</span><span class="va">n</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">subint_mat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">subint_mat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="va">subint_mat</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="op">-</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">subint_mat</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>For a sample size of <span class="math inline">\(n=4\)</span>, the sub-intensity matrix can be generated using the function above, and the initial probabilities can be defined as a vector of length <span class="math inline">\(n-1\)</span>, starting with one and the rest entries filled with zeros:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">4</span>
-<span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="fu">subint_mat_t_mrca</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
-<span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">n</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span>, <span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
+<span><span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="fu">subint_mat_t_mrca</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span><span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">n</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span>, <span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can use a <code>cont_phase_type</code> class of the <code>PhaseTypeR</code> package to generate a phase-type representation of <span class="math inline">\(T_{MRCA}\)</span> by using <code><a href="../reference/generator_functions.html">PH()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">t_mrca_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span>
-
-<span class="va">t_mrca_4</span>
-<span class="co">#&gt; $subint_mat</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,]   -6    6    0</span>
-<span class="co">#&gt; [2,]    0   -3    3</span>
-<span class="co">#&gt; [3,]    0    0   -1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $init_probs</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,]    1    0    0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $defect</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "cont_phase_type"</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">t_mrca_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">t_mrca_4</span></span>
+<span><span class="co">#&gt; $subint_mat</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]   -6    6    0</span></span>
+<span><span class="co">#&gt; [2,]    0   -3    3</span></span>
+<span><span class="co">#&gt; [3,]    0    0   -1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $init_probs</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    1    0    0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $defect</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "cont_phase_type"</span></span></code></pre></div>
 <p>There are a number of methods associated with the class <code>cont_phase_type</code>. For example, the mean for <span class="math inline">\(T_{MRCA}\)</span> can be computed using:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">t_mrca_4</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.5</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">t_mrca_4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.5</span></span></code></pre></div>
 <p>While the variance can be calculated using:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">t_mrca_4</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.138889</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">t_mrca_4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.138889</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="total-tree-length-t_total-and-the-reward-transformation">2.3. Total tree length (<span class="math inline">\(T_{Total}\)</span>) and the reward-transformation<a class="anchor" aria-label="anchor" href="#total-tree-length-t_total-and-the-reward-transformation"></a>
@@ -203,51 +203,51 @@
  \boldsymbol{\pi} = (1,\ 0, \ ...\,,\ 0)
 \]</span></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">subint_mat_t_total</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">subint_mat</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="va">n</span><span class="op">-</span><span class="fl">1</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">subint_mat</span><span class="op">[</span><span class="va">i</span>, <span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="op">-</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="va">i</span><span class="op">)</span>
-    <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">&lt;</span> <span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
-      <span class="va">subint_mat</span><span class="op">[</span><span class="va">i</span>, <span class="va">i</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">=</span> <span class="op">-</span><span class="va">subint_mat</span><span class="op">[</span><span class="va">i</span>, <span class="va">i</span><span class="op">]</span>
-    <span class="op">}</span>
-  <span class="op">}</span>
-  <span class="va">subint_mat</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">subint_mat_t_total</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">subint_mat</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="va">n</span><span class="op">-</span><span class="fl">1</span>, ncol <span class="op">=</span> <span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">subint_mat</span><span class="op">[</span><span class="va">i</span>, <span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="op">-</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="va">i</span><span class="op">)</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">&lt;</span> <span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">subint_mat</span><span class="op">[</span><span class="va">i</span>, <span class="va">i</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">=</span> <span class="op">-</span><span class="va">subint_mat</span><span class="op">[</span><span class="va">i</span>, <span class="va">i</span><span class="op">]</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">subint_mat</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>For a sample size of <span class="math inline">\(n=4\)</span>, the sub-intensity matrix and the initial probabilities can be defined as:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">4</span>
-<span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="fu">subint_mat_t_total</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
-<span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">n</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span>, <span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
+<span><span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="fu">subint_mat_t_total</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span><span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">n</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span>, <span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><span class="math inline">\(T_{Total}\)</span> can also be represented using the <code>cont_phase_type</code> class:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">t_total_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span>
-
-<span class="va">t_total_4</span>
-<span class="co">#&gt; $subint_mat</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,] -1.5  1.5  0.0</span>
-<span class="co">#&gt; [2,]  0.0 -1.0  1.0</span>
-<span class="co">#&gt; [3,]  0.0  0.0 -0.5</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $init_probs</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,]    1    0    0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $defect</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "cont_phase_type"</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">t_total_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">t_total_4</span></span>
+<span><span class="co">#&gt; $subint_mat</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,] -1.5  1.5  0.0</span></span>
+<span><span class="co">#&gt; [2,]  0.0 -1.0  1.0</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0 -0.5</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $init_probs</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    1    0    0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $defect</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "cont_phase_type"</span></span></code></pre></div>
 <p>Without further ado, we can use the exact same phase-type formulas (and thus <code>PhaseTypeR</code> functions) for calculating the mean and variance of <span class="math inline">\(T_{Total}\)</span>:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">t_total_4</span><span class="op">)</span>
-<span class="co">#&gt; [1] 3.666667</span>
-<span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">t_total_4</span><span class="op">)</span>
-<span class="co">#&gt; [1] 5.444444</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">t_total_4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3.666667</span></span>
+<span><span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">t_total_4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 5.444444</span></span></code></pre></div>
 <p><span class="math inline">\(T_{MRCA}\)</span> and <span class="math inline">\(T_{total}\)</span> are tightly interconnected. In fact,</p>
 <p><span class="math display">\[
 T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
@@ -256,23 +256,23 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <p>The reward-transformation is a way to give more weights to some states than other. So the first state of the sub-intensity matrix should have a rate of <span class="math inline">\(n\)</span>, because before any coalescent event there are <span class="math inline">\(n\)</span> lineages, then the second state a rate of <span class="math inline">\(n-1\)</span> and so on.</p>
 <p>Therefore, <span class="math inline">\(T_{total}\)</span> can be represented as a reward-transformed <span class="math inline">\(T_{MRCA}\)</span>, where the reward vector is <span class="math inline">\([n, n-1, ..., 2]\)</span>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">t_total_4_bis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">t_mrca_4</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="va">t_total_4_bis</span>
-<span class="co">#&gt; $subint_mat</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,] -1.5  1.5  0.0</span>
-<span class="co">#&gt; [2,]  0.0 -1.0  1.0</span>
-<span class="co">#&gt; [3,]  0.0  0.0 -0.5</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $init_probs</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,]    1    0    0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $defect</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "cont_phase_type"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">t_total_4_bis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">t_mrca_4</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">t_total_4_bis</span></span>
+<span><span class="co">#&gt; $subint_mat</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,] -1.5  1.5  0.0</span></span>
+<span><span class="co">#&gt; [2,]  0.0 -1.0  1.0</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0 -0.5</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $init_probs</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    1    0    0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $defect</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "cont_phase_type"</span></span></code></pre></div>
 <p>Which is exactly the same as our previous definition.</p>
 </div>
 <div class="section level3">
@@ -281,73 +281,73 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <p><code>PhaseTypeR</code> also includes the density function (<code><a href="../reference/PH_functions.html">dPH()</a></code>), quantile function (<code><a href="../reference/PH_functions.html">qPH()</a></code>), distribution function (<code><a href="../reference/PH_functions.html">pPH()</a></code>) and random draw generator (<code><a href="../reference/PH_functions.html">rPH()</a></code>) for continuous phase-type distributions. We can therefore apply these functions for our phase-type representation of <span class="math inline">\(T_{MRCA}\)</span> and <span class="math inline">\(T_{Total}\)</span>.</p>
 <p>For example, the density function:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">t_mrca_4</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.4821092</span>
-<span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">t_total_4</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.1408529 0.2204939 0.2019975</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">t_mrca_4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.4821092</span></span>
+<span><span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">t_total_4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.1408529 0.2204939 0.2019975</span></span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">0.1</span><span class="op">)</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_mrca_4</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span>
-<span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_total_4</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">0.5</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">MRCA</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,
-       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"blue"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">'Density function (n=4)'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_mrca_4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span></span>
+<span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_total_4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">0.5</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">MRCA</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"blue"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">'Density function (n=4)'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="a2_pop_gen_iker_files/figure-html/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>The quantile function:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">t_mrca_4</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.232831</span>
-<span class="fu"><a href="../reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">t_total_4</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.988284 4.784137</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">t_mrca_4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.232831</span></span>
+<span><span class="fu"><a href="../reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">t_total_4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.988284 4.784137</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.99</span>,<span class="fl">0.01</span><span class="op">)</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_total_4</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span>
-<span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_mrca_4</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">'Quantile function (n=4)'</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">10</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">MRCA</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,
-       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"blue"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.99</span>,<span class="fl">0.01</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_total_4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span></span>
+<span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_mrca_4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">'Quantile function (n=4)'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">10</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">MRCA</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"blue"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="a2_pop_gen_iker_files/figure-html/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>The probability function:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">t_mrca_4</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.1214176</span>
-<span class="fu"><a href="../reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">t_total_4</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.001622363 0.030579354</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">t_mrca_4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.1214176</span></span>
+<span><span class="fu"><a href="../reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">t_total_4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.001622363 0.030579354</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">0.1</span><span class="op">)</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_mrca_4</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_total_4</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">'Probability function (n=4)'</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">0.4</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">MRCA</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,
-       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"blue"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_mrca_4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">t_total_4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">'Probability function (n=4)'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">0.4</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">MRCA</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"blue"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="a2_pop_gen_iker_files/figure-html/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>And the random drawer:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>
-<span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">3</span>, <span class="va">t_mrca_4</span><span class="op">)</span>
-<span class="co">#&gt; [1] 2.1741824 1.5582716 0.9070491</span>
-<span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">10</span>, <span class="va">t_total_4</span><span class="op">)</span>
-<span class="co">#&gt;  [1] 2.267939 1.919821 1.459578 5.727177 3.080435 3.051581 1.558384 3.619314</span>
-<span class="co">#&gt;  [9] 1.968178 2.714922</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">3</span>, <span class="va">t_mrca_4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2.1741824 1.5582716 0.9070491</span></span>
+<span><span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">10</span>, <span class="va">t_total_4</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] 2.267939 1.919821 1.459578 5.727177 3.080435 3.051581 1.558384 3.619314</span></span>
+<span><span class="co">#&gt;  [9] 1.968178 2.714922</span></span></code></pre></div>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="va">t_total_4</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="st">'10,000 random draws (n=4)'</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30</span>, <span class="fl">0.5</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3000</span><span class="op">)</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span><span class="op">)</span>,
-     col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html" class="external-link">rgb</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="va">t_mrca_4</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">x</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30</span>, <span class="fl">0.5</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">T</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html" class="external-link">rgb</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0.5</span>,<span class="fl">0</span>,<span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">2000</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">MRCA</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,
-       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"blue"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="va">t_total_4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="st">'10,000 random draws (n=4)'</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30</span>, <span class="fl">0.5</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3000</span><span class="op">)</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span><span class="op">)</span>,</span>
+<span>     col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html" class="external-link">rgb</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="va">t_mrca_4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">x</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30</span>, <span class="fl">0.5</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">T</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html" class="external-link">rgb</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0.5</span>,<span class="fl">0</span>,<span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">2000</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">MRCA</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'T'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"blue"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="a2_pop_gen_iker_files/figure-html/unnamed-chunk-19-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -369,121 +369,121 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 </h3>
 <p>As explained above, we can use our previous definition of <span class="math inline">\(T_{total}\)</span> and use <strong>theorem 3.5</strong> in Hobolth et. al <span class="citation">(<a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span> for a given theta to discretize the phase-type distribution into the sub-intensity matrix for <span class="math inline">\(S_{total}\)</span>:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fl">3</span>
-
-<span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="va">t_total_4</span><span class="op">$</span><span class="va">subint_mat</span>
-<span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="va">t_total_4</span><span class="op">$</span><span class="va">init_probs</span>
-
-<span class="va">disc_subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">subint_mat</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span><span class="op">/</span><span class="va">theta</span> <span class="op">*</span> <span class="va">subint_mat</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
+<span></span>
+<span><span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="va">t_total_4</span><span class="op">$</span><span class="va">subint_mat</span></span>
+<span><span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="va">t_total_4</span><span class="op">$</span><span class="va">init_probs</span></span>
+<span></span>
+<span><span class="va">disc_subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">subint_mat</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span><span class="op">/</span><span class="va">theta</span> <span class="op">*</span> <span class="va">subint_mat</span><span class="op">)</span></span></code></pre></div>
 <p>And we can now use the <code><a href="../reference/generator_functions.html">DPH()</a></code> function of <code>PhaseTypeR</code> to build a discrete phase-type class <code>disc_phase_type</code> for <span class="math inline">\(S_{total}\)</span>:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">s_tot_4_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">DPH</a></span><span class="op">(</span><span class="va">disc_subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span>
-<span class="va">s_tot_4_3</span>
-<span class="co">#&gt; $subint_mat</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,]  0.5  0.3 0.15</span>
-<span class="co">#&gt; [2,]  0.0  0.6 0.30</span>
-<span class="co">#&gt; [3,]  0.0  0.0 0.75</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $init_probs</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,]    1    0    0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $defect</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "disc_phase_type"</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">s_tot_4_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">DPH</a></span><span class="op">(</span><span class="va">disc_subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span></span>
+<span><span class="va">s_tot_4_3</span></span>
+<span><span class="co">#&gt; $subint_mat</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]  0.5  0.3 0.15</span></span>
+<span><span class="co">#&gt; [2,]  0.0  0.6 0.30</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0 0.75</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $init_probs</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    1    0    0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $defect</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "disc_phase_type"</span></span></code></pre></div>
 <p>The variance and the expectation of any discrete phase-type distribution can be computed with <code><a href="../reference/var.html">var()</a></code> and <code><a href="../reference/mean.html">mean()</a></code> respectively:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">s_tot_4_3</span><span class="op">)</span>
-<span class="co">#&gt; [1] 6.5</span>
-<span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">s_tot_4_3</span><span class="op">)</span>
-<span class="co">#&gt; [1] 17.75</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">s_tot_4_3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 6.5</span></span>
+<span><span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">s_tot_4_3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 17.75</span></span></code></pre></div>
 <p><span class="math inline">\(S_{total}\)</span> can also be defined in a different way. As suggested by Hobolth et al. <span class="citation">(<a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span>, we can get a matrix that summarizes all the possible states, each state being a specific combination of i-ton branches.</p>
 <p>As a mock example, we will be using a sample size of <span class="math inline">\(n=4\)</span>, although the matrix corresponding to an arbitrary sample size can be obtained using the so-called block-counting process <span class="citation">(Hobolth, Siri-Jégousse, and Bladt <a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span>. Using the standard coalescent model, we can define this matrix as:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">subint_itons_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6</span>,  <span class="fl">6</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,
-                            <span class="fl">0</span>, <span class="op">-</span><span class="fl">3</span>,  <span class="fl">2</span>,  <span class="fl">1</span>,
-                            <span class="fl">0</span>,  <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>,  <span class="fl">0</span>,
-                            <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">subint_itons_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6</span>,  <span class="fl">6</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,</span>
+<span>                            <span class="fl">0</span>, <span class="op">-</span><span class="fl">3</span>,  <span class="fl">2</span>,  <span class="fl">1</span>,</span>
+<span>                            <span class="fl">0</span>,  <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>,  <span class="fl">0</span>,</span>
+<span>                            <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p>And we can also define a continuous phase-type representation of this process:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">kingman_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subint_itons_4</span><span class="op">)</span>
-<span class="co">#&gt; Warning in check_phase_type(subint_mat, init_probs): </span>
-<span class="co">#&gt;  The initial probability vector is automatically generated.</span>
-<span class="va">kingman_4</span>
-<span class="co">#&gt; $subint_mat</span>
-<span class="co">#&gt;      [,1] [,2] [,3] [,4]</span>
-<span class="co">#&gt; [1,]   -6    6    0    0</span>
-<span class="co">#&gt; [2,]    0   -3    2    1</span>
-<span class="co">#&gt; [3,]    0    0   -1    0</span>
-<span class="co">#&gt; [4,]    0    0    0   -1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $init_probs</span>
-<span class="co">#&gt;      [,1] [,2] [,3] [,4]</span>
-<span class="co">#&gt; [1,]    1    0    0    0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $defect</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "cont_phase_type"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">kingman_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subint_itons_4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in check_phase_type(subint_mat, init_probs): </span></span>
+<span><span class="co">#&gt;  The initial probability vector is automatically generated.</span></span>
+<span><span class="va">kingman_4</span></span>
+<span><span class="co">#&gt; $subint_mat</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,]   -6    6    0    0</span></span>
+<span><span class="co">#&gt; [2,]    0   -3    2    1</span></span>
+<span><span class="co">#&gt; [3,]    0    0   -1    0</span></span>
+<span><span class="co">#&gt; [4,]    0    0    0   -1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $init_probs</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,]    1    0    0    0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $defect</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "cont_phase_type"</span></span></code></pre></div>
 <p>And then we must define a reward vector corresponding to each of the i-tons for each of the states to get a phase-type. In this case:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">reward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>
-<span class="va">seg_sites_cont_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">kingman_4</span>, <span class="va">reward</span><span class="op">)</span>
-<span class="va">seg_sites_cont_4</span>
-<span class="co">#&gt; $subint_mat</span>
-<span class="co">#&gt;      [,1] [,2]       [,3]       [,4]</span>
-<span class="co">#&gt; [1,] -1.5  1.5  0.0000000  0.0000000</span>
-<span class="co">#&gt; [2,]  0.0 -1.0  0.6666667  0.3333333</span>
-<span class="co">#&gt; [3,]  0.0  0.0 -0.5000000  0.0000000</span>
-<span class="co">#&gt; [4,]  0.0  0.0  0.0000000 -0.5000000</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $init_probs</span>
-<span class="co">#&gt;      [,1] [,2] [,3] [,4]</span>
-<span class="co">#&gt; [1,]    1    0    0    0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $defect</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "cont_phase_type"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">reward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">seg_sites_cont_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">kingman_4</span>, <span class="va">reward</span><span class="op">)</span></span>
+<span><span class="va">seg_sites_cont_4</span></span>
+<span><span class="co">#&gt; $subint_mat</span></span>
+<span><span class="co">#&gt;      [,1] [,2]       [,3]       [,4]</span></span>
+<span><span class="co">#&gt; [1,] -1.5  1.5  0.0000000  0.0000000</span></span>
+<span><span class="co">#&gt; [2,]  0.0 -1.0  0.6666667  0.3333333</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0 -0.5000000  0.0000000</span></span>
+<span><span class="co">#&gt; [4,]  0.0  0.0  0.0000000 -0.5000000</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $init_probs</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,]    1    0    0    0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $defect</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "cont_phase_type"</span></span></code></pre></div>
 <p>Now we need to discretize this continuous phase-type distribution for getting the discrete phase-type representation of <span class="math inline">\(S_{total}\)</span>. Using <strong>theorem 3.5</strong> in Hobolth et. al <span class="citation">(<a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span>:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fl">3</span>
-
-<span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="va">seg_sites_cont_4</span><span class="op">$</span><span class="va">subint_mat</span>
-<span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="va">seg_sites_cont_4</span><span class="op">$</span><span class="va">init_probs</span>
-
-<span class="va">disc_subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">subint_mat</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span><span class="op">/</span><span class="va">theta</span> <span class="op">*</span> <span class="va">subint_mat</span><span class="op">)</span>
-
-<span class="va">s_tot_4_3_bis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">DPH</a></span><span class="op">(</span><span class="va">disc_subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span>
-<span class="va">s_tot_4_3_bis</span>
-<span class="co">#&gt; $subint_mat</span>
-<span class="co">#&gt;      [,1] [,2] [,3] [,4]</span>
-<span class="co">#&gt; [1,]  0.5  0.3 0.10 0.05</span>
-<span class="co">#&gt; [2,]  0.0  0.6 0.20 0.10</span>
-<span class="co">#&gt; [3,]  0.0  0.0 0.75 0.00</span>
-<span class="co">#&gt; [4,]  0.0  0.0 0.00 0.75</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $init_probs</span>
-<span class="co">#&gt;      [,1] [,2] [,3] [,4]</span>
-<span class="co">#&gt; [1,]    1    0    0    0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $defect</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "disc_phase_type"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
+<span></span>
+<span><span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="va">seg_sites_cont_4</span><span class="op">$</span><span class="va">subint_mat</span></span>
+<span><span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="va">seg_sites_cont_4</span><span class="op">$</span><span class="va">init_probs</span></span>
+<span></span>
+<span><span class="va">disc_subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">subint_mat</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span><span class="op">/</span><span class="va">theta</span> <span class="op">*</span> <span class="va">subint_mat</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">s_tot_4_3_bis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">DPH</a></span><span class="op">(</span><span class="va">disc_subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span></span>
+<span><span class="va">s_tot_4_3_bis</span></span>
+<span><span class="co">#&gt; $subint_mat</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,]  0.5  0.3 0.10 0.05</span></span>
+<span><span class="co">#&gt; [2,]  0.0  0.6 0.20 0.10</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0 0.75 0.00</span></span>
+<span><span class="co">#&gt; [4,]  0.0  0.0 0.00 0.75</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $init_probs</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,]    1    0    0    0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $defect</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "disc_phase_type"</span></span></code></pre></div>
 <p>This representation seems to differ from the one defined on top, but they are equivalent in nature. For example, if we look at the mean and the variance of this new definition:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">s_tot_4_3_bis</span><span class="op">)</span>
-<span class="co">#&gt; [1] 6.5</span>
-<span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">s_tot_4_3_bis</span><span class="op">)</span>
-<span class="co">#&gt; [1] 17.75</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">s_tot_4_3_bis</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 6.5</span></span>
+<span><span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">s_tot_4_3_bis</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 17.75</span></span></code></pre></div>
 <p>Because we do not care about the nature of each of the mutations (this is, we do not care whether segregating sites are singletons, doubletons or etc.), this way of defining <span class="math inline">\(S_{total}\)</span> is more inefficient than the one on top. However, this second definition will be helpful for getting phase-type representations of i-tons (<span class="math inline">\(\xi_i\)</span>).</p>
 </div>
 <div class="section level3">
@@ -492,111 +492,111 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <p>The i-tons <span class="math inline">\(\xi_i\)</span> can also be represented using a discrete phase-type distribution. We will use the same definition of Kingman’s coalescent process, but this time we need to the reward-transform the continuous phase-type distribution with a vector corresponding only to the branches that give rise to a certain <span class="math inline">\(\xi_i\)</span>.</p>
 <p>For example, the reward matrix for singletons and the subsequent continuous phase-type representation of the branches that give rise to singletons when <span class="math inline">\(n=4\)</span> (see Hobolth et al. <span class="citation">(<a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span> for further details):</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">reward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>
-<span class="va">xi1_cont_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">kingman_4</span>, <span class="va">reward</span><span class="op">)</span>
-<span class="va">xi1_cont_4</span>
-<span class="co">#&gt; $subint_mat</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,] -1.5  1.5    0</span>
-<span class="co">#&gt; [2,]  0.0 -1.5    1</span>
-<span class="co">#&gt; [3,]  0.0  0.0   -1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $init_probs</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,]    1    0    0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $defect</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "cont_phase_type"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">reward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">xi1_cont_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">kingman_4</span>, <span class="va">reward</span><span class="op">)</span></span>
+<span><span class="va">xi1_cont_4</span></span>
+<span><span class="co">#&gt; $subint_mat</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,] -1.5  1.5    0</span></span>
+<span><span class="co">#&gt; [2,]  0.0 -1.5    1</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0   -1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $init_probs</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    1    0    0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $defect</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "cont_phase_type"</span></span></code></pre></div>
 <p>Again, we need to discretize this continuous phase-type distribution for getting the discrete phase-type representation of <span class="math inline">\(\xi_1\)</span>. Using <strong>theorem 3.5</strong> in Hobolth et al. <span class="citation">(<a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span>:</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fl">3</span>
-
-<span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="va">xi1_cont_4</span><span class="op">$</span><span class="va">subint_mat</span>
-<span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="va">xi1_cont_4</span><span class="op">$</span><span class="va">init_probs</span>
-
-<span class="va">disc_subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">subint_mat</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span><span class="op">/</span><span class="va">theta</span> <span class="op">*</span> <span class="va">subint_mat</span><span class="op">)</span>
-
-<span class="va">xi1_4_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">DPH</a></span><span class="op">(</span><span class="va">disc_subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span>
-<span class="va">xi1_4_3</span>
-<span class="co">#&gt; $subint_mat</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,]  0.5 0.25  0.1</span>
-<span class="co">#&gt; [2,]  0.0 0.50  0.2</span>
-<span class="co">#&gt; [3,]  0.0 0.00  0.6</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $init_probs</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,]    1    0    0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $defect</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "disc_phase_type"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
+<span></span>
+<span><span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="va">xi1_cont_4</span><span class="op">$</span><span class="va">subint_mat</span></span>
+<span><span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="va">xi1_cont_4</span><span class="op">$</span><span class="va">init_probs</span></span>
+<span></span>
+<span><span class="va">disc_subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">subint_mat</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span><span class="op">/</span><span class="va">theta</span> <span class="op">*</span> <span class="va">subint_mat</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">xi1_4_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">DPH</a></span><span class="op">(</span><span class="va">disc_subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span></span>
+<span><span class="va">xi1_4_3</span></span>
+<span><span class="co">#&gt; $subint_mat</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]  0.5 0.25  0.1</span></span>
+<span><span class="co">#&gt; [2,]  0.0 0.50  0.2</span></span>
+<span><span class="co">#&gt; [3,]  0.0 0.00  0.6</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $init_probs</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    1    0    0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $defect</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "disc_phase_type"</span></span></code></pre></div>
 <p>And we can do the same for doubletons and tripletons:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">reward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>
-<span class="va">xi2_cont_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">kingman_4</span>, <span class="va">reward</span><span class="op">)</span>
-
-<span class="va">theta</span> <span class="op">&lt;-</span> <span class="fl">3</span>
-<span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="va">xi2_cont_4</span><span class="op">$</span><span class="va">subint_mat</span>
-<span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="va">xi2_cont_4</span><span class="op">$</span><span class="va">init_probs</span>
-
-<span class="va">disc_subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">subint_mat</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span><span class="op">/</span><span class="va">theta</span> <span class="op">*</span> <span class="va">subint_mat</span><span class="op">)</span>
-<span class="va">xi2_4_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">DPH</a></span><span class="op">(</span><span class="va">disc_subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span>
-<span class="va">xi2_4_3</span>
-<span class="co">#&gt; $subint_mat</span>
-<span class="co">#&gt;           [,1]      [,2]</span>
-<span class="co">#&gt; [1,] 0.3333333 0.1666667</span>
-<span class="co">#&gt; [2,] 0.0000000 0.7500000</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $init_probs</span>
-<span class="co">#&gt;      [,1] [,2]</span>
-<span class="co">#&gt; [1,]    1    0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $defect</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "disc_phase_type"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">reward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">xi2_cont_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">kingman_4</span>, <span class="va">reward</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
+<span><span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="va">xi2_cont_4</span><span class="op">$</span><span class="va">subint_mat</span></span>
+<span><span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="va">xi2_cont_4</span><span class="op">$</span><span class="va">init_probs</span></span>
+<span></span>
+<span><span class="va">disc_subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">subint_mat</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span><span class="op">/</span><span class="va">theta</span> <span class="op">*</span> <span class="va">subint_mat</span><span class="op">)</span></span>
+<span><span class="va">xi2_4_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">DPH</a></span><span class="op">(</span><span class="va">disc_subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span></span>
+<span><span class="va">xi2_4_3</span></span>
+<span><span class="co">#&gt; $subint_mat</span></span>
+<span><span class="co">#&gt;           [,1]      [,2]</span></span>
+<span><span class="co">#&gt; [1,] 0.3333333 0.1666667</span></span>
+<span><span class="co">#&gt; [2,] 0.0000000 0.7500000</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $init_probs</span></span>
+<span><span class="co">#&gt;      [,1] [,2]</span></span>
+<span><span class="co">#&gt; [1,]    1    0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $defect</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "disc_phase_type"</span></span></code></pre></div>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">reward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>
-<span class="va">xi3_cont_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">kingman_4</span>, <span class="va">reward</span><span class="op">)</span>
-
-<span class="va">theta</span> <span class="op">&lt;-</span> <span class="fl">3</span>
-<span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="va">xi3_cont_4</span><span class="op">$</span><span class="va">subint_mat</span>
-<span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="va">xi3_cont_4</span><span class="op">$</span><span class="va">init_probs</span>
-
-<span class="va">disc_subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">subint_mat</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span><span class="op">/</span><span class="va">theta</span> <span class="op">*</span> <span class="va">subint_mat</span><span class="op">)</span>
-<span class="va">xi3_4_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">DPH</a></span><span class="op">(</span><span class="va">disc_subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span>
-<span class="va">xi3_4_3</span>
-<span class="co">#&gt; $subint_mat</span>
-<span class="co">#&gt;      [,1]</span>
-<span class="co">#&gt; [1,]  0.6</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $init_probs</span>
-<span class="co">#&gt;           [,1]</span>
-<span class="co">#&gt; [1,] 0.6666667</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $defect</span>
-<span class="co">#&gt; [1] 0.3333333</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "disc_phase_type"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">reward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">xi3_cont_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reward_phase_type.html">reward_phase_type</a></span><span class="op">(</span><span class="va">kingman_4</span>, <span class="va">reward</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
+<span><span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="va">xi3_cont_4</span><span class="op">$</span><span class="va">subint_mat</span></span>
+<span><span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="va">xi3_cont_4</span><span class="op">$</span><span class="va">init_probs</span></span>
+<span></span>
+<span><span class="va">disc_subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">subint_mat</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span><span class="op">/</span><span class="va">theta</span> <span class="op">*</span> <span class="va">subint_mat</span><span class="op">)</span></span>
+<span><span class="va">xi3_4_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">DPH</a></span><span class="op">(</span><span class="va">disc_subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span></span>
+<span><span class="va">xi3_4_3</span></span>
+<span><span class="co">#&gt; $subint_mat</span></span>
+<span><span class="co">#&gt;      [,1]</span></span>
+<span><span class="co">#&gt; [1,]  0.6</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $init_probs</span></span>
+<span><span class="co">#&gt;           [,1]</span></span>
+<span><span class="co">#&gt; [1,] 0.6666667</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $defect</span></span>
+<span><span class="co">#&gt; [1] 0.3333333</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "disc_phase_type"</span></span></code></pre></div>
 <p>And, of course, we can compute the mean and variance for all these quantities:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi1_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>; <span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi2_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>; <span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi3_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>
-<span class="co">#&gt; [1] 3</span>
-<span class="co">#&gt; [1] 1.5</span>
-<span class="co">#&gt; [1] 0.6666667</span>
-<span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">xi1_4_3</span><span class="op">)</span>;  <span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">xi2_4_3</span><span class="op">)</span>;  <span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">xi3_4_3</span><span class="op">)</span>
-<span class="co">#&gt; [1] 7</span>
-<span class="co">#&gt; [1] 6.75</span>
-<span class="co">#&gt; [1] 3.888889</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi1_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>; <span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi2_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>; <span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">xi3_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span></span>
+<span><span class="co">#&gt; [1] 3</span></span>
+<span><span class="co">#&gt; [1] 1.5</span></span>
+<span><span class="co">#&gt; [1] 0.6666667</span></span>
+<span><span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">xi1_4_3</span><span class="op">)</span>;  <span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">xi2_4_3</span><span class="op">)</span>;  <span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">xi3_4_3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 7</span></span>
+<span><span class="co">#&gt; [1] 6.75</span></span>
+<span><span class="co">#&gt; [1] 3.888889</span></span></code></pre></div>
 <p>Note that we need to subtract 1 from the mean to retrieve the true value. This is because of the way discrete phase-type distributions are defined (see <span class="citation">(Bladt and Nielsen <a href="#ref-Bladt2017" role="doc-biblioref">2017</a>)</span> and <span class="citation">(Hobolth, Siri-Jégousse, and Bladt <a href="#ref-Hobolth2019" role="doc-biblioref">2019</a>)</span> for details).</p>
 </div>
 <div class="section level3">
@@ -605,73 +605,73 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <p><code>PhaseTypeR</code> also contains the density function (<code><a href="../reference/DPH_functions.html">dDPH()</a></code>), quantile function (<code><a href="../reference/DPH_functions.html">qDPH()</a></code>), distribution function (<code><a href="../reference/DPH_functions.html">pDPH()</a></code>) and random draw generator (<code><a href="../reference/DPH_functions.html">rDPH()</a></code>) for the discrete phase-type distribution. For example, for <span class="math inline">\(S_{total}\)</span> and singletons when <span class="math inline">\(n=4\)</span> and <span class="math inline">\(\theta=3\)</span>.</p>
 <p>For example, the density function:</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/DPH_functions.html">dDPH</a></span><span class="op">(</span><span class="fl">4</span>, <span class="va">s_tot_4_3</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.1197062</span>
-<span class="fu"><a href="../reference/DPH_functions.html">dDPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.1500 0.1900 0.1765</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/DPH_functions.html">dDPH</a></span><span class="op">(</span><span class="fl">4</span>, <span class="va">s_tot_4_3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.1197062</span></span>
+<span><span class="fu"><a href="../reference/DPH_functions.html">dDPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">xi1_4_3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.1500 0.1900 0.1765</span></span></code></pre></div>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">dDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s_tot_4_3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span>
-<span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">dDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">0.15</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'S'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'X'</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,
-       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"red"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">'Density function (n=4)'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">dDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s_tot_4_3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">dDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xi1_4_3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">0.15</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'S'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'X'</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"red"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">'Density function (n=4)'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="a2_pop_gen_iker_files/figure-html/unnamed-chunk-34-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>The quantile function:</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/DPH_functions.html">qDPH</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">s_tot_4_3</span><span class="op">)</span>
-<span class="co">#&gt; [1] 6</span>
-<span class="fu"><a href="../reference/DPH_functions.html">qDPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
-<span class="co">#&gt; [1] 2 5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/DPH_functions.html">qDPH</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">s_tot_4_3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 6</span></span>
+<span><span class="fu"><a href="../reference/DPH_functions.html">qDPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">xi1_4_3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2 5</span></span></code></pre></div>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.99</span>,<span class="fl">0.01</span><span class="op">)</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">qDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s_tot_4_3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span>
-<span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">qDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">'Quantile function (n=4)'</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">18</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'S'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'X'</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,
-       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"red"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.99</span>,<span class="fl">0.01</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">qDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s_tot_4_3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span></span>
+<span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">qDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xi1_4_3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y2</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">'Quantile function (n=4)'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">18</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'S'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'X'</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"red"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="a2_pop_gen_iker_files/figure-html/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>The probability function:</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/DPH_functions.html">pDPH</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">s_tot_4_3</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="fu"><a href="../reference/DPH_functions.html">pDPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0 0</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/DPH_functions.html">pDPH</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">s_tot_4_3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="fu"><a href="../reference/DPH_functions.html">pDPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">xi1_4_3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0 0</span></span></code></pre></div>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">15</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">pDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s_tot_4_3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">pDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">'Probability function (n=4)'</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0.4</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'S'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'X'</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,
-       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"red"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">15</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">pDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s_tot_4_3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'green'</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">pDPH</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xi1_4_3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">'Probability function (n=4)'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0.4</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'S'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'X'</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"red"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="a2_pop_gen_iker_files/figure-html/unnamed-chunk-38-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>And the random drawer:</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>
-<span class="fu"><a href="../reference/DPH_functions.html">rDPH</a></span><span class="op">(</span><span class="fl">3</span>, <span class="va">s_tot_4_3</span><span class="op">)</span>
-<span class="co">#&gt; [1] 4 2 7</span>
-<span class="fu"><a href="../reference/DPH_functions.html">rDPH</a></span><span class="op">(</span><span class="fl">10</span>, <span class="va">xi1_4_3</span><span class="op">)</span>
-<span class="co">#&gt;  [1]  4 14  1  4  2  4  1  6  5  2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/DPH_functions.html">rDPH</a></span><span class="op">(</span><span class="fl">3</span>, <span class="va">s_tot_4_3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 4 2 7</span></span>
+<span><span class="fu"><a href="../reference/DPH_functions.html">rDPH</a></span><span class="op">(</span><span class="fl">10</span>, <span class="va">xi1_4_3</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1]  4 14  1  4  2  4  1  6  5  2</span></span></code></pre></div>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">rDPH</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="va">s_tot_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="st">'10,000 random draws (n=4)'</span>,
-     breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span>, <span class="fl">1</span><span class="op">)</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html" class="external-link">rgb</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0.5</span><span class="op">)</span>,
-     ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3500</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">rDPH</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="va">xi1_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">x</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span>, <span class="fl">1</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">T</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html" class="external-link">rgb</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">2500</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'S'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'X'</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,
-       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"red"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">rDPH</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="va">s_tot_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">x</span>, main <span class="op">=</span> <span class="st">'10,000 random draws (n=4)'</span>,</span>
+<span>     breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span>, <span class="fl">1</span><span class="op">)</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html" class="external-link">rgb</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>     ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3500</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DPH_functions.html">rDPH</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="va">xi1_4_3</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">x</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span>, <span class="fl">1</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">T</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html" class="external-link">rgb</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">2500</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'S'</span><span class="op">[</span><span class="va">total</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">'X'</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"red"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="a2_pop_gen_iker_files/figure-html/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -686,72 +686,72 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 <p>Each <span class="math inline">\(Y_i\)</span> can be represented using a univariate phase-type distribution. However, instead of defining each <span class="math inline">\(Y_i\)</span> individually, we can build a multivariate phase-type representation of the coalescent process, such that <span class="math inline">\(Y\sim MPH^*(\alpha, S, R)\)</span>, where <span class="math inline">\(\alpha\)</span> is the initial probability vector, <span class="math inline">\(S\)</span> is the sub-intensity matrix for the coalescent process and <span class="math inline">\(R\)</span> is the reward vector where each of the columns summarizes how the sub-intensity matrix should be transformed to obtain a phase-type representation of <span class="math inline">\(Y_i\)</span>.</p>
 <p>For example, when <span class="math inline">\(n=4\)</span>, the sub-intensity matrix for Kingman’s coalescent is:</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">subint_itons_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6</span>,  <span class="fl">6</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,
-                            <span class="fl">0</span>, <span class="op">-</span><span class="fl">3</span>,  <span class="fl">2</span>,  <span class="fl">1</span>,
-                            <span class="fl">0</span>,  <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>,  <span class="fl">0</span>,
-                            <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">subint_itons_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6</span>,  <span class="fl">6</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,</span>
+<span>                            <span class="fl">0</span>, <span class="op">-</span><span class="fl">3</span>,  <span class="fl">2</span>,  <span class="fl">1</span>,</span>
+<span>                            <span class="fl">0</span>,  <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>,  <span class="fl">0</span>,</span>
+<span>                            <span class="fl">0</span>,  <span class="fl">0</span>,  <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p>On the other hand, we need to define a reward matrix:</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">reward_mat_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">0</span>, <span class="fl">0</span>,
-                         <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span>,
-                         <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>,
-                         <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">reward_mat_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>                         <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
+<span>                         <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span>
+<span>                         <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p>We can define a continuous phase-type representation of <span class="math inline">\(Y_i\)</span> with the <code>MPH</code> generator function, which will yield an object of class <code>mult_cont_phase_type</code>:</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">Y_i_phase_type</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">MPH</a></span><span class="op">(</span>subint_mat <span class="op">=</span> <span class="va">subint_itons_4</span>, 
-                      reward_mat <span class="op">=</span> <span class="va">reward_mat_4</span><span class="op">)</span>
-<span class="co">#&gt; Warning in check_phase_type(subint_mat, init_probs): </span>
-<span class="co">#&gt;  The initial probability vector is automatically generated.</span>
-
-<span class="va">Y_i_phase_type</span>
-<span class="co">#&gt; $subint_mat</span>
-<span class="co">#&gt;      [,1] [,2] [,3] [,4]</span>
-<span class="co">#&gt; [1,]   -6    6    0    0</span>
-<span class="co">#&gt; [2,]    0   -3    2    1</span>
-<span class="co">#&gt; [3,]    0    0   -1    0</span>
-<span class="co">#&gt; [4,]    0    0    0   -1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $init_probs</span>
-<span class="co">#&gt;      [,1] [,2] [,3] [,4]</span>
-<span class="co">#&gt; [1,]    1    0    0    0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $reward_mat</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,]    4    0    0</span>
-<span class="co">#&gt; [2,]    2    1    0</span>
-<span class="co">#&gt; [3,]    1    0    1</span>
-<span class="co">#&gt; [4,]    0    2    0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $defect</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "mult_cont_phase_type"</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="va">Y_i_phase_type</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generator_functions.html">MPH</a></span><span class="op">(</span>subint_mat <span class="op">=</span> <span class="va">subint_itons_4</span>, </span>
+<span>                      reward_mat <span class="op">=</span> <span class="va">reward_mat_4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in check_phase_type(subint_mat, init_probs): </span></span>
+<span><span class="co">#&gt;  The initial probability vector is automatically generated.</span></span>
+<span></span>
+<span><span class="va">Y_i_phase_type</span></span>
+<span><span class="co">#&gt; $subint_mat</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,]   -6    6    0    0</span></span>
+<span><span class="co">#&gt; [2,]    0   -3    2    1</span></span>
+<span><span class="co">#&gt; [3,]    0    0   -1    0</span></span>
+<span><span class="co">#&gt; [4,]    0    0    0   -1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $init_probs</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,]    1    0    0    0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $reward_mat</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    4    0    0</span></span>
+<span><span class="co">#&gt; [2,]    2    1    0</span></span>
+<span><span class="co">#&gt; [3,]    1    0    1</span></span>
+<span><span class="co">#&gt; [4,]    0    2    0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $defect</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "mult_cont_phase_type"</span></span></code></pre></div>
 <p>We can compute the mean of each of the i-tons all together:</p>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span><span class="op">)</span>
-<span class="co">#&gt; [1] 2.0000000 1.0000000 0.6666667</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2.0000000 1.0000000 0.6666667</span></span></code></pre></div>
 <p>or separately:</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span>, <span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span>, <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1</span>
-<span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span>, <span class="fl">3</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.6666667</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="fu"><a href="../reference/mean.html">mean</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.6666667</span></span></code></pre></div>
 <p>We can also calculate the variance-covariance matrix:</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span><span class="op">)</span>
-<span class="co">#&gt;            [,1]       [,2]       [,3]</span>
-<span class="co">#&gt; [1,]  1.7777778 -0.2222222  0.8888889</span>
-<span class="co">#&gt; [2,] -0.2222222  2.3333333 -0.4444444</span>
-<span class="co">#&gt; [3,]  0.8888889 -0.4444444  0.8888889</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/var.html">var</a></span><span class="op">(</span><span class="va">Y_i_phase_type</span><span class="op">)</span></span>
+<span><span class="co">#&gt;            [,1]       [,2]       [,3]</span></span>
+<span><span class="co">#&gt; [1,]  1.7777778 -0.2222222  0.8888889</span></span>
+<span><span class="co">#&gt; [2,] -0.2222222  2.3333333 -0.4444444</span></span>
+<span><span class="co">#&gt; [3,]  0.8888889 -0.4444444  0.8888889</span></span></code></pre></div>
 <p>where the diagonal corresponds to the variance and the rest of the elements to the covariances.</p>
 </div>
 <div class="section level2">
@@ -788,7 +788,7 @@ T_{total} = T_{MRCA} \circ [n, n-1, ..., 2]
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

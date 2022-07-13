@@ -71,7 +71,7 @@ non-negative reward vector.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">reward_phase_type</span><span class="op">(</span><span class="va">phase_type</span>, <span class="va">reward</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">reward_phase_type</span><span class="op">(</span><span class="va">phase_type</span>, <span class="va">reward</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -79,14 +79,19 @@ non-negative reward vector.</p>
     <dl><dt>phase_type</dt>
 <dd><p>an object of class <code>cont_phase_type</code> or
 <code>disc_phase_type</code>.</p></dd>
+
+
 <dt>reward</dt>
 <dd><p>a vector of the same length as the number of
 states. The vector should contain non-negative values. Rewards for the
 discrete phase-type distribution can only be integers.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class <code>disc_phase_type</code> or <code>cont_phase_type</code>.</p>
+    
+
+<p>An object of class <code>disc_phase_type</code> or <code>cont_phase_type</code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -109,18 +114,18 @@ Hobolth, Bladt and Andersen (2021).</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">##===========================##</span></span>
-<span class="r-in"><span class="co">## For continuous phase-type ##</span></span>
-<span class="r-in"><span class="co">##===========================##</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span>
-<span class="r-in">                      <span class="fl">2</span>, <span class="op">-</span><span class="fl">3</span>, <span class="fl">0</span>,</span>
-<span class="r-in">                      <span class="fl">1</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">3</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ph</span> <span class="op">&lt;-</span> <span class="fu"><a href="generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">reward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">reward_phase_type</span><span class="op">(</span><span class="va">ph</span>, <span class="va">reward</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">##===========================##</span></span></span>
+<span class="r-in"><span><span class="co">## For continuous phase-type ##</span></span></span>
+<span class="r-in"><span><span class="co">##===========================##</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>                      <span class="fl">2</span>, <span class="op">-</span><span class="fl">3</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>                      <span class="fl">1</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">3</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ph</span> <span class="op">&lt;-</span> <span class="fu"><a href="generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">reward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">reward_phase_type</span><span class="op">(</span><span class="va">ph</span>, <span class="va">reward</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $subint_mat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]      [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -4.666667  3.333333</span>
@@ -135,20 +140,20 @@ Hobolth, Bladt and Andersen (2021).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "cont_phase_type"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##=========================##</span></span>
-<span class="r-in"><span class="co">## For discrete phase-type ##</span></span>
-<span class="r-in"><span class="co">##=========================##</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
-<span class="r-in">                      <span class="fl">0.24</span>, <span class="fl">0.4</span>, <span class="fl">0</span>,</span>
-<span class="r-in">                      <span class="fl">0.12</span>, <span class="fl">0.2</span>, <span class="fl">0.5</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ph</span> <span class="op">&lt;-</span> <span class="fu"><a href="generator_functions.html">DPH</a></span><span class="op">(</span><span class="va">subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">reward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">reward_phase_type</span><span class="op">(</span><span class="va">ph</span>, <span class="va">reward</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##=========================##</span></span></span>
+<span class="r-in"><span><span class="co">## For discrete phase-type ##</span></span></span>
+<span class="r-in"><span><span class="co">##=========================##</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">subint_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>                      <span class="fl">0.24</span>, <span class="fl">0.4</span>, <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>                      <span class="fl">0.12</span>, <span class="fl">0.2</span>, <span class="fl">0.5</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">init_probs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ph</span> <span class="op">&lt;-</span> <span class="fu"><a href="generator_functions.html">DPH</a></span><span class="op">(</span><span class="va">subint_mat</span>, <span class="va">init_probs</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">reward</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">reward_phase_type</span><span class="op">(</span><span class="va">ph</span>, <span class="va">reward</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $subint_mat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.4  0.2    0    0    0</span>
@@ -166,8 +171,8 @@ Hobolth, Bladt and Andersen (2021).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "disc_phase_type"</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -182,7 +187,7 @@ Hobolth, Bladt and Andersen (2021).</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

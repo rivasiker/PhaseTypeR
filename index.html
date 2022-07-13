@@ -103,65 +103,65 @@
 </h2>
 <p>You can install <code>PhaseTypeR</code> from CRAN via:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"PhaseTypeR"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"PhaseTypeR"</span><span class="op">)</span></span></code></pre></div>
 <p>If you install devtools in your R environment with <code>install.packages("devtools")</code>, the development version of the package can be installed with the following command:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rivasiker/PhaseTypeR"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rivasiker/PhaseTypeR"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="basic-example">Basic example<a class="anchor" aria-label="anchor" href="#basic-example"></a>
 </h2>
 <p>This is a basic example for the univariate continuous phase-type distribution.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Load the package</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rivasiker.github.io/PhaseTypeR/" class="external-link">PhaseTypeR</a></span><span class="op">)</span>
-
-<span class="co"># Define the sub-intensity rate matrix</span>
-<span class="va">subintensity_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,
-                                 <span class="fl">1.5</span>, <span class="op">-</span><span class="fl">1</span>,  <span class="fl">0</span>,
-                                  <span class="fl">0</span>,   <span class="fl">1</span>, <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-<span class="co"># Define the initial probabilities</span>
-<span class="va">initial_probabilities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span>
-
-<span class="co"># Create continuous phase-type object</span>
-<span class="va">ph</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subintensity_matrix</span>, <span class="va">initial_probabilities</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Load the package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rivasiker.github.io/PhaseTypeR/" class="external-link">PhaseTypeR</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Define the sub-intensity rate matrix</span></span>
+<span><span class="va">subintensity_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>,  <span class="fl">0</span>,  <span class="fl">0</span>,</span>
+<span>                                 <span class="fl">1.5</span>, <span class="op">-</span><span class="fl">1</span>,  <span class="fl">0</span>,</span>
+<span>                                  <span class="fl">0</span>,   <span class="fl">1</span>, <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co"># Define the initial probabilities</span></span>
+<span><span class="va">initial_probabilities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create continuous phase-type object</span></span>
+<span><span class="va">ph</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/generator_functions.html">PH</a></span><span class="op">(</span><span class="va">subintensity_matrix</span>, <span class="va">initial_probabilities</span><span class="op">)</span></span></code></pre></div>
 <p>Summary of the object:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Subintensity matrix:</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,] -1.5  1.5  0.0</span>
-<span class="co">#&gt; [2,]  0.0 -1.0  1.0</span>
-<span class="co">#&gt; [3,]  0.0  0.0 -0.5</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Initial probabilities:</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,]  0.9  0.1    0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Defect:</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Mean: 3.6</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Variance: 5.44</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ph</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Subintensity matrix:</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,] -1.5  1.5  0.0</span></span>
+<span><span class="co">#&gt; [2,]  0.0 -1.0  1.0</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0 -0.5</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Initial probabilities:</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]  0.9  0.1    0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Defect:</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Mean: 3.6</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Variance: 5.44</span></span></code></pre></div>
 <p>Density function:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.1506327 0.2216989 0.1991321 0.1482987 0.1009037</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/PH_functions.html">dPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.1506327 0.2216989 0.1991321 0.1482987 0.1009037</span></span></code></pre></div>
 <p>Cumulative density function:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.07030638 0.26728005 0.48232823 0.65658059 0.78032198</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/PH_functions.html">pPH</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">ph</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.07030638 0.26728005 0.48232823 0.65658059 0.78032198</span></span></code></pre></div>
 <p>Quantile function:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">ph</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1.921862 3.089664 4.716588</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/PH_functions.html">qPH</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="va">ph</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.921862 3.089664 4.716588</span></span></code></pre></div>
 <p>Random sampling:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>
-<span class="fu"><a href="reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">6</span>, <span class="va">ph</span><span class="op">)</span>
-<span class="co">#&gt; [1] 4.648661 6.111533 4.586241 5.708529 8.354549 5.768456</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/PH_functions.html">rPH</a></span><span class="op">(</span><span class="fl">6</span>, <span class="va">ph</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 4.648661 6.111533 4.586241 5.708529 8.354549 5.768456</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="learn-more">Learn more<a class="anchor" aria-label="anchor" href="#learn-more"></a>
@@ -233,7 +233,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

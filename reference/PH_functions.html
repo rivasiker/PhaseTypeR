@@ -71,39 +71,52 @@ for the univariate continuous phase-type distribution.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dPH</span><span class="op">(</span><span class="va">x</span>, <span class="va">obj</span><span class="op">)</span>
-
-<span class="fu">qPH</span><span class="op">(</span><span class="va">p</span>, <span class="va">obj</span><span class="op">)</span>
-
-<span class="fu">pPH</span><span class="op">(</span><span class="va">q</span>, <span class="va">obj</span><span class="op">)</span>
-
-<span class="fu">rPH</span><span class="op">(</span><span class="va">n</span>, <span class="va">obj</span><span class="op">)</span>
-
-<span class="fu">rFullPH</span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dPH</span><span class="op">(</span><span class="va">x</span>, <span class="va">obj</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">qPH</span><span class="op">(</span><span class="va">p</span>, <span class="va">obj</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">pPH</span><span class="op">(</span><span class="va">q</span>, <span class="va">obj</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">rPH</span><span class="op">(</span><span class="va">n</span>, <span class="va">obj</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">rFullPH</span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x, q</dt>
 <dd><p>vector of quantiles.</p></dd>
+
+
 <dt>obj</dt>
 <dd><p>an object of class <code>cont_phase_type</code>.</p></dd>
+
+
 <dt>p</dt>
 <dd><p>vector of probabilities.</p></dd>
+
+
 <dt>n</dt>
 <dd><p>number of observations. If length(n) &gt; 1, the length is taken to be
 the number required.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>dPH</code> gives the density, <code>pPH</code> gives the
+    
+
+<p><code>dPH</code> gives the density, <code>pPH</code> gives the
 distribution function, <code>qPH</code> gives the quantile function,
 and <code>rPH</code> generates random deviates. <code>rFullPH</code> returns
-the full path of a random draw from the distribution.
-The length of the result is determined by <code>n</code> for <code>rPH</code>,
+the full path of a random draw from the distribution.</p>
+
+
+<p>The length of the result is determined by <code>n</code> for <code>rPH</code>,
 and is the maximum of the lengths of the numerical arguments for the other
-functions.
-The numerical arguments other than <code>n</code> are recycled to the length of the
+functions.</p>
+
+
+<p>The numerical arguments other than <code>n</code> are recycled to the length of the
 result. Only the first elements of the logical arguments are used.</p>
     </div>
     <div id="functions">
@@ -122,24 +135,24 @@ result. Only the first elements of the logical arguments are used.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">cont_phase_type</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span>
-<span class="r-in">                            <span class="fl">2</span>, <span class="op">-</span><span class="fl">3</span>, <span class="fl">1</span>,</span>
-<span class="r-in">                            <span class="fl">1</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="generator_functions.html">PH</a></span><span class="op">(</span><span class="va">cont_phase_type</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cont_phase_type</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">0</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>                            <span class="fl">2</span>, <span class="op">-</span><span class="fl">3</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>                            <span class="fl">1</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="generator_functions.html">PH</a></span><span class="op">(</span><span class="va">cont_phase_type</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>  The initial probability vector is automatically generated.</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">dPH</span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span>, <span class="va">Y</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">dPH</span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span>, <span class="va">Y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.08879596 0.04274991</span>
-<span class="r-in"><span class="fu">pPH</span><span class="op">(</span><span class="fl">1.45</span>, <span class="va">Y</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pPH</span><span class="op">(</span><span class="fl">1.45</span>, <span class="va">Y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6202987</span>
-<span class="r-in"><span class="fu">qPH</span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">Y</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">qPH</span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">Y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.085021</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">rPH</span><span class="op">(</span><span class="fl">6</span>, <span class="va">Y</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">rPH</span><span class="op">(</span><span class="fl">6</span>, <span class="va">Y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.1235576 1.7917798 2.2700540 0.5667907 1.2148449 1.5659480</span>
-<span class="r-in"><span class="fu">rFullPH</span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">rFullPH</span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   state       time</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     1 0.10042767</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     2 0.33151860</span>
@@ -149,8 +162,8 @@ result. Only the first elements of the logical arguments are used.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6     3 0.27891468</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7     1 0.32579860</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8     2 0.10314929</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -165,7 +178,7 @@ result. Only the first elements of the logical arguments are used.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
