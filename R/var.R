@@ -91,7 +91,7 @@ var.disc_phase_type <- function(obj, ...) {
 
 var.mult_cont_phase_type <- function(obj, v = NULL, ...) {
   if (is.null(v)) {
-    cov_mat <- matrix(NA, ncol(obj$reward_mat), ncol(obj$reward_mat))
+    cov_mat <- matrix(NA_real_, ncol(obj$reward_mat), ncol(obj$reward_mat))
     for (i in 1:ncol(cov_mat)) {
       for (j in 1:ncol(cov_mat)) {
         cov_mat[i, j] <- var(obj, c(i, j))
@@ -122,7 +122,7 @@ var.mult_disc_phase_type <- function(obj, v = NULL, ...){
   I <- diag(1, length(init))
   U <- solve(I - obj$subint_mat)
   if (is.null(v)) {
-    cov_mat <-  matrix(NA, ncol(obj$reward_mat), ncol(obj$reward_mat))
+    cov_mat <-  matrix(NA_real_, ncol(obj$reward_mat), ncol(obj$reward_mat))
     for (i in 1:ncol(cov_mat)) {
       for (j in 1:ncol(cov_mat)) {
         cov_mat[i, j] <- init %*% (U %*% diag(r[,i]) %*% U %*% diag(r[,j]) +
