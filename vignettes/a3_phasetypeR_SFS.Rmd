@@ -298,6 +298,7 @@ For reproducibility of the simulations below, we first fix the seed of the rando
 ```{r setup,  message=FALSE, warning=FALSE}
 set.seed(0)
 library(PhaseTypeR)
+library(expm)
 # source('auxiliary_functions.R')
 ```
 

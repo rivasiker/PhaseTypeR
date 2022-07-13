@@ -25,7 +25,7 @@ License: GPL-3
 URL: https://rivasiker.github.io/PhaseTypeR/,
     https://github.com/rivasiker/PhaseTypeR
 BugReports: https://github.com/rivasiker/PhaseTypeR/issues
-Depends: 
+Imports: 
     expm,
     igraph,
     methods
