@@ -51,9 +51,8 @@ Done.
 * GitHub Actions (macOS-latest): release
 * GitHub Actions (windows-latest): release
 * R-hub builder (macos-highsierra-release-cran): release
-* R-hub builder (solaris-x86-patched): release
 * win-builder: devel
-* local R installation (macOS): R 4.1.2
+* local R installation (macOS): R 4.2.1
 
 ## R CMD check results
 
