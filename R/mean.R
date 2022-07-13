@@ -1,4 +1,3 @@
-
 #' Mean of Phase-Type Distributions
 #'
 #' Calculates the mean of continuous, discrete and multivariate phase-type
@@ -44,7 +43,9 @@
 #' mean(ph2, 1)
 #' ## Mean for the second state in the reward matrix
 #' mean(ph2, 2)
-
+#'
+#' @name mean
+NULL
 
 #' mean method for \code{cont_phase_type}
 #'
