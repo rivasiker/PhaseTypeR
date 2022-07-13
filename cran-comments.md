@@ -1,10 +1,14 @@
 ## Notes
 
-### Fourth submission
+### 5th submission
+
+Enhanced features, described in NEWS.md. Version number updated. 
+
+### 4th submission
 
 Correction of minor bugs, described in NEWS.md. Version number updated. 
 
-### Third submission
+### 3rd submission
 
 > tests on x86_64 Linux with R-devel configured using --disable-long-double
 Error: processing vignette 'a3_phasetypeR_SFS.Rmd' failed with diagnostics:
@@ -12,7 +16,7 @@ negative probability
 
 Tolerance added for numeric tests. Version number changed accordingly.
 
-### Second submission
+### 2nd submission
 
 > If there are references describing the methods in your package, please 
 add these in the description field of your DESCRIPTION file in the form
@@ -46,9 +50,8 @@ Done.
 * GitHub Actions (ubuntu-latest): release, devel, oldrel-1
 * GitHub Actions (macOS-latest): release
 * GitHub Actions (windows-latest): release
-* R-hub builder (Fedora Linux): devel
-* R-hub builder (Ubuntu Linux): release
-* R-hub builder (Windows): devel
+* R-hub builder (macos-highsierra-release-cran): release
+* R-hub builder (solaris-x86-patched): release
 * win-builder: devel
 * local R installation (macOS): R 4.1.2
 
