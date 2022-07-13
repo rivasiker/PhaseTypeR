@@ -1,3 +1,5 @@
+#' Print method for phase-type objects
+#'
 #' Print method for \code{cont_phase_type}, \code{disc_phase_type},
 #' \code{mult_cont_phase_type} and \code{mult_disc_phase_type} classes.
 #'

@@ -5,8 +5,7 @@
 \alias{print.disc_phase_type}
 \alias{print.mult_cont_phase_type}
 \alias{print.mult_disc_phase_type}
-\title{Print method for \code{cont_phase_type}, \code{disc_phase_type},
-\code{mult_cont_phase_type} and \code{mult_disc_phase_type} classes.}
+\title{Print method for phase-type objects}
 \usage{
 \method{print}{cont_phase_type}(x, ...)
 
