@@ -1,3 +1,12 @@
+# PhaseTypeR 1.0.3
+
+* Fixed numeric instability of DPH functions with probabilities 
+close to 0. 
+* Changed var function to S3 method.
+* Updated mean method to avoid masking when loading the package.
+* Changed Depends to Imports.
+* Added print method for phase-type objects.
+
 # PhaseTypeR 1.0.2
 
 * Correction of qDPH for when x <= defect.

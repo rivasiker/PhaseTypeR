@@ -1,7 +1,7 @@
 Type: Package
 Package: PhaseTypeR
 Title: General-Purpose Phase-Type Functions
-Version: 1.0.2.9000
+Version: 1.0.3
 Authors@R: c(
     person("Iker", "Rivas-González", , "ikerrivas96@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0515-0628")),
