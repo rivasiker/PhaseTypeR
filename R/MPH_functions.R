@@ -65,7 +65,7 @@ NULL
 dMPH <- function(x, obj){
 
 
-  if (class(obj) == 'mult_cont_phase_type') {
+  if (is(obj, 'mult_cont_phase_type')) {
     x2 <- PH(obj$subint_mat, obj$init_probs)
     reward <- obj$reward
     n_mat <- matrix(0, nrow = ncol(reward), ncol = length(x))
@@ -89,7 +89,7 @@ dMPH <- function(x, obj){
 
 qMPH <- function(p, obj){
 
-  if (class(obj) == 'mult_cont_phase_type') {
+  if (is(obj, 'mult_cont_phase_type')) {
     x2 <- PH(obj$subint_mat, obj$init_probs)
     reward <- obj$reward
     n_mat <- matrix(0, nrow = ncol(reward), ncol = length(p))
@@ -113,7 +113,7 @@ qMPH <- function(p, obj){
 
 pMPH <- function(q, obj){
 
-  if (class(obj) == 'mult_cont_phase_type') {
+  if (is(obj, 'mult_cont_phase_type')) {
     x2 <- PH(obj$subint_mat, obj$init_probs)
     reward <- obj$reward
     n_mat <- matrix(0, nrow = ncol(reward), ncol = length(q))
@@ -138,7 +138,7 @@ pMPH <- function(q, obj){
 
 rMPH <- function(n, obj){
 
-  if (class(obj) == 'mult_cont_phase_type') {
+  if (is(obj, 'mult_cont_phase_type')) {
 
     if (length(n) > 1){
       n <- length(n)
@@ -166,7 +166,7 @@ rMPH <- function(n, obj){
 
 
 rFullMPH <- function(obj){
-  if (!(class(obj) == 'mult_cont_phase_type')){
+  if (!(is(obj, 'mult_cont_phase_type'))){
     stop("Please provide an object of class 'mult_cont_phase_type'.")
   }
 

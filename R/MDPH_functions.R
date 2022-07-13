@@ -67,7 +67,7 @@ NULL
 
 dMDPH <- function(x, obj){
 
-  if (class(obj) == 'mult_disc_phase_type') {
+  if (is(obj, 'mult_disc_phase_type')) {
     x2 <- DPH(obj$subint_mat, obj$init_probs)
     reward <- obj$reward
     n_mat <- matrix(0, nrow = ncol(reward), ncol = length(x))
@@ -90,7 +90,7 @@ dMDPH <- function(x, obj){
 
 qMDPH <- function(p, obj){
 
-  if (class(obj) == 'mult_disc_phase_type') {
+  if (is(obj, 'mult_disc_phase_type')) {
     x2 <- DPH(obj$subint_mat, obj$init_probs)
     reward <- obj$reward
     n_mat <- matrix(0, nrow = ncol(reward), ncol = length(p))
@@ -115,7 +115,7 @@ qMDPH <- function(p, obj){
 
 pMDPH <- function(q, obj){
 
-  if (class(obj) == 'mult_disc_phase_type') {
+  if (is(obj, 'mult_disc_phase_type')) {
     x2 <- DPH(obj$subint_mat, obj$init_probs)
     reward <- obj$reward
     n_mat <- matrix(0, nrow = ncol(reward), ncol = length(q))
@@ -140,7 +140,7 @@ pMDPH <- function(q, obj){
 
 rMDPH <- function(n, obj){
 
-  if (class(obj) == 'mult_disc_phase_type') {
+  if (is(obj, 'mult_disc_phase_type')) {
 
     if (length(n) > 1){
       n <- length(n)
@@ -167,7 +167,7 @@ rMDPH <- function(n, obj){
 
 
 rFullMDPH <- function(obj){
-  if (!(class(obj) == 'mult_disc_phase_type')){
+  if (!(is(obj, 'mult_disc_phase_type'))){
     stop("Please provide an object of class 'mult_disc_phase_type'.")
   }
   init_probs <- obj$init_probs

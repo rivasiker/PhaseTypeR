@@ -56,7 +56,7 @@ NULL
 
 dPH <- function(x, obj){
 
-  if (class(obj) == 'cont_phase_type') {
+  if (is(obj, 'cont_phase_type')) {
     vec <- c()
     e <- matrix(rep(1,nrow(obj$subint_mat)), nrow(obj$subint_mat), 1)
     for (i in x) {
@@ -84,7 +84,7 @@ qPH <- function(p, obj){
 
   vec <- c()
   inv <- function(y) uniroot(function(q) pPH(q, obj)-y, c(0,400))$root[1]
-  if (class(obj) == 'cont_phase_type') {
+  if (is(obj, 'cont_phase_type')) {
     for (i in p) {
       vec <- c(vec, inv(i))
     }
@@ -107,7 +107,7 @@ qPH <- function(p, obj){
 
 pPH <- function(q, obj){
 
-  if (class(obj) == 'cont_phase_type') {
+  if (is(obj, 'cont_phase_type')) {
     vec <- c()
     e <- matrix(rep(1,nrow(obj$subint_mat)), nrow(obj$subint_mat), 1)
     for (i in q) {
@@ -133,9 +133,7 @@ pPH <- function(q, obj){
 
 rPH <- function(n, obj){
 
-
-
-  if (class(obj) == 'cont_phase_type') {
+  if (is(obj, 'cont_phase_type')) {
 
     if (length(n) > 1){
       n <- length(n)
@@ -188,7 +186,7 @@ rPH <- function(n, obj){
 #' @export
 
 rFullPH <- function(obj){
-  if (!(class(obj) == 'cont_phase_type')){
+  if (!(is(obj, 'cont_phase_type'))){
     stop("Please provide an object of class 'cont_phase_type'.")
   }
 
@@ -204,7 +202,7 @@ rFullPH <- function(obj){
   states <- curstate
   times <- NULL
 
-  if(class(obj) == 'cont_phase_type'){
+  if (is(obj, 'cont_phase_type')){
     while(curstate <= n){
       curtime <- rexp(1, -subint_mat[curstate, curstate])
       curstate <- sample((1:(n + 1))[-curstate], 1,

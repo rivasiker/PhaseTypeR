@@ -56,7 +56,7 @@ NULL
 
 dDPH <- function(x, obj){
 
-  if (class(obj) == 'disc_phase_type') {
+  if (is(obj, 'disc_phase_type')) {
     if (sum(x %% 1 > 0) > 0){
       stop('x should only contain integers.')
     }
@@ -92,7 +92,7 @@ qDPH <- function(p, obj){
 
   vec <- c()
   inv <- function(y) uniroot(function(q) pDPH(q, obj)-y, c(0,400))$root[1]
-  if (class(obj) == 'disc_phase_type') {
+  if (is(obj, 'disc_phase_type')) {
     for (i in p) {
       if (i > (1-sum(obj$init_probs))){
         vec <- c(vec, round(inv(i)))
@@ -116,7 +116,7 @@ qDPH <- function(p, obj){
 
 pDPH <- function(q, obj){
 
-  if (class(obj) == 'disc_phase_type') {
+  if (is(obj, 'disc_phase_type')) {
     e <- matrix(1, nrow = nrow(obj$subint_mat))
     prob_vec <- c()
     for(i in q){
@@ -140,7 +140,7 @@ pDPH <- function(q, obj){
 
 rDPH <- function(n, obj){
 
-  if (class(obj) == 'disc_phase_type') {
+  if (is(obj, 'disc_phase_type')) {
 
     if (length(n) > 1){
       n <- length(n)
@@ -191,7 +191,7 @@ rDPH <- function(n, obj){
 #' @export
 
 rFullDPH <- function(obj){
-  if (!(class(obj) == 'disc_phase_type')){
+  if (!(is(obj, 'disc_phase_type'))){
     stop("Please provide an object of class 'disc_phase_type'.")
   }
 

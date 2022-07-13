@@ -78,7 +78,7 @@ reward_phase_type <- function(phase_type, reward){
   # If discrete will apply the reward transformation
   # found in the PhD of Navarro (2018) Section 5.2.12 page 74-78.
 
-  if (class(phase_type) == 'disc_phase_type'){
+  if (is(phase_type, 'disc_phase_type')){
 
     init_probs <- phase_type$init_probs
     subint_mat <- phase_type$subint_mat
@@ -214,7 +214,7 @@ reward_phase_type <- function(phase_type, reward){
 
     # If continuous, will apply the transformation of
     # Bladt and Nielsen 2017.
-  } else if (class(phase_type) == 'cont_phase_type') {
+  } else if (is(phase_type, 'cont_phase_type')) {
 
     init_probs <- phase_type$init_probs
     subint_mat <- phase_type$subint_mat

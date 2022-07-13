@@ -32,7 +32,7 @@
 
 phase_type_to_network <- function(phase_type, t = NULL) {
 
-  if (class(phase_type) == 'disc_phase_type') {
+  if (is(phase_type, 'disc_phase_type')) {
 
     if (!is.null(t)) {
       warning('Argument t not used')
@@ -54,7 +54,7 @@ phase_type_to_network <- function(phase_type, t = NULL) {
       )
 
 
-  } else if (class(phase_type) == 'cont_phase_type') {
+  } else if (is(phase_type, 'cont_phase_type')) {
 
 
 
