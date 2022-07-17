@@ -23,7 +23,7 @@
 #' set.seed(28)
 #' plot(Y_network, layout = layout_with_fr(Y_network,  weights = rep(1, length(E(Y_network)))))
 #'
-#' @importFrom igraph graph_from_data_frame
+#' @importFrom igraph graph_from_data_frame layout_with_fr
 #'
 #' @export
 
