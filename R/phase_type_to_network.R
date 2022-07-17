@@ -21,7 +21,7 @@
 #' Y <- PH(cont_phase_type)
 #' Y_network <- phase_type_to_network(Y)
 #' set.seed(28)
-#' plot(Y_network)
+#' plot(Y_network, layout = layout_with_fr(Y_network,  weights = rep(1, length(E(Y_network)))))
 #'
 #' @importFrom igraph graph_from_data_frame
 #'
