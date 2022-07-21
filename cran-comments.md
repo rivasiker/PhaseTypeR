@@ -1,5 +1,13 @@
 ## Notes
 
+### 6th submission
+
+> Error on CRAN checks in  r-devel-linux-x86_64-debian-clang, r-devel-windows-x86_64, 
+r-patched-linux-x86_64 and r-oldrel-windows-ix86+x86_64 when running examples
+and vignette containing calls to igraph with negative weights. 
+
+Solved by avoiding negative weights. Version number updated. 
+
 ### 5th submission
 
 Enhanced features, described in NEWS.md. Version number updated. 

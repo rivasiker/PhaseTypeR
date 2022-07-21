@@ -1,3 +1,8 @@
+# PhaseTypeR 1.0.4
+
+* Minor patch to solve the CRAN errors by avoiding negative weights in the
+igraph module. 
+
 # PhaseTypeR 1.0.3
 
 * Fixed numeric instability of DPH functions with probabilities 
