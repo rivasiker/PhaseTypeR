@@ -95,7 +95,7 @@ theory.
 
 # An example: the coalescent with recombination
 
-![Caption for example figure.](figure.png){ width=20% }
+![Caption for example figure.](fig_simonsen_cor.pdf){ width=20% }
 
 ```r
 recomb_rate <- 0.3
