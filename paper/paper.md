@@ -70,12 +70,27 @@ theory.
 
 | Quantity                | Formula                                                                                | Function |
 |-------------------------|----------------------------------------------------------------------------------------|----------|
-| Mean                    | $\text{E}(\tau)=\boldsymbol{\pi} (-\boldsymbol{T})^{-1}\boldsymbol{e}$                 | `mean()` |
-| Variance                | $\text{V}(\tau)=\text{E}(\tau^2)-\text{E}(\tau)^2$                                     | `var()`  |
-| Density                 | $f(x)=\boldsymbol{\pi}\exp(\boldsymbol{T}x)(\boldsymbol{-T}\boldsymbol{e})$, $x\geq 0$ | `dPH()`  |
-| Cumulative distribution | $F(x)=1-\boldsymbol{\pi}\exp(\boldsymbol{T}x)\boldsymbol{e}$, $x\geq 0$                | `pPH()`  |
-| Quantile function       |                                                                                        | `qPH()`  |
-| Random sampling         |                                                                                        | `rPH()`,  `rFullPH()` |
+| Generator function      | $\tau\sim\text{PH}(\boldsymbol{a}, \boldsymbol{T})$                                    | `PH(T, a)` |
+| Mean                    | $\text{E}(\tau)=\boldsymbol{a} (-\boldsymbol{T})^{-1}\boldsymbol{e}$                   | `mean(PH)` |
+| Variance                | $\text{V}(\tau)=\text{E}(\tau^2)-\text{E}(\tau)^2$                                     | `var(PH)`  |
+| Density                 | $f(x)=\boldsymbol{a}\exp(\boldsymbol{T}x)(\boldsymbol{-T}\boldsymbol{e})$, $x\geq 0$   | `dPH(x, PH)`  |
+| Cumulative distribution | $F(x)=1-\boldsymbol{a}\exp(\boldsymbol{T}x)\boldsymbol{e}$, $x\geq 0$                  | `pPH(x, PH)`  |
+| Quantile function       |                                                                                        | `qPH(x, PH)`  |
+| Random sampling         |                                                                                        | `rPH(n, PH)`,  `rFullPH(n, PH)` |
+| Reward transformation   | See @bladt2017matrix                                                                   | `reward_phase_type(PH, R)` |
+
+| Quantity                | Formula                                                                                | Function |
+|-------------------------|----------------------------------------------------------------------------------------|----------|
+| Generator function      | $\tau\sim\text{DPH}(\boldsymbol{a}, \boldsymbol{T})$                                   | `DPH(T, a)` |
+| Mean                    | $\text{E}(\tau)=\boldsymbol{\pi} (\boldsymbol{I}-\boldsymbol{T})^{-1}\boldsymbol{e}$   | `mean(DPH)` |
+| Variance                | $\text{V}(\tau)= \text{E}(\tau^2)-\text{E}(\tau)^2$                                    | `var(DPH)`  |
+| Density                 | $f(x)=\boldsymbol{\pi T}^{x-1}\boldsymbol{t}$, $x\geq 1$                               | `dDPH(x, DPH)`  |
+| Cumulative distribution | $F(x)=1-\boldsymbol{\pi T}^x\boldsymbol{e}$, $x\geq 1$                                 | `pDPH(x, DPH)`  |
+| Quantile function       |                                                                                        | `qDPH(x, DPH)`  |
+| Random sampling         |                                                                                        | `rDPH(n, DPH)`,  `rFullDPH(n, DPH)` |
+| Reward transformation   | See @navarro2019discrete                                                               | `reward_phase_type(DPH, R)` |
+
+
 
 
 # Mathematics
