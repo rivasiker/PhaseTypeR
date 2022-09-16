@@ -68,6 +68,8 @@ frequency spectrum using multivariate phase-type theory, and we believe that its
 intuitive implementation will encourange more population geneticists to use phase-type
 theory. 
 
+# Overview
+
 | Quantity                | Formula                                                                                | Function |
 |-------------------------|----------------------------------------------------------------------------------------|----------|
 | Generator function      | $\tau\sim\text{PH}(\boldsymbol{a}, \boldsymbol{T})$                                    | `PH(T, a)` |
@@ -91,51 +93,42 @@ theory.
 | Reward transformation   | See @navarro2019discrete                                                               | `reward_phase_type(DPH, R)` |
 
 
+# An example: the coalescent with recombination
 
-
-# Mathematics
-
-Single dollars ($) are required for inline mathematics e.g. $f(x) = e^{\pi/x}$
-
-Double dollars make self-standing equations:
-
-$$\Theta(x) = \left\{\begin{array}{l}
-0\textrm{ if } x < 0\cr
-1\textrm{ else}
-\end{array}\right.$$
-
-You can also use plain \LaTeX for equations
-\begin{equation}\label{eq:fourier}
-\hat f(\omega) = \int_{-\infty}^{\infty} f(x) e^{i\omega x} dx
-\end{equation}
-and refer to \autoref{eq:fourier} from text.
-
-# Citations
-
-Citations to entries in paper.bib should be in
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format.
-
-If you want to cite a software repository URL (e.g. something on GitHub without a preferred
-citation) then you can do it with the example BibTeX entry below for @fidgit.
-
-For a quick reference, the following citation commands can be used:
-- `@author:2001`  ->  "Author et al. (2001)"
-- `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
-
-# Figures
-
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](figure.png)
-and referenced from text using \autoref{fig:example}.
-
-Figure sizes can be customized by adding an optional second parameter:
 ![Caption for example figure.](figure.png){ width=20% }
 
-# Acknowledgements
+```r
+recomb_rate <- 0.3
+ARG_subint_mat <- function(recomb_rate) {
+  matrix(
+    c(-(1+2*recomb_rate/2), 2*recomb_rate/2,  0,             0,  0,
+        1,                -(3+recomb_rate/2), recomb_rate/2, 1,  1,
+        0,                  4,               -6,             1,  1,
+        0,                  0,                0,            -1,  0,
+        0,                  0,                0,             0, -1),
+    nrow=5, byrow=TRUE)
+}
+subintensity_matrix <- ARG_subint_mat(recomb_rate)
+initial_probabilities <- c(1, 0, 0, 0, 0)
+# T_left: T_MRCA in left locus
+reward_left <- c(1, 1, 1, 0, 1)
+# T_right: T_MRCA in right locus
+reward_right <- c(1, 1, 1, 1, 0)
+# Joint distribution T_joint of T_left and T_right
+T_joint <- MPH(subintensity_matrix,
+               initial_probabilities,
+               matrix(c(reward_left, reward_right), nrow = 5))
 
-We acknowledge contributions from Brigitta Sipocz, Syrtis Major, and Semyeong
-Oh, and support from Kathryn Johnston during the genesis of this project.
+## Simulation from the joint distribution
+subintensity_matrix_09 <- ARG_subint_mat(0.166)
+Tab_09 <- MPH(subintensity_matrix_09, initial_probabilities,
+              matrix(c(reward_left, reward_right), nrow=5))
+subintensity_matrix_01 <- ARG_subint_mat(11.316)
+Tab_01 <- MPH(subintensity_matrix_01, initial_probabilities,
+              matrix(c(reward_left, reward_right), nrow=5))
+set.seed(3)
+rTab_09 <- rMPH(1000, Tab_09)
+rTab_01 <- rMPH(1000, Tab_01)
+```
 
 # References
