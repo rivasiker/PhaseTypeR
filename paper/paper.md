@@ -1,71 +1,82 @@
 ---
-title: 'Gala: A Python package for galactic dynamics'
+title: 'PhaseTypeR: an R package for phase-type distributions in population genetics'
 tags:
-  - Python
-  - astronomy
-  - dynamics
-  - galactic dynamics
-  - milky way
+  - R
+  - phase-type distributions
+  - population genetics
+  - ancestral process
+  - coalescent theory
 authors:
-  - name: Adrian M. Price-Whelan
-    orcid: 0000-0000-0000-0000
+  - name: Iker Rivas-González
+    orcid: 0000-0002-0515-0628
     equal-contrib: true
-    affiliation: "1, 2" # (Multiple affiliations must be quoted)
-  - name: Author Without ORCID
-    equal-contrib: true # (This is how you can denote equal contributions between multiple authors)
+    corresponding: true
+    affiliation: 1
+  - name: Lars Nørvand Andersen
+    orcid: 0000-0001-6196-8427
+    equal-contrib: true
     affiliation: 2
-  - name: Author with no affiliation
-    corresponding: true # (This is how to denote the corresponding author)
-    affiliation: 3
+  - name: Asger Hobolth
+    orcid: 0000-0003-4056-1286
+    equal-contrib: true
+    affiliation: 2
 affiliations:
- - name: Lyman Spitzer, Jr. Fellow, Princeton University, USA
+ - name: Bioinformatics Research Centre, Aarhus University, Denmark
    index: 1
- - name: Institution Name, Country
+ - name: Department of Mathematics, Aarhus University, Denmark
    index: 2
- - name: Independent Researcher, Country
-   index: 3
-date: 13 August 2017
+date: 16 September 2022
 bibliography: paper.bib
-
-# Optional fields if submitting to a AAS journal too, see this blog post:
-# https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing
-aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
-aas-journal: Astrophysical Journal <- The name of the AAS journal.
 ---
 
 # Summary
 
-The forces on stars, galaxies, and dark matter under external gravitational
-fields lead to the dynamical evolution of structures in the universe. The orbits
-of these bodies are therefore key to understanding the formation, history, and
-future state of galaxies. The field of "galactic dynamics," which aims to model
-the gravitating components of galaxies to study their structure and evolution,
-is now well-established, commonly taught, and frequently used in astronomy.
-Aside from toy problems and demonstrations, the majority of problems require
-efficient numerical tools, many of which require the same base code (e.g., for
-performing numerical orbit integration).
+Phase-type distributions describe the time until absorption of a continuous or 
+discrete-time Markov chain [@bladt2017matrix]. The probabilistic properties of 
+phase-type distributions (i.e., the probability density function, cumulative 
+distribution function, quantile function, moments and generating functions) 
+are well-described and analytically tractable using matrix manipulations. 
+
+Phase-type distributions have been traditionally used in actuarial sciences 
+and queuing theory, and more recently in population genetics. In order to 
+facilitate the use of phase-type theory in population genetics, we present
+`PhaseTypeR`, a general-purpose and user-friendly R package which contains
+all key functions &mdash;mean, (co)variance, probability density function, 
+cumulative distribution function, quantile function and random sampling&mdash;
+for both continuous and discrete phase-type distributions. Additionally, we 
+also implement reward transformations, together with fuctions for multivariate 
+continuous and multivariate discrete phase-type distributions. 
 
 # Statement of need
 
-`Gala` is an Astropy-affiliated Python package for galactic dynamics. Python
-enables wrapping low-level languages (e.g., C) for speed without losing
-flexibility or ease-of-use in the user-interface. The API for `Gala` was
-designed to provide a class-based and user-friendly interface to fast (C or
-Cython-optimized) implementations of common operations such as gravitational
-potential and force evaluation, orbit integration, dynamical transformations,
-and chaos indicators for nonlinear dynamics. `Gala` also relies heavily on and
-interfaces well with the implementations of physical units and astronomical
-coordinate systems in the `Astropy` package [@astropy] (`astropy.units` and
-`astropy.coordinates`).
+In recent years, the usefulness of phase-type theory in population genetics has
+become evident. Important quantities in population genetics such as the time until the
+most recent ancestor, the total tree length, the total number of segregating sites, and 
+the site frequency spectrum follow phase-type distributions [@hobolth2019phase]. 
+There are already several other R packages that model phase-type distributions, such as
+`actuar` [@dutang2008actuar], `mapfit` [@okamura2015mapfit; @okamura_dohi_2015; @okamura_dohi_2016] 
+or `matrixdist` [@albrecher_bladt_2019; @AlbrecherBladtYslas2020]. However, these packages 
+only model univariate continuous phase-type distributions, and they do not include reward 
+transformations, which are particularly useful in population genetics. Moreover, these packages 
+are tailored to actuarial sciences and queuing theory, which makes their implementation of 
+phase-type distributions hard to use for population genetics.
 
-`Gala` was designed to be used by both astronomical researchers and by
-students in courses on gravitational dynamics or astronomy. It has already been
-used in a number of scientific publications [@Pearson:2017] and has also been
-used in graduate courses on Galactic dynamics to, e.g., provide interactive
-visualizations of textbook material [@Binney:2008]. The combination of speed,
-design, and support for Astropy functionality in `Gala` will enable exciting
-scientific explorations of forthcoming data releases from the *Gaia* mission
-[@gaia] by students and experts alike.
+`PhaseTypeR` bridges the gap between population geneticists and phase-type theory 
+by enabling the use of phase-type distributions via easy-to-use R
+functions. The package has already been used in @HBA2021 to model the site
+frequency spectrum using multivariate phase-type theory, and we believe that its 
+intuitive implementation will encourange more population geneticists to use phase-type
+theory. 
+
+| Quantity                | Formula                                                                                | Function |
+|-------------------------|----------------------------------------------------------------------------------------|----------|
+| Mean                    | $\text{E}(\tau)=\boldsymbol{\pi} (-\boldsymbol{T})^{-1}\boldsymbol{e}$                 | `mean()` |
+| Variance                | $\text{V}(\tau)=\text{E}(\tau^2)-\text{E}(\tau)^2$                                     | `var()`  |
+| Density                 | $f(x)=\boldsymbol{\pi}\exp(\boldsymbol{T}x)(\boldsymbol{-T}\boldsymbol{e})$, $x\geq 0$ | `dPH()`  |
+| Cumulative distribution | $F(x)=1-\boldsymbol{\pi}\exp(\boldsymbol{T}x)\boldsymbol{e}$, $x\geq 0$                | `pPH()`  |
+| Quantile function       |                                                                                        | `qPH()`  |
+| Random sampling         |                                                                                        | `rPH()`,  `rFullPH()` |
+
 
 # Mathematics
 
