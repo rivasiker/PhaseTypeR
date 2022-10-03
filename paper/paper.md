@@ -12,7 +12,7 @@ authors:
     equal-contrib: true
     corresponding: true
     affiliation: 1
-  - name: Lars Nørvand Andersen
+  - name: Lars Nørvang Andersen
     orcid: 0000-0001-6196-8427
     equal-contrib: true
     affiliation: 2
@@ -37,7 +37,7 @@ phase-type distributions (i.e., the probability density function, cumulative
 distribution function, quantile function, moments and generating functions) 
 are well-described and analytically tractable using matrix manipulations. 
 
-Phase-type distributions have been traditionally used in actuarial sciences 
+Phase-type distributions have traditionally been used in actuarial sciences 
 and queuing theory, and more recently in population genetics. In order to 
 facilitate the use of phase-type theory in population genetics, we present
 `PhaseTypeR`, a general-purpose and user-friendly R package which contains
@@ -61,13 +61,17 @@ or `matrixdist` [@albrecher_bladt_2019; @AlbrecherBladtYslas2020]. However, thes
 univariate continuous phase-type distributions, they do not include reward transformations,
 and they are tailored to actuarial sciences and queuing theory.
  
-PhaseTypeR is particularly well suited for population genetics, and much emphasis in our 
+`PhaseTypeR` is particularly well suited for population genetics, and much emphasis in our 
 software is on natural and easy-to-use R functions. The package has already been used in [@HBA2021] 
 to model the site frequency spectrum using multivariate phase-type theory, and we believe that its 
-intuitive implementation will encourange more population geneticists to use phase-type
+intuitive implementation will encourage more population geneticists to use phase-type
 theory. 
 
 # Overview
+
+Table 1 provides an overview of the `PhaseTypeR` functions for a univariate continuous phase-type distribution $\tau \sim PH(\alpha,T)$. Let $\{X(t):t\geq 0\}$ denote the corresponding continuous-time Markov chain. The reward-transformed CTMC is then given by $Y=\int_0^\tau r(X(t)) dt$, where $\tau$ is the time to absorption, and $Y$ is also phase-type distributed. If the CTMC has $p$ transient states, then the reward function $r(i), i=1,\ldots,p$, is a vector of length $p$.
+
+Table 2 provides an overview of the `PhaseTypeR` functions for the univariate discrete phase-type distribution, and Table 3 does so for the multivariate phase-type distribution. A multivariate phase-type distribution is the joint distribution of $(Y_1,\ldots,Y_k)$ where $Y_j=\int_0^\tau r_j(X(t)) dt$ for $j=1,\ldots,k$. We summarize the rewards $r_j(i)$ in a matrix $R$ with $p$ rows (corresponding to the transient states) and $k$ columns (corresponding to the $k$ reward functions) with entries $R_{ij}=r_j(i)$.   
 
 | Quantity                | Formula                                                                                | Function |
 |-------------------------|----------------------------------------------------------------------------------------|----------|
@@ -79,12 +83,12 @@ theory.
 | Quantile function       |                                                                                        | `qPH(p, PH)`  |
 | Random sampling of the time to absorption         |                                                              | `rPH(n, PH)`|
 | Random sampling of full path          |                                                                          | `rFullPH(n, PH)` |
-| Reward transformation   | See @bladt2017matrix                                                                   | `reward_phase_type(PH, R)` |
+| Reward transformation   | See @bladt2017matrix                                                                   | `reward_phase_type(PH, r)` |
 
 Table 1: formulas and corresponding `PhaseTypeR` functions for univariate continuous
-phase-type distributions. $\boldsymbol{a}$ and `a` are the vector of initial probabilities, 
-$\boldsymbol{T}$ and `T` are the sub-intensity matrix, $\boldsymbol{e}$ is the exit rate
-vector, and `R` is the reward vector.
+phase-type distributions. The vector $\boldsymbol{a}$ (`a`) determine the initial probabilities, 
+$\boldsymbol{T}$ (`T`) is the sub-intensity matrix, $\boldsymbol{e}$ is a vector with 1 in every entry,
+and `r` is the reward vector.
 
 | Quantity                | Formula                                                                                | Function |
 |-------------------------|----------------------------------------------------------------------------------------|----------|
@@ -96,14 +100,14 @@ vector, and `R` is the reward vector.
 | Quantile function       |                                                                                        | `qDPH(p, DPH)`  |
 | Random sampling of the time to absorption         |                                                              | `rDPH(n, DPH)`|
 | Random sampling of full path         |                                                                           | `rFullDPH(n, DPH)`|
-| Reward transformation   | See @navarro2019discrete                                                               | `reward_phase_type(DPH, R)` |
+| Reward transformation   | See @navarro2019discrete                                                               | `reward_phase_type(DPH, r)` |
 
 Table 2: formulas and corresponding `PhaseTypeR` functions for univariate discrete
 phase-type distributions. 
 
 | Quantity                |  Continuous | Discrete |
 |-------------------------| ----------| ----------|
-| Multivariate phase-type object | `MPH(T, a, R)` | `MDPH(T, a, R)` |
+| Multivariate PH object  | `MPH(T, a, R)` | `MDPH(T, a, R)` |
 | Mean                    | `mean(MPH)` | `mean(MDPH)` |
 | (Co)variance            | `var(MPH)`  | `var(MDPH)`  |
 | Density                 | `dMPH(x, MPH)`  | `dMDPH(x, MDPH)`  |
@@ -114,7 +118,7 @@ phase-type distributions.
 
 Table 3: `PhaseTypeR` functions for multivariate continuous and multivariate
 discrete phase-type distributions. For information about the formulas for 
-calculating the covariances, please refer to @bladt2017matrix.
+calculating the covariances, please see @bladt2017matrix.
 
 
 
@@ -123,7 +127,7 @@ calculating the covariances, please refer to @bladt2017matrix.
 The traditional procedure for deriving the correlation between the branch lengths in two loci for a sample of size two is by a first-step analysis (e.g., section 7 in @wakeley2009coalescent). In this section, we exemplify the easy use of `PhaseTypeR` to obtain the same result.
 
 
-The state space and transition rates for the two-locus ancestral recombination graph is shown in Figure 1. The filled circles represent material ancestral to the sample, and the crosses indicate that the most common ancestor has been found. The lines between the circles or crosses indicate if the ancestral material is present on the same chromosome. The starting state is state 1 at present day with two samples from the same chromosome.
+The state space and transition rates for the two-locus ancestral recombination graph is shown in Figure 1. The filled circles represent material ancestral to the sample, and the crosses indicate that the most recent common ancestor has been found. The lines between the circles or crosses indicate if the ancestral material is present on the same chromosome. The starting state is state 1 at present day with two samples from the same chromosome.
 
 The time $\tau$ when both loci have found their common ancestor is $\text{PH}(\boldsymbol{\alpha}, \boldsymbol{S})$ distributed with $\boldsymbol{\alpha}=(1,0,0,0,0)$ and
 
@@ -169,6 +173,8 @@ and we note that for large recombination rates ${\rm Cov}(T_{\text{left}},T_{\te
 
 <img src="recomb_graph.png" width="500">
 
+Figure 1: two-locus ancestral recombination graph. 
+
 An implementation using `PhaseTypeR` simply consists of specifying the initial distribution, rate matrix for the ancestral process, rewards for the two tree heights, and calling the variance function (`var()`) for the multivariate phase-type distribution.   
 
 ```r
@@ -200,7 +206,7 @@ var(T_joint)[1, 2]
 
 We can see that the phase-type result is equal to the classical formula provided above when $\rho=0.3$. 
 
-From this multivariate phase-type representation of the ancestral recombination graph (ARG), we can simulate, for example, 1,000 draws from the joint distribution of $(T_{\text{left}}, T_{\text{right}})$ using `rMPH(1000, T_joint)` in `PhaseTypeR`. If the recombination rate $\rho$ is set to a small value, then most of the draws will result in $T_{\text{left}}=T_{\text{right}}$, and the joint density will concentrate along the diagonal, as shown in Figure 2, left (@simonsen1997markov). If instead $\rho$ is large, then most of the draws will result in $T_{\text{left}}\neq T_{\text{right}}$ (Figure 2, right).
+From this multivariate phase-type representation of the ancestral recombination graph (ARG), we can simulate, for example, 1,000 samples from the joint distribution of $(T_{\text{left}}, T_{\text{right}})$ using `rMPH(1000, T_joint)` in `PhaseTypeR`. If the recombination rate $\rho$ is set to a small value, then most of the samples will result in $T_{\text{left}}=T_{\text{right}}$, and the joint density will concentrate along the diagonal, as shown in Figure 2, left (@simonsen1997markov). If instead $\rho$ is large, then most of the samples will result in $T_{\text{left}}\neq T_{\text{right}}$ (Figure 2, right).
 
 ```r
 ## Simulation from the joint distribution
@@ -216,5 +222,7 @@ rTab_01 <- rMPH(1000, Tab_01)
 ```
 
 <img src="fig_simonsen_cor.png" width="700">
+
+Figure 2: Random samples from the two-locus ancestral recombination graph. Left: recombination rate $\rho=0.166$. Right: recombination rate $\rho=11.316$.
 
 # References
