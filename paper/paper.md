@@ -205,9 +205,11 @@ $$
  0 & 4 & -6 & 1 & 1 \\
  0 & 0 & 0 & -1 & 0 \\
  0 & 0 & 0 & 0 & -1 \\
-\end{array} \right).
+\end{array} \right),
 \end{equation}
 $$
+
+where $\rho$ is the recombination rate.
 
 The tree height $T_{\text{left}}$ in the left locus is the first time the ancestral process $\{X(t):t\geq 0\}$ enters state 4 or state 6 or, equivalently, the time spent in state 1, 2, 3 and 5 before absorption in state 6. We therefore have
 
@@ -239,7 +241,7 @@ and we note that for large recombination rates ${\rm Cov}(T_{\text{left}},T_{\te
 
 <img src="recomb_graph.png" width="500">
 
-Figure 1: two-locus ancestral recombination graph. 
+Figure 1: two-locus ancestral recombination graph. Balls represent uncoalesced sites, while crosses represent coalesced sites.
 
 An implementation using `PhaseTypeR` simply consists of specifying the initial distribution, rate matrix for the ancestral process, rewards for the two tree heights, and calling the variance function (`var()`) for the multivariate phase-type distribution.   
 
