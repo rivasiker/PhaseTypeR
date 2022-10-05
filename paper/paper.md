@@ -120,9 +120,75 @@ Table 3: `PhaseTypeR` functions for multivariate continuous and multivariate
 discrete phase-type distributions. For information about the formulas for 
 calculating the covariances, please see @bladt2017matrix.
 
+# Example 1: variance-covariance matrix of the SFS
 
+```r
+RateMAndStateSpace <- function(n){
+  # --------- State space ---------
+  # Size of the state space (number of states)
+  nSt <- partitions::P(n)
+  # Definition of the state space
+  StSpM <- matrix(ncol=n,nrow=nSt)
+  # Set of partitions of [n]
+  x <- partitions::parts(n)
+  # Rewriting the partitions as (a1,...,an)
+  for (i in 1:nSt) {
+    st <- x[,i]
+    StSpM[i,] <- tabulate(x[,i],nbins=n)
+  }
+  # Reordering
+  StSpM <- StSpM[order(rowSums(StSpM),decreasing=TRUE),]
+  # Below the diagonal the entries are always zero
+  # --------- Intensity matrix ---------
+  RateM <- matrix(0,ncol=nSt,nrow=nSt)
+  for (i in 1:(nSt-1)){
+    for (j in (i+1):nSt){
+      cvec <- StSpM[i,]-StSpM[j,]
+      ## Two branches are merged, i.e. removed from state i
+      check1 <- sum(cvec[cvec>0])==2
+      ## One new branch is created, i.e. added in state from j
+      check2 <- sum(cvec[cvec<0])==-1
+      if (check1 & check2){
+        ## Size(s) of the block(s) and the corresponding rates
+        tmp <- StSpM[i,which(cvec>0)]
+        RateM[i,j] <- ifelse(length(tmp)==1,tmp*(tmp-1)/2,prod(tmp))
+      }
+    }
+  }
+  ## Diagonal part of the rate matrix
+  for (i in 1:nSt){
+    RateM[i,i] <- -sum(RateM[i,])
+  }
+  list(RateM=RateM,StSpM=StSpM)
+}
+```
 
-# An example: the coalescent with recombination
+```r
+n <- 8
+RMASS <- RateMAndStateSpace(n)
+m <- dim(RMASS$RateM)[1] 
+# Obtain subintensity matrix
+subintensity_matrix <- RMASS$RateM[1:(m-1),1:(m-1)]
+# The reward matrix is the state space matrix of the block counting process
+rew_mat <- RMASS$StSpM[1:(m-1),1:(n-1)]
+# Define MPH object
+ph_rew_obj <- MPH(subintensity_matrix, NULL, rew_mat)
+# Print table
+round(0.25*var(ph_rew_obj), 4) 
+```
+
+```
+        [,1]    [,2]    [,3]    [,4]    [,5]    [,6]    [,7]
+[1,]  0.3211 -0.0358 -0.0210 -0.0141 -0.0103 -0.0079  0.1384
+[2,] -0.0358  0.2495 -0.0210 -0.0141 -0.0103  0.1328 -0.0356
+[3,] -0.0210 -0.0210  0.2076 -0.0141  0.1283 -0.0346 -0.0267
+[4,] -0.0141 -0.0141 -0.0141  0.3173 -0.0359 -0.0275 -0.0216
+[5,] -0.0103 -0.0103  0.1283 -0.0359  0.1394 -0.0230 -0.0183
+[6,] -0.0079  0.1328 -0.0346 -0.0275 -0.0230  0.1310 -0.0159
+[7,]  0.1384 -0.0356 -0.0267 -0.0216 -0.0183 -0.0159  0.1224
+```
+
+# Example 2: the coalescent with recombination
 
 The traditional procedure for deriving the correlation between the branch lengths in two loci for a sample of size two is by a first-step analysis (e.g., section 7 in @wakeley2009coalescent). In this section, we exemplify the easy use of `PhaseTypeR` to obtain the same result.
 
