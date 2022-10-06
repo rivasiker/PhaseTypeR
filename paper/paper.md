@@ -40,7 +40,7 @@ are well-described and analytically tractable using matrix manipulations.
 Phase-type distributions have traditionally been used in actuarial sciences 
 and queuing theory, and more recently in population genetics. In order to 
 facilitate the use of phase-type theory in population genetics, we present
-`PhaseTypeR`, a general-purpose and user-friendly R package which contains
+`PhaseTypeR`, a general-purpose and user-friendly R ([@Rcitation]) package which contains
 all key functions &mdash;mean, (co)variance, probability density function, 
 cumulative distribution function, quantile function and random sampling&mdash;
 for both continuous and discrete phase-type distributions. Importantly, univariate 
@@ -142,7 +142,7 @@ $$
 
 All in all, this means that we can calculate $\text{Var}[\xi_i]$ and $\text{Cov}[\xi_i, \xi_j]$ directly from the variance-covariance matrix \boldsymbol{\Sigma} derived from $L_i$. 
 
-[@durrett2008probability] derived all elements of \boldsymbol{\Sigma} using analytical formulas in theorem 2.2. However, we can avoid these formulas by realizing that $L_i\sim\text{PH}(\boldsymbol{\alpha},\boldsymbol{T_i})$, where $\boldsymbol{\alpha}=(1, 0, \dots, 0)$ is the vector of starting probabilities of size $n-1$ and $\boldsymbol{T_i}$ is the sub-intensity matrix. All $\boldsymbol{T_i}$ can be calculated by reward transforming the same base matrix $\boldsymbol{T}$, since all $L_i$ are weighted versions of Kingman's coalescent process. Following [@hobolth2019phase], the base matrix and the rewards vector $\boldsymbol{r_i}$ for a certain sample size $n$ can be calculated using the block counting process of the standard coalescent model. The code for doing so is shown below:
+[@durrett2008probability] derived all elements of \boldsymbol{\Sigma} using analytical formulas in theorem 2.2. However, we can avoid these formulas by realizing that $L_i\sim\text{PH}(\boldsymbol{\alpha},\boldsymbol{T_i})$, where $\boldsymbol{\alpha}=(1, 0, \dots, 0)$ is the vector of starting probabilities of size $n-1$ and $\boldsymbol{T_i}$ is the sub-intensity matrix. All $\boldsymbol{T_i}$ can be calculated by reward transforming the same base matrix $\boldsymbol{T}$, since all $L_i$ are weighted versions of Kingman's coalescent process ([@kingman1982coalescent, @hobolth2019phase]). Following [@hobolth2019phase], the base matrix and the rewards vector $\boldsymbol{r_i}$ for a certain sample size $n$ can be calculated using the block counting process of the standard coalescent model. The code for doing so is shown below:
 
 ```r
 RateMAndStateSpace <- function(n){
