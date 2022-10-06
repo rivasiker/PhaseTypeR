@@ -130,9 +130,9 @@ and, given that all $\xi_i$ are conditionally independent given their correspond
 
 $$\text{Cov}[\xi_i, \xi_j]=\text{Cov}[\text{E}[\xi_i|L_i], \text{E}[\xi_j|L_j]]=\text{Cov}[L_i\frac{\theta}{2}, L_j\frac{\theta}{2}]=\frac{\theta^2}{4}\text{Cov}[L_i, L_j]=\theta^2\sigma_{ij}.$$
 
-All in all, this means that we can calculate $\text{Var}[\xi_i]$ and $\text{Cov}[\xi_i, \xi_j]$ directly from the variance-covariance matrix \boldsymbol{\Sigma} derived from $L_i$. 
+All in all, this means that we can calculate $\text{Var}[\xi_i]$ and $\text{Cov}[\xi_i, \xi_j]$ directly from the variance-covariance matrix $\boldsymbol{\Sigma}$ derived from $L_i$. 
 
-[@durrett2008probability] derived all elements of \boldsymbol{\Sigma} using analytical formulas in theorem 2.2. However, we can avoid these formulas by realizing that $L_i\sim\text{PH}(\boldsymbol{\alpha},\boldsymbol{T_i})$, where $\boldsymbol{\alpha}=(1, 0, \dots, 0)$ is the vector of starting probabilities of size $n-1$ and $\boldsymbol{T_i}$ is the sub-intensity matrix. All $\boldsymbol{T_i}$ can be calculated by reward transforming the same base matrix $\boldsymbol{T}$, since all $L_i$ are weighted versions of Kingman's coalescent process ([@kingman1982coalescent, @hobolth2019phase]). Following [@hobolth2019phase], the base matrix and the rewards vector $\boldsymbol{r_i}$ for a certain sample size $n$ can be calculated using the block counting process of the standard coalescent model. The code for doing so is shown below:
+[@durrett2008probability] derived all elements of $\boldsymbol{\Sigma}$ using analytical formulas in theorem 2.2. However, we can avoid these formulas by realizing that $L_i\sim\text{PH}(\boldsymbol{\alpha},\boldsymbol{T_i})$, where $\boldsymbol{\alpha}=(1, 0, \dots, 0)$ is the vector of starting probabilities of size $n-1$ and $\boldsymbol{T_i}$ is the sub-intensity matrix. All $\boldsymbol{T_i}$ can be calculated by reward transforming the same base matrix $\boldsymbol{T}$, since all $L_i$ are weighted versions of Kingman's coalescent process ([@kingman1982coalescent, @hobolth2019phase]). Following [@hobolth2019phase], the base matrix and the rewards vector $\boldsymbol{r_i}$ for a certain sample size $n$ can be calculated using the block counting process of the standard coalescent model. The code for doing so is shown below:
 
 ```r
 RateMAndStateSpace <- function(n){
