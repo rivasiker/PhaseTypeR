@@ -72,11 +72,6 @@ theory.
 Table 1 provides an overview of the `PhaseTypeR` functions for a univariate continuous phase-type distribution $\tau \sim PH(\alpha,T)$. Let $\{X(t):t\geq 0\}$ denote the corresponding continuous-time Markov chain. The reward-transformed CTMC is then given by $Y=\int_0^\tau r(X(t)) dt$, where $\tau$ is the time to absorption, and $Y$ is also phase-type distributed. If the CTMC has $p$ transient states, then the reward function $r(i), i=1,\ldots,p$, is a vector of length $p$.
 
 
-Table 1: formulas and corresponding `PhaseTypeR` functions for univariate continuous
-phase-type distributions. The vector $\boldsymbol{a}$ (`a`) determine the initial probabilities, 
-$\boldsymbol{T}$ (`T`) is the sub-intensity matrix, $\boldsymbol{e}$ is a vector with 1 in every entry,
-and `r` is the reward vector.
-
 | Quantity                | Formula                                                                                | Function |
 |-------------------------|----------------------------------------------------------------------------------------|----------|
 | PH object               | $\tau\sim\text{PH}(\boldsymbol{a}, \boldsymbol{T})$                                    | `PH(T, a)` |
@@ -89,10 +84,13 @@ and `r` is the reward vector.
 | Random sampling of full path          |                                                                          | `rFullPH(n, PH)` |
 | Reward transformation   | See @bladt2017matrix                                                                   | `reward_phase_type(PH, r)` |
 
-Table 2 provides an overview of the `PhaseTypeR` functions for the univariate discrete phase-type distribution, and Table 3 does so for the multivariate phase-type distribution. A multivariate phase-type distribution is the joint distribution of $(Y_1,\ldots,Y_k)$ where $Y_j=\int_0^\tau r_j(X(t)) dt$ for $j=1,\ldots,k$. We summarize the rewards $r_j(i)$ in a matrix $R$ with $p$ rows (corresponding to the transient states) and $k$ columns (corresponding to the $k$ reward functions) with entries $R_{ij}=r_j(i)$.   
+: formulas and corresponding `PhaseTypeR` functions for univariate continuous
+phase-type distributions. The vector $\boldsymbol{a}$ (`a`) determine the initial probabilities, 
+$\boldsymbol{T}$ (`T`) is the sub-intensity matrix, $\boldsymbol{e}$ is a vector with 1 in every entry,
+and `r` is the reward vector.\label{tab:tab1}
 
-Table 2: formulas and corresponding `PhaseTypeR` functions for univariate discrete
-phase-type distributions. 
+\autoref{tab:tab2} provides an overview of the `PhaseTypeR` functions for the univariate discrete phase-type distribution, and \autoref{tab:tab3} does so for the multivariate phase-type distribution. A multivariate phase-type distribution is the joint distribution of $(Y_1,\ldots,Y_k)$ where $Y_j=\int_0^\tau r_j(X(t)) dt$ for $j=1,\ldots,k$. We summarize the rewards $r_j(i)$ in a matrix $R$ with $p$ rows (corresponding to the transient states) and $k$ columns (corresponding to the $k$ reward functions) with entries $R_{ij}=r_j(i)$.   
+
 
 | Quantity                | Formula                                                                                | Function |
 |-------------------------|----------------------------------------------------------------------------------------|----------|
@@ -106,10 +104,9 @@ phase-type distributions.
 | Random sampling of full path         |                                                                           | `rFullDPH(n, DPH)`|
 | Reward transformation   | See @navarro2019discrete                                                               | `reward_phase_type(DPH, r)` |
 
+: Formulas and corresponding `PhaseTypeR` functions for univariate discrete
+phase-type distributions.\label{tab:tab2}
 
-Table 3: `PhaseTypeR` functions for multivariate continuous and multivariate
-discrete phase-type distributions. For information about the formulas for 
-calculating the covariances, please see @bladt2017matrix.
 
 | Quantity                |  Continuous | Discrete |
 |-------------------------| ----------| ----------|
@@ -122,7 +119,9 @@ calculating the covariances, please see @bladt2017matrix.
 | Random sampling of the time to absorption  | `rMPH(n, MPH)`| `rMDPH(n, MDPH)`|
 | Random sampling of full path   | `rFullMPH(n, MPH)` | `rFullMDPH(n, MDPH)` |
 
-
+: `PhaseTypeR` functions for multivariate continuous and multivariate
+discrete phase-type distributions. For information about the formulas for 
+calculating the covariances, please see @bladt2017matrix.\label{tab:tab3}
 
 # Example 1: variance-covariance matrix of the SFS
 
