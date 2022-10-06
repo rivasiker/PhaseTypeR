@@ -40,7 +40,7 @@ are well-described and analytically tractable using matrix manipulations.
 Phase-type distributions have traditionally been used in actuarial sciences 
 and queuing theory, and more recently in population genetics. In order to 
 facilitate the use of phase-type theory in population genetics, we present
-`PhaseTypeR`, a general-purpose and user-friendly R ([@Rcitation]) package which contains
+`PhaseTypeR`, a general-purpose and user-friendly R [@Rcitation] package which contains
 all key functions &mdash;mean, (co)variance, probability density function, 
 cumulative distribution function, quantile function and random sampling&mdash;
 for both continuous and discrete phase-type distributions. Importantly, univariate 
@@ -62,7 +62,7 @@ univariate continuous phase-type distributions, they do not include reward trans
 and they are tailored to actuarial sciences and queuing theory.
  
 `PhaseTypeR` is particularly well suited for population genetics, and much emphasis in our 
-software is on natural and easy-to-use R functions. The package has already been used in [@HBA2021] 
+software is on natural and easy-to-use R functions. The package has already been used in @HBA2021
 to model the site frequency spectrum using multivariate phase-type theory, and we believe that its 
 intuitive implementation will encourage more population geneticists to use phase-type
 theory. 
@@ -71,7 +71,11 @@ theory.
 
 Table 1 provides an overview of the `PhaseTypeR` functions for a univariate continuous phase-type distribution $\tau \sim PH(\alpha,T)$. Let $\{X(t):t\geq 0\}$ denote the corresponding continuous-time Markov chain. The reward-transformed CTMC is then given by $Y=\int_0^\tau r(X(t)) dt$, where $\tau$ is the time to absorption, and $Y$ is also phase-type distributed. If the CTMC has $p$ transient states, then the reward function $r(i), i=1,\ldots,p$, is a vector of length $p$.
 
-Table 2 provides an overview of the `PhaseTypeR` functions for the univariate discrete phase-type distribution, and Table 3 does so for the multivariate phase-type distribution. A multivariate phase-type distribution is the joint distribution of $(Y_1,\ldots,Y_k)$ where $Y_j=\int_0^\tau r_j(X(t)) dt$ for $j=1,\ldots,k$. We summarize the rewards $r_j(i)$ in a matrix $R$ with $p$ rows (corresponding to the transient states) and $k$ columns (corresponding to the $k$ reward functions) with entries $R_{ij}=r_j(i)$.   
+
+Table 1: formulas and corresponding `PhaseTypeR` functions for univariate continuous
+phase-type distributions. The vector $\boldsymbol{a}$ (`a`) determine the initial probabilities, 
+$\boldsymbol{T}$ (`T`) is the sub-intensity matrix, $\boldsymbol{e}$ is a vector with 1 in every entry,
+and `r` is the reward vector.
 
 | Quantity                | Formula                                                                                | Function |
 |-------------------------|----------------------------------------------------------------------------------------|----------|
@@ -85,10 +89,10 @@ Table 2 provides an overview of the `PhaseTypeR` functions for the univariate di
 | Random sampling of full path          |                                                                          | `rFullPH(n, PH)` |
 | Reward transformation   | See @bladt2017matrix                                                                   | `reward_phase_type(PH, r)` |
 
-Table 1: formulas and corresponding `PhaseTypeR` functions for univariate continuous
-phase-type distributions. The vector $\boldsymbol{a}$ (`a`) determine the initial probabilities, 
-$\boldsymbol{T}$ (`T`) is the sub-intensity matrix, $\boldsymbol{e}$ is a vector with 1 in every entry,
-and `r` is the reward vector.
+Table 2 provides an overview of the `PhaseTypeR` functions for the univariate discrete phase-type distribution, and Table 3 does so for the multivariate phase-type distribution. A multivariate phase-type distribution is the joint distribution of $(Y_1,\ldots,Y_k)$ where $Y_j=\int_0^\tau r_j(X(t)) dt$ for $j=1,\ldots,k$. We summarize the rewards $r_j(i)$ in a matrix $R$ with $p$ rows (corresponding to the transient states) and $k$ columns (corresponding to the $k$ reward functions) with entries $R_{ij}=r_j(i)$.   
+
+Table 2: formulas and corresponding `PhaseTypeR` functions for univariate discrete
+phase-type distributions. 
 
 | Quantity                | Formula                                                                                | Function |
 |-------------------------|----------------------------------------------------------------------------------------|----------|
@@ -102,8 +106,10 @@ and `r` is the reward vector.
 | Random sampling of full path         |                                                                           | `rFullDPH(n, DPH)`|
 | Reward transformation   | See @navarro2019discrete                                                               | `reward_phase_type(DPH, r)` |
 
-Table 2: formulas and corresponding `PhaseTypeR` functions for univariate discrete
-phase-type distributions. 
+
+Table 3: `PhaseTypeR` functions for multivariate continuous and multivariate
+discrete phase-type distributions. For information about the formulas for 
+calculating the covariances, please see @bladt2017matrix.
 
 | Quantity                |  Continuous | Discrete |
 |-------------------------| ----------| ----------|
@@ -116,13 +122,11 @@ phase-type distributions.
 | Random sampling of the time to absorption  | `rMPH(n, MPH)`| `rMDPH(n, MDPH)`|
 | Random sampling of full path   | `rFullMPH(n, MPH)` | `rFullMDPH(n, MDPH)` |
 
-Table 3: `PhaseTypeR` functions for multivariate continuous and multivariate
-discrete phase-type distributions. For information about the formulas for 
-calculating the covariances, please see @bladt2017matrix.
+
 
 # Example 1: variance-covariance matrix of the SFS
 
-This section concerns reproducing the table associated with theorem 2.2 in [@durrett2008probability], which can be used to derive the variance of the elements of the site frequency spectrum (SFS) and the covariance between pairs of elements of the SFS. 
+This section concerns reproducing the table associated with theorem 2.2 in @durrett2008probability, which can be used to derive the variance of the elements of the site frequency spectrum (SFS) and the covariance between pairs of elements of the SFS. 
 
 Let $\xi_i$ be the $i$'th element of the site frequency spectrum (SFS), i.e., $\xi_1$ is the number of singletons, $\xi_2$ is the number of doubletons, etc. Let's also define $L_i$, which is the total branch length leading to $\xi_i$. Following standard theory for the coalescent with mutation, $\xi_i|L_i\sim\text{Poisson}(L_i\frac{\theta}{2})$. Thus, we have that
 $$\text{Var}[\xi_i]=\text{Var}[\text{E}[\xi_i|L_i]]+\text{E}[\text{Var}[\xi_i|L_i]]=\text{Var}[L_i\frac{\theta}{2}]+\text{E}[L_i\frac{\theta}{2}]=\frac{\theta^2}{4}\text{Var}[L_i]+\frac{\theta}{2}\text{E}[L_i]=\theta^2\sigma_{ii}+\frac{\theta}{i},$$
@@ -132,7 +136,7 @@ $$\text{Cov}[\xi_i, \xi_j]=\text{Cov}[\text{E}[\xi_i|L_i], \text{E}[\xi_j|L_j]]=
 
 All in all, this means that we can calculate $\text{Var}[\xi_i]$ and $\text{Cov}[\xi_i, \xi_j]$ directly from the variance-covariance matrix $\boldsymbol{\Sigma}$ derived from $L_i$. 
 
-@durrett2008probability derived all elements of $\boldsymbol{\Sigma}$ using analytical formulas in theorem 2.2. However, we can avoid these formulas by realizing that $L_i\sim\text{PH}(\boldsymbol{\alpha},\boldsymbol{T_i})$, where $\boldsymbol{\alpha}=(1, 0, \dots, 0)$ is the vector of starting probabilities of size $n-1$ and $\boldsymbol{T_i}$ is the sub-intensity matrix. All $\boldsymbol{T_i}$ can be calculated by reward transforming the same base matrix $\boldsymbol{T}$, since all $L_i$ are weighted versions of Kingman's coalescent process [@kingman1982coalescent, @hobolth2019phase]. Following @hobolth2019phase, the base matrix and the rewards vector $\boldsymbol{r_i}$ for a certain sample size $n$ can be calculated using the block counting process of the standard coalescent model. The code for doing so is shown below:
+@durrett2008probability derived all elements of $\boldsymbol{\Sigma}$ using analytical formulas in theorem 2.2. However, we can avoid these formulas by realizing that $L_i\sim\text{PH}(\boldsymbol{\alpha},\boldsymbol{T_i})$, where $\boldsymbol{\alpha}=(1, 0, \dots, 0)$ is the vector of starting probabilities of size $n-1$ and $\boldsymbol{T_i}$ is the sub-intensity matrix. All $\boldsymbol{T_i}$ can be calculated by reward transforming the same base matrix $\boldsymbol{T}$, since all $L_i$ are weighted versions of Kingman's coalescent process [@kingman1982coalescent]. Following @hobolth2019phase, the base matrix and the rewards vector $\boldsymbol{r_i}$ for a certain sample size $n$ can be calculated using the block counting process of the standard coalescent model. The code for doing so is shown below:
 
 ```r
 RateMAndStateSpace <- function(n){
@@ -240,7 +244,7 @@ with the reward vector $\boldsymbol{r_{\text{right}}}=(1,1,1,1,0)$. A classical 
 
 $${\rm Cov}(T_{\text{left}},T_{\text{right}})=\frac{\rho+18}{\rho^2+13\rho+18},$$
 
-and we note that for large recombination rates ${\rm Cov}(T_{\text{left}},T_{\text{right}})$ is close to zero, and for small recombination rates it is close to one. Note that $T_{\text{left}}$ and $T_{\text{right}}$ are both exponentially distributed with a rate of 1, so $\text{Var}(T_{\text{left}})=\text{Var}(T_{\text{right}})=1$, and, consequently,  $\text{Cor}(T_{\text{left}}, T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$ [see also equation (3.10) in @wakeley2009coalescent]. Moreover, as shown by a simple proof in @wilton2015smc, we have that $P(T_{\text{left}}=T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$.
+and we note that for large recombination rates ${\rm Cov}(T_{\text{left}},T_{\text{right}})$ is close to zero, and for small recombination rates it is close to one. Note that $T_{\text{left}}$ and $T_{\text{right}}$ are both exponentially distributed with a rate of 1, so $\text{Var}(T_{\text{left}})=\text{Var}(T_{\text{right}})=1$, and, consequently,  $\text{Cor}(T_{\text{left}}, T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$ [see also equation 3.10 in @wakeley2009coalescent]. Moreover, as shown by a simple proof in @wilton2015smc, we have that $P(T_{\text{left}}=T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$.
 
 ![Two-locus ancestral recombination graph. Balls represent uncoalesced sites, while crosses represent coalesced sites.](recomb_graph.pdf)
 
