@@ -230,13 +230,11 @@ where $\rho$ is the recombination rate.
 
 The tree height $T_{\text{left}}$ in the left locus is the first time the ancestral process $\{X(t):t\geq 0\}$ enters state 4 or state 6 or, equivalently, the time spent in state 1, 2, 3 and 5 before absorption in state 6. We therefore have
 
-$$T_{\text{left}}=\min \big\\{ t\geq 0 :X(t)\in\{4,6\} \big\\}=
-  \int_0^{\tau}\boldsymbol{r_{\text{left}}}(X_t)dt$$
+$$T_{\text{left}}=\min \bigl\{ t\geq 0 :X(t)\in\{4,6\} \bigr\}=\int_0^{\tau}\boldsymbol{r_{\text{left}}}(X_t)dt$$
 
 with the reward vector $\boldsymbol{r_{\text{left}}}=(1,1,1,0,1)$. Similarly, the tree height $T_{\text{right}}$ in the right locus is the first time the ancestral process enters state 5 or state 6 or, equivalently, the time spent in state 1, 2, 3 and 4 before absorption in state 6. We therefore have
 
-$$T_{\text{right}}=\min \big\\{ t\geq 0 :X(t)\in\{5,6\} \big\\}=
-  \int_0^{\tau}\boldsymbol{r_{\text{right}}}(X_t)dt$$
+$$T_{\text{right}}=\min \bigl\{ t\geq 0 :X(t)\in\{5,6\} \bigr\}=\int_0^{\tau}\boldsymbol{r_{\text{right}}}(X_t)dt$$
 
 with the reward vector $\boldsymbol{r_{\text{right}}}=(1,1,1,1,0)$. A classical result in population genetics gives the covariance between the two tree heights
 
