@@ -242,7 +242,7 @@ $${\rm Cov}(T_{\text{left}},T_{\text{right}})=\frac{\rho+18}{\rho^2+13\rho+18},$
 
 and we note that for large recombination rates ${\rm Cov}(T_{\text{left}},T_{\text{right}})$ is close to zero, and for small recombination rates it is close to one. Note that $T_{\text{left}}$ and $T_{\text{right}}$ are both exponentially distributed with a rate of 1, so $\text{Var}(T_{\text{left}})=\text{Var}(T_{\text{right}})=1$, and, consequently,  $\text{Cor}(T_{\text{left}}, T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$ (see also equation (3.10) in [@wakeley2009coalescent]). Moreover, as shown by a simple proof in [@wilton2015smc], we have that $P(T_{\text{left}}=T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$.
 
-<img src="recomb_graph.png" width="500">
+![Coalescent with recombination graph](recomb_graph.png)
 
 Figure 1: two-locus ancestral recombination graph. Balls represent uncoalesced sites, while crosses represent coalesced sites.
 
@@ -292,7 +292,7 @@ rTab_09 <- rMPH(1000, Tab_09)
 rTab_01 <- rMPH(1000, Tab_01)
 ```
 
-<img src="fig_simonsen_cor.png" width="700">
+![Simulation study](fig_simonsen_cor.png)
 
 Figure 2: Random samples from the two-locus ancestral recombination graph. Left: recombination rate $\rho=0.166$. Right: recombination rate $\rho=11.316$.
 
