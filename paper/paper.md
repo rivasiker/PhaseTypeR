@@ -122,6 +122,28 @@ calculating the covariances, please see @bladt2017matrix.
 
 # Example 1: variance-covariance matrix of the SFS
 
+This section concerns reproducing the table associated with theorem 2.2 in [@Durrett2008], which can be used to derive the variance of the elements of the site frequency spectrum (SFS) and the covariance between pairs of elements of the SFS. 
+
+Let $\xi_i$ be the $i$'th element of the site frequency spectrum (SFS), i.e., $\xi_1$ is the number of singletons, $\xi_2$ is the number of doubletons, etc. Let's also define $L_i$, which is the total branch length leading to $\xi_i$. Following standard theory for the coalescent with mutation, $\xi_i|L_i\sim\text{Poisson}(L_i\frac{\theta}{2})$. Thus, we have that
+
+$$
+\begin{equation}
+  \text{Var}[\xi_i]=\text{Var}[\text{E}[\xi_i|L_i]]+\text{E}[\text{Var}[\xi_i|L_i]]=\text{Var}[L_i\frac{\theta}{2}]+\text{E}[L_i\frac{\theta}{2}]=\frac{\theta^2}{4}\text{Var}[L_i]+\frac{\theta}{2}\text{E}[L_i]=\theta^2\sigma_{ii}+\frac{\theta}{i},
+\end{equation}
+$$
+
+and, given that all $\xi_i$ are conditionally independent given their corresponding $L_i$,
+
+$$
+\begin{equation}
+  \text{Cov}[\xi_i, \xi_j]=\text{Cov}[\text{E}[\xi_i|L_i], \text{E}[\xi_j|L_j]]=\text{Cov}[L_i\frac{\theta}{2}, L_j\frac{\theta}{2}]=\frac{\theta^2}{4}\text{Cov}[L_i, L_j]=\theta^2\sigma_{ij}.
+\end{equation}
+$$
+
+All in all, this means that we can calculate $\text{Var}[\xi_i]$ and $\text{Cov}[\xi_i, \xi_j]$ directly from the variance-covariance matrix \boldsymbol{\Sigma} derived from $L_i$. 
+
+[@Durrett2008] derived all elements of \boldsymbol{\Sigma} using analytical formulas in theorem 2.2. However, we can avoid these formulas by realizing that $L_i\sim\text{PH}(\boldsymbol{\alpha},\boldsymbol{T_i})$, where $\boldsymbol{\alpha}=(1, 0, \dots, 0)$ is the vector of starting probabilities of size $n-1$ and $\boldsymbol{T_i}$ is the sub-intensity matrix. All $\boldsymbol{T_i}$ can be calculated by reward transforming the same base matrix $\boldsymbol{T}$, since all $L_i$ are weighted versions of Kingman's coalescent process. Following [@HBA2021], the base matrix and the rewards vector $\boldsymbol{r_i}$ for a certain sample size $n$ can be calculated using the block counting process of the standard coalescent model. The code for doing so is shown below:
+
 ```r
 RateMAndStateSpace <- function(n){
   # --------- State space ---------
@@ -163,6 +185,8 @@ RateMAndStateSpace <- function(n){
 }
 ```
 
+By collecting all reward vectors into a reward matrix $\boldsymbol{R}$, we can now define a multivariate phase-type distribution such that $L\sim\text{MPH}(\boldsymbol{\alpha},\boldsymbol{T},\boldsymbol{R})$. This is straightforward to define in `PhaseTypeR` with the `MPH()` function. For $n=8$:
+
 ```r
 n <- 8
 RMASS <- RateMAndStateSpace(n)
@@ -173,8 +197,13 @@ subintensity_matrix <- RMASS$RateM[1:(m-1),1:(m-1)]
 rew_mat <- RMASS$StSpM[1:(m-1),1:(n-1)]
 # Define MPH object
 ph_rew_obj <- MPH(subintensity_matrix, NULL, rew_mat)
-# Print table
-round(0.25*var(ph_rew_obj), 4) 
+```
+
+We can now directly calculate $\boldsymbol{\Sigma}$ using `var()`:
+
+```r
+var_covar_mat <- var(ph_rew_obj)
+round(0.25*var_covar_mat, 4) 
 ```
 
 ```
@@ -187,6 +216,8 @@ round(0.25*var(ph_rew_obj), 4)
 [6,] -0.0079  0.1328 -0.0346 -0.0275 -0.0230  0.1310 -0.0159
 [7,]  0.1384 -0.0356 -0.0267 -0.0216 -0.0183 -0.0159  0.1224
 ```
+
+This yields the same variance-covariance matrix as in theorem 2.2 in [@Durrett2008] without the need for analytical derivations. 
 
 # Example 2: the coalescent with recombination
 
