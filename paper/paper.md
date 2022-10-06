@@ -125,20 +125,10 @@ calculating the covariances, please see [@bladt2017matrix].
 This section concerns reproducing the table associated with theorem 2.2 in [@durrett2008probability], which can be used to derive the variance of the elements of the site frequency spectrum (SFS) and the covariance between pairs of elements of the SFS. 
 
 Let $\xi_i$ be the $i$'th element of the site frequency spectrum (SFS), i.e., $\xi_1$ is the number of singletons, $\xi_2$ is the number of doubletons, etc. Let's also define $L_i$, which is the total branch length leading to $\xi_i$. Following standard theory for the coalescent with mutation, $\xi_i|L_i\sim\text{Poisson}(L_i\frac{\theta}{2})$. Thus, we have that
-
-$$
-\begin{equation}
-  \text{Var}[\xi_i]=\text{Var}[\text{E}[\xi_i|L_i]]+\text{E}[\text{Var}[\xi_i|L_i]]=\text{Var}[L_i\frac{\theta}{2}]+\text{E}[L_i\frac{\theta}{2}]=\frac{\theta^2}{4}\text{Var}[L_i]+\frac{\theta}{2}\text{E}[L_i]=\theta^2\sigma_{ii}+\frac{\theta}{i},
-\end{equation}
-$$
-
+$$\text{Var}[\xi_i]=\text{Var}[\text{E}[\xi_i|L_i]]+\text{E}[\text{Var}[\xi_i|L_i]]=\text{Var}[L_i\frac{\theta}{2}]+\text{E}[L_i\frac{\theta}{2}]=\frac{\theta^2}{4}\text{Var}[L_i]+\frac{\theta}{2}\text{E}[L_i]=\theta^2\sigma_{ii}+\frac{\theta}{i},$$
 and, given that all $\xi_i$ are conditionally independent given their corresponding $L_i$,
 
-$$
-\begin{equation}
-  \text{Cov}[\xi_i, \xi_j]=\text{Cov}[\text{E}[\xi_i|L_i], \text{E}[\xi_j|L_j]]=\text{Cov}[L_i\frac{\theta}{2}, L_j\frac{\theta}{2}]=\frac{\theta^2}{4}\text{Cov}[L_i, L_j]=\theta^2\sigma_{ij}.
-\end{equation}
-$$
+$$\text{Cov}[\xi_i, \xi_j]=\text{Cov}[\text{E}[\xi_i|L_i], \text{E}[\xi_j|L_j]]=\text{Cov}[L_i\frac{\theta}{2}, L_j\frac{\theta}{2}]=\frac{\theta^2}{4}\text{Cov}[L_i, L_j]=\theta^2\sigma_{ij}.$$
 
 All in all, this means that we can calculate $\text{Var}[\xi_i]$ and $\text{Cov}[\xi_i, \xi_j]$ directly from the variance-covariance matrix \boldsymbol{\Sigma} derived from $L_i$. 
 
@@ -228,45 +218,29 @@ The state space and transition rates for the two-locus ancestral recombination g
 
 The time $\tau$ when both loci have found their common ancestor is $\text{PH}(\boldsymbol{\alpha}, \boldsymbol{S})$ distributed with $\boldsymbol{\alpha}=(1,0,0,0,0)$ and
 
-$$
-\begin{equation}
- \boldsymbol{S} = \left( \begin{array}{ccccc}
+$$\boldsymbol{S} = \left( \begin{array}{ccccc}
  -(1+2\rho/2) & 2\rho/2 & 0 & 0 & 0 \\
  1 & -(3+\rho/2) & \rho/2 & 1 & 1 \\
  0 & 4 & -6 & 1 & 1 \\
  0 & 0 & 0 & -1 & 0 \\
  0 & 0 & 0 & 0 & -1 \\
-\end{array} \right),
-\end{equation}
-$$
+\end{array} \right),$$
 
 where $\rho$ is the recombination rate.
 
 The tree height $T_{\text{left}}$ in the left locus is the first time the ancestral process $\{X(t):t\geq 0\}$ enters state 4 or state 6 or, equivalently, the time spent in state 1, 2, 3 and 5 before absorption in state 6. We therefore have
 
-$$
-\begin{eqnarray*}
-  T_{\text{left}}=\min \big\\{ t\geq 0 :X(t)\in\{4,6\} \big\\}=
-  \int_0^{\tau}\boldsymbol{r_{\text{left}}}(X_t)dt
-\end{eqnarray*}
-$$
+$$T_{\text{left}}=\min \big\\{ t\geq 0 :X(t)\in\{4,6\} \big\\}=
+  \int_0^{\tau}\boldsymbol{r_{\text{left}}}(X_t)dt$$
 
 with the reward vector $\boldsymbol{r_{\text{left}}}=(1,1,1,0,1)$. Similarly, the tree height $T_{\text{right}}$ in the right locus is the first time the ancestral process enters state 5 or state 6 or, equivalently, the time spent in state 1, 2, 3 and 4 before absorption in state 6. We therefore have
 
-$$
-\begin{eqnarray*}
-  T_{\text{right}}=\min \big\\{ t\geq 0 :X(t)\in\{5,6\} \big\\}=
-  \int_0^{\tau}\boldsymbol{r_{\text{right}}}(X_t)dt
-\end{eqnarray*}
-$$
+$$T_{\text{right}}=\min \big\\{ t\geq 0 :X(t)\in\{5,6\} \big\\}=
+  \int_0^{\tau}\boldsymbol{r_{\text{right}}}(X_t)dt$$
 
 with the reward vector $\boldsymbol{r_{\text{right}}}=(1,1,1,1,0)$. A classical result in population genetics gives the covariance between the two tree heights
 
-$$
-\begin{eqnarray*}
-  {\rm Cov}(T_{\text{left}},T_{\text{right}})=\frac{\rho+18}{\rho^2+13\rho+18},
-\end{eqnarray*}
-$$
+$${\rm Cov}(T_{\text{left}},T_{\text{right}})=\frac{\rho+18}{\rho^2+13\rho+18},$$
 
 and we note that for large recombination rates ${\rm Cov}(T_{\text{left}},T_{\text{right}})$ is close to zero, and for small recombination rates it is close to one. Note that $T_{\text{left}}$ and $T_{\text{right}}$ are both exponentially distributed with a rate of 1, so $\text{Var}(T_{\text{left}})=\text{Var}(T_{\text{right}})=1$, and, consequently,  $\text{Cor}(T_{\text{left}}, T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$ (see also equation (3.10) in [@wakeley2009coalescent]). Moreover, as shown by a simple proof in [@wilton2015smc], we have that $P(T_{\text{left}}=T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$.
 
