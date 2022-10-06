@@ -83,7 +83,7 @@ Table 2 provides an overview of the `PhaseTypeR` functions for the univariate di
 | Quantile function       |                                                                                        | `qPH(p, PH)`  |
 | Random sampling of the time to absorption         |                                                              | `rPH(n, PH)`|
 | Random sampling of full path          |                                                                          | `rFullPH(n, PH)` |
-| Reward transformation   | See @bladt2017matrix                                                                   | `reward_phase_type(PH, r)` |
+| Reward transformation   | See [@bladt2017matrix]                                                                   | `reward_phase_type(PH, r)` |
 
 Table 1: formulas and corresponding `PhaseTypeR` functions for univariate continuous
 phase-type distributions. The vector $\boldsymbol{a}$ (`a`) determine the initial probabilities, 
@@ -100,7 +100,7 @@ and `r` is the reward vector.
 | Quantile function       |                                                                                        | `qDPH(p, DPH)`  |
 | Random sampling of the time to absorption         |                                                              | `rDPH(n, DPH)`|
 | Random sampling of full path         |                                                                           | `rFullDPH(n, DPH)`|
-| Reward transformation   | See @navarro2019discrete                                                               | `reward_phase_type(DPH, r)` |
+| Reward transformation   | See [@navarro2019discrete]                                                               | `reward_phase_type(DPH, r)` |
 
 Table 2: formulas and corresponding `PhaseTypeR` functions for univariate discrete
 phase-type distributions. 
@@ -118,11 +118,11 @@ phase-type distributions.
 
 Table 3: `PhaseTypeR` functions for multivariate continuous and multivariate
 discrete phase-type distributions. For information about the formulas for 
-calculating the covariances, please see @bladt2017matrix.
+calculating the covariances, please see [@bladt2017matrix].
 
 # Example 1: variance-covariance matrix of the SFS
 
-This section concerns reproducing the table associated with theorem 2.2 in [@Durrett2008], which can be used to derive the variance of the elements of the site frequency spectrum (SFS) and the covariance between pairs of elements of the SFS. 
+This section concerns reproducing the table associated with theorem 2.2 in [@durrett2008probability], which can be used to derive the variance of the elements of the site frequency spectrum (SFS) and the covariance between pairs of elements of the SFS. 
 
 Let $\xi_i$ be the $i$'th element of the site frequency spectrum (SFS), i.e., $\xi_1$ is the number of singletons, $\xi_2$ is the number of doubletons, etc. Let's also define $L_i$, which is the total branch length leading to $\xi_i$. Following standard theory for the coalescent with mutation, $\xi_i|L_i\sim\text{Poisson}(L_i\frac{\theta}{2})$. Thus, we have that
 
@@ -142,7 +142,7 @@ $$
 
 All in all, this means that we can calculate $\text{Var}[\xi_i]$ and $\text{Cov}[\xi_i, \xi_j]$ directly from the variance-covariance matrix \boldsymbol{\Sigma} derived from $L_i$. 
 
-[@Durrett2008] derived all elements of \boldsymbol{\Sigma} using analytical formulas in theorem 2.2. However, we can avoid these formulas by realizing that $L_i\sim\text{PH}(\boldsymbol{\alpha},\boldsymbol{T_i})$, where $\boldsymbol{\alpha}=(1, 0, \dots, 0)$ is the vector of starting probabilities of size $n-1$ and $\boldsymbol{T_i}$ is the sub-intensity matrix. All $\boldsymbol{T_i}$ can be calculated by reward transforming the same base matrix $\boldsymbol{T}$, since all $L_i$ are weighted versions of Kingman's coalescent process. Following [@HBA2021], the base matrix and the rewards vector $\boldsymbol{r_i}$ for a certain sample size $n$ can be calculated using the block counting process of the standard coalescent model. The code for doing so is shown below:
+[@durrett2008probability] derived all elements of \boldsymbol{\Sigma} using analytical formulas in theorem 2.2. However, we can avoid these formulas by realizing that $L_i\sim\text{PH}(\boldsymbol{\alpha},\boldsymbol{T_i})$, where $\boldsymbol{\alpha}=(1, 0, \dots, 0)$ is the vector of starting probabilities of size $n-1$ and $\boldsymbol{T_i}$ is the sub-intensity matrix. All $\boldsymbol{T_i}$ can be calculated by reward transforming the same base matrix $\boldsymbol{T}$, since all $L_i$ are weighted versions of Kingman's coalescent process. Following [@hobolth2019phase], the base matrix and the rewards vector $\boldsymbol{r_i}$ for a certain sample size $n$ can be calculated using the block counting process of the standard coalescent model. The code for doing so is shown below:
 
 ```r
 RateMAndStateSpace <- function(n){
@@ -217,11 +217,11 @@ round(0.25*var_covar_mat, 4)
 [7,]  0.1384 -0.0356 -0.0267 -0.0216 -0.0183 -0.0159  0.1224
 ```
 
-This yields the same variance-covariance matrix as in theorem 2.2 in [@Durrett2008] without the need for analytical derivations. 
+This yields the same variance-covariance matrix as in theorem 2.2 in [@durrett2008probability] without the need for analytical derivations. 
 
 # Example 2: the coalescent with recombination
 
-The traditional procedure for deriving the correlation between the branch lengths in two loci for a sample of size two is by a first-step analysis (e.g., section 7 in @wakeley2009coalescent). In this section, we exemplify the easy use of `PhaseTypeR` to obtain the same result.
+The traditional procedure for deriving the correlation between the branch lengths in two loci for a sample of size two is by a first-step analysis (e.g., section 7 in [@wakeley2009coalescent]). In this section, we exemplify the easy use of `PhaseTypeR` to obtain the same result.
 
 
 The state space and transition rates for the two-locus ancestral recombination graph is shown in Figure 1. The filled circles represent material ancestral to the sample, and the crosses indicate that the most recent common ancestor has been found. The lines between the circles or crosses indicate if the ancestral material is present on the same chromosome. The starting state is state 1 at present day with two samples from the same chromosome.
@@ -268,7 +268,7 @@ $$
 \end{eqnarray*}
 $$
 
-and we note that for large recombination rates ${\rm Cov}(T_{\text{left}},T_{\text{right}})$ is close to zero, and for small recombination rates it is close to one. Note that $T_{\text{left}}$ and $T_{\text{right}}$ are both exponentially distributed with a rate of 1, so $\text{Var}(T_{\text{left}})=\text{Var}(T_{\text{right}})=1$, and, consequently,  $\text{Cor}(T_{\text{left}}, T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$ (see also equation (3.10) in @wakeley2009coalescent). Moreover, as shown by a simple proof in @wilton2015smc, we have that $P(T_{\text{left}}=T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$.
+and we note that for large recombination rates ${\rm Cov}(T_{\text{left}},T_{\text{right}})$ is close to zero, and for small recombination rates it is close to one. Note that $T_{\text{left}}$ and $T_{\text{right}}$ are both exponentially distributed with a rate of 1, so $\text{Var}(T_{\text{left}})=\text{Var}(T_{\text{right}})=1$, and, consequently,  $\text{Cor}(T_{\text{left}}, T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$ (see also equation (3.10) in [@wakeley2009coalescent]). Moreover, as shown by a simple proof in [@wilton2015smc], we have that $P(T_{\text{left}}=T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$.
 
 <img src="recomb_graph.png" width="500">
 
@@ -305,7 +305,7 @@ var(T_joint)[1, 2]
 
 We can see that the phase-type result is equal to the classical formula provided above when $\rho=0.3$. 
 
-From this multivariate phase-type representation of the ancestral recombination graph (ARG), we can simulate, for example, 1,000 samples from the joint distribution of $(T_{\text{left}}, T_{\text{right}})$ using `rMPH(1000, T_joint)` in `PhaseTypeR`. If the recombination rate $\rho$ is set to a small value, then most of the samples will result in $T_{\text{left}}=T_{\text{right}}$, and the joint density will concentrate along the diagonal, as shown in Figure 2, left (@simonsen1997markov). If instead $\rho$ is large, then most of the samples will result in $T_{\text{left}}\neq T_{\text{right}}$ (Figure 2, right).
+From this multivariate phase-type representation of the ancestral recombination graph (ARG), we can simulate, for example, 1,000 samples from the joint distribution of $(T_{\text{left}}, T_{\text{right}})$ using `rMPH(1000, T_joint)` in `PhaseTypeR`. If the recombination rate $\rho$ is set to a small value, then most of the samples will result in $T_{\text{left}}=T_{\text{right}}$, and the joint density will concentrate along the diagonal, as shown in Figure 2, left ([@simonsen1997markov]). If instead $\rho$ is large, then most of the samples will result in $T_{\text{left}}\neq T_{\text{right}}$ (Figure 2, right).
 
 ```r
 ## Simulation from the joint distribution
