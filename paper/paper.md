@@ -72,8 +72,8 @@ theory.
 Table 1 provides an overview of the `PhaseTypeR` functions for a univariate continuous phase-type distribution $\tau \sim PH(\alpha,T)$. Let $\{X(t):t\geq 0\}$ denote the corresponding continuous-time Markov chain. The reward-transformed CTMC is then given by $Y=\int_0^\tau r(X(t)) dt$, where $\tau$ is the time to absorption, and $Y$ is also phase-type distributed. If the CTMC has $p$ transient states, then the reward function $r(i), i=1,\ldots,p$, is a vector of length $p$.
 
 
-| Quantity                | Formula                                                                                | Function |
-|-------------------------|----------------------------------------------------------------------------------------|----------|
+| Quantity                  | Formula                                                                              | Function                  |
+| ------------------------- | -------------------------                                                            | ------------------------- |
 | PH object               | $\tau\sim\text{PH}(\boldsymbol{a}, \boldsymbol{T})$                                    | `PH(T, a)` |
 | Mean                    | $\text{E}(\tau)=\boldsymbol{a} (-\boldsymbol{T})^{-1}\boldsymbol{e}$                   | `mean(PH)` |
 | Variance                | $\text{V}(\tau)=\text{E}(\tau^2)-\text{E}(\tau)^2$                                     | `var(PH)`  |
@@ -92,24 +92,24 @@ and `r` is the reward vector.\label{tab:tab1}
 \autoref{tab:tab2} provides an overview of the `PhaseTypeR` functions for the univariate discrete phase-type distribution, and \autoref{tab:tab3} does so for the multivariate phase-type distribution. A multivariate phase-type distribution is the joint distribution of $(Y_1,\ldots,Y_k)$ where $Y_j=\int_0^\tau r_j(X(t)) dt$ for $j=1,\ldots,k$. We summarize the rewards $r_j(i)$ in a matrix $R$ with $p$ rows (corresponding to the transient states) and $k$ columns (corresponding to the $k$ reward functions) with entries $R_{ij}=r_j(i)$.   
 
 
-| Quantity                | Formula                                                                                | Function |
-|-------------------------|----------------------------------------------------------------------------------------|----------|
-| DPH object              | $\tau\sim\text{DPH}(\boldsymbol{a}, \boldsymbol{T})$                                   | `DPH(T, a)` |
-| Mean                    | $\text{E}(\tau)=\boldsymbol{\pi} (\boldsymbol{I}-\boldsymbol{T})^{-1}\boldsymbol{e}$   | `mean(DPH)` |
-| Variance                | $\text{V}(\tau)= \text{E}(\tau^2)-\text{E}(\tau)^2$                                    | `var(DPH)`  |
-| Density                 | $f(x)=\boldsymbol{\pi T}^{x-1}\boldsymbol{t}$, $x\geq 1$                               | `dDPH(x, DPH)`  |
-| Cumulative distribution | $F(x)=1-\boldsymbol{\pi T}^x\boldsymbol{e}$, $x\geq 1$                                 | `pDPH(x, DPH)`  |
-| Quantile function       |                                                                                        | `qDPH(p, DPH)`  |
-| Random sampling of the time to absorption         |                                                              | `rDPH(n, DPH)`|
-| Random sampling of full path         |                                                                           | `rFullDPH(n, DPH)`|
-| Reward transformation   | See @navarro2019discrete                                                               | `reward_phase_type(DPH, r)` |
+| Quantity                  | Formula                                                                                | Function                  |
+| ------------------------- | -------------------------                                                              | ------------------------- |
+| DPH object                | $\tau\sim\text{DPH}(\boldsymbol{a}, \boldsymbol{T})$                                   | `DPH(T, a)`              |
+| Mean                      | $\text{E}(\tau)=\boldsymbol{\pi} (\boldsymbol{I}-\boldsymbol{T})^{-1}\boldsymbol{e}$   | `mean(DPH)`              |
+| Variance                  | $\text{V}(\tau)= \text{E}(\tau^2)-\text{E}(\tau)^2$                                    | `var(DPH)`               |
+| Density                   | $f(x)=\boldsymbol{\pi T}^{x-1}\boldsymbol{t}$, $x\geq 1$                               | `dDPH(x, DPH)`           |
+| Cumulative distribution   | $F(x)=1-\boldsymbol{\pi T}^x\boldsymbol{e}$, $x\geq 1$                                 | `pDPH(x, DPH)`           |
+| Quantile function         |                                                                                        | `qDPH(p, DPH)`           |
+| Random sampling of the time to absorption         |                                                                | `rDPH(n, DPH)`           |
+| Random sampling of full path         |                                                                             | `rFullDPH(n, DPH)`       |
+| Reward transformation     | See @navarro2019discrete                                                               | `reward_phase_type(DPH, r)` |
 
 : Formulas and corresponding `PhaseTypeR` functions for univariate discrete
 phase-type distributions.\label{tab:tab2}
 
 
 | Quantity                |  Continuous | Discrete |
-|-------------------------| ----------| ----------|
+|-------------------------| ----------  | ---------- |
 | Multivariate PH object  | `MPH(T, a, R)` | `MDPH(T, a, R)` |
 | Mean                    | `mean(MPH)` | `mean(MDPH)` |
 | (Co)variance            | `var(MPH)`  | `var(MDPH)`  |
