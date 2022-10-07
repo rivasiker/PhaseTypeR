@@ -75,13 +75,21 @@ Table 1 provides an overview of the `PhaseTypeR` functions for a univariate cont
 | Quantity                  | Formula                                                                              | Function                  |
 | ------------------------- | -------------------------                                                            | ------------------------- |
 | PH object               | $\tau\sim\text{PH}(\boldsymbol{a}, \boldsymbol{T})$                                    | `PH(T, a)` |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Mean                    | $\text{E}(\tau)=\boldsymbol{a} (-\boldsymbol{T})^{-1}\boldsymbol{e}$                   | `mean(PH)` |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Variance                | $\text{V}(\tau)=\text{E}(\tau^2)-\text{E}(\tau)^2$                                     | `var(PH)`  |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Density                 | $f(x)=\boldsymbol{a}\exp(\boldsymbol{T}x)(\boldsymbol{-T}\boldsymbol{e})$, $x\geq 0$   | `dPH(x, PH)`  |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Cumulative distribution | $F(x)=1-\boldsymbol{a}\exp(\boldsymbol{T}x)\boldsymbol{e}$, $x\geq 0$                  | `pPH(x, PH)`  |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Quantile function       |                                                                                        | `qPH(p, PH)`  |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Random sampling of the time to absorption         |                                                              | `rPH(n, PH)`|
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Random sampling of full path          |                                                                          | `rFullPH(n, PH)` |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Reward transformation   | See @bladt2017matrix                                                                   | `reward_phase_type(PH, r)` |
 
 : formulas and corresponding `PhaseTypeR` functions for univariate continuous
@@ -95,13 +103,21 @@ and `r` is the reward vector.\label{tab:tab1}
 | Quantity                  | Formula                                                                                | Function                  |
 | ------------------------- | -------------------------                                                              | ------------------------- |
 | DPH object                | $\tau\sim\text{DPH}(\boldsymbol{a}, \boldsymbol{T})$                                   | `DPH(T, a)`              |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Mean                      | $\text{E}(\tau)=\boldsymbol{\pi} (\boldsymbol{I}-\boldsymbol{T})^{-1}\boldsymbol{e}$   | `mean(DPH)`              |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Variance                  | $\text{V}(\tau)= \text{E}(\tau^2)-\text{E}(\tau)^2$                                    | `var(DPH)`               |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Density                   | $f(x)=\boldsymbol{\pi T}^{x-1}\boldsymbol{t}$, $x\geq 1$                               | `dDPH(x, DPH)`           |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Cumulative distribution   | $F(x)=1-\boldsymbol{\pi T}^x\boldsymbol{e}$, $x\geq 1$                                 | `pDPH(x, DPH)`           |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Quantile function         |                                                                                        | `qDPH(p, DPH)`           |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Random sampling of the time to absorption         |                                                                | `rDPH(n, DPH)`           |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Random sampling of full path         |                                                                             | `rFullDPH(n, DPH)`       |
+| ------------------------- | -------------------------                                                              | ------------------------- |
 | Reward transformation     | See @navarro2019discrete                                                               | `reward_phase_type(DPH, r)` |
 
 : Formulas and corresponding `PhaseTypeR` functions for univariate discrete
@@ -109,14 +125,21 @@ phase-type distributions.\label{tab:tab2}
 
 
 | Quantity                |  Continuous | Discrete |
-|-------------------------| ----------  | ---------- |
+| ------------------------- | -------------------------  | ------------------------- |
 | Multivariate PH object  | `MPH(T, a, R)` | `MDPH(T, a, R)` |
+| ------------------------- | -------------------------  | ------------------------- |
 | Mean                    | `mean(MPH)` | `mean(MDPH)` |
+| ------------------------- | -------------------------  | ------------------------- |
 | (Co)variance            | `var(MPH)`  | `var(MDPH)`  |
+| ------------------------- | -------------------------  | ------------------------- |
 | Density                 | `dMPH(x, MPH)`  | `dMDPH(x, MDPH)`  |
+| ------------------------- | -------------------------  | ------------------------- |
 | Cumulative distribution | `pMPH(x, MPH)`  | `pMDPH(x, MDPH)`  |
+| ------------------------- | -------------------------  | ------------------------- |
 | Quantile function       | `qMPH(p, MPH)`  | `qMDPH(p, MDPH)`  |
+| ------------------------- | -------------------------  | ------------------------- |
 | Random sampling of the time to absorption  | `rMPH(n, MPH)`| `rMDPH(n, MDPH)`|
+| ------------------------- | -------------------------  | ------------------------- |
 | Random sampling of full path   | `rFullMPH(n, MPH)` | `rFullMDPH(n, MDPH)` |
 
 : `PhaseTypeR` functions for multivariate continuous and multivariate
