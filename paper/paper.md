@@ -69,7 +69,7 @@ theory.
 
 # Overview
 
-Table 1 provides an overview of the `PhaseTypeR` functions for a univariate continuous phase-type distribution $\tau \sim \text{PH}(\alpha,T)$. Let $\{X(t):t\geq 0\}$ denote the corresponding continuous-time Markov chain. The reward-transformed CTMC is then given by $Y=\int_0^\tau r(X(t)) dt$, where $\tau$ is the time to absorption, and $Y$ is also phase-type distributed. If the CTMC has $p$ transient states, then the reward function $r(i), i=1,\ldots,p$, is a vector of length $p$.
+\autoref{tab:tab1} provides an overview of the `PhaseTypeR` functions for a univariate continuous phase-type distribution $\tau \sim \text{PH}(\alpha,T)$. Let $\{X(t):t\geq 0\}$ denote the corresponding continuous-time Markov chain. The reward-transformed CTMC is then given by $Y=\int_0^\tau r(X(t)) dt$, where $\tau$ is the time to absorption, and $Y$ is also phase-type distributed. If the CTMC has $p$ transient states, then the reward function $r(i), i=1,\ldots,p$, is a vector of length $p$.
 
 
 | Quantity                  | Formula                                                                              | Function                  |
@@ -144,7 +144,7 @@ Accompanying our package are a number of vignettes, which illustrate the use of 
 
 ```r
 RateMAndStateSpace <- function(n){
-  # --------- State space ---------
+  ## --------- State space ---------
   # Size of the state space (number of states)
   nSt <- partitions::P(n)
   # Definition of the state space
@@ -159,23 +159,23 @@ RateMAndStateSpace <- function(n){
   # Reordering
   StSpM <- StSpM[order(rowSums(StSpM),decreasing=TRUE),]
   # Below the diagonal the entries are always zero
-  # --------- Intensity matrix ---------
+  ## --------- Intensity matrix ---------
   RateM <- matrix(0,ncol=nSt,nrow=nSt)
   for (i in 1:(nSt-1)){
     for (j in (i+1):nSt){
       cvec <- StSpM[i,]-StSpM[j,]
-      ## Two branches are merged, i.e. removed from state i
+      # Two branches are merged, i.e. removed from state i
       check1 <- sum(cvec[cvec>0])==2
-      ## One new branch is created, i.e. added in state from j
+      # One new branch is created, i.e. added in state from j
       check2 <- sum(cvec[cvec<0])==-1
       if (check1 & check2){
-        ## Size(s) of the block(s) and the corresponding rates
+        # Size(s) of the block(s) and the corresponding rates
         tmp <- StSpM[i,which(cvec>0)]
         RateM[i,j] <- ifelse(length(tmp)==1,tmp*(tmp-1)/2,prod(tmp))
       }
     }
   }
-  ## Diagonal part of the rate matrix
+  # Diagonal part of the rate matrix
   for (i in 1:nSt){
     RateM[i,i] <- -sum(RateM[i,])
   }
@@ -289,7 +289,7 @@ We can see that the phase-type result is equal to the classical formula provided
 From this multivariate phase-type representation of the ancestral recombination graph (ARG), we can simulate, for example, 1,000 samples from the joint distribution of $(T_{\text{left}}, T_{\text{right}})$ using `rMPH(1000, T_joint)` in `PhaseTypeR`. If the recombination rate $\rho$ is set to a small value, then most of the samples will result in $T_{\text{left}}=T_{\text{right}}$, and the joint density will concentrate along the diagonal, as shown in Figure 2, left [@simonsen1997markov]. If instead $\rho$ is large, then most of the samples will result in $T_{\text{left}}\neq T_{\text{right}}$ (Figure 2, right).
 
 ```r
-## Simulation from the joint distribution
+# Simulation from the joint distribution
 subintensity_matrix_09 <- ARG_subint_mat(0.166)
 Tab_09 <- MPH(subintensity_matrix_09, initial_probabilities,
               matrix(c(reward_left, reward_right), nrow=5))
