@@ -245,7 +245,7 @@ $${\rm Cov}(T_{\text{left}},T_{\text{right}})=\frac{\rho+18}{\rho^2+13\rho+18},$
 
 and we note that for large recombination rates ${\rm Cov}(T_{\text{left}},T_{\text{right}})$ is close to zero, and for small recombination rates it is close to one. Note that $T_{\text{left}}$ and $T_{\text{right}}$ are both exponentially distributed with a rate of 1, so $\text{Var}(T_{\text{left}})=\text{Var}(T_{\text{right}})=1$, and, consequently,  $\text{Cor}(T_{\text{left}}, T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$ [see also equation 3.10 in @wakeley2009coalescent]. Moreover, as shown by a simple proof in @wilton2015smc, we have that $P(T_{\text{left}}=T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$.
 
-![Two-locus ancestral recombination graph. Balls represent uncoalesced sites, while crosses represent coalesced sites.](recomb_graph.pdf){ width=120% }
+![Two-locus ancestral recombination graph. Balls represent uncoalesced sites, while crosses represent coalesced sites.](recomb_graph.pdf){ width=80% }
 
 
 An implementation using `PhaseTypeR` simply consists of specifying the initial distribution, rate matrix for the ancestral process, rewards for the two tree heights, and calling the variance function (`var()`) for the multivariate phase-type distribution.   
