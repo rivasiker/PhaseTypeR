@@ -69,7 +69,7 @@ theory.
 
 # Overview
 
-Table 1 provides an overview of the `PhaseTypeR` functions for a univariate continuous phase-type distribution $\tau \sim PH(\alpha,T)$. Let $\{X(t):t\geq 0\}$ denote the corresponding continuous-time Markov chain. The reward-transformed CTMC is then given by $Y=\int_0^\tau r(X(t)) dt$, where $\tau$ is the time to absorption, and $Y$ is also phase-type distributed. If the CTMC has $p$ transient states, then the reward function $r(i), i=1,\ldots,p$, is a vector of length $p$.
+Table 1 provides an overview of the `PhaseTypeR` functions for a univariate continuous phase-type distribution $\tau \sim \text{PH}(\alpha,T)$. Let $\{X(t):t\geq 0\}$ denote the corresponding continuous-time Markov chain. The reward-transformed CTMC is then given by $Y=\int_0^\tau r(X(t)) dt$, where $\tau$ is the time to absorption, and $Y$ is also phase-type distributed. If the CTMC has $p$ transient states, then the reward function $r(i), i=1,\ldots,p$, is a vector of length $p$.
 
 
 | Quantity                  | Formula                                                                              | Function                  |
@@ -85,7 +85,7 @@ Table 1 provides an overview of the `PhaseTypeR` functions for a univariate cont
 | Reward transformation   | See @bladt2017matrix                                                                   | `reward_phase_type(PH, r)` |
 
 : formulas and corresponding `PhaseTypeR` functions for univariate continuous
-phase-type distributions. The vector $\boldsymbol{a}$ (`a`) determine the initial probabilities, 
+phase-type distributions. The vector $\boldsymbol{a}$ (`a`) determines the initial probabilities, 
 $\boldsymbol{T}$ (`T`) is the sub-intensity matrix, $\boldsymbol{e}$ is a vector with 1 in every entry,
 and `r` is the reward vector.\label{tab:tab1}
 
@@ -105,7 +105,10 @@ and `r` is the reward vector.\label{tab:tab1}
 | Reward transformation     | See @navarro2019discrete                                                               | `reward_phase_type(DPH, r)` |
 
 : Formulas and corresponding `PhaseTypeR` functions for univariate discrete
-phase-type distributions.\label{tab:tab2}
+phase-type distributions. The vector $\boldsymbol{a}$ (`a`) determines the initial probabilities, 
+$\boldsymbol{T}$ (`T`) is the sub-transition matrix, $\boldsymbol{e}$ is a vector with one in every entry, 
+$I$ is a matrix with ones in the diagonal and zeros everywhere else,
+and `r` is the reward vector.\label{tab:tab2}
 
 
 | Quantity                |  Continuous | Discrete |
@@ -120,7 +123,9 @@ phase-type distributions.\label{tab:tab2}
 | Random sampling of full path   | `rFullMPH(n, MPH)` | `rFullMDPH(n, MDPH)` |
 
 : `PhaseTypeR` functions for multivariate continuous and multivariate
-discrete phase-type distributions. For information about the formulas for 
+discrete phase-type distributions. `a` is the vector of initial probabilities, 
+`T` is the sub-intensity matrix and `R` is the reward matrix. 
+For information about the formulas for 
 calculating the covariances, please see @bladt2017matrix.\label{tab:tab3}
 
 # Example 1: variance-covariance matrix of the SFS
@@ -178,7 +183,7 @@ RateMAndStateSpace <- function(n){
 }
 ```
 
-By collecting all reward vectors into a reward matrix $\boldsymbol{R}$, we can now define a multivariate phase-type distribution such that $L\sim\text{MPH}(\boldsymbol{\alpha},\boldsymbol{T},\boldsymbol{R})$. This is straightforward to define in `PhaseTypeR` with the `MPH()` function. For $n=8$:
+We can now define a multivariate phase-type distribution such that $L\sim\text{MPH}(\boldsymbol{\alpha},\boldsymbol{T},\boldsymbol{R})$. This is straightforward to define in `PhaseTypeR` with the `MPH()` function. For $n=8$:
 
 ```r
 n <- 8
@@ -188,8 +193,10 @@ m <- dim(RMASS$RateM)[1]
 subintensity_matrix <- RMASS$RateM[1:(m-1),1:(m-1)]
 # The reward matrix is the state space matrix of the block counting process
 rew_mat <- RMASS$StSpM[1:(m-1),1:(n-1)]
+# The initial probability vector
+init_probs <- c(1, rep(0, n-2))
 # Define MPH object
-ph_rew_obj <- MPH(subintensity_matrix, NULL, rew_mat)
+ph_rew_obj <- MPH(subintensity_matrix, init_probs, rew_mat)
 ```
 
 We can now directly calculate $\boldsymbol{\Sigma}$ using `var()`:
@@ -245,10 +252,10 @@ $${\rm Cov}(T_{\text{left}},T_{\text{right}})=\frac{\rho+18}{\rho^2+13\rho+18},$
 
 and we note that for large recombination rates ${\rm Cov}(T_{\text{left}},T_{\text{right}})$ is close to zero, and for small recombination rates it is close to one. Note that $T_{\text{left}}$ and $T_{\text{right}}$ are both exponentially distributed with a rate of 1, so $\text{Var}(T_{\text{left}})=\text{Var}(T_{\text{right}})=1$, and, consequently,  $\text{Cor}(T_{\text{left}}, T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$ [see also equation 3.10 in @wakeley2009coalescent]. Moreover, as shown by a simple proof in @wilton2015smc, we have that $P(T_{\text{left}}=T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$.
 
-![Two-locus ancestral recombination graph. Balls represent uncoalesced sites, while crosses represent coalesced sites.](recomb_graph.pdf){ width=80% }
+![Two-locus ancestral recombination graph. Balls represent uncoalesced sites, while crosses represent coalesced sites. $\rho$ is the recombination rate.](recomb_graph.pdf){ width=80% }
 
 
-An implementation using `PhaseTypeR` simply consists of specifying the initial distribution, rate matrix for the ancestral process, rewards for the two tree heights, and calling the variance function (`var()`) for the multivariate phase-type distribution.   
+An implementation using `PhaseTypeR` simply consists of specifying the initial distribution, rate matrix for the ancestral process, rewards for the two tree heights, and calling the variance function `var()` for the multivariate phase-type distribution.   
 
 ```r
 recomb_rate <- 0.3
