@@ -112,14 +112,14 @@ and `r` is the reward vector.\label{tab:tab2}
 
 
 | Quantity                |  Continuous | Discrete |
-| ------------------------- | -------------------------  | ------------------------- |
+| --------------------------- | -------------------------  | ------------------------- |
 | Multivariate PH object  | `MPH(T, a, R)` | `MDPH(T, a, R)` |
 | Mean                    | `mean(MPH)` | `mean(MDPH)` |
 | (Co)variance            | `var(MPH)`  | `var(MDPH)`  |
 | Density                 | `dMPH(x, MPH)`  | `dMDPH(x, MDPH)`  |
 | Cumulative distribution | `pMPH(x, MPH)`  | `pMDPH(x, MDPH)`  |
 | Quantile function       | `qMPH(p, MPH)`  | `qMDPH(p, MDPH)`  |
-| Random sampling.        | `rMPH(n, MPH)`| `rMDPH(n, MDPH)`|
+| Random sampling         | `rMPH(n, MPH)`| `rMDPH(n, MDPH)`|
 | Random sampling of full path   | `rFullMPH(n, MPH)` | `rFullMDPH(n, MDPH)` |
 
 : `PhaseTypeR` functions for multivariate continuous and multivariate
