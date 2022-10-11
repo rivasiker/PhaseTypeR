@@ -125,17 +125,17 @@ calculating the covariances, please see @bladt2017matrix.\label{tab:tab3}
 
 # Example 1: variance-covariance matrix of the SFS
 
-This section concerns reproducing the table associated with theorem 2.2 in @durrett2008probability, which can be used to derive the variance of the elements of the site frequency spectrum (SFS) and the covariance between pairs of elements of the SFS. 
+This section concerns reproducing the table associated with Theorem 2.2 in @durrett2008probability, which can be used to derive the variance of the elements of the site frequency spectrum (SFS) and the covariance between pairs of elements of the SFS.
 
-Let $\xi_i$ be the $i$'th element of the site frequency spectrum (SFS), i.e., $\xi_1$ is the number of singletons, $\xi_2$ is the number of doubletons, etc. Let's also define $L_i$, which is the total branch length leading to $\xi_i$. Following standard theory for the coalescent with mutation, $\xi_i|L_i\sim\text{Poisson}(L_i\frac{\theta}{2})$. Thus, we have that
-$$\text{Var}[\xi_i]=\text{Var}[\text{E}[\xi_i|L_i]]+\text{E}[\text{Var}[\xi_i|L_i]]=\text{Var}[L_i\frac{\theta}{2}]+\text{E}[L_i\frac{\theta}{2}]=\frac{\theta^2}{4}\text{Var}[L_i]+\frac{\theta}{2}\text{E}[L_i]=\theta^2\sigma_{ii}+\frac{\theta}{i},$$
-and, given that all $\xi_i$ are conditionally independent given their corresponding $L_i$,
+Let $\xi_i$ be the $i$'th element of the site frequency spectrum (SFS), i.e., $\xi_1$ is the number of singletons, $\xi_2$ is the number of doubletons, etc. Let's also define $L_i$, which is the total branch length leading to $\xi_i$. Theorem 3.1 in @hobolth2019phase states that the vector $\boldsymbol{L} = (L_1,\dots,L_{n-1})$ has a multivariate phase-type distribution 
+$$\boldsymbol{L} \sim \text{MPH}(\boldsymbol{\alpha},\boldsymbol{T},\boldsymbol{R}),$$
+where $\boldsymbol{R}$ and $\boldsymbol{T}$ are respectively the state-space and the sub-transition matrix
+of the so-called "block-counting process", and that conditionally on $\boldsymbol{L}$, the $\xi_i$'s are independent and Poisson distributed, $\xi_i \mid L_i \sim \text{Poisson}\left(L_i \frac{\theta}{2}\right)$, where $\theta$ is the underlying mutation rate.
+By the law of total variance, we have
+$$\text{Var}[\boldsymbol{\xi}] =\frac{\theta^2}{4} \boldsymbol{\Sigma}+ \frac{\theta}{2} \text{diag}(\text{E}[\boldsymbol{L}]).$$ 
+where $\text{diag}(\cdot)$ is the diagonal matrix whose entries are given by $\text{E}[\boldsymbol{L}]$. It is well-known that $\text{E}[L_i = 1/i]$, but the expressions for the entries of $\boldsymbol{\Sigma}$ are fairly complicated [@durrett2008probability;@fu1995statistical]. However as seen below, numeric calculation of $\boldsymbol{\Sigma}$ is straightforward if $\boldsymbol{R}$ and $\boldsymbol{T}$ are available. 
 
-$$\text{Cov}[\xi_i, \xi_j]=\text{Cov}[\text{E}[\xi_i|L_i], \text{E}[\xi_j|L_j]]=\text{Cov}[L_i\frac{\theta}{2}, L_j\frac{\theta}{2}]=\frac{\theta^2}{4}\text{Cov}[L_i, L_j]=\theta^2\sigma_{ij}.$$
-
-All in all, this means that we can calculate $\text{Var}[\xi_i]$ and $\text{Cov}[\xi_i, \xi_j]$ directly from the variance-covariance matrix $\boldsymbol{\Sigma}$ derived from $L_i$. 
-
-@durrett2008probability derived all elements of $\boldsymbol{\Sigma}$ using analytical formulas in theorem 2.2. However, we can avoid these formulas by realizing that $L_i\sim\text{PH}(\boldsymbol{\alpha},\boldsymbol{T_i})$, where $\boldsymbol{\alpha}=(1, 0, \dots, 0)$ is the vector of starting probabilities of size $n-1$ and $\boldsymbol{T_i}$ is the sub-intensity matrix. All $\boldsymbol{T_i}$ can be calculated by reward transforming the same base matrix $\boldsymbol{T}$, since all $L_i$ are weighted versions of Kingman's coalescent process [@kingman1982coalescent]. Following @hobolth2019phase, the base matrix and the rewards vector $\boldsymbol{r_i}$ for a certain sample size $n$ can be calculated using the block counting process of the standard coalescent model. The code for doing so is shown below:
+Accompanying our package are a number of vignettes, which illustrate the use of phase-type distribution in population genetics. As part of one of these vignettes, we include a function that calculates $\boldsymbol{R}$ and $\boldsymbol{T}$ for a certain sample size $n$, which shown below:
 
 ```r
 RateMAndStateSpace <- function(n){
