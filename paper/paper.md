@@ -45,9 +45,11 @@ all key functions &mdash;mean, (co)variance, probability density function,
 cumulative distribution function, quantile function and random sampling&mdash;
 for both continuous and discrete phase-type distributions. Importantly, univariate 
 and multivariate reward transformations are implemented for continuous and 
-discrete phase-type distributions. Multivariate reward transformations are 
-crucial for applications in population genetics, and, as to demonstrate this, 
-we have included the coalescent with recombination as an example. 
+discrete phase-type distributions. Multivariate reward transformations have great potential for 
+applications in population genetics, and we have included two examples. The first is concerned 
+with the easy calculation of the variance-covariance matrix for the site frequency spectrum (SFS) 
+of the $n$-coalescent, and the second is concerned with the correlation between tree heights 
+in the two-locus ancestral recombination graph.
 
 # Statement of need
 
