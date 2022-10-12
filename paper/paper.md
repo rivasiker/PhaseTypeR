@@ -69,7 +69,7 @@ theory.
 
 # Overview
 
-\autoref{tab:tab1} provides an overview of the `PhaseTypeR` functions for a univariate continuous phase-type distribution $\tau \sim \text{PH}(\alpha,T)$. Let $\{X(t):t\geq 0\}$ denote the corresponding continuous-time Markov chain. The reward-transformed CTMC is then given by $Y=\int_0^\tau r(X(t)) dt$, where $\tau$ is the time to absorption, and $Y$ is also phase-type distributed. If the CTMC has $p$ transient states, then the reward function $r(i), i=1,\ldots,p$, is a vector of length $p$.
+\autoref{tab:tab1} provides an overview of the `PhaseTypeR` functions for a univariate continuous phase-type distribution $\tau \sim \text{PH}(\boldsymbol{\alpha},\boldsymbol{T})$, where $\boldsymbol{\alpha}$ is the initial distribution and $\boldsymbol{T}$ the sub-intensity matrix. Let $\{X(t):t\geq 0\}$ denote the corresponding continuous-time Markov chain. The reward-transformed CTMC is then given by $Y=\int_0^\tau r(X(t)) dt$, where $\tau$ is the time to absorption, and $Y$ is also phase-type distributed [@bladt2017matrix]. If the CTMC has $p$ transient states, then the reward function $r(i), i=1,\ldots,p$, is a vector of length $p$.
 
 
 | Quantity                  | Formula                                                                              | Function                  |
@@ -82,14 +82,14 @@ theory.
 | Quantile function       |                                                                                        | `qPH(p, PH)`  |
 | Random sampling         |                                                                                        | `rPH(n, PH)`|
 | Random sampling of full path          |                                                                          | `rFullPH(n, PH)` |
-| Reward transformation   | See @bladt2017matrix                                                                   | `reward_phase_type(PH, r)` |
+| Reward transformation   | $Y=\int_0^\tau r(X(t))dt$                                                              | `reward_phase_type(PH, r)` |
 
 : formulas and corresponding `PhaseTypeR` functions for univariate continuous
-phase-type distributions. The vector $\boldsymbol{a}$ (`a`) determines the initial probabilities, 
-$\boldsymbol{T}$ (`T`) is the sub-intensity matrix, $\boldsymbol{e}$ is a vector with 1 in every entry,
+phase-type distributions. The vector $\boldsymbol{a}$ determines the initial probabilities, 
+$\boldsymbol{T}$ is the sub-intensity matrix, $\boldsymbol{e}$ is a vector with 1 in every entry,
 and `r` is the reward vector.\label{tab:tab1}
 
-\autoref{tab:tab2} provides an overview of the `PhaseTypeR` functions for the univariate discrete phase-type distribution, and \autoref{tab:tab3} does so for the multivariate phase-type distribution. A multivariate phase-type distribution is the joint distribution of $(Y_1,\ldots,Y_k)$ where $Y_j=\int_0^\tau r_j(X(t)) dt$ for $j=1,\ldots,k$. We summarize the rewards $r_j(i)$ in a matrix $R$ with $p$ rows (corresponding to the transient states) and $k$ columns (corresponding to the $k$ reward functions) with entries $R_{ij}=r_j(i)$.   
+\autoref{tab:tab2} provides an overview of the `PhaseTypeR` functions for the univariate discrete phase-type distribution. Here, the reward transformation is given by @navarro2019discrete. \autoref{tab:tab3} gives an overview of the multivariate phase-type distribution. A multivariate phase-type distribution is the joint distribution of $(Y_1,\ldots,Y_k)$ where $Y_j=\int_0^\tau r_j(X(t)) dt$ for $j=1,\ldots,k$. We summarize the rewards $r_j(i)$ in a matrix $R$ with $p$ rows (corresponding to the transient states) and $k$ columns (corresponding to the $k$ reward functions) with entries $R_{ij}=r_j(i)$.   
 
 
 | Quantity                  | Formula                                                                                | Function                    |
@@ -102,11 +102,11 @@ and `r` is the reward vector.\label{tab:tab1}
 | Quantile function         |                                                                                        | `qDPH(p, DPH)`              |
 | Random sampling.          |                                                                                        | `rDPH(n, DPH)`              |
 | Random sampling of full path         |                                                                             | `rFullDPH(n, DPH)`          |
-| Reward transformation     | See @navarro2019discrete                                                               | `reward_phase_type(DPH, r)` |
+| Reward transformation     | $Y=\int_0^\tau r(X(t))dt$                                                              | `reward_phase_type(DPH, r)` |
 
 : Formulas and corresponding `PhaseTypeR` functions for univariate discrete
-phase-type distributions. The vector $\boldsymbol{a}$ (`a`) determines the initial probabilities, 
-$\boldsymbol{T}$ (`T`) is the sub-transition matrix, $\boldsymbol{e}$ is a vector with one in every entry, 
+phase-type distributions. The vector $\boldsymbol{a}$ determines the initial probabilities, 
+$\boldsymbol{T}$ is the sub-transition matrix, $\boldsymbol{e}$ is a vector with one in every entry, 
 $I$ is a matrix with ones in the diagonal and zeros everywhere else,
 and `r` is the reward vector.\label{tab:tab2}
 
@@ -138,9 +138,9 @@ where $\boldsymbol{R}$ and $\boldsymbol{T}$ are respectively the state-space and
 of the so-called "block-counting process", and that conditionally on $\boldsymbol{L}$, the $\xi_i$'s are independent and Poisson distributed, $\xi_i \mid L_i \sim \text{Poisson}\left(L_i \frac{\theta}{2}\right)$, where $\theta$ is the underlying mutation rate.
 By the law of total variance, we have
 $$\text{Var}[\boldsymbol{\xi}] =\frac{\theta^2}{4} \boldsymbol{\Sigma}+ \frac{\theta}{2} \text{diag}(\text{E}[\boldsymbol{L}]).$$ 
-where $\text{diag}(\cdot)$ is the diagonal matrix whose entries are given by $\text{E}[\boldsymbol{L}]$. It is well-known that $\text{E}[L_i = 1/i]$, but the expressions for the entries of $\boldsymbol{\Sigma}$ are fairly complicated [@durrett2008probability;@fu1995statistical]. However as seen below, numeric calculation of $\boldsymbol{\Sigma}$ is straightforward if $\boldsymbol{R}$ and $\boldsymbol{T}$ are available. 
+where $\text{diag}(\cdot)$ is the diagonal matrix whose entries are given by $\text{E}[\boldsymbol{L}]$. It is well-known that $\text{E}[L_i] = 1/i$, but the expressions for the entries of $\boldsymbol{\Sigma}$ are fairly complicated [@durrett2008probability;@fu1995statistical]. However as seen below, numeric calculation of $\boldsymbol{\Sigma}$ is straightforward using phase-type theory, since we just need to specify the subintensity matrix $\boldsymbol{T}$ and the reward matrix $\boldsymbol{R}$ for the block-counting process.
 
-Accompanying our package are a number of vignettes, which illustrate the use of phase-type distribution in population genetics. As part of one of these vignettes, we include a function that calculates $\boldsymbol{R}$ and $\boldsymbol{T}$ for a certain sample size $n$, which shown below:
+Accompanying our package are a number of vignettes, which illustrate the use of phase-type distribution in population genetics. As part of one of these vignettes, we include a function that calculates $\boldsymbol{R}$ and $\boldsymbol{T}$ for the block-counting process with sample size $n$, which is included below:
 
 ```r
 RateMAndStateSpace <- function(n){
@@ -217,7 +217,7 @@ round(0.25*var_covar_mat, 4)
 [7,]  0.1384 -0.0356 -0.0267 -0.0216 -0.0183 -0.0159  0.1224
 ```
 
-This yields the same variance-covariance matrix as in theorem 2.2 in @durrett2008probability without the need for analytical derivations. 
+This yields the same variance-covariance matrix as in Theorem 2.2 in @durrett2008probability without the need for analytical derivations. 
 
 # Example 2: the coalescent with recombination
 
@@ -252,7 +252,7 @@ $${\rm Cov}(T_{\text{left}},T_{\text{right}})=\frac{\rho+18}{\rho^2+13\rho+18},$
 
 and we note that for large recombination rates ${\rm Cov}(T_{\text{left}},T_{\text{right}})$ is close to zero, and for small recombination rates it is close to one. Note that $T_{\text{left}}$ and $T_{\text{right}}$ are both exponentially distributed with a rate of 1, so $\text{Var}(T_{\text{left}})=\text{Var}(T_{\text{right}})=1$, and, consequently,  $\text{Cor}(T_{\text{left}}, T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$ [see also equation 3.10 in @wakeley2009coalescent]. Moreover, as shown by a simple proof in @wilton2015smc, we have that $P(T_{\text{left}}=T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$.
 
-![Two-locus ancestral recombination graph. Balls represent uncoalesced sites, while crosses represent coalesced sites. $\rho$ is the recombination rate.](recomb_graph.pdf){ width=80% }
+![Two-locus ancestral recombination graph. Balls represent uncoalesced sites, while crosses represent coalesced sites. $\rho$ is the recombination rate.](recomb_graph.pdf){ width=60% }
 
 
 An implementation using `PhaseTypeR` simply consists of specifying the initial distribution, rate matrix for the ancestral process, rewards for the two tree heights, and calling the variance function `var()` for the multivariate phase-type distribution.   
@@ -302,5 +302,9 @@ rTab_01 <- rMPH(1000, Tab_01)
 ```
 
 ![Random samples from the two-locus ancestral recombination graph. Left: recombination rate $\rho=0.166$. Right: recombination rate $\rho=11.316$.](fig_simonsen_cor.pdf)
+
+# Conclusion
+
+We have described `PhaseTypeR`, a user-friendly package for easy analysis of time-homogeneous evolutionary models in population genetics. We have included two examples: (a) the mean and variance for the SFS of the $n$-coalescent with mutation, and (b) the correlation for the tree height in the two-locus coalescent with recombination. The multiple merger coalescent [@birkner2021genealogies], the two-island model [@legried2022rates] and the seed bank coalescent [@casanova2022shape] constitute other coalescent models where phase-type analyses have been useful.
 
 # References
