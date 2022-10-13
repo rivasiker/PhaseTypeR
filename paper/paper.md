@@ -38,7 +38,7 @@ distribution function, quantile function, moments and generating functions)
 are well-described and analytically tractable using matrix manipulations. 
 
 Phase-type distributions have traditionally been used in actuarial sciences 
-and queuing theory, and more recently in population genetics. In order to 
+and queuing theory, and, more recently, in population genetics. In order to 
 facilitate the use of phase-type theory in population genetics, we present
 `PhaseTypeR`, a general-purpose and user-friendly R [@Rcitation] package which contains
 all key functions &mdash;mean, (co)variance, probability density function, 
@@ -77,8 +77,8 @@ theory.
 | Quantity                  | Formula                                                                              | Function                  |
 | ------------------------- | -------------------------                                                            | ------------------------- |
 | PH object               | $\tau\sim\text{PH}(\boldsymbol{a}, \boldsymbol{T})$                                    | `PH(T, a)` |
-| Mean                    | $\text{E}(\tau)=\boldsymbol{a} (-\boldsymbol{T})^{-1}\boldsymbol{e}$                   | `mean(PH)` |
-| Variance                | $\text{V}(\tau)=\text{E}(\tau^2)-\text{E}(\tau)^2$                                     | `var(PH)`  |
+| Mean                    | $\text{E}[\tau]=\boldsymbol{a} (-\boldsymbol{T})^{-1}\boldsymbol{e}$                   | `mean(PH)` |
+| Variance                | $\text{V}[\tau]=\text{E}[\tau^2]-\text{E}[\tau]^2$                                     | `var(PH)`  |
 | Density                 | $f(x)=\boldsymbol{a}\exp(\boldsymbol{T}x)(\boldsymbol{-T}\boldsymbol{e})$, $x\geq 0$   | `dPH(x, PH)`  |
 | Cumulative distribution | $F(x)=1-\boldsymbol{a}\exp(\boldsymbol{T}x)\boldsymbol{e}$, $x\geq 0$                  | `pPH(x, PH)`  |
 | Quantile function       |                                                                                        | `qPH(p, PH)`  |
@@ -97,8 +97,8 @@ and `r` is the reward vector.\label{tab:tab1}
 | Quantity                  | Formula                                                                                | Function                    |
 | ------------------------- | -------------------------                                                              | --------------------------- |
 | DPH object                | $\tau\sim\text{DPH}(\boldsymbol{a}, \boldsymbol{T})$                                   | `DPH(T, a)`                 |
-| Mean                      | $\text{E}(\tau)=\boldsymbol{\pi} (\boldsymbol{I}-\boldsymbol{T})^{-1}\boldsymbol{e}$   | `mean(DPH)`                 |
-| Variance                  | $\text{V}(\tau)= \text{E}(\tau^2)-\text{E}(\tau)^2$                                    | `var(DPH)`                  |
+| Mean                      | $\text{E}[\tau]=\boldsymbol{\pi} (\boldsymbol{I}-\boldsymbol{T})^{-1}\boldsymbol{e}$   | `mean(DPH)`                 |
+| Variance                  | $\text{V}[\tau]= \text{E}[\tau^2]-\text{E}[\tau]^2$                                    | `var(DPH)`                  |
 | Density                   | $f(x)=\boldsymbol{\pi T}^{x-1}\boldsymbol{t}$, $x\geq 1$                               | `dDPH(x, DPH)`              |
 | Cumulative distribution   | $F(x)=1-\boldsymbol{\pi T}^x\boldsymbol{e}$, $x\geq 1$                                 | `pDPH(x, DPH)`              |
 | Quantile function         |                                                                                        | `qDPH(p, DPH)`              |
@@ -137,12 +137,12 @@ This section concerns reproducing the table associated with Theorem 2.2 in @durr
 Let $\xi_i$ be the $i$'th element of the site frequency spectrum (SFS), i.e., $\xi_1$ is the number of singletons, $\xi_2$ is the number of doubletons, etc. Let's also define $L_i$, which is the total branch length leading to $\xi_i$. Theorem 3.1 in @hobolth2019phase states that the vector $\boldsymbol{L} = (L_1,\dots,L_{n-1})$ has a multivariate phase-type distribution 
 $$\boldsymbol{L} \sim \text{MPH}(\boldsymbol{\alpha},\boldsymbol{T},\boldsymbol{R}),$$
 where $\boldsymbol{R}$ and $\boldsymbol{T}$ are respectively the state-space and the sub-transition matrix
-of the so-called "block-counting process", and that conditionally on $\boldsymbol{L}$, the $\xi_i$'s are independent and Poisson distributed, $\xi_i \mid L_i \sim \text{Poisson}\left(L_i \frac{\theta}{2}\right)$, where $\theta$ is the underlying mutation rate.
+of the so-called "block-counting process". Conditionally on $\boldsymbol{L}$, the $\xi_i$'s are independent and Poisson distributed, $\xi_i \mid L_i \sim \text{Poisson}\left(L_i \frac{\theta}{2}\right)$, where $\theta$ is the underlying mutation rate [@wakeley2009coalescent].
 By the law of total variance, we have
 $$\text{Var}[\boldsymbol{\xi}] =\frac{\theta^2}{4} \boldsymbol{\Sigma}+ \frac{\theta}{2} \text{diag}(\text{E}[\boldsymbol{L}]).$$ 
 where $\text{diag}(\cdot)$ is the diagonal matrix whose entries are given by $\text{E}[\boldsymbol{L}]$. It is well-known that $\text{E}[L_i] = 1/i$, but the expressions for the entries of $\boldsymbol{\Sigma}$ are fairly complicated [@durrett2008probability;@fu1995statistical]. However as seen below, numeric calculation of $\boldsymbol{\Sigma}$ is straightforward using phase-type theory, since we just need to specify the subintensity matrix $\boldsymbol{T}$ and the reward matrix $\boldsymbol{R}$ for the block-counting process.
 
-Accompanying our package are a number of vignettes, which illustrate the use of phase-type distribution in population genetics. As part of one of these vignettes, we include a function that calculates $\boldsymbol{R}$ and $\boldsymbol{T}$ for the block-counting process with sample size $n$, which is included below:
+Accompanying our package are a number of vignettes, which illustrate the use of phase-type distribution in population genetics. As part of one of these vignettes, we include a function that calculates $\boldsymbol{R}$ and $\boldsymbol{T}$ for the block-counting process with sample size $n$, which is shown below:
 
 ```r
 RateMAndStateSpace <- function(n){
@@ -185,7 +185,7 @@ RateMAndStateSpace <- function(n){
 }
 ```
 
-We can now define a multivariate phase-type distribution such that $L\sim\text{MPH}(\boldsymbol{\alpha},\boldsymbol{T},\boldsymbol{R})$. This is straightforward to define in `PhaseTypeR` with the `MPH()` function. For $n=8$:
+We can now define a multivariate phase-type distribution such that $L\sim\text{MPH}(\boldsymbol{\alpha},\boldsymbol{T},\boldsymbol{R})$. This is straightforward to build in `PhaseTypeR` with the `MPH()` function. For $n=8$:
 
 ```r
 n <- 8
@@ -201,7 +201,7 @@ init_probs <- c(1, rep(0, n-2))
 ph_rew_obj <- MPH(subintensity_matrix, init_probs, rew_mat)
 ```
 
-We can now directly calculate $\boldsymbol{\Sigma}$ using `var()`:
+$\boldsymbol{\Sigma}$ can now be directly calculated using `var()`:
 
 ```r
 var_covar_mat <- var(ph_rew_obj)
@@ -226,7 +226,7 @@ This yields the same variance-covariance matrix as in Theorem 2.2 in @durrett200
 The traditional procedure for deriving the correlation between the branch lengths in two loci for a sample of size two is by a first-step analysis [e.g., section 7 in @wakeley2009coalescent]. In this section, we exemplify the easy use of `PhaseTypeR` to obtain the same result.
 
 
-The state space and transition rates for the two-locus ancestral recombination graph is shown in Figure 1. The filled circles represent material ancestral to the sample, and the crosses indicate that the most recent common ancestor has been found. The lines between the circles or crosses indicate if the ancestral material is present on the same chromosome. The starting state is state 1 at present day with two samples from the same chromosome.
+The state space and transition rates for the two-locus ancestral recombination graph is shown in \autoref{fig:fig1}. The filled circles represent material ancestral to the sample, and the crosses indicate that the most recent common ancestor has been found. The lines between the circles or crosses indicate if the ancestral material is present on the same chromosome. The starting state is state 1 at present day with two samples from the same chromosome.
 
 The time $\tau$ when both loci have found their common ancestor is $\text{PH}(\boldsymbol{\alpha}, \boldsymbol{S})$ distributed with $\boldsymbol{\alpha}=(1,0,0,0,0)$ and
 
@@ -254,7 +254,7 @@ $${\rm Cov}(T_{\text{left}},T_{\text{right}})=\frac{\rho+18}{\rho^2+13\rho+18},$
 
 and we note that for large recombination rates ${\rm Cov}(T_{\text{left}},T_{\text{right}})$ is close to zero, and for small recombination rates it is close to one. Note that $T_{\text{left}}$ and $T_{\text{right}}$ are both exponentially distributed with a rate of 1, so $\text{Var}(T_{\text{left}})=\text{Var}(T_{\text{right}})=1$, and, consequently,  $\text{Cor}(T_{\text{left}}, T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$ [see also equation 3.10 in @wakeley2009coalescent]. Moreover, as shown by a simple proof in @wilton2015smc, we have that $P(T_{\text{left}}=T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$.
 
-![Two-locus ancestral recombination graph. Balls represent uncoalesced sites, while crosses represent coalesced sites. $\rho$ is the recombination rate.](recomb_graph.pdf){ width=60% }
+![Two-locus ancestral recombination graph. Balls represent uncoalesced sites, while crosses represent coalesced sites. $\rho$ is the recombination rate.](recomb_graph.pdf){ width=60% }\label{fig:fig1}
 
 
 An implementation using `PhaseTypeR` simply consists of specifying the initial distribution, rate matrix for the ancestral process, rewards for the two tree heights, and calling the variance function `var()` for the multivariate phase-type distribution.   
@@ -288,7 +288,7 @@ var(T_joint)[1, 2]
 
 We can see that the phase-type result is equal to the classical formula provided above when $\rho=0.3$. 
 
-From this multivariate phase-type representation of the ancestral recombination graph (ARG), we can simulate, for example, 1,000 samples from the joint distribution of $(T_{\text{left}}, T_{\text{right}})$ using `rMPH(1000, T_joint)` in `PhaseTypeR`. If the recombination rate $\rho$ is set to a small value, then most of the samples will result in $T_{\text{left}}=T_{\text{right}}$, and the joint density will concentrate along the diagonal, as shown in Figure 2, left [@simonsen1997markov]. If instead $\rho$ is large, then most of the samples will result in $T_{\text{left}}\neq T_{\text{right}}$ (Figure 2, right).
+From this multivariate phase-type representation of the ancestral recombination graph (ARG), we can simulate, for example, 1,000 samples from the joint distribution of $(T_{\text{left}}, T_{\text{right}})$ using `rMPH(1000, T_joint)` in `PhaseTypeR`. If the recombination rate $\rho$ is set to a small value, then most of the samples will result in $T_{\text{left}}=T_{\text{right}}$, and the joint density will concentrate along the diagonal, as shown in \autoref{fig:fig2}, left [@simonsen1997markov]. If instead $\rho$ is large, then most of the samples will result in $T_{\text{left}}\neq T_{\text{right}}$ (\autoref{fig:fig2}, right).
 
 ```r
 # Simulation from the joint distribution
@@ -303,10 +303,10 @@ rTab_09 <- rMPH(1000, Tab_09)
 rTab_01 <- rMPH(1000, Tab_01)
 ```
 
-![Random samples from the two-locus ancestral recombination graph. Left: recombination rate $\rho=0.166$. Right: recombination rate $\rho=11.316$.](fig_simonsen_cor.pdf)
+![Random samples from the two-locus ancestral recombination graph. Left: recombination rate $\rho=0.166$. Right: recombination rate $\rho=11.316$.](fig_simonsen_cor.pdf)\label{fig:fig2}
 
 # Conclusion
 
-We have described `PhaseTypeR`, a user-friendly package for easy analysis of time-homogeneous evolutionary models in population genetics. We have included two examples: (a) the mean and variance for the SFS of the $n$-coalescent with mutation, and (b) the correlation for the tree height in the two-locus coalescent with recombination. The multiple merger coalescent [@birkner2021genealogies], the two-island model [@legried2022rates] and the seed bank coalescent [@casanova2022shape] constitute other coalescent models where phase-type analyses have been useful.
+We have described `PhaseTypeR`, an easy-to-use package for the analysis of time-homogeneous evolutionary models in population genetics. We have included two examples: (1) the mean and variance for the SFS of the $n$-coalescent with mutation, and (2) the correlation for the tree height in the two-locus coalescent with recombination. The multiple merger coalescent [@birkner2021genealogies], the two-island model [@legried2022rates] and the seed bank coalescent [@casanova2022shape] constitute other coalescent models where phase-type analyses have been useful, all of which could benefit from the flexibility and user-friendliness of `PhaseTypeR`. 
 
 # References
