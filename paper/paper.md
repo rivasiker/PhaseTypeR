@@ -99,8 +99,8 @@ and `r` is the reward vector.\label{tab:tab1}
 | DPH object                | $\tau\sim\text{DPH}(\boldsymbol{a}, \boldsymbol{T})$                                   | `DPH(T, a)`                 |
 | Mean                      | $\text{E}[\tau]=\boldsymbol{\pi} (\boldsymbol{I}-\boldsymbol{T})^{-1}\boldsymbol{e}$   | `mean(DPH)`                 |
 | Variance                  | $\text{V}[\tau]= \text{E}[\tau^2]-\text{E}[\tau]^2$                                    | `var(DPH)`                  |
-| Density                   | $f(x)=\boldsymbol{\pi T}^{\, x-1}\boldsymbol{t}$, $x\geq 1$                               | `dDPH(x, DPH)`              |
-| Cumulative distribution   | $F(x)=1-\boldsymbol{\pi T}^{\, x}\boldsymbol{e}$, $x\geq 1$                                 | `pDPH(x, DPH)`              |
+| Density                   | $f(x)=\boldsymbol{\pi T}^{\: x-1}\boldsymbol{t}$, $x\geq 1$                            | `dDPH(x, DPH)`              |
+| Cumulative distribution   | $F(x)=1-\boldsymbol{\pi T}^{\: x}\boldsymbol{e}$, $x\geq 1$                            | `pDPH(x, DPH)`              |
 | Quantile function         |                                                                                        | `qDPH(p, DPH)`              |
 | Random sampling.          |                                                                                        | `rDPH(n, DPH)`              |
 | Random sampling of full path         |                                                                             | `rFullDPH(n, DPH)`          |
@@ -201,7 +201,7 @@ init_probs <- c(1, rep(0, n-2))
 ph_rew_obj <- MPH(subintensity_matrix, init_probs, rew_mat)
 ```
 
-$\boldsymbol{\Sigma}$ can now be directly calculated using `var()`:
+$\boldsymbol{\Sigma}/4$ can now be directly calculated using `var()`:
 
 ```r
 var_covar_mat <- var(ph_rew_obj)
@@ -252,7 +252,7 @@ with the reward vector $\boldsymbol{r_{\text{right}}}=(1,1,1,1,0)$. A classical 
 
 $${\rm Cov}(T_{\text{left}},T_{\text{right}})=\frac{\rho+18}{\rho^2+13\rho+18},$$
 
-and we note that for large recombination rates ${\rm Cov}(T_{\text{left}},T_{\text{right}})$ is close to zero, and for small recombination rates it is close to one. Note that $T_{\text{left}}$ and $T_{\text{right}}$ are both exponentially distributed with a rate of 1, so $\text{Var}(T_{\text{left}})=\text{Var}(T_{\text{right}})=1$, and, consequently,  $\text{Cor}(T_{\text{left}}, T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$ [see also equation 3.10 in @wakeley2009coalescent]. Moreover, as shown by a simple proof in @wilton2015smc, we have that $P(T_{\text{left}}=T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$.
+and we note that for large recombination rates ${\rm Cov}(T_{\text{left}},T_{\text{right}})$ is close to zero, and for small recombination rates it is close to one. Also note that $T_{\text{left}}$ and $T_{\text{right}}$ are both exponentially distributed with a rate of 1, so $\text{Var}(T_{\text{left}})=\text{Var}(T_{\text{right}})=1$, and, consequently,  $\text{Cor}(T_{\text{left}}, T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$ [see also equation 3.10 in @wakeley2009coalescent]. Moreover, as shown by a simple proof in @wilton2015smc, we have that $P(T_{\text{left}}=T_{\text{right}})=\text{Cov}(T_{\text{left}}, T_{\text{right}})$.
 
 ![Two-locus ancestral recombination graph. Filled circles represent uncoalesced sites, while crosses represent coalesced sites. $\rho$ is the recombination rate. \label{fig:fig1}](recomb_graph.pdf){ width=60% }
 
@@ -303,7 +303,7 @@ rTab_09 <- rMPH(1000, Tab_09)
 rTab_01 <- rMPH(1000, Tab_01)
 ```
 
-![Random samples from the two-locus ancestral recombination graph. Left: recombination rate $\rho=0.166$. Right: recombination rate $\rho=11.316$. \label{fig:fig2}](fig_simonsen_cor.pdf)
+![Random samples from the two-locus ancestral recombination graph. Left: recombination rate $\rho=0.166$ and $P(T_{\text{left}}=T_{\text{right}})=0.9$. Right: recombination rate $\rho=11.316$ and $P(T_{\text{left}}=T_{\text{right}})=0.1$. \label{fig:fig2}](fig_simonsen_cor.pdf)
 
 # Conclusion
 
