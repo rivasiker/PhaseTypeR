@@ -296,6 +296,10 @@ For reproducibility of the simulations below, we first fix the seed of the rando
 
 
 ```{r setup,  message=FALSE, warning=FALSE}
+## You can install the dependencies for this vignette by running the following:
+# install.packages('expm')
+# install.packages('partitions')
+
 set.seed(0)
 library(PhaseTypeR)
 library(expm)

@@ -39,6 +39,14 @@ can be installed with the following command:
 devtools::install_github("rivasiker/PhaseTypeR")
 ```
 
+These installations should handle the missing dependencies, but you can
+manually install them by running the following:
+
+``` r
+install.packages("expm")
+install.packages("igraph")
+```
+
 ## Basic example
 
 This is a basic example for the univariate continuous phase-type
@@ -116,9 +124,9 @@ rPH(6, ph)
 You can check out the full functionality of `PhaseTypeR` and its
 application to population genetics in the following guides:
 
--   [Getting
-    Started](https://rivasiker.github.io/PhaseTypeR/articles/PhaseTypeR.html)
--   [Using PhaseTypeR for population
-    genetics](https://rivasiker.github.io/PhaseTypeR/articles/a2_pop_gen_iker.html)
--   [Using PhaseTypeR for the site frequency
-    spectrum](https://rivasiker.github.io/PhaseTypeR/articles/a3_phasetypeR_SFS.html)
+- [Getting
+  Started](https://rivasiker.github.io/PhaseTypeR/articles/PhaseTypeR.html)
+- [Using PhaseTypeR for population
+  genetics](https://rivasiker.github.io/PhaseTypeR/articles/a2_pop_gen_iker.html)
+- [Using PhaseTypeR for the site frequency
+  spectrum](https://rivasiker.github.io/PhaseTypeR/articles/a3_phasetypeR_SFS.html)
