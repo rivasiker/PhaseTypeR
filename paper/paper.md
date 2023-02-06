@@ -60,16 +60,18 @@ the site frequency spectrum follow phase-type distributions [@hobolth2019phase].
 There are already several other R packages that model phase-type distributions, such as
 `actuar` [@dutang2008actuar], `mapfit` [@okamura2015mapfit; @okamura_dohi_2015; @okamura_dohi_2016] 
 or `matrixdist` [@albrecher_bladt_2019; @AlbrecherBladtYslas2020]. However, these packages only model 
-univariate continuous phase-type distributions, they do not include reward transformations,
-and they are tailored to actuarial sciences and queuing theory.
- 
-`PhaseTypeR` is particularly well suited for population genetics, and much emphasis in our 
-software is on natural and easy-to-use R functions. The package has already been used in @HBA2021
+univariate continuous phase-type distributions, do not include reward transformations,
+and are tailored to actuarial sciences and queuing theory.
+
+To overcome these limitations, we present `PhaseTypeR`, an R package with easy-to-use, general-purpose 
+phase-type functions, which is particularly well suited for population genetics. The package has already been used in @HBA2021
 to model the site frequency spectrum using multivariate phase-type theory, and we believe that its 
 intuitive implementation will encourage more population geneticists to use phase-type
 theory. 
 
 # Overview
+
+`PhaseTypeR` contains general implementations of core functions for continuous and discrete phase-type distributions, for both the univariate and multivariate cases. These include the mean and (co)variance of phase-type distributions; their density, probability and quantile functions; functions for random draws; and functions for reward transformations.
 
 \autoref{tab:tab1} provides an overview of the `PhaseTypeR` functions for a univariate continuous phase-type distribution $\tau \sim \text{PH}(\boldsymbol{\alpha},\boldsymbol{T})$, where $\boldsymbol{\alpha}$ is the initial distribution and $\boldsymbol{T}$ the sub-intensity matrix. Let $\{X(t):t\geq 0\}$ denote the corresponding continuous-time Markov chain (CTMC). The reward transformation is then given by $Y=\int_0^\tau r(X(t)) dt$, where $\tau$ is the time to absorption, and $Y$ is also phase-type distributed [@bladt2017matrix]. If the CTMC has $p$ transient states, then the reward function $r(i), i=1,\ldots,p$, is a vector of length $p$.
 
