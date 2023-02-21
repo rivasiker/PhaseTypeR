@@ -311,4 +311,9 @@ rTab_01 <- rMPH(1000, Tab_01)
 
 We have described `PhaseTypeR`, an easy-to-use package for the analysis of time-homogeneous evolutionary models in population genetics. We have included two examples: (1) the mean and variance for the SFS of the $n$-coalescent with mutation, and (2) the correlation for the tree height in the two-locus coalescent with recombination. The multiple merger coalescent [@birkner2021genealogies], the two-island model [@legried2022rates] and the seed bank coalescent [@casanova2022shape] constitute other coalescent models where phase-type analyses have been useful. We hope that population geneticists will take advantage of `PhaseTypeR` in future analyses of coalescent models. 
 
+# Acknowledgements
+
+We are grateful to Emil Dare, Moisès Coll Macià, Kasper Munch and Mikkel Heide Schierup
+for valuable comments and suggestions that helped improve the manuscript.
+
 # References
