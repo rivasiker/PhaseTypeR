@@ -97,9 +97,13 @@
 <p>In this vignette, we recreate the figures from the paper by Asger Hobolth, Mogens Bladt and Lars Nørvang Andersen entitled “Multivariate phase-type theory for the site frequency spectrum” (<a href="https://arxiv.org/abs/2101.04941" class="external-link uri">https://arxiv.org/abs/2101.04941</a>). This vignette is only intended to illustrate how to reproduce the figures of the article. If you are looking for a more in-depth explanation on how to use the  package for population genetics, please visit <a href="a2_pop_gen_iker.html">this vignette</a> instead.</p>
 <p>For reproducibility of the simulations below, we first fix the seed of the random generator. We then load the  package and auxiliary functions, which we will need below. The auxiliary functions are included at <a href="#aux">the end of this vignette</a>, and they can be copy-pasted into a source file if needed.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co">## You can install the dependencies for this vignette by running the following:</span></span>
+<span><span class="co"># install.packages('expm')</span></span>
+<span><span class="co"># install.packages('partitions')</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rivasiker.github.io/PhaseTypeR/" class="external-link">PhaseTypeR</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://R-Forge.R-project.org/projects/expm/" class="external-link">expm</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://R-Forge.R-project.org/projects/expm/" class="external-link">expm</a></span><span class="op">)</span></span>
 <span><span class="co"># source('auxiliary_functions.R')</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="figure-1">Figure 1<a class="anchor" aria-label="anchor" href="#figure-1"></a>
@@ -881,7 +885,7 @@ c_i = \frac{1}{\binom{n}{2}} i (n-i) - \frac{1}{\sum_{i=1}^{n-1} \frac{1}{i}} \,
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
