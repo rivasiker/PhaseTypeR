@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
 # PhaseTypeR: general-purpose phase-type functions
 
 <!-- badges: start -->
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.05054/status.svg)](https://doi.org/10.21105/joss.05054)
 [![R-CMD-check](https://github.com/rivasiker/PhaseTypeR/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/rivasiker/PhaseTypeR/actions/workflows/check-standard.yaml)
 [![CRAN](https://www.r-pkg.org/badges/version/PhaseTypeR)](https://CRAN.R-project.org/package=PhaseTypeR)
 [![devel Version](https://img.shields.io/badge/devel-1.0.5.9000-brightgreen.svg)](https://github.com/rivasiker/PhaseTypeR)
