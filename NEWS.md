@@ -1,3 +1,8 @@
+# PhaseTypeR 1.0.5
+
+* Minor changes to the README file and vignettes to make it easier to install 
+the package and its dependencies. 
+
 # PhaseTypeR 1.0.4
 
 * Minor patch to solve the CRAN errors by avoiding negative weights in the
