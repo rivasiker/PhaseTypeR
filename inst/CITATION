@@ -1,0 +1,16 @@
+citHeader("To cite PhaseTypeR in publications use: Rivas-González et al., (2023). PhaseTypeR: an R package for phase-type distributions in population genetics. Journal of Open Source Software, 8(82), 5054, https://doi.org/10.21105/joss.05054")
+
+citEntry(
+  entry    = "Article",
+  title    = "PhaseTypeR: an R package for phase-type distributions in population genetics",
+  author   = "Iker Rivas-González, Lars Nørvang Andersen, Asger Hobolth",
+  journal  = "Journal of Open Source Software",
+  year     = "2023",
+  volume   = "8",
+  number   = "82",
+  pages    = "5054",
+  url      = "https://doi.org/10.21105/joss.05054",
+  textVersion = paste(
+
+  )
+)
