@@ -55,17 +55,17 @@ for the multivariate continuous phase-type distribution.
 }
 \section{Functions}{
 \itemize{
-\item \code{dMPH}: Density function for the multivariate continuous phase-type distribution.
+\item \code{dMPH()}: Density function for the multivariate continuous phase-type distribution.
 
-\item \code{qMPH}: Quantile function for the multivariate continuous phase-type distribution.
+\item \code{qMPH()}: Quantile function for the multivariate continuous phase-type distribution.
 
-\item \code{pMPH}: Distribution function for the multivariate continuous phase-type distribution.
+\item \code{pMPH()}: Distribution function for the multivariate continuous phase-type distribution.
 
-\item \code{rMPH}: Random number generator for the multivariate continuous phase-type distribution.
+\item \code{rMPH()}: Random number generator for the multivariate continuous phase-type distribution.
 
-\item \code{rFullMPH}: Simulation of the full path for the multivariate continuous phase-type distribution.
+\item \code{rFullMPH()}: Simulation of the full path for the multivariate continuous phase-type distribution.
+
 }}
-
 \examples{
 
 cont_phase_type <- matrix(c(-3, 0, 1,

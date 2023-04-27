@@ -48,17 +48,17 @@ for the univariate continuous phase-type distribution.
 }
 \section{Functions}{
 \itemize{
-\item \code{dPH}: Density function for the univariate continuous phase-type distribution.
+\item \code{dPH()}: Density function for the univariate continuous phase-type distribution.
 
-\item \code{qPH}: Quantile function for the univariate continuous phase-type distribution.
+\item \code{qPH()}: Quantile function for the univariate continuous phase-type distribution.
 
-\item \code{pPH}: Distribution function for the univariate continuous phase-type distribution.
+\item \code{pPH()}: Distribution function for the univariate continuous phase-type distribution.
 
-\item \code{rPH}: Random number generator for the univariate continuous phase-type distribution.
+\item \code{rPH()}: Random number generator for the univariate continuous phase-type distribution.
 
-\item \code{rFullPH}: Simulation of the full path for the univariate continuous phase-type distribution.
+\item \code{rFullPH()}: Simulation of the full path for the univariate continuous phase-type distribution.
+
 }}
-
 \examples{
 
 cont_phase_type <- matrix(c(-3, 0, 1,

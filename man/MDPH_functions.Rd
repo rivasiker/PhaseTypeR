@@ -55,17 +55,17 @@ for the multivariate discrete phase-type distribution.
 }
 \section{Functions}{
 \itemize{
-\item \code{dMDPH}: Density function for the multivariate discrete phase-type distribution.
+\item \code{dMDPH()}: Density function for the multivariate discrete phase-type distribution.
 
-\item \code{qMDPH}: Quantile function for the multivariate discrete phase-type distribution.
+\item \code{qMDPH()}: Quantile function for the multivariate discrete phase-type distribution.
 
-\item \code{pMDPH}: Distribution function for the multivariate discrete phase-type distribution.
+\item \code{pMDPH()}: Distribution function for the multivariate discrete phase-type distribution.
 
-\item \code{rMDPH}: Random number generator for the multivariate discrete phase-type distribution.
+\item \code{rMDPH()}: Random number generator for the multivariate discrete phase-type distribution.
 
-\item \code{rFullMDPH}: Simulation of the full path for the multivariate discrete phase-type distribution.
+\item \code{rFullMDPH()}: Simulation of the full path for the multivariate discrete phase-type distribution.
+
 }}
-
 \examples{
 
 disc_phase_type <- matrix(c(0.4, 0, 0.2,

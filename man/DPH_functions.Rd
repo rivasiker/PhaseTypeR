@@ -48,17 +48,17 @@ for the univariate discrete phase-type distribution.
 }
 \section{Functions}{
 \itemize{
-\item \code{dDPH}: Density function for the univariate continuous phase-type distribution.
+\item \code{dDPH()}: Density function for the univariate continuous phase-type distribution.
 
-\item \code{qDPH}: Quantile function for the univariate discrete phase-type distribution.
+\item \code{qDPH()}: Quantile function for the univariate discrete phase-type distribution.
 
-\item \code{pDPH}: Distribution function for the univariate discrete phase-type distribution.
+\item \code{pDPH()}: Distribution function for the univariate discrete phase-type distribution.
 
-\item \code{rDPH}: Random number generator for the univariate discrete phase-type distribution.
+\item \code{rDPH()}: Random number generator for the univariate discrete phase-type distribution.
 
-\item \code{rFullDPH}: Simulation of the full path for the univariate discrete phase-type distribution.
+\item \code{rFullDPH()}: Simulation of the full path for the univariate discrete phase-type distribution.
+
 }}
-
 \examples{
 
 
